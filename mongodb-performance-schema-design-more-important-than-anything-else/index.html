@@ -1,0 +1,300 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>MongoDB Performance &amp; Scalability - Schema Design Is More Important Than Anything Else</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/mongodb-performance-schema-design-more-important-than-anything-else/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="MongoDB Performance &amp; Scalability - Schema Design Is More Important Than Anything Else">
+    <meta property="og:description" content="The first Mongo Days conference I attended was MongoSV 2011.  I chose to attend “Schema Design at Scale”, a presentation by Eliot Horowitz.    The first slide was titled “Schema”, and had a list of reasons to know MongoDB schema best...">
+    <meta property="og:url" content="http://localhost:2368/mongodb-performance-schema-design-more-important-than-anything-else/">
+    <meta property="article:published_time" content="2013-07-07T16:19:12.000Z">
+    <meta property="article:modified_time" content="2014-02-20T18:25:41.000Z">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="Scalability">
+    <meta property="article:tag" content="Schema">
+    <meta property="article:tag" content="Sharding">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="MongoDB Performance &amp; Scalability - Schema Design Is More Important Than Anything Else">
+    <meta name="twitter:description" content="The first Mongo Days conference I attended was MongoSV 2011.  I chose to attend “Schema Design at Scale”, a presentation by Eliot Horowitz.    The first slide was titled “Schema”, and had a list of reasons to know MongoDB schema best...">
+    <meta name="twitter:url" content="http://localhost:2368/mongodb-performance-schema-design-more-important-than-anything-else/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "chris",
+        "image": "//www.gravatar.com/avatar/862ad981103f3b95d88e265d980ca2c5?d=404&s=250",
+        "url": "http://localhost:2368/author/chris",
+        "sameAs": ""
+    },
+    "headline": "MongoDB Performance &amp; Scalability - Schema Design Is More Important Than Anything Else",
+    "url": "http://localhost:2368/mongodb-performance-schema-design-more-important-than-anything-else/",
+    "datePublished": "2013-07-07T16:19:12.000Z",
+    "dateModified": "2014-02-20T18:25:41.000Z",
+    "keywords": "mongodb, Scalability, Schema, Sharding",
+    "description": "The first Mongo Days conference I attended was MongoSV 2011.  I chose to attend “Schema Design at Scale”, a presentation by Eliot Horowitz.    The first slide was titled “Schema”, and had a list of reasons to know MongoDB schema best..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-mongodb tag-scalability tag-schema tag-sharding blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-mongodb tag-scalability tag-schema tag-sharding container">
+  <header>
+    <h1 class="post-title">MongoDB Performance &amp; Scalability - Schema Design Is More Important Than Anything Else</h1>
+    <small class="post-meta"><time class="post-date" datetime="2013-07-07">July 7th, 2013</time></small>
+  </header>
+
+<p>The first Mongo Days conference I attended was MongoSV 2011.  I chose to attend “Schema Design at Scale”, a presentation by Eliot Horowitz.    The first slide was titled “Schema”, and had a list of reasons to know MongoDB schema best practices:</p>
+
+<p><strong>Schema is the…</strong></p>
+
+<ul>
+<li>Single biggest  performance factor</li>
+<li>More choices than in an RDBMS</li>
+<li>Embedding, index design, shard keys</li>
+</ul>
+
+<p>Eliot accompanied the slide by saying:</p>
+
+<blockquote>
+  <p>Schema design is … the largest factor when it comes to performance and scalability … more important than hardware, how you shard, or anything else, schema is by far the most important thing.</p>
+</blockquote>
+
+<p>The presentation walks through things to consider when designing your schema.  For anyone new to Mongo or hitting performance issues, please watch the presentation, it will improve your experience with Mongo.</p>
+
+<p><strong>The main topics are…</strong></p>
+
+<ul>
+<li><strong>02:13</strong> – Embedding documents – how to think about embedding documents</li>
+<li><strong>10:00</strong> – Index design Overview</li>
+<li><strong>11:00</strong> – Right Balanced Indexes – limit the required RAM by optimizing your indexes</li>
+<li><strong>13:18</strong> – Covered Indexes – include fields in index to the requested fields, and only hit indexes</li>
+<li><strong>15:44</strong> – Sharding – “at some point you are going to have to scale, and that means sharding”</li>
+<li><strong>17:25</strong> – Shard key – “biggest problem of choosing a shard key is it is easy to do in the beginning, but hard to change later.”</li>
+<li><strong>21:27</strong> – Justin Bieber tweet reference</li>
+</ul>
+
+<p><a href="http://www.10gen.com/presentations/schema-design-scale-1">Watch the full presentation</a></p>
+
+<h3 id="mongodbperformancetoolset">MongoDB Performance Toolset</h3>
+
+<p>At MongoHQ, we take performance seriously, and have built an amazing stack of optimizing your database’s performance:</p>
+
+<ul>
+<li><span style="line-height: 13px;">Slow Query Tracker &amp; Profiler</span></li>
+<li>New Relic Integration</li>
+<li>Customer Centric Alerts with PagerDuty Integration</li>
+<li>Real-Time Performance Dashboard</li>
+</ul>
+
+<p>Create an account with us to get started with a MongoDB hosting equipped with the tools you need to succeed.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/chris/">
+        <img src="http://www.gravatar.com/avatar/862ad981103f3b95d88e265d980ca2c5?d=404&amp;s=250" alt="chris">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/chris/">chris</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=MongoDB%20Performance%20%26%20Scalability%20-%20Schema%20Design%20Is%20More%20Important%20Than%20Anything%20Else&amp;url=http://localhost:2368/mongodb-performance-schema-design-more-important-than-anything-else/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/mongodb-performance-schema-design-more-important-than-anything-else/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/mongodb-performance-schema-design-more-important-than-anything-else/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

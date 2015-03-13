@@ -1,0 +1,329 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Compose in 2014 - Winter to Summer</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/compose-in-2014-winter-to-summer/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Compose in 2014 - Winter to Summer">
+    <meta property="og:description" content="At the start of 2014, Compose was called MongoHQ, a well-known and much relied on purveyor of fine cloud-based instances of MongoDB. Years of experience had honed our skills and we were ready to take the next step. For the...">
+    <meta property="og:url" content="http://localhost:2368/compose-in-2014-winter-to-summer/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/2014feat_qiinme.jpg">
+    <meta property="article:published_time" content="2014-12-10T07:39:02.000Z">
+    <meta property="article:modified_time" content="2014-12-17T12:19:40.000Z">
+    <meta property="article:tag" content="2014">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Compose in 2014 - Winter to Summer">
+    <meta name="twitter:description" content="At the start of 2014, Compose was called MongoHQ, a well-known and much relied on purveyor of fine cloud-based instances of MongoDB. Years of experience had honed our skills and we were ready to take the next step. For the...">
+    <meta name="twitter:url" content="http://localhost:2368/compose-in-2014-winter-to-summer/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/2014feat_qiinme.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Compose in 2014 - Winter to Summer",
+    "url": "http://localhost:2368/compose-in-2014-winter-to-summer/",
+    "datePublished": "2014-12-10T07:39:02.000Z",
+    "dateModified": "2014-12-17T12:19:40.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/2014feat_qiinme.jpg",
+    "keywords": "2014",
+    "description": "At the start of 2014, Compose was called MongoHQ, a well-known and much relied on purveyor of fine cloud-based instances of MongoDB. Years of experience had honed our skills and we were ready to take the next step. For the..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-2014 blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-2014 container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/2014feat_qiinme.jpg)">
+    <h1 class="post-title">Compose in 2014 - Winter to Summer</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-12-10">December 10th, 2014</time></small>
+  </header>
+
+<p><em>At the start of 2014, Compose was called MongoHQ, a well-known and much relied on purveyor of fine cloud-based instances of MongoDB. Years of experience had honed our skills and we were ready to take the next step. For the first half of the year though we would be laying down the foundations, making our MongoDB offering better than ever and using our blog to disseminate knowledge. We start in January, as we roll out the first new feature of the year…</em></p>
+
+<h2 id="januarylaunchingthesecondfactor"><strong>January</strong> – Launching The Second Factor</h2>
+
+<p>We added <a href="../two-factor-authentication-and-security-auditing-now-available-for-all-mongohq-accounts/">two factor authentication</a> to our platform to let people secure their MongoDB databases more while on the blog we also…</p>
+
+<p><img src="http://127.0.0.1:2368/content/images/2014/12/wizardhat-250x265.png" alt="wizardhat" title=""> <br>
+ * Talked about how we <a href="../making-remote-work-work-an-adventure-in-time-and-space/">made Remote Working work for everyone</a>. <br>
+ * Showed how to <a href="../how-i-stopped-worrying-and-learned-to-love-the-mongo-shell/">love the Mongo shell</a> and how to save <a href="../saving-private-functions/">private functions</a> using it. <br>
+ * Introduced people to <a href="../node-js-mongodb-and-you-an-intro-in-parts/">Node.js and MongoDB</a> and explained why and how <a href="../redis-mongodb-and-the-power-of-incremency/">Redis and MongoDB</a> could work together.</p>
+
+<h2 id="februarybetterconnected"><strong>February</strong> – Better connected</h2>
+
+<p>This month was all about the connections. In the blog we demonstrated experiments with the <a href="../building-mongodb-into-your-internet-of-things-a-tutorial/">Internet of Things and MongoDB</a> by building an Arduino based temperature sensor and logging its activity to MongoDB. <img src="../content/images/2014/12/Screenshot-2014-02-17-12_31_57_dgm96n_dcafki.png" alt="A Node-RED flow with sentiment analysis and JavaScript functions" title="">That was followed by a look at how you could use Node-RED, a tool designed for IoT work, to connect your MongoDB to many other services.And then showed how to use <a href="../zapier-your-data-to-mongohq/">Zapier and your MongoDB</a> to plug your data into even more services. We also…</p>
+
+<ul>
+<li>Talked about the <a href="../you-dont-have-big-data/">misperceptions of “Big Data”</a> and how <a href="../changing-the-growth-formula/">optimization can change how you grow</a>.</li>
+<li><p>We looked forward to MongoDB 2.6’s <a href="../content/images/2014/12/Robomongo_hxf4m9.jpg">index intersection</a>In March, we showed the world the future of cloud deployed databases as we rolled out our <a href="../new-elastic-deployments-now-available/">elastic deployments of MongoDB</a>. These bring an auto-scaling, auto-backed-up platform to satisfy your database needs. We went into detail on <a href="../how-we-scale-mongodb/">how we scaled MongoDB</a> in a later article. Elastic Deployments also expanded with us so <a href="../elastic-deployments-now-available-in-australia/">Australia got them too</a>. Other things that happened in March included…</p></li>
+<li><p>Making the <a href="../elastic-deployments-now-with-oplog-access/">MongoDB oplog accessible</a> so people could tap into the real time change stream from the database. We showed the details of how you could <a href="../the-mongodb-oplog-and-node-js/">get at the oplog with Node.js</a> and interpret that change stream. And because we like elegance, we showed a <a href="../node-js-and-mongo-oplog-elegant-oplog-consumption/">nicer way</a> to consume the oplog too.</p></li>
+<li>Expanded upon how we <a href="../how-mongohq-uses-hipchat-to-connect-a-distributed-team/">remote worked with HipChat</a>.</li>
+<li>Showed how not to <a href="../node-js-mongodb-and-pool-pollution-problems/">pollute the pool in Node.js</a>, took a look at the graphical database environment that is <a href="../robomongo-your-next-shell/">Robomongo</a> and gave a tutorial on how to turn database alerts into <a href="../more-destinations-for-mongohq-alerts-with-zapier/">Zapier events</a>.</li>
+</ul>
+
+<h2 id="aprilmongodb26arrives"><strong>April</strong> – MongoDB 2.6 Arrives</h2>
+
+<p>April saw the arrival of MongoDB 2.6 and we <a href="../elastic-deployments-now-with-mongodb-2-6/">made it available on Elastic Deployments</a>. We illustrated the power and the pitfalls in articles on 2.6’s <a href="../content/images/2014/12/on-demand-backups-2_dfakhy_s6pscv.png">improved bulk operations</a> <br>
+ * Two factor authentication, in the form of our own <a href="../two-factor-authentication-made-authfully-easy/">Authful API, was open sopurced</a>. <br>
+ * Elastic Deployments <a href="../elastic-deployments-now-available-in-europe/">landed in Europe</a>. <br>
+ * <a href="../on-demand-backups-now-available-for-elastic-deployments-2/">On Demand Backups for Elastic Deployments</a> were introduced for when you need a backup right now. <br>
+ * The beta launch of <a href="../mongodb-elastic-deployments-now-in-beta-on-digitalocean/">Elastic Deployments on DigitalOcean</a>. <br>
+ * Our mission to explain the Oplog continued with a look at how you can use <a href="../meteor-the-oplog-and-elastic-deployment/">Meteor and Elastic Deployments</a> together for real time web apps and a <a href="../oplog-tools-and-libraries-for-all/">roundup of oplog accessing tools for Ruby, Go and Java</a>. <br>
+ * Faster <a href="../faster-updates-with-mongodb-2-4/">update techniques for MongoDB 2.4</a> were illustrated for those not ready to upgrade.</p>
+
+<h2 id="maymore26"><strong>May</strong> – More 2.6</h2>
+
+<p>In May, we continued to detail the interesting things about MongoDB 2.6. We looked at the <a href="../mongodb-2-6-indexing-improvements-things-worth-knowing/">improved indexing</a>, changes to the <a href="http://127.0.0.1:2368/compose-in-2014-winter-to-summer/mongodb-2-6-shell-and-tools-things-worth-knowing/">shell and tools</a> and introduced the <a href="../aggregation-in-mongodb-2-6-things-worth-knowing/">enhancements to the aggregation framework</a>. The most extensive article on 2.6 was the <a href="../bulk-updates-for-all/">deep dive into the new Bulk API</a> which gave examples in Mongo Shell, Node.js, Ruby, Python and Java. We were all about the educating in May with articles on…</p>
+
+<ul>
+<li>How to use <a href="../back-up-for-performance/">backups for performance</a> by quickly cloning a database locally.</li>
+<li>How to <a href="../counting-and-not-counting-with-mongodb/">not count and count</a> to get a performance boost by pre-limiting queries.</li>
+<li>How to <a href="../customising-mongodbs-shell-with-compact-prompts/">make your shell prompt compact and bijou</a></li>
+<li>How to use <a href="../tinkertank-visualizing-mongodb-with-javascript/">JavaScript to visualise database activity</a> in a rolling graph. <br>
+<img src="../content/images/2014/12/oregon_trail_zdpzce_ddd1tl.png" alt="oregon_trail" title=""> <br>
+We also rolled out Elastic Deployments <a href="../mongodb-elastic-deployments-now-available-in-oregon/">in Oregon</a> and talked about <a href="../tooltime-at-mongohq/">our favorite tools</a>.</li>
+</ul>
+
+<h2 id="junedigitaloceanleavesbeta"><strong>June</strong> – DigitalOcean leaves beta</h2>
+
+<p>At the end of the June, we were pleased to take the <a href="../guest-post-mongohq-digitalocean-a-perfect-match/">beta label off our DigitalOcean elastic deployments</a> in DO’s NY2 datacenter and roll out the latest update, <a href="../now-available-mongodb-2-6-3/">MongoDB 2.6.3</a> to Elastic Deployments, giving users the power to upgrade when they wanted to at the selecting of a dropdown and the click of a mouse. Meanwhile, on the blog we were covering all sorts of subjects…</p>
+
+<ul>
+<li>What are the <a href="../gridfs-and-mongodb-pros-and-cons/">pros and cons of GridFS</a> on MongoDB and when should you use the large file storage mechanism.</li>
+<li>Structured database access with <a href="../mongoose-reintroduced/">Mongoose and MongoDB</a>.</li>
+<li>Keeping your storage usage down by <a href="../sizing-and-trimming-your-mongodb/">sizing and trimming your MongoDB</a>.</li>
+<li>Keeping your database performance up with <a href="../mongodb-and-indexing-best-practices-redux/">best practice indexing</a>.</li>
+<li>Using MongoDB’s <a href="../full-text-search-with-mongodb-and-node-js/">full text search with Node.js</a> to deliver a simple web-based scoring search application.</li>
+<li>Last month’s JavaScript visualisation was only a precusor to putting <a href="../tinkertank-mongodb-in-lights/">MongoDB in lights</a> using an Arduino Uno and an RGB LED shield. An ideal addition to your physical dashboard.  </li>
+</ul>
+
+<div class="wp-video" style="width: 640px; height: 360px; "><video class="wp-video-shortcode" controls="controls" height="360" id="video-1040-5" preload="metadata" width="640"><source src="../content/images/2014/12/lights.mp4?_=5" type="video/mp4"></source>[/content/images/2014/12/lights.mp4](/content/images/2014/12/lights.mp4)</video></div>  
+
+<p>Finally, we gave some insight into one of our internal processes, using the <a href="../pull-requests-as-a-conversation-starter/">Pull Request as a conversation starter</a>. That was an article that came out of the development work which would land with users in July…</p>
+
+<h2 id="julythedawnofthenewapi"><strong>July</strong> – The dawn of the new API</h2>
+
+<p>July opened with the beta release of a new REST API for the platform. Previously we’d allowed people to interact with the databases in deployment through a REST//content/images/2014/12/globalpizza<em>vvpdzu</em>flvnff.png)How we ran a <a href="../how-we-do-it-at-mongohq-running-a-global-remote-pizza-party/">remote global pizza party</a> and the pitfalls that can open up. <br>
+- How <a href="../tablelist-fights-for-your-right-to-party/">Tablelist</a> use our MongoDB deployments to keep your party going.
+- How we now supported deployments on <a href="../gogrid-and-mongohq-a-balanced-proposition/">GoGrid</a>.
+- How our free sandbox is <a href="../are-you-still-playing-in-the-mongohq-sandbox/">not like our paid-for Elastic deployments</a>.
+- News on the latest release of the Go MongoDB driver <a href="../mongodb-go-driver-mgo-gets-special-release/">mgo</a>.
+- How <a href="../big-bobby-tables-gets-a-mongohq-database/">Big Bobby Tables</a> can get their own database.</p>
+
+<p>We closed July with another new tool, <a href="../a-power-tool-for-devops-the-mongohq-cli/">the CLI tool</a> which made the API available for users as shell commands without needing to write code in a particular language. All this development work was laying the foundation for the second half of the year… which we’ll come to in the next part of the annual roundup.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Compose%20in%202014%20-%20Winter%20to%20Summer&amp;url=http://localhost:2368/compose-in-2014-winter-to-summer/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/compose-in-2014-winter-to-summer/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/compose-in-2014-winter-to-summer/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

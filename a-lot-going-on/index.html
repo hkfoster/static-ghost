@@ -1,0 +1,270 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>A Lot Going On</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/a-lot-going-on/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="A Lot Going On">
+    <meta property="og:description" content="Although MongoHQ has been around for nearly two years, our focus has been entirely on building amazing infrastuctures, dependable processes, solid tools, and generally learning how to invent a brand-new type of industry. These things are important, and largely define...">
+    <meta property="og:url" content="http://localhost:2368/a-lot-going-on/">
+    <meta property="article:published_time" content="2011-11-16T03:57:53.000Z">
+    <meta property="article:modified_time" content="2013-05-07T21:42:38.000Z">
+    <meta property="article:tag" content="company">
+    <meta property="article:tag" content="culture">
+    <meta property="article:tag" content="mongo hosting">
+    <meta property="article:tag" content="mongodb hosting">
+    <meta property="article:tag" content="mongohq">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="A Lot Going On">
+    <meta name="twitter:description" content="Although MongoHQ has been around for nearly two years, our focus has been entirely on building amazing infrastuctures, dependable processes, solid tools, and generally learning how to invent a brand-new type of industry. These things are important, and largely define...">
+    <meta name="twitter:url" content="http://localhost:2368/a-lot-going-on/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "eric",
+        "image": "//www.gravatar.com/avatar/1d4549fe1d311b3db0a1647f7e36909a?d=404&s=250",
+        "url": "http://localhost:2368/author/eric",
+        "sameAs": ""
+    },
+    "headline": "A Lot Going On",
+    "url": "http://localhost:2368/a-lot-going-on/",
+    "datePublished": "2011-11-16T03:57:53.000Z",
+    "dateModified": "2013-05-07T21:42:38.000Z",
+    "keywords": "company, culture, mongo hosting, mongodb hosting, mongohq",
+    "description": "Although MongoHQ has been around for nearly two years, our focus has been entirely on building amazing infrastuctures, dependable processes, solid tools, and generally learning how to invent a brand-new type of industry. These things are important, and largely define..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-company tag-culture tag-mongo-hosting tag-mongodb-hosting tag-mongohq blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-company tag-culture tag-mongo-hosting tag-mongodb-hosting tag-mongohq container">
+  <header>
+    <h1 class="post-title">A Lot Going On</h1>
+    <small class="post-meta"><time class="post-date" datetime="2011-11-15">November 15th, 2011</time></small>
+  </header>
+
+<p>Although <a href="http://mongohq.com/" title="MongoHQ">MongoHQ</a> has been around for nearly two years, our focus has been entirely on building amazing infrastuctures, dependable processes, solid tools, and generally learning how to invent a brand-new type of industry. These things are important, and largely define who we are.</p>
+
+<p>But one area where we’ve been lacking, is in letting others know what we’ve realized: the age of self-hosted data is coming to a close, and <em>database as a service</em> will become increasingly standard. Few of us run our own <a href="http://en.wikipedia.org/wiki/Private_branch_exchange" title="Private Branch Exchange">PBX</a>’s anymore, and in a couple years few of us will run our own datacenters.</p>
+
+<p>But being a part of this exciting evolution in database management needs cheerleaders, and people who focus on saying what needs said <em>with style</em>. I try to do <a href="http://www.powells.com/biblio/62-9781934356920-1" title="Seven Databases in Seven Weeks">my part</a>, and this week we welcome a new member to our team: <a href="http://brandonmathis.com/" title="Brandon Mathis">Brandon Mathis</a>. He’s a talented designer who is charged with giving MongoHQ a much needed facelift. From the site, to the webapp, to probably t-shirts. We’ve seen many changes in the past two years, and those changes are about to get a whole lot slicker.</p>
+
+<p><em>(We’re certain he’ll earn a <a href="http://media.tumblr.com/tumblr_lgbilzDkVB1qf8yek.gif" title="slow clap">slow clap</a>)</em></p>
+
+<p>Next up, we have our new <a href="http://docs.mongohq.com/api" title="MongoHQ REST API">MongoHQ REST API</a>. It’s not entirely baked yet, but that hasn’t stopped us from creating a secret Ruby interface for it. We’ll have much more on that later, but anticipate a vertiable deluge of open source tools from our camp – even a few which may seem unrelated to Mongo. Like our extended mustachio service, Facio (because it’s imperative we’re able to superimpose <a href="http://en.wikipedia.org/wiki/Geordi_La_Forge" title="THE chief engineer">Geordi LaGorge</a> visors on people as quickly as possible).</p>
+
+<p>You’ll see a lot more of us MongoHQ folks in the coming months at your local and global conferences. Many of us will be speaking about what we’ve learned in Mongo (or ruby, or javascript, or design, or administrating thousands of databases, or… you get the idea). Some of us will just be looking sexy near our exhibit hall table. And if we never meet in person, you’ll see more action from this blog, more articles, more project and community contributions… maybe even another book.</p>
+
+<p>We believe that data is simpler to access, share, and use when it’s hosted in the cloud – and free access to data integral to freedom. That’s not just a marketing pitch – it’s what drives our ideals. If you believe what we believe, we’d love to have you along for the journey. So <a href="http://twitter.com/mongohq" title="MongoHQ Twitter">send</a> any thoughts our way, and enjoy the ride!</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/eric/">
+        <img src="http://www.gravatar.com/avatar/1d4549fe1d311b3db0a1647f7e36909a?d=404&amp;s=250" alt="eric">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/eric/">eric</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=A%20Lot%20Going%20On&amp;url=http://localhost:2368/a-lot-going-on/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/a-lot-going-on/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/a-lot-going-on/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

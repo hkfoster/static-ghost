@@ -1,0 +1,255 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Dj - Compose Articles</title>
+  <meta name="description" content="Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/author/dj/">
+    <link rel="next" href="http://localhost:2368/page/2/">
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="author-template author-dj blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+    <header class="main-header author-head no-cover">
+        <nav class="main-nav overlay clearfix">
+            <a class="back-button icon-arrow-left" href="http://localhost:2368">Home</a>
+            <a class="subscribe-button icon-feed" href="rss/index.rss">Dj</a>
+        </nav>
+    </header>
+
+    <section class="author-profile inner">
+        <figure class="author-image">
+            <div class="img" style="background-image: url(http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250)"><span class="hidden">Dj's Picture</span></div>
+        </figure>
+        <h1 class="author-title">Dj</h1>
+        <h2 class="author-bio">Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</h2>
+        <div class="author-meta">
+            
+            
+            <span class="author-stats"><i class="icon-stats"></i> 100 posts</span>
+        </div>
+    </section>
+
+<main class="content" role="main">
+
+    
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../holiday-support-desk-better-browsing-and-christmas-coverage/">Holiday Support Desk: Better Browsing &amp; Christmas Coverage</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-12-24">December 24, 2014</time>
+           in <span class="tags"><a href="../../tag/2014/">2014</a> &amp;bullet; <a href="../../tag/christmas/">christmas</a></span>
+        </small>
+    
+    
+        <p class="excerpt">For the holiday we’re bringing a refresh to one of Compose’s familiar components – the data browser. The data browser is what you see when you use the Compose dashboard to look into your MongoDB database. Apart from the…</p>
+    
+        <p><a class="read-more" href="../../holiday-support-desk-better-browsing-and-christmas-coverage/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../compose-in-2014-summer-onwards/">Compose in 2014 - Summer Onwards</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-12-18">December 18, 2014</time>
+           in <span class="tags"><a href="../../tag/2014/">2014</a></span>
+        </small>
+    
+    
+        <p class="excerpt">We’d reached July in the previous part of our look back at the year. As the summer moved on, so did we. Our year resumes in August with a big announcement… August – Hello Compose! Hello Elasticsearch! We still had…</p>
+    
+        <p><a class="read-more" href="../../compose-in-2014-summer-onwards/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../weve-open-sourced-the-new-compose-transporter/">We’ve Open Sourced the New Compose Transporter</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-12-17">December 17, 2014</time>
+          
+        </small>
+    
+    
+        <p class="excerpt">We’re really happy with how the Compose Transporter has been moving your data around on the Compose platform. That said, we always want to do better and with that in mind we’ve been building the next version of…</p>
+    
+        <p><a class="read-more" href="../../weve-open-sourced-the-new-compose-transporter/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../elasticsearch-rethinkdb-and-redis-now-also-hosted-in-europe/">Elasticsearch, RethinkDB &amp; Redis Now Also Hosted in Europe</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-12-15">December 15, 2014</time>
+           in <span class="tags"><a href="../../tag/europe/">europe</a></span>
+        </small>
+    
+    
+        <p class="excerpt">The new kids on the Compose block are heading to Europe. While our MongoDB deployments have been available in Ireland (Amazon) and London (DigitalOcean), we’ve been keeping Elasticsearch, RethinkDB and Redis to the US as we honed the technology…</p>
+    
+        <p><a class="read-more" href="../../elasticsearch-rethinkdb-and-redis-now-also-hosted-in-europe/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../support-desk-elasticsearch-1-4-1-and-1-3-6-and-redis-2-8-18/">Support Desk: Elasticsearch 1.4.1, 1.3.6 &amp; Redis 2.8.18</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-12-11">December 11, 2014</time>
+           in <span class="tags"><a href="../../tag/default/">default</a> &amp;bullet; <a href="../../tag/table/">table</a> &amp;bullet; <a href="../../tag/version/">version</a></span>
+        </small>
+    
+    
+        <p class="excerpt">We’re constantly tracking, building and testing the latest releases of databases to run on the Compose platform. When they are ready, we add them to the Settings/Version selector in your dashboard for you to seamlessly migrate when you…</p>
+    
+        <p><a class="read-more" href="../../support-desk-elasticsearch-1-4-1-and-1-3-6-and-redis-2-8-18/">Read More »</a></p>
+    
+      </article>
+    
+    <nav class="pagination big-push">
+      <small class="page-number">Page 1 of 20</small>
+        <a class="btn mini older" href="page/2/">Older Articles »</a>
+    </nav>
+</main>
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

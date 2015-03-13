@@ -1,0 +1,319 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Counting and not counting with MongoDB</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/counting-and-not-counting-with-mongodb/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Counting and not counting with MongoDB">
+    <meta property="og:description" content="*TL;DR: In certain situations, count can be avoided for better performance.   Counting things can be hard on a database. The obvious things to count, number of items in a collection or index, are easy to keep track of, but...">
+    <meta property="og:url" content="http://localhost:2368/counting-and-not-counting-with-mongodb/">
+    <meta property="article:published_time" content="2014-05-20T11:08:21.000Z">
+    <meta property="article:modified_time" content="2014-09-02T09:30:47.000Z">
+    <meta property="article:tag" content="count">
+    <meta property="article:tag" content="explain">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="performance">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Counting and not counting with MongoDB">
+    <meta name="twitter:description" content="*TL;DR: In certain situations, count can be avoided for better performance.   Counting things can be hard on a database. The obvious things to count, number of items in a collection or index, are easy to keep track of, but...">
+    <meta name="twitter:url" content="http://localhost:2368/counting-and-not-counting-with-mongodb/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Counting and not counting with MongoDB",
+    "url": "http://localhost:2368/counting-and-not-counting-with-mongodb/",
+    "datePublished": "2014-05-20T11:08:21.000Z",
+    "dateModified": "2014-09-02T09:30:47.000Z",
+    "keywords": "count, explain, mongodb, performance",
+    "description": "*TL;DR: In certain situations, count can be avoided for better performance.   Counting things can be hard on a database. The obvious things to count, number of items in a collection or index, are easy to keep track of, but..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-count tag-explain tag-mongodb tag-performance blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-count tag-explain tag-mongodb tag-performance container">
+  <header>
+    <h1 class="post-title">Counting and not counting with MongoDB</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-05-20">May 20th, 2014</time></small>
+  </header>
+
+<p><em>*</em>TL;DR: In certain situations, <code>count</code> can be avoided for better performance.  </p>
+
+<hr>
+
+<p>Counting things can be hard on a database. The obvious things to count, number of items in a collection or index, are easy to keep track of, but as soon as you start trying to count records based on a query, things get slower and slower. This is because the database has to do more work scanning practically every item in the database to see if it matches; indexes can help to cut that scanning down but not as much as you might think.</p>
+
+<p><aside class="right-gutter"> MongoDB does have an optimisation for a fast count where all the queried fields are indexed and the query is based around equivalence, but only in that circumstance. <br>
+</aside>The road to performance can often be found by stepping back and looking at the wider problem. For example, one customer had been finding that their count operations were slow. Tens of millions of documents were being searched through in their count queries. But when we stepped back from that specific issue it revealed that the actual value of the count was not important to them. What they wanted was to trigger a particular process when the number of documents that matched their query exceeded a particular threshold.</p>
+
+<p>Let’s not talk in the overly abstract and get some data to experiment with. Don’t have ten million records to exercise your database? This snippet of code to run in Mongo shell will make you a collection to fix that. It creates ten million record each with three fields, a, b and c set to random values between 0 and 99:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;function randInt(n) { return parseInt(Math.random()*n); }
+
+for(var j=0; j&lt;10; j++) {  
+    print("Building op "+j);
+    var bulkop=db.countTest.initializeOrderedBulkOp() ;
+    for (var i = 0; i &lt; 1000000; ++i) { 
+        bulkop.insert({a: randInt(100), b: randInt(100), c:randInt(100) }) 
+    };
+    print("Executing op "+j);
+    bulkop.execute();
+}
+</code></pre>
+
+<p>Say we have a desire to know how many records are of a particular state; that two fields are in a higher range of values but another is in the low range because this might denote a problem. We could come up with a query like this…</p>
+
+<p><code>db.countTest.count( { a : { $gt: 50 }, b: { $lt:50 }, c: { $gt:50}} );</code></p>
+
+<p>And on our test server that takes around ten seconds to execute. The server has to do through every record to find the 1.2 million(-ish) that match and it doesn’t know its done until it has counted every one. Say though that 10000 matches is out threshold and however many more than that is useless information. If only we could limit our searching to finding the first 10000 matches and returning after that. There’s no way, though, to limit the number of matches with the <code>.count()</code> command.</p>
+
+<p>But there is way to limit the number of documents returned by a find query, and we can easily translate the <code>.count()</code> method’s query into a <code>.find()</code>. We can then use the projection option in find to reduce the number of returned fields to 1 (the _id). Now we can use the <code>.limit()</code> method to restrict the number of returned records to the threshold value and then <code>.count()</code> the results…</p>
+
+<pre><code>&gt;db.countTest.find(  { a : { $lt: 50 }, b: { $lt:50 }, c: { $lt:50}}, 
+                      { _id:1 }).limit(10000).count()
+1224914  
+&gt;
+</code></pre>
+
+<p>And thats not right, it took just as long! What’s happened is count has ignored the limit and counted, and scanned all the records again. If we consult the <a href="http://docs.mongodb.org/manual/reference/method/cursor.count/">manual</a> though we find that this isn’t a fixed behavior, just the default behavior. If we went count to pay attention to limit (and skip), we need to give it the <code>applySkipLimit</code> option set to true. So let’s add that option in:</p>
+
+<pre><code>&gt;db.countTest.find(  { a : { $lt: 50 }, b: { $lt:50 }, c: { $lt:50}}, 
+                      { _id:1 }).limit(10000).count( { applySkipLimit: true } )
+10000  
+&gt;
+</code></pre>
+
+<p>Wall-clock time on this query was 68ms. The explanation for this boost is that, in all it we only needed to scan around 80000 records before it found 10000 that matched the query. We know it found 10000, as it returns 10000 which for our purposes means there’s at least 10000 matches in the database.</p>
+
+<p>Let’s tweak the query though to understand it better… this time looking for a greater than 75, and b and c less than 25. First with the “count” form:</p>
+
+<p><code>db.countTest.count( { a : { $gt: 75 }, b: { $lt:25 }, c: { $lt:25}} );</code></p>
+
+<p>That takes around ten to twelve seconds to execute too. Now in our “explain” form:</p>
+
+<p><code>
+db.countTest.find(  { a : { $gt: 75 }, b: { $lt:25 }, c: { $lt:25}},&lt;br&gt;&lt;/br&gt; <br>
+ { _id:1 }).limit(10000).count( { applySkipLimit: true })</code></p>
+
+<p>That takes 800ms to execute; it’s still faster, but now, with a more precise query, less records match so more records need to be scanned – given the random distribution of created records, around six to seven hundred thousand records now. The other way to increase scanned records and execution time is to increase the threshold. If we bump the threshold/limit up to 100,000, our query takes over six seconds which is hardly surprising as its also had to scan six and a half million records.</p>
+
+<p>The timings helps inform us when the limit method of counting is worth using – specifically when there’s a low threshold value but a particularly high number of records that will match in the database, along with a relatively complex query and a particularly large data set. If you have that situation, then you might try swapping out some directly calling count in preference for a “find().limit().count( { applySkipLimit: true } )” formulation. Remember, of course to still check the result reaches your threshold value.</p>
+
+<p>By not counting the irrelevant records beyond the threshold though, you could well be saving yourself seconds on queries and getting a smoother more responsive MongoDB as a result.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Counting%20and%20not%20counting%20with%20MongoDB&amp;url=http://localhost:2368/counting-and-not-counting-with-mongodb/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/counting-and-not-counting-with-mongodb/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/counting-and-not-counting-with-mongodb/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

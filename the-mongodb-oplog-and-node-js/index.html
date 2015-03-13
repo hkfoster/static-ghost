@@ -1,0 +1,403 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>The MongoDB Oplog and Node.js</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/the-mongodb-oplog-and-node-js/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="The MongoDB Oplog and Node.js">
+    <meta property="og:description" content="Imagine if there was a record of every written change made in MongoDB stored as a collection. Imagine the opportunities that this would offer: triggering events, specialized backups, cache population, and more. Well, stop imagining as that’s exactly what...">
+    <meta property="og:url" content="http://localhost:2368/the-mongodb-oplog-and-node-js/">
+    <meta property="article:published_time" content="2014-03-25T21:23:31.000Z">
+    <meta property="article:modified_time" content="2014-09-02T08:55:20.000Z">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="The MongoDB Oplog and Node.js">
+    <meta name="twitter:description" content="Imagine if there was a record of every written change made in MongoDB stored as a collection. Imagine the opportunities that this would offer: triggering events, specialized backups, cache population, and more. Well, stop imagining as that’s exactly what...">
+    <meta name="twitter:url" content="http://localhost:2368/the-mongodb-oplog-and-node-js/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "The MongoDB Oplog and Node.js",
+    "url": "http://localhost:2368/the-mongodb-oplog-and-node-js/",
+    "datePublished": "2014-03-25T21:23:31.000Z",
+    "dateModified": "2014-09-02T08:55:20.000Z",
+    "description": "Imagine if there was a record of every written change made in MongoDB stored as a collection. Imagine the opportunities that this would offer: triggering events, specialized backups, cache population, and more. Well, stop imagining as that’s exactly what..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post container">
+  <header>
+    <h1 class="post-title">The MongoDB Oplog and Node.js</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-03-25">March 25th, 2014</time></small>
+  </header>
+
+<p>Imagine if there was a record of every written change made in MongoDB stored as a collection. Imagine the opportunities that this would offer: triggering events, specialized backups, cache population, and more. Well, stop imagining as that’s exactly what MongoDB’s oplog allows. Now that we’ve enabled access to the oplog, we figured it was a good time to publish a short series of blog posts to give you further detail about the oplog, how you can make it work for your stack, and how you can use Node.js to tap into it.</p>
+
+<h2 id="whatistheoplogreally">What is the oplog, really?</h2>
+
+<p>Despite being called a log, the oplog is not a file, it’s a capped collection and held within the MongoDB storage engine. Oplogs came into existence to support MongoDB’s replication features. The idea is that once a replica is fully synced with the master it only has to follow the latest entries in the oplog to find out what changes – inserts, updates, and deletions – are being written into the databases of that MongoDB server. The oplog has a finite capacity as a capped collection and when its full it works like a circular queue, replacing the oldest entries with new entries. MongoDB has <a href="http://docs.mongodb.org/manual/core/replica-set-oplog/#replica-set-oplog-sizing">various default sizes</a> depending on OS and memory size. With MongoHQ’s Elastic Deployments it’s a lot simpler. The oplog starts at 2GB and grows to ensure at least the last twenty-four hours worth of write operations are in the oplog.</p>
+
+<p>To help put this in context, lets take a look at an Elastic Deployment’s oplog from the Mongo shell. The first thing you need to do is create a user with permission to access the oplog. You can’t allocate oplog access to an existing user – best practice suggests you isolate these types of roles to specific new users. Instead, you can create a new user through the MongoHQ Elastic Deployments administration dashboard where selecting the “oplogAccess” property will give these users permission to the oplog. Next, log into your database with the new user:</p>
+
+<pre><code>mongo candidate.0.mongolayer.com:10240/wiktory -u &lt;oploguser&gt; -p &lt;oplogpassword&gt;  
+&gt;
+</code></pre>
+
+<p>The oplog doesn’t belong to any particular database within the Mongo server – it belongs to the server’s “local” database. So if we switch to that…</p>
+
+<pre><code>&gt; use local
+</code></pre>
+
+<p>we can now query the oplog. Its name, <em>oplog.rs</em>, is slightly odd as its the oplog for the <strong>R</strong>eplica <strong>S</strong>et. If we do a find on this collection, we will get quite a few records.</p>
+
+<pre><code>&gt; db.oplog.rs.find()
+</code></pre>
+
+<h2 id="downintheoplog">Down in the oplog</h2>
+
+<p>Let’s look at some oplog documents in detail to give a feel for the contents. Here’s an example entry:</p>
+
+<pre><code> {
+"ts" : Timestamp(1395663575, 1),
+"h" : NumberLong("-5872498803080442915"),
+"v" : 2,
+"op" : "i",
+"ns" : "wiktory.items",
+"o" : {
+    "_id" : ObjectId("533022d70d7e2c31d4490d22"),
+    "author" : "JRR Hartley",
+    "title" : "Flyfishing"
+    }
+}
+</code></pre>
+
+<p>We start with the rather important timestamp…</p>
+
+<pre><code> {
+"ts" : Timestamp(1395663575, 1),
+</code></pre>
+
+<p>The “ts”, or “timestamp” field shows when this operation was performed. The timestamp gives the oplog its temporal structure and by querying based on the timestamp, gives a clear sequence which helps when oplogs are consumed by other applications and MongoDB replicas.</p>
+
+<pre><code>"h" : NumberLong("-5872498803080442915"),
+</code></pre>
+
+<p>The “h” field is an unique id for the operation. This ensures that each operation is uniquely identified which, given many similar operations can occur at the same time, is not a bad thing.</p>
+
+<pre><code>"v" : 2,
+</code></pre>
+
+<p>The “v” field is a special “version” number, specifically for the oplog format. Only MongoDB, Inc knows when that will change and, to date, it has only changed once. So, for most purposes, it can be ignored.</p>
+
+<pre><code>"op" : "i",
+</code></pre>
+
+<p>Now, we are onto the real meat of the oplog. This is the “op” field which indicates what operation took place. Its values can be “i” for “insert”, “u” for “update”, and “d” for “delete”. For most oplog tailing applications, you will only be interested in these three values, but there is also a “c” for commands that affect databases at a high level, “db” which apparently announces the presence of a “database”, and “n” for “no-ops”, used for changes in the database or collections which don’t result in a change in the stored data.</p>
+
+<p>Any of these operations will have been applied to a database or a collection so the next field, “ns” tells us the “namespace” for this operation. In this case, it’s the “wiktory” database’s “items” collection:</p>
+
+<pre><code>"ns" : "wiktory.items",
+</code></pre>
+
+<p>The remaining fields in an oplog record vary depending on the operation. With an insert operation, there is an “o” field which contains the entire document that was inserted:</p>
+
+<pre><code>"o" : {
+    "_id" : ObjectId("533022d70d7e2c31d4490d22"),
+    "author" : "JRR Hartley",
+    "title" : "Flyfishing"
+}
+</code></pre>
+
+<p>For an update, there are two fields, “o2″ and “o”. In the snippet below, an update to a particular document has set a field to true:</p>
+
+<pre><code>"op" : "u",
+"ns" : "wiktory.items",
+"o2" : {
+    "_id" : ObjectId("533022d70d7e2c31d4490d22")
+},
+"o" : {
+    "$set" : {
+        "outofprint" : true
+    }
+}
+</code></pre>
+
+<p>The “o2″ field contains the query part of the update. Don’t expect complex queries here – the query is sufficient to identify the document being updated. Updates on multiple documents are broken down into multiple entries in the oplog to help ensure that the oplog is idempotent – that reapplying the same operation will have the same result every time.</p>
+
+<p>The “o” field contains the update itself using a subset of MongoDB’s $ syntax. Most operations will appear as $set and $unset operations, to help keep the oplog idempotent. For example, a $inc update will appear in the oplog as a $set on the field in question, setting the field to the result of the increment, and a $rename update will appear as the old field name being $unset and the new field name being $set. Keep this in mind and if in doubt, check how any particular update maps to the oplog. That said, if you are only interested in fields being written so you can update a cache, then you only need check the contents of $set. In the example above, we can see the “outofprint” field being set to true.</p>
+
+<p>Finally, when a delete operation is logged an entry appears in the oplog with the “o” field containing the _id of the document that was deleted (and a “b” field which appears to be always set to true).</p>
+
+<h1 id="queryingtheoplog">Querying the oplog</h1>
+
+<p>Having covered the contents of the oplog, we now want to make use of it. Turning it into a stream of changes, at a high level, involves first logging into the local database, getting the highest timestamp in the oplog, and using that to create a tailable cursor which tracks the changes.</p>
+
+<p>Here’s some code that does just that using Node.js:</p>
+
+<pre><code>var MongoDB=require('mongodb');
+
+// To track the oplog we need the oplog URL
+oplogurl='mongodb://&lt;user&gt;:&lt;password&gt;@candidate.11.mongolayer.com:10240,candidate.0.mongolayer.com:10240/local?authSource=wiktory'
+
+// Open the connection to the database
+MongoDB.MongoClient.connect(oplogurl, function(err,db) {  
+    // Get to oplog collection
+    db.collection("oplog.rs",function(err,oplog) {
+        // Find the highest timestamp
+        oplog.find({},{ts:1}).sort({$natural:-1}).limit(1).toArray(function(err,data) {
+            lastOplogTime=data[0].ts;
+            // If there isn't one found, get one from the local clock
+            if(lastOplogTime) {
+                queryForTime= { $gt: lastOplogTime };
+            } else {
+                tstamp=new MongoDB.Timestamp(0,Math.floor(new Date().getTime()/1000))
+                queryForTime= { $gt: tstamp };
+            }
+            // Create a cursor for tailing and set it to await data
+            cursor=oplog.find({ts: queryForTime}, { tailable:true, 
+                                                    awaitdata:true, 
+                                                    oplogReplay:true,
+                                                    numberOfRetries:-1 });
+            // Wrap that cursor in a Node Stream
+            stream=cursor.stream();
+
+            // And when data arrives at that stream, print it out
+            stream.on('data', function(oplogdoc) {
+                console.log(oplogdoc);
+                });
+        });
+    });
+});
+</code></pre>
+
+<p>Now, this code is bare-bones and has been put together to show what happens behind the scenes in an oplog tailing application. The oplogurl variable is the critical part of this program. It uses the Replica Set URI which you can get from the database’s Admin dashboard:</p>
+
+<pre><code>mongodb://&lt;user&gt;:&lt;password&gt;@candidate.11.mongolayer.com:10240,candidate.0.mongolayer.com:10240/wiktory  
+</code></pre>
+
+<p>But rather than ending with the database name, after the last <code>/</code> insert <code>local?authSource=</code> to get</p>
+
+<pre><code>mongodb://&lt;user&gt;:&lt;password&gt;@candidate.11.mongolayer.com:10240,candidate.0.mongolayer.com:10240/local?authSource=wiktory  
+</code></pre>
+
+<p>This change tells the connecting application to connect to the “local” database but authenticate with the “wiktory” database. This is a common pattern with oplog tailing applications and is a more direct way of doing what we did earlier in this article – logging into the database and then switching to use the “local” database.</p>
+
+<p>The drawback with this code is that everything happening in the oplog – every operation on every collection – will be dumped to the console. To make sense of the oplog and to work with maintainable code we’ll want to use a library or framework. In the next part of this series, we will look at some for Node.js and other platforms.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=The%20MongoDB%20Oplog%20and%20Node.js&amp;url=http://localhost:2368/the-mongodb-oplog-and-node-js/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/the-mongodb-oplog-and-node-js/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/the-mongodb-oplog-and-node-js/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

@@ -1,0 +1,255 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>kurt - Compose Articles</title>
+  <meta name="description" content="0">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/author/kurt/">
+    <link rel="next" href="http://localhost:2368/page/2/">
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="author-template author-kurt blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+    <header class="main-header author-head no-cover">
+        <nav class="main-nav overlay clearfix">
+            <a class="back-button icon-arrow-left" href="http://localhost:2368">Home</a>
+            <a class="subscribe-button icon-feed" href="rss/index.rss">kurt</a>
+        </nav>
+    </header>
+
+    <section class="author-profile inner">
+        <figure class="author-image">
+            <div class="img" style="background-image: url(http://www.gravatar.com/avatar/bd9e9506bb3d9d9b2383f2b13fb756b2?d=404&amp;s=250)"><span class="hidden">kurt's Picture</span></div>
+        </figure>
+        <h1 class="author-title">kurt</h1>
+        <h2 class="author-bio">0</h2>
+        <div class="author-meta">
+            
+            
+            <span class="author-stats"><i class="icon-stats"></i> 9 posts</span>
+        </div>
+    </section>
+
+<main class="content" role="main">
+
+    
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../mongohq-is-now-compose-and-launching-elasticsearch/">MongoHQ is now Compose, and launching Elasticsearch</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-08-06">August 06, 2014</time>
+           in <span class="tags"><a href="../../tag/announcement-2/">announcement</a> &amp;bullet; <a href="../../tag/compose-2/">compose</a> &amp;bullet; <a href="../../tag/mongohq/">mongohq</a></span>
+        </small>
+    
+    
+        <p class="excerpt">As you can probably tell, we’ve made a big change — our company is now called Compose. We’ve spent the last 5 years helping customers solve complex data problems, and it’s become increasingly common for applications to need…</p>
+    
+        <p><a class="read-more" href="../../mongohq-is-now-compose-and-launching-elasticsearch/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../mongodb-elastic-deployments-now-available-in-oregon/">MongoDB Elastic Deployments now available in Oregon</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-05-16">May 16, 2014</time>
+          
+        </small>
+    
+    
+        <p class="excerpt">We have finally completed Oregon Trail (been trying since 5th grade). We’re celebrating by launching Elastic Deployments optimized for use in the AWS us-west-2 datacenter. If you have a production, MongoDB backed application you want to run on the…</p>
+    
+        <p><a class="read-more" href="../../mongodb-elastic-deployments-now-available-in-oregon/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../mongodb-elastic-deployments-now-in-beta-on-digitalocean/">MongoDB Elastic Deployments now in beta on DigitalOcean</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-04-30">April 30, 2014</time>
+          
+        </small>
+    
+    
+        <p class="excerpt">Running your application on DigitalOcean? Now you can take advantage of the blazing fast SSDs and autoscaling that you get with MongoHQ’s Elastic Deployments. DigitalOcean is by far our most requested datacenter provider, and we are happy to announce…</p>
+    
+        <p><a class="read-more" href="../../mongodb-elastic-deployments-now-in-beta-on-digitalocean/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../elastic-deployments-now-available-in-australia/">Elastic Deployments Now Available in Australia</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-03-26">March 26, 2014</time>
+          
+        </small>
+    
+    
+        <p class="excerpt">G’day Australia! We would like to let you all know that our Elastic Deployments are now available in Sydney. These represent the best in hosted MongoDB – SSD-backed replica sets that autoscale as your data grows, for a flat price…</p>
+    
+        <p><a class="read-more" href="../../elastic-deployments-now-available-in-australia/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../how-we-scale-mongodb/">How We Scale MongoDB</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-03-16">March 16, 2014</time>
+           in <span class="tags"><a href="../../tag/elastic-deployments/">elastic deployments</a> &amp;bullet; <a href="../../tag/mongodb/">mongodb</a> &amp;bullet; <a href="../../tag/performance/">performance</a> &amp;bullet; <a href="../../tag/scaling/">scaling</a> &amp;bullet; <a href="../../tag/sharding/">Sharding</a></span>
+        </small>
+    
+    
+        <p class="excerpt">We recently launched Elastic Deployments for MongoDB, which represent the best method we’ve found for scaling customers’ MongoDB datasets appropriately. The word “appropriate” is, well, appropriate when considering scaling. A 10GB MongoDB dataset has different requirements than a 10TB…</p>
+    
+        <p><a class="read-more" href="../../how-we-scale-mongodb/">Read More »</a></p>
+    
+      </article>
+    
+    <nav class="pagination big-push">
+      <small class="page-number">Page 1 of 2</small>
+        <a class="btn mini older" href="page/2/">Older Articles »</a>
+    </nav>
+</main>
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

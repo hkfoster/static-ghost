@@ -1,0 +1,273 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>RethinkDB now on Compose</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/rethinkdb-now-on-compose/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="RethinkDB now on Compose">
+    <meta property="og:description" content="The one thing we love at Compose is databases, so when we get the opportunity to offer our users one of the hottest, feature packed document databases around to run on our platform, we go for it. RethinkDBRethinkDB is a...">
+    <meta property="og:url" content="http://localhost:2368/rethinkdb-now-on-compose/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/composelaunchfeatured_litldy_luv5y8.jpg">
+    <meta property="article:published_time" content="2014-10-15T10:16:20.000Z">
+    <meta property="article:modified_time" content="2014-12-17T09:18:56.000Z">
+    <meta property="article:tag" content="beta">
+    <meta property="article:tag" content="compose">
+    <meta property="article:tag" content="database">
+    <meta property="article:tag" content="json">
+    <meta property="article:tag" content="new">
+    <meta property="article:tag" content="platform">
+    <meta property="article:tag" content="ssh">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RethinkDB now on Compose">
+    <meta name="twitter:description" content="The one thing we love at Compose is databases, so when we get the opportunity to offer our users one of the hottest, feature packed document databases around to run on our platform, we go for it. RethinkDBRethinkDB is a...">
+    <meta name="twitter:url" content="http://localhost:2368/rethinkdb-now-on-compose/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/composelaunchfeatured_litldy_luv5y8.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "RethinkDB now on Compose",
+    "url": "http://localhost:2368/rethinkdb-now-on-compose/",
+    "datePublished": "2014-10-15T10:16:20.000Z",
+    "dateModified": "2014-12-17T09:18:56.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/composelaunchfeatured_litldy_luv5y8.jpg",
+    "keywords": "beta, compose, database, json, new, platform, ssh",
+    "description": "The one thing we love at Compose is databases, so when we get the opportunity to offer our users one of the hottest, feature packed document databases around to run on our platform, we go for it. RethinkDBRethinkDB is a..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-beta tag-compose-2 tag-database tag-json tag-new tag-platform tag-ssh blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-beta tag-compose-2 tag-database tag-json tag-new tag-platform tag-ssh container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/composelaunchfeatured_litldy_luv5y8.jpg)">
+    <h1 class="post-title">RethinkDB now on Compose</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-10-15">October 15th, 2014</time></small>
+  </header>
+
+<p>The one thing we love at Compose is databases, so when we get the opportunity to offer our users one of the hottest, feature packed document databases around to run on our platform, we go for it. <a href="../content/images/2014/12/Screenshot-2014-10-15-12_30_53_rnaarz_tiscjd.png">RethinkDB</a>RethinkDB is a JSON document based, distributed database with an integrated administration and exploration console. The administration view gives control of the cluster’s configuration and a view into its performance. The exploration console and through the API you get access to ReQL, a rich query language, with autocompletion, command history and built in documentation. ReQL is built around function chaining and is available in client libraries for JavaScript, Python and Ruby. With ReQL it is possible to utilise RethinkDB server-side features such as distributed joins and subqueries across the cluster’s nodes.</p>
+
+<p>RethinkDB already has lock-free concurrency for database access and queries are automatically parallelised and distributed through the cluster. RethinkDB also supports secondary indexes – by field or compounds of fields, arrays or even arbitrary expressions – for better read query performance and the developers have just added geospatial indexes and queries to that mix.</p>
+
+<p>With that range of capabilities, we knew we wanted to bring RethinkDB to Compose users – we want to offer the best databases to you so you can integrate the right databases into your application stack. With Compose, you also get a managed RethinkDB instance with three nodes, automatically scaling and backed up, so that your database fits your data like a glove and you get instant power over it. And as with all Compose deployments, it comes with the assurance of a 24/7 ops team managing your databases. But it isn’t just RethinkDB beta availability we’re launching today – we’ve also added some new technology to the Compose platform.</p>
+
+<h2 id="accessingrethinkdboncompose">Accessing RethinkDB on Compose</h2>
+
+<p>We’re presenting your RethinkDB databases as a cluster on its own private network within a deployment in the same way we organise our Elasticsearch offerings. This means the entire cluster is isolated within the Compose platform. To get access to these deployed clusters, you configure a capsule within them to act as your entry point to the cluster. So, for example, Elasticsearch at Compose has a haproxy capsule for /content/images/2014/12/composerethinker<em>odmlt1</em>mt4drb.png)RethinkDB on Compose is being beta-released today, with pricing starting at $45 a month for a three node cluster with 2GB of storage and 204MB of RAM, and $18 a month for each extra gigabyte. The cluster autoscales and has built-in automatic and on-demand backups. For data migration and synchronisation, Transporter to RethinkDB costs $9 a month for continuous transport and $0.0125 an hour for one-off transfers. To get going with RethinkDB on Compose <a href="https://www.compose.io/signup/?plan=rethinkdb&amp;utm_source=10152014&amp;utm_medium=blog&amp;utm_campaign=rethinklaunch">sign up now</a> for a Compose account and be deploying your first RethinkDB cluster in minutes.</p>
+
+<p>It’s not just Compose who are excited about getting RethinkDB online, the team at RethinkDB are excited too – checkout out the <a href="http://www.rethinkdb.com/blog/compose/">RethinkDB blog post</a> about our launch. We’ll also be getting together for a <a href="http://www.meetup.com/RethinkDB-Bay-Area-Meetup-Group/events/213498072/">webchat</a> to talk about our current and future plans too.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=RethinkDB%20now%20on%20Compose&amp;url=http://localhost:2368/rethinkdb-now-on-compose/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/rethinkdb-now-on-compose/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/rethinkdb-now-on-compose/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

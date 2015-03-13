@@ -1,0 +1,297 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Two-Factor Authentication and Security Auditing Now Available for all MongoHQ Accounts</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/two-factor-authentication-and-security-auditing-now-available-for-all-mongohq-accounts/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Two-Factor Authentication and Security Auditing Now Available for all MongoHQ Accounts">
+    <meta property="og:description" content="Today, we’re rolling out two new security features to help all MongoHQ users to take control of their account security: two-factor authentication and a security auditing tool. We’ve put a lot of thought into developing the best tools...">
+    <meta property="og:url" content="http://localhost:2368/two-factor-authentication-and-security-auditing-now-available-for-all-mongohq-accounts/">
+    <meta property="article:published_time" content="2014-01-28T21:52:37.000Z">
+    <meta property="article:modified_time" content="2014-09-01T07:38:35.000Z">
+    <meta property="article:tag" content="Security">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Two-Factor Authentication and Security Auditing Now Available for all MongoHQ Accounts">
+    <meta name="twitter:description" content="Today, we’re rolling out two new security features to help all MongoHQ users to take control of their account security: two-factor authentication and a security auditing tool. We’ve put a lot of thought into developing the best tools...">
+    <meta name="twitter:url" content="http://localhost:2368/two-factor-authentication-and-security-auditing-now-available-for-all-mongohq-accounts/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "elisabethmongohq-com",
+        "image": "//www.gravatar.com/avatar/dcd09e7356d3e170dfe73641098d2442?d=404&s=250",
+        "url": "http://localhost:2368/author/elisabethmongohq-com",
+        "sameAs": ""
+    },
+    "headline": "Two-Factor Authentication and Security Auditing Now Available for all MongoHQ Accounts",
+    "url": "http://localhost:2368/two-factor-authentication-and-security-auditing-now-available-for-all-mongohq-accounts/",
+    "datePublished": "2014-01-28T21:52:37.000Z",
+    "dateModified": "2014-09-01T07:38:35.000Z",
+    "keywords": "Security",
+    "description": "Today, we’re rolling out two new security features to help all MongoHQ users to take control of their account security: two-factor authentication and a security auditing tool. We’ve put a lot of thought into developing the best tools..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-security blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-security container">
+  <header>
+    <h1 class="post-title">Two-Factor Authentication and Security Auditing Now Available for all MongoHQ Accounts</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-01-28">January 28th, 2014</time></small>
+  </header>
+
+<p></p><div id="magicdomid2">Today, we’re rolling out two new security features to help all MongoHQ users to take control of their account security: two-factor authentication and a security auditing tool.
+
+<p>We’ve put a lot of thought into developing the best tools that we can to help keep your account secure. By arming our users with an extra layer of security and additional account activity information, they can be more confident that their data is secure.</p>
+
+<h2 id="twofactorauthenticationhttpdocsmongohqcomsecuritymongohqtwofactorauthenticationhtml"><a href="http://docs.mongohq.com/security/mongohq-two-factor-authentication.html">Two-Factor Authentication</a></h2>
+
+<p>MongoHQ  now provides the option for users to <a href="http://docs.mongohq.com/security/mongohq-two-factor-authentication.html">enable two-factor authentication</a> to gain access to their databases via the MongoHQ web application. This feature greatly enhances the protection around your MongoHQ account and substantially decreases the likelihood of unauthorized access to your databases via a username or password in the wild. <a href="http://docs.mongohq.com/security/mongohq-two-factor-authentication.html">Enabling two-factor authentication</a> (2FA) is straight-forward and takes just a couple of minutes. It is one of the simplest ways to protect your MongoHQ account.</p>
+
+<p>MongoHQ two-factor authentication works with standard SMS and with all the popular authentication apps, including:</p>
+
+<p>· Google Authenticator <br>
+ · Authy <br>
+ · Duo Security</p>
+
+<p><strong>Ensure 100% compliance with team-enforced two-factor authentication</strong></p>
+
+<p>An additional feature of our two-factor authentication is that it allows the account owner for your account to enforce all users on the account to enable 2FA before being able to log back into the MongoHQ application. This is a quick and easy way to ensure that you have 100% adoption of this security practice in your organization.</p>
+
+<p><strong>Providers</strong></p>
+
+<p>For users of MongoHQ that access their web application through a provider portal, the provider regulates the procedure for authentication. In these scenarios two-factor authentication needs to be enabled at the provider level, so users will need to check with their provider to see if 2FA is an available option.</p>
+
+<p><a href="http://docs.mongohq.com/security/mongohq-two-factor-authentication.html">Read more about two-factor authentication and how to activate it</a>.</p>
+
+<h2 id="securityauditinghttpdocsmongohqcomsecurityaccountactivityhtml"><a href="http://docs.mongohq.com/security/account-activity.html">Security Auditing</a></h2>
+
+<p>The new security auditing tool allows you to <a href="http://docs.mongohq.com/security/account-activity.html">monitor your account activity</a> with an audit trail of all successful and attempted events on your account. Information like this is valuable because it provides you with an easy way to monitor all the events that happen to your MongoHQ account and ensure that all are within the bounds of what you and your team expect.</p>
+
+<p><strong>Events that are monitored</strong></p>
+
+<p>• Login attempts (by IP address) to your MongoHQ account, including both successful and failed logins. <br>
+ • Adding/removing MongoHQ users to your account. <br>
+ • De-provisioning a database. <br>
+ • Adding/removing users on a database. <br>
+ • Changing the version of a database. <br>
+ • Issuing replica set state changes from the web interface.</p>
+
+<p><a href="http://docs.mongohq.com/security/account-activity.html">Read more about our Security Auditing feature and how to access it</a>.</p>
+
+<h2 id="questionsmailtosupportmongohqcom"><a href="mailto:support@mongohq.com">Questions</a></h2>
+
+<p>If you have any questions about our new security features please contact <a href="mailto:support@mongohq.com">support@mongohq.com</a></p>
+
+<p></p></div> 
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/elisabethmongohq-com/">
+        <img src="http://www.gravatar.com/avatar/dcd09e7356d3e170dfe73641098d2442?d=404&amp;s=250" alt="elisabethmongohq-com">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/elisabethmongohq-com/">elisabethmongohq-com</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Two-Factor%20Authentication%20and%20Security%20Auditing%20Now%20Available%20for%20all%20MongoHQ%20Accounts&amp;url=http://localhost:2368/two-factor-authentication-and-security-auditing-now-available-for-all-mongohq-accounts/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/two-factor-authentication-and-security-auditing-now-available-for-all-mongohq-accounts/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/two-factor-authentication-and-security-auditing-now-available-for-all-mongohq-accounts/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

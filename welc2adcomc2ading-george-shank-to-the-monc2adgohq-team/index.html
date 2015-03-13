@@ -1,0 +1,272 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Wel­com­ing George Shank to the Mon­goHQ Team</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/welc2adcomc2ading-george-shank-to-the-monc2adgohq-team/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Wel­com­ing George Shank to the Mon­goHQ Team">
+    <meta property="og:description" content="George &amp;amp; JavaScript. A match made in heaven.We’re pleased to welcome another member to our trusty team – Welcome George Shank! George is primarily a Node.js developer and we’re looking forward to having him working with us....">
+    <meta property="og:url" content="http://localhost:2368/welc2adcomc2ading-george-shank-to-the-monc2adgohq-team/">
+    <meta property="article:published_time" content="2014-01-21T00:10:52.000Z">
+    <meta property="article:modified_time" content="2014-12-17T11:44:37.000Z">
+    <meta property="article:tag" content="new people">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Wel­com­ing George Shank to the Mon­goHQ Team">
+    <meta name="twitter:description" content="George &amp;amp; JavaScript. A match made in heaven.We’re pleased to welcome another member to our trusty team – Welcome George Shank! George is primarily a Node.js developer and we’re looking forward to having him working with us....">
+    <meta name="twitter:url" content="http://localhost:2368/welc2adcomc2ading-george-shank-to-the-monc2adgohq-team/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "elisabethmongohq-com",
+        "image": "//www.gravatar.com/avatar/dcd09e7356d3e170dfe73641098d2442?d=404&s=250",
+        "url": "http://localhost:2368/author/elisabethmongohq-com",
+        "sameAs": ""
+    },
+    "headline": "Wel­com­ing George Shank to the Mon­goHQ Team",
+    "url": "http://localhost:2368/welc2adcomc2ading-george-shank-to-the-monc2adgohq-team/",
+    "datePublished": "2014-01-21T00:10:52.000Z",
+    "dateModified": "2014-12-17T11:44:37.000Z",
+    "keywords": "new people",
+    "description": "George &amp;amp; JavaScript. A match made in heaven.We’re pleased to welcome another member to our trusty team – Welcome George Shank! George is primarily a Node.js developer and we’re looking forward to having him working with us...."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-new-people blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-new-people container">
+  <header>
+    <h1 class="post-title">Wel­com­ing George Shank to the Mon­goHQ Team</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-01-20">January 20th, 2014</time></small>
+  </header>
+
+<p><figure class="wp-caption alignright" id="attachment_383"><a href="http://127.0.0.1:2368/content/images/2014/12/george.jpg-large.jpeg"><img src="../content/images/2014/12/george_jpg-large_flabny_wrqcer.jpg" alt="George &amp; node.js. A marriage made in heaven." title=""></a><figcaption class="wp-caption-text">George &amp; JavaScript. A match made in heaven.</figcaption></figure>We’re pleased to welcome another member to our trusty team – Welcome George Shank! George is primarily a Node.js developer and we’re looking forward to having him working with us. George is based in Salt Lake City (along with Ian &amp; Addison – we practically have a satellite office there now). This week he is visiting us in the San Mateo office.</p>
+
+<h4 id="quickspecs">Quick Specs:</h4>
+
+<p><strong>Twitter:</strong> taterbase <br>
+<strong>Github:</strong> taterbase <br>
+<strong>Superpower:</strong> Thinking of good ideas after they’ve already been implemented.</p>
+
+<h4 id="georgeongeorge">George, on George:</h4>
+
+<p>“My family was military growing up so I’ve lived all over the country (and outside for parts) but I call Salt Lake City, Utah home these days. I’ve been programming since I discovered how on my TI-83 calculator in my Highschool physics class and can’t seem to quit. I love the web and want to do everything I can to make it a more open and awesome place.</p>
+
+<p>I started out freelancing as primarily a mobile only developer doing Android and iOS for while. When I got my first big boy job I was brought on as a mobile developer at an agency but was handed a PhoneGap project to work on. And thus began my love affair with JavaScript.</p>
+
+<p>I’ve been primarily a Node.js developer for the past 2 years and wouldn’t trade it for anything. Working with JavaScript feels so fluid and approachable that I try to use it as often as I can. The community is huge and incredibly kind which makes me feel like I have an extended internet family.</p>
+
+<p>While I’ve spent a decent amount of time building out RESTful services and API’s for consumers I find that true joy comes when I get to work on large distributed systems that need to work together and communicate efficiently with each other ( shouts out to MongoHQ ). Systems communications utilizing WebSockets, WebRTC, PubSub and other fun buzzwords get me so excited I can’t stand it. The internet is moving ever closer to a distributed future and I can’t wait to see what that looks like (and hopefully help build it)!</p>
+
+<p>When I’m not programming I can be found snowboarding or speaking broken spanish at the local taqueria in hopes of ordering the perfect burrito.”</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/elisabethmongohq-com/">
+        <img src="http://www.gravatar.com/avatar/dcd09e7356d3e170dfe73641098d2442?d=404&amp;s=250" alt="elisabethmongohq-com">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/elisabethmongohq-com/">elisabethmongohq-com</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Wel%C2%ADcom%C2%ADing%20George%20Shank%20to%20the%20Mon%C2%ADgoHQ%20Team&amp;url=http://localhost:2368/welc2adcomc2ading-george-shank-to-the-monc2adgohq-team/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/welc2adcomc2ading-george-shank-to-the-monc2adgohq-team/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/welc2adcomc2ading-george-shank-to-the-monc2adgohq-team/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

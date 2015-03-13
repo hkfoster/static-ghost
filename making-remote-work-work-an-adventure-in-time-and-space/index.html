@@ -1,0 +1,291 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Making Remote Work Work: an Adventure in Time and Space</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/making-remote-work-work-an-adventure-in-time-and-space/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Making Remote Work Work: an Adventure in Time and Space">
+    <meta property="og:description" content="MongoHQ is a distributed company, with 21 employees scattered across California, Alabama, Utah, Windsor Ontario, Quebec, and London. This isn’t rare, by any means, and is becoming more common as technology corporations evolve … particularly when they realize that the...">
+    <meta property="og:url" content="http://localhost:2368/making-remote-work-work-an-adventure-in-time-and-space/">
+    <meta property="article:published_time" content="2014-01-15T18:08:31.000Z">
+    <meta property="article:modified_time" content="2014-12-17T11:44:40.000Z">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Making Remote Work Work: an Adventure in Time and Space">
+    <meta name="twitter:description" content="MongoHQ is a distributed company, with 21 employees scattered across California, Alabama, Utah, Windsor Ontario, Quebec, and London. This isn’t rare, by any means, and is becoming more common as technology corporations evolve … particularly when they realize that the...">
+    <meta name="twitter:url" content="http://localhost:2368/making-remote-work-work-an-adventure-in-time-and-space/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "kurt",
+        "image": "//www.gravatar.com/avatar/bd9e9506bb3d9d9b2383f2b13fb756b2?d=404&s=250",
+        "url": "http://localhost:2368/author/kurt",
+        "sameAs": ""
+    },
+    "headline": "Making Remote Work Work: an Adventure in Time and Space",
+    "url": "http://localhost:2368/making-remote-work-work-an-adventure-in-time-and-space/",
+    "datePublished": "2014-01-15T18:08:31.000Z",
+    "dateModified": "2014-12-17T11:44:40.000Z",
+    "description": "MongoHQ is a distributed company, with 21 employees scattered across California, Alabama, Utah, Windsor Ontario, Quebec, and London. This isn’t rare, by any means, and is becoming more common as technology corporations evolve … particularly when they realize that the..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post container">
+  <header>
+    <h1 class="post-title">Making Remote Work Work: an Adventure in Time and Space</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-01-15">January 15th, 2014</time></small>
+  </header>
+
+<p>MongoHQ is a distributed company, with 21 employees scattered across California, Alabama, Utah, Windsor Ontario, Quebec, and London. This isn’t rare, by any means, and is becoming more common as technology corporations evolve … particularly when they realize that the intersection of the entire population of good hackers and the area that’s reasonably accessible to their office looks something like this:</p>
+
+<p><img src="http://127.0.0.1:2368/content/images/2014/12/good-hacker-sf-venn-diagram.png" alt="Good Hacker intersection with office area" title="">Most posts like this talk a lot about the tools, which is understandable because they’re so much fun to futz around with. At their best, though, tools that help with distributed teams are an extension of a remote friendly workplace, and getting to that is <em>hard</em>. We’re probably 80% of the way there, and with enough diligence will be 82% of the way there by the end of this year.</p>
+
+<h2 id="workingwellremotelytakespractice">Working well remotely takes practice</h2>
+
+<p>We’ve started asking about remote work experience and skills very early in a promising interview cycle. We expect a lot from people, and the “remote requirement” just adds another dimension of difficulty to their jobs. The normal response, particularly from people who’ve been physically present at offices all their lives, is a bit nonchalant. They assume that “remote work” means “I can spend a lot of time skiing and work from the lodge”.</p>
+
+<p><img src="../content/images/2014/12/steve-telecommuting_wo2c4l_zp8wes.jpg" alt="Steve somewhere exotic, and snowy" title="">So that’s true, kind of, as evidenced by Steve up there. He does go skiing a lot and has been known to work from the lodge. He also, when not skiing, starts his days roughly 6 hours later than a normal Londoner to make sure he’s around to talk to people on the superior American time zones (except Pacific time, Pacific time is awful).</p>
+
+<p>What they don’t always think about, though, is the inherent firewall a commute creates between “work” and “personal life”. Working out of a home office opens up an entire world of surprisingly difficult-to-handle distractions, particularly for those of us with families. It’s easy to avoid a guitar wielding toddler when the office is 5 miles away and he has no driver’s license. It’s harder when the wall between the living room and the office makes a delightful banging noise when struck with a guitar.</p>
+
+<h2 id="everyoneworksremotelyevenfromanoffice">Everyone works remotely, even from an office</h2>
+
+<p>If you did the math, you noticed we have about four times as many people as we do locations. MongoHQ has offices in both San Mateo, CA (about 15 miles south of San Francisco) and Birmingham, AL. Having centralized offices can wreck a budding remote friendly culture. Working in a way that’s inclusive of people who aren’t physically (or even temporally) present is not entirely natural, and excluding remote employees from important interactions is a quick path to agony.</p>
+
+<p><img src="http://127.0.0.1:2368/content/images/2014/12/4798856225_497f8a1566_b-700x468.jpg" alt="Watercooler gossip" title="">We’ve experienced some variant of this problem every time a new hire has joined in one of our offices, and are now very explicit about the “work as if you’re not here” standard. We expect everyone to work with the remote collaboration tools, be available via the same channels, and produce written artifacts of interactions that are important to share. This is a tough requirement to stick to. We’ve encountered people who function very well in an office environment, but can’t seem to function remotely.</p>
+
+<h2 id="hypersensitivitytothefeels">Hypersensitivity to “the feels”</h2>
+
+<p>Like most deceptively simple ideas, remote work is easy and amazing when everything is going well. If your company is killing it, all the hockey sticks point up, and everyone gets along amazingly well, the remote work culture is probably good. There is danger, however, when things go south. We’ve experienced the emotional troughs as a company, and had individuals fight their own personal battles.</p>
+
+<p>The reality of a remote workplace is that the connections are largely artificial constructs. People can be very, very isolated. A person’s default behavior when they go into a funk is to avoid seeking out interactions, which is effectively the same as actively withdrawing in a remote work environment. It takes a tremendous effort to get on video chats, use our text based communication tools, or even call someone during a dark time.</p>
+
+<p>We’re learning how to interpret the emotional state of people we only rarely see, and started working to deliberately draw people out of isolation with company wide video events. We’ve even tried recording bits of these events (a recent one had a series of lightning talks) and sharing them around afterward in an effort to get face time, even if just one way. This is a hard problem, though, and there’s really very little we can do about it other than notice that it’s happening.</p>
+
+<h2 id="thepracticalandthetools">The practical (and the tools!)</h2>
+
+<p>In general, a distributed team is a series of communication problems. We tackle this in two general ways. First, we favor async communication when possible:</p>
+
+<ul>
+<li>We have a central “work tool” (it’s home grown, we call it Compose) we use to record what we’re producing each day. Anyone who wants to know what someone is up to, or what’s been accomplished on project X, can find out here … assuming everyone’s doing their job.</li>
+<li>Most day to day communication happens in <a href="http://127.0.0.1:2368/content/images/2014/12/sqwiggle-shenanigans.png">Hipchat</a>- Google Hangouts come in handy for scheduled events. We used to have a perpetual Hangout on wall mounted televisions in both offices, but that created a sort of audience / presenter vibe that was a little odd.</li>
+<li>We have a <a href="http://doublerobotics.com">Double Robotics</a> robot in each office. Remote employees can “drop in”, drive around, and even pull off low level pranks.</li>
+<li>Does real estate count as a tool? We have an apartment near our San Mateo office that anyone can use when they’re in town. People tend to travel to San Mateo about once every 6 weeks on average.</li>
+</ul>
+
+<h2 id="itsaprocess">It’s a process</h2>
+
+<p>If you are trying to build a remote friendly culture, the best advice we have for you is “just keep iterating”. It’s not an easy thing to do, but it’s an amazing capability for a company to have. Our continued attempts to do it well have resulted in some phenomenal people joining we never would have met otherwise. We’ve mostly been able to get this far by powering through the tough stuff, committing to un-natural but valuable habits, and <a href="http://joel.is/post/59525266381/the-joys-and-benefits-of-working-as-a-distributed-team">learning</a> from other <a href="https://zapier.com/blog/how-manage-remote-team/">companies</a> who are <a href="http://zachholman.com/posts/how-github-works-asynchronous/">trying</a> to do similar.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/kurt/">
+        <img src="http://www.gravatar.com/avatar/bd9e9506bb3d9d9b2383f2b13fb756b2?d=404&amp;s=250" alt="kurt">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/kurt/">kurt</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Making%20Remote%20Work%20Work%3A%20an%20Adventure%20in%20Time%20and%20Space&amp;url=http://localhost:2368/making-remote-work-work-an-adventure-in-time-and-space/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/making-remote-work-work-an-adventure-in-time-and-space/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/making-remote-work-work-an-adventure-in-time-and-space/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

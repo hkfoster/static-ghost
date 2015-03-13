@@ -1,0 +1,294 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>APIs Are Beautiful Things</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/apis-are-beautiful-things/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="APIs Are Beautiful Things">
+    <meta property="og:description" content="A good design keeps end-users in mind to craft a first-rate user experience (UX): straightforward workflow, clutter reduction, beautiful and joyful to use, and thousands other good rules of thumb. A good API follows many of the same rules. But...">
+    <meta property="og:url" content="http://localhost:2368/apis-are-beautiful-things/">
+    <meta property="article:published_time" content="2012-02-03T15:34:34.000Z">
+    <meta property="article:modified_time" content="2014-12-17T12:19:19.000Z">
+    <meta property="article:tag" content="API">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="mongohq">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="APIs Are Beautiful Things">
+    <meta name="twitter:description" content="A good design keeps end-users in mind to craft a first-rate user experience (UX): straightforward workflow, clutter reduction, beautiful and joyful to use, and thousands other good rules of thumb. A good API follows many of the same rules. But...">
+    <meta name="twitter:url" content="http://localhost:2368/apis-are-beautiful-things/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "eric",
+        "image": "//www.gravatar.com/avatar/1d4549fe1d311b3db0a1647f7e36909a?d=404&s=250",
+        "url": "http://localhost:2368/author/eric",
+        "sameAs": ""
+    },
+    "headline": "APIs Are Beautiful Things",
+    "url": "http://localhost:2368/apis-are-beautiful-things/",
+    "datePublished": "2012-02-03T15:34:34.000Z",
+    "dateModified": "2014-12-17T12:19:19.000Z",
+    "keywords": "API, mongodb, mongohq",
+    "description": "A good design keeps end-users in mind to craft a first-rate user experience (UX): straightforward workflow, clutter reduction, beautiful and joyful to use, and thousands other good rules of thumb. A good API follows many of the same rules. But..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-api tag-mongodb tag-mongohq blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-api tag-mongodb tag-mongohq container">
+  <header>
+    <h1 class="post-title">APIs Are Beautiful Things</h1>
+    <small class="post-meta"><time class="post-date" datetime="2012-02-03">February 3rd, 2012</time></small>
+  </header>
+
+<p>A good design keeps end-users in mind to craft a first-rate user experience (UX): straightforward workflow, clutter reduction, beautiful and joyful to use, and thousands other good rules of thumb. A good API follows many of the same rules. But rather than buttons and graphs, it manifests itself as beautiful markup and unambiguous actions. APIs are UX for programmers.</p>
+
+<p>We are in the midst of an overhaul, of sorts, to much of our internal and external codebase. We’ve replaced the gerbils who used to perform all of the MongoHQ work with an API (which wraps even smarter gerbils, but we’ll focus on the API for now). We wanted to ensure that we designed something we wanted to use, so these new systems all interacts through our new API. We are eating our own breakfast here, to make sure it’s tasty and healthful before serving you.</p>
+
+<p><img src="../content/images/2014/12/gerbils_jzl8mq_vxlehs.png" alt="MongoHQ Gerbils" title="">The new API isn’t ready for prime-time, yet. But it’s out there, and you’re welcome to take a <a href="http://support.mongohq.com/api">look</a>. This is still a VERY BETA product, so bear in mind we make changes and improvements all the time.</p>
+
+<h2 id="apiexample">API Example</h2>
+
+<h3 id="unsolicitedexample">Unsolicited Example</h3>
+
+<p>Before digging into the API, let’s see what you can do with the <a href="http://support.mongohq.com/api">MongoHQ REST API</a>. <a href="https://twitter.com/#!/dknell">David Knell</a> created this cool MongoHQ client module for Appcelerator (mobiles devices). He doesn’t work for us, and we didn’t solicit him to do it. Check out his video:</p>
+
+<p><figure class="embed"><iframe allowfullscreen="" frameborder="0" src="http://www.youtube.com/embed/eOGsq-gVlfQ?rel=0;3&amp;autohide=1&amp;showinfo=0"></iframe></figure>My favorite part is when he creates a database from our list of plans. One click<em>create-deploy-use</em>! This is exactly the kind of open ecosystem we’re trying to build by making MongoHQ the most transparent and fully featured database host, while holding to our ideals of simplicty and reliability.</p>
+
+<h3 id="gettingakey">Getting a Key</h3>
+
+<p>The API is simple to use. But you’ll first need a <a href="https://bridge.mongohq.com/signup">MongoHQ account</a> (sadly, a database created through a PaaS like Heroku or AppFog won’t work–you’ll need to sign up). Log into the web application, and click on “My Account” in the upper right. There you’ll find your secret API key, also known as <code>_apikey</code>.</p>
+
+<h3 id="creatingadatabase">Creating a Database</h3>
+
+<p>You can find out what plans we offer by issuing a GET request to the <code>/plans</code>path. All api requests hit the <code>https://api.mongohq.com</code> endpoint. We’ll use <code>curl</code> for convenience, but you can use anything that issues an HTTP GET request. Just be sure to replace <code>XXXXXXX</code> with your own private API key (also, don’t let it fall into the wrong hands!).</p>
+
+<pre><code>curl -X GET "https://api.mongohq.com/plans?_apikey=XXXXXXX"  
+</code></pre>
+
+<p>Once you’ve picked the plan you want, issue a POST to <code>/databases</code> to create a new one. You’ll need two JSON values: a <code>name</code> to give this database, and the type of <code>plan</code> you want (we’ll just pick <code>free</code>).</p>
+
+<pre><code>curl -X POST "https://api.mongohq.com/databases?_apikey=XXXXXXX"  
+-H 'Content-Type: application/json' 
+-d '{"name" : "test_db"}'
+</code></pre>
+
+<p>You can make up to 5 free databases this way in a single account–of course there’s no limit to how many larger plans you want to make.</p>
+
+<h2 id="greatpower">Great Power</h2>
+
+<p>This was just a quick demo for making a new database through the <a href="http://support.mongohq.com/api">MongoHQ API</a>. If you read the docs, you can see how to create/query collections/documents/indexes, check invoices, view stats (for larger plans), and more.</p>
+
+<p>As a reminder, this is a <strong>beta</strong> API, so keep that in mind before you bet the farm on it. Feel free to play around, and by all means, <a href="http://support.mongohq.com/">make suggestions</a>. We love your feedback.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/eric/">
+        <img src="http://www.gravatar.com/avatar/1d4549fe1d311b3db0a1647f7e36909a?d=404&amp;s=250" alt="eric">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/eric/">eric</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=APIs%20Are%20Beautiful%20Things&amp;url=http://localhost:2368/apis-are-beautiful-things/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/apis-are-beautiful-things/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/apis-are-beautiful-things/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

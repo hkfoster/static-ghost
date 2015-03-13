@@ -1,0 +1,280 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Post-Mortem of a Rough Day</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/post-mortem-of-a-rough-day/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Post-Mortem of a Rough Day">
+    <meta property="og:description" content="It is good to take a moment and reflect on what happened on April 21, 2011 and how our services were affected by the well-publicized outage that occurred with our Service Provider, Amazon EC2. Before proceeding, I wanted to take...">
+    <meta property="og:url" content="http://localhost:2368/post-mortem-of-a-rough-day/">
+    <meta property="article:published_time" content="2011-04-22T03:16:06.000Z">
+    <meta property="article:modified_time" content="2013-05-03T03:24:21.000Z">
+    <meta property="article:tag" content="amazon ec2">
+    <meta property="article:tag" content="cloud">
+    <meta property="article:tag" content="mongodb">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Post-Mortem of a Rough Day">
+    <meta name="twitter:description" content="It is good to take a moment and reflect on what happened on April 21, 2011 and how our services were affected by the well-publicized outage that occurred with our Service Provider, Amazon EC2. Before proceeding, I wanted to take...">
+    <meta name="twitter:url" content="http://localhost:2368/post-mortem-of-a-rough-day/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "jasonmongohq-com",
+        "image": "//www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&s=250",
+        "url": "http://localhost:2368/author/jasonmongohq-com",
+        "sameAs": "http://www.mongohq.com"
+    },
+    "headline": "Post-Mortem of a Rough Day",
+    "url": "http://localhost:2368/post-mortem-of-a-rough-day/",
+    "datePublished": "2011-04-22T03:16:06.000Z",
+    "dateModified": "2013-05-03T03:24:21.000Z",
+    "keywords": "amazon ec2, cloud, mongodb",
+    "description": "It is good to take a moment and reflect on what happened on April 21, 2011 and how our services were affected by the well-publicized outage that occurred with our Service Provider, Amazon EC2. Before proceeding, I wanted to take..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-amazon-ec2 tag-cloud tag-mongodb blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-amazon-ec2 tag-cloud tag-mongodb container">
+  <header>
+    <h1 class="post-title">Post-Mortem of a Rough Day</h1>
+    <small class="post-meta"><time class="post-date" datetime="2011-04-21">April 21st, 2011</time></small>
+  </header>
+
+<p>It is good to take a moment and reflect on what happened on April 21, 2011 and how our services were affected by the well-publicized outage that occurred with our Service Provider, Amazon EC2.</p>
+
+<p>Before proceeding, I wanted to take a moment during a day like this and offer praise to Amazon for not only their vision and leadership to even have an environment like this available, but, in almost all cases, and considering its size and magnitude, how solid the platform has become.</p>
+
+<h2 id="outagespecifics">Outage Specifics</h2>
+
+<p>We experienced a partial outage of our services starting at approximately 4:41am EST. After that, our Arrow, Swan and Hydra environments became unavailable and we saw, for a brief period, some limited outages on our Pearl and Tempest environments. They, though, along with Flame and Rose, remained stable throughout the day.</p>
+
+<h2 id="dataissues">Data Issues</h2>
+
+<p>Based on the extended downtime, we made the decision on the evening of April 21 (after 15 hours of downtime) to revert to data snapshots that occurred roughly three hours before our services became unavailable. Any data that was written between then and the time the snapshot occurred should be available for restoration and we will work with our customers to restore that data on an as-needed basis.</p>
+
+<p>We had to revert to using the most recent snapshots of our environments because the drives that each environment utilized continued to be unavailable to us and after much consultation with Amazon, we did not have a clear picture of when they were going to be available again.</p>
+
+<h2 id="wherewearenow">Where We Are Now</h2>
+
+<p><em>(Updated: 4/22/2011 2:31AM EST)</em> Outside of issues remaining with the MongoHQ.com web site, all our environments are online and available again. We are still waiting for word from Amazon, but will need to do hard reboots on our Rose and Tempest environments to conclude this event, even though those environments are available. Hopefully, we can avoid this, but will have to wait for word from Amazon in a few hours.</p>
+
+<h2 id="wheretonext">Where to Next</h2>
+
+<p>Obviously, this was a rough day for all of our customers and we certainly regret the downtime that occurred. We are moving in the right direction as we are already working to utilize the new additions available for Replica Sets in MongoDB 1.8. Currently, we have been focused on replication for data durability and going forward, we will be offering replication for high availability as well. These steps will help to prevent us from having service provider outages affect our services for long periods of time.</p>
+
+<h2 id="additionalquestions">Additional Questions</h2>
+
+<p>If you have additional questions about the outage, we definitely want to hear from you. So, please send an email to <strong>support@mongohq.com</strong> and we will answer it promptly. Thank you for your patience during this event.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/jasonmongohq-com/">
+        <img src="http://www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&amp;s=250" alt="jasonmongohq-com">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/jasonmongohq-com/">jasonmongohq-com</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Post-Mortem%20of%20a%20Rough%20Day&amp;url=http://localhost:2368/post-mortem-of-a-rough-day/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/post-mortem-of-a-rough-day/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/post-mortem-of-a-rough-day/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

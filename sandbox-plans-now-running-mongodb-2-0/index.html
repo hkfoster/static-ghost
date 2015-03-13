@@ -1,0 +1,277 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Sandbox Plans Now Running MongoDB 2.0</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/sandbox-plans-now-running-mongodb-2-0/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Sandbox Plans Now Running MongoDB 2.0">
+    <meta property="og:description" content="All of our free/sandbox databases were successfully upgraded to MongoDB 2.0.2 a couple of days ago. The upgrade was very smooth and our large community of users have access to the latest release of MongoDB. So, Why...">
+    <meta property="og:url" content="http://localhost:2368/sandbox-plans-now-running-mongodb-2-0/">
+    <meta property="article:published_time" content="2011-12-27T15:09:04.000Z">
+    <meta property="article:modified_time" content="2013-05-03T03:32:14.000Z">
+    <meta property="article:tag" content="mongo">
+    <meta property="article:tag" content="mongo hosting">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="mongodb 2.0">
+    <meta property="article:tag" content="mongodb hosting">
+    <meta property="article:tag" content="mongodb version">
+    <meta property="article:tag" content="mongohq">
+    <meta property="article:tag" content="upgrade">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Sandbox Plans Now Running MongoDB 2.0">
+    <meta name="twitter:description" content="All of our free/sandbox databases were successfully upgraded to MongoDB 2.0.2 a couple of days ago. The upgrade was very smooth and our large community of users have access to the latest release of MongoDB. So, Why...">
+    <meta name="twitter:url" content="http://localhost:2368/sandbox-plans-now-running-mongodb-2-0/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "jasonmongohq-com",
+        "image": "//www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&s=250",
+        "url": "http://localhost:2368/author/jasonmongohq-com",
+        "sameAs": "http://www.mongohq.com"
+    },
+    "headline": "Sandbox Plans Now Running MongoDB 2.0",
+    "url": "http://localhost:2368/sandbox-plans-now-running-mongodb-2-0/",
+    "datePublished": "2011-12-27T15:09:04.000Z",
+    "dateModified": "2013-05-03T03:32:14.000Z",
+    "keywords": "mongo, mongo hosting, mongodb, mongodb 2.0, mongodb hosting, mongodb version, mongohq, upgrade",
+    "description": "All of our free/sandbox databases were successfully upgraded to MongoDB 2.0.2 a couple of days ago. The upgrade was very smooth and our large community of users have access to the latest release of MongoDB. So, Why..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-mongo tag-mongo-hosting tag-mongodb tag-mongodb-2-0 tag-mongodb-hosting tag-mongodb-version tag-mongohq tag-upgrade blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-mongo tag-mongo-hosting tag-mongodb tag-mongodb-2-0 tag-mongodb-hosting tag-mongodb-version tag-mongohq tag-upgrade container">
+  <header>
+    <h1 class="post-title">Sandbox Plans Now Running MongoDB 2.0</h1>
+    <small class="post-meta"><time class="post-date" datetime="2011-12-27">December 27th, 2011</time></small>
+  </header>
+
+<p>All of our free/sandbox databases were successfully upgraded to MongoDB 2.0.2 a couple of days ago. The upgrade was very smooth and our large community of users have access to the latest release of MongoDB.</p>
+
+<h2 id="sowhythewait">So, Why the Wait?</h2>
+
+<p>Over the last few weeks, we tested the various MongoDB 2.0 releases (from 2.0 to 2.0.1 to 2.0.2) and saw the need to work directly with <a href="http://www.10gen.com/">10gen</a> to incorporate a couple of important fixes. These were aimed at preventing a sizable number of MongoDB installs from having driver issues related to how we run our hosted databases in authenticated mode.</p>
+
+<p>Once these were in place, we were ready to move forward.</p>
+
+<p>Reliability is extremely important to us, so before doing large-scale upgrades, we wanted to make sure that the updates would be seamless.</p>
+
+<h2 id="whatsnext">What’s Next?</h2>
+
+<p>Now that we have successfully upgraded our sandbox environments, we are preparing announcements for upgrading all of our environments to MongoDB 2.0.2. Also, we will be adding some follow-up articles that talk in more detail about the benefits of MongoDB 2.0 and how you can take advantage of them.</p>
+
+<h2 id="support">Support</h2>
+
+<p>If you have questions about the upgrade or need assistance with driver support, please contact us at <a href="mailto:support@mongohq.com">support@mongohq.com</a>. We are always happy to help!</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/jasonmongohq-com/">
+        <img src="http://www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&amp;s=250" alt="jasonmongohq-com">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/jasonmongohq-com/">jasonmongohq-com</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Sandbox%20Plans%20Now%20Running%20MongoDB%202.0&amp;url=http://localhost:2368/sandbox-plans-now-running-mongodb-2-0/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/sandbox-plans-now-running-mongodb-2-0/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/sandbox-plans-now-running-mongodb-2-0/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

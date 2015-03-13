@@ -1,0 +1,306 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Working with the new API – Part 3: The Grand Tour</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/working-with-the-new-api-part-3-the-grand-tour/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Working with the new API – Part 3: The Grand Tour">
+    <meta property="og:description" content="Previously on *MongoHQ API:*Go command line utilities and Node.js dashboards were assembled to show how the new MongoHQ API could give visibility to everything from database versions to backups. In this episode, we get to tour the entire...">
+    <meta property="og:url" content="http://localhost:2368/working-with-the-new-api-part-3-the-grand-tour/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/1280px-Clock_Cogs_sap7vq_pfsfol.jpg">
+    <meta property="article:published_time" content="2014-07-16T09:22:31.000Z">
+    <meta property="article:modified_time" content="2014-09-02T09:16:21.000Z">
+    <meta property="article:tag" content="mongohq">
+    <meta property="article:tag" content="REST API">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Working with the new API – Part 3: The Grand Tour">
+    <meta name="twitter:description" content="Previously on *MongoHQ API:*Go command line utilities and Node.js dashboards were assembled to show how the new MongoHQ API could give visibility to everything from database versions to backups. In this episode, we get to tour the entire...">
+    <meta name="twitter:url" content="http://localhost:2368/working-with-the-new-api-part-3-the-grand-tour/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/1280px-Clock_Cogs_sap7vq_pfsfol.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Working with the new API – Part 3: The Grand Tour",
+    "url": "http://localhost:2368/working-with-the-new-api-part-3-the-grand-tour/",
+    "datePublished": "2014-07-16T09:22:31.000Z",
+    "dateModified": "2014-09-02T09:16:21.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/1280px-Clock_Cogs_sap7vq_pfsfol.jpg",
+    "keywords": "mongohq, REST API",
+    "description": "Previously on *MongoHQ API:*Go command line utilities and Node.js dashboards were assembled to show how the new MongoHQ API could give visibility to everything from database versions to backups. In this episode, we get to tour the entire..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-mongohq tag-rest-api blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-mongohq tag-rest-api container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/1280px-Clock_Cogs_sap7vq_pfsfol.jpg)">
+    <h1 class="post-title">Working with the new API – Part 3: The Grand Tour</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-07-16">July 16th, 2014</time></small>
+  </header>
+
+<p><em>Previously on *MongoHQ API</em>:*<a href="http://blog.mongohq.com/working-with-the-new-api-part-1-go/">Go command line utilities</a> and <a href="http://blog.mongohq.com/working-with-the-new-api-part-2-node-js/">Node.js dashboards</a> were assembled to show how the <a href="http://blog.mongohq.com/mongohq-api-welcome-to-the-new-beta/">new MongoHQ API</a> could give visibility to everything from database versions to backups. In this episode, we get to tour the entire stockpile of calls available to the API.</p>
+
+<h2 id="everythingstartswithanaccount">Everything starts with an account</h2>
+
+<p><aside class="right-gutter">Image: Cogs by <a href="http://www.flickr.com/photos/arthurjohnpicton/5364226117/">SomeDriftwood</a> (<a href="https://creativecommons.org/licenses/by/2.0/">CC-BY-2.0</a>)</aside>In both previous articles, the applications start by establishing the account to be used. A user’s login can have a number of accounts associated with it so the <a href="http://docs.mongohq.com/rest-api/2014-06/accounts.html#list-accounts">List accounts</a> endpoint makes it easy to browse through the list. Accounts are referred to by their account slug string and if you already have that you can use it to <a href="http://docs.mongohq.com/rest-api/2014-06/accounts.html#get-one-account">get one account’s</a> details. There’s also the ability to <a href="http://docs.mongohq.com/rest-api/2014-06/accounts.html#update-an-account">update an account</a> though thats currently restricted to updating the account’s name.</p>
+
+<p>At the moment, we’re still working on the multi-account support, but we’ve embedded it into the API now so you can future proof your API accessing code. Currently everyone is their own accounts administrator too…</p>
+
+<p>If you have administrator rights, there’s a lot more you can do with the accounts though. That includes <a href="http://docs.mongohq.com/rest-api/2014-06/accounts.html#list-account's-invoices">listing the accounts invoices</a> and <a href="http://docs.mongohq.com/rest-api/2014-06/accounts.html#list-account's-coupons">any coupons that apply</a>. When you want to be sure you know who has been doing what with the account, you can also <a href="http://docs.mongohq.com/rest-api/2014-06/accounts.html#list-account-activity">list an account’s activity</a> which will include information about who, what and where users were when databases and access tokens were created.</p>
+
+<h2 id="deploymentsonline">Deployments online</h2>
+
+<p>As we’ve shown in previous articles, accounts have deployments, not databases. The deployment is a useful abstraction because a modern database with its replicas and such is actually made up of a number of hosts and servers. This all gets wrapped in the deployment and its these that you create and manage generally. In those previous articles we only looked at how to <a href="http://docs.mongohq.com/rest-api/2014-06/deployments.html#get-all-deployments">get all deployments</a> and get the <a href="http://docs.mongohq.com/rest-api/2014-06/deployments.html#get-deployment's-database's-version-information">version information</a> for the databases within the deployment. You can, like accounts, <a href="http://docs.mongohq.com/rest-api/2014-06/deployments.html#get-one-deployment">get the details of one deployment</a> by getting `/deployments/’ and the account slug and the deployment identifier.</p>
+
+<p>Deployments themselves can be identified by either an id or a name, but the name is initialised as null. To set that name you patch the <a href="http://docs.mongohq.com/rest-api/2014-06/deployments.html#rename-a-deployment">same deployment endpoint</a> and pass it a new name. You can then refer to that deployment by name rather than id which should be somewhat shorter which is handy if you are hand-rolling your API calls.</p>
+
+<p>You can, of course, create your deployment with a name. This is possible through one of two endpoints: <a href="http://docs.mongohq.com/rest-api/2014-06/deployments.html#create-an-elastic-deployment">create elastic deployment</a> or <a href="http://docs.mongohq.com/rest-api/2014-06/deployments.html#create-a-dedicated-deployment">create dedicated deployment</a>. One creates an elastic deployment on being given a name for the deployment, a name (and optionally a username and password for the first user) for a database and a location to create that deployment in. The other creates a dedicated deployment where you can select the number and capabilities of the nodes for the deployment.</p>
+
+<p>Once you have created a deployment, you can add more databases to it using the <a href="http://docs.mongohq.com/rest-api/2014-06/deployments.html#create-a-database">create a database</a> endpoint, again giving it a name along with the optional username and password for the first user of that database.</p>
+
+<p>We’ll come to backups in detail later, but suffice it to say at this point that there’s a <a href="http://docs.mongohq.com/rest-api/2014-06/deployments.html#get-a-deployment's-backups">get deployment’s backups</a> endpoint which will return a document about what backups are available and where to retrieve them or how to restore them .</p>
+
+<p>The last deployment related endpoint relates to another endpoint we mentioned earlier – its all well and good being able to find version information about your deployment but you need to be do something about it. Thats where the <a href="http://docs.mongohq.com/rest-api/2014-06/deployments.html#upgrade-deployment's-database-version">upgrade deployment database version</a> comes in because when invoked it’ll upgrade the database to the next eligible version. It’s actually the URI as the endpoint to get the version information but accessed with a PUT rather than a GET. You can use the GET to check in the progress of the upgrade though.</p>
+
+<h2 id="downinthedatabase">Down in the Database</h2>
+
+<p>With an account slug and a deployment id or name in hand, we can manage the databases of a deployment. The first thing we’d probably want to do is find out what databases are within the deployment and the <a href="http://docs.mongohq.com/rest-api/2014-06/databases.html#list-databases">List databases</a> endpoint supplies that information including id, name and status of the database. If you already have the name or id of the database you are interested in then you can <a href="http://docs.mongohq.com/rest-api/2014-06/databases.html#get-a-database">get a database</a> to get the same information but just for that database.</p>
+
+<p>We’ve previously mentioned <a href="http://docs.mongohq.com/rest-api/2014-06/databases.html#create-a-database">create database</a>, but it is worth knowing that it has a counterpart in <a href="http://docs.mongohq.com/rest-api/2014-06/databases.html#delete-a-database">delete database</a> which will remove a database from a deployment and, if it’s the last database, remove the deployment too.</p>
+
+<h2 id="backuptothefuture">Backup to the Future</h2>
+
+<p>Being able to manage your backups is good, being able to manage them programmatically through the API is better and that’s what the collection of Backups endpoints enables you to do. At the highest level you can get all the information on all the backups related to an account with the <a href="http://docs.mongohq.com/rest-api/2014-06/backups.html#list-all-backups-for-an-account">List all backups</a> endpoint; all you need present is the account slug for the account. If you already know the deployment id or name, you can use the <a href="http://docs.mongohq.com/rest-api/2014-06/backups.html#list-all-backups-for-a-deployment">list all backups for a deployment</a> endpoint which we mentioned earlier.</p>
+
+<p>Both calls return the same format of information with backup ids, times, database names, deployment id’s, filenames, sizes and a <code>links</code> array. The <code>links</code> give a relationship and URL to perform various actions like downloading the backup file for an extra off site copy or local processing, or restoring that backup into the database.</p>
+
+<p>If you just have the account slug and backup id, you can get the same information through the <a href="http://docs.mongohq.com/rest-api/2014-06/backups.html#get-one-backup">get one backup</a> endpoint – note this just gets the details, not the backup itself.</p>
+
+<p>These backups are mostly generated on a schedule, but if you need a deployment backup for right now, what you’ll want is the <a href="http://docs.mongohq.com/rest-api/2014-06/backups.html#trigger-on-demand-backup">trigger on-demand backup</a> endpoint. You do a POST to that endpoint and it will let you know its started the backup process. If you want to know when its done, poll the endpoint for listing all backups (and at a rate of no less than every 15 seconds) to see when the new backup appears. When it’s done, you’ll have a backup id which you can use to download.</p>
+
+<h2 id="logically">Log-ically</h2>
+
+<p>The final part of our tour brings us to the historical log endpoints, which allow you to <a href="http://docs.mongohq.com/rest-api/2014-06/historical-logs.html#query-historical-deployment-logs">query the deployment logs</a>. The logs can be retrieved for a particular day, grepped for a string, selected from a particular entry number or between a date range. The selection of parameters allows the one end point to be used for accumulating logs on a schedule or exploring them on demand. These historical logs are only available for elastic deployments – dedicated deployments have different infrastructure for this.</p>
+
+<h2 id="tourconcludes">Tour Concludes</h2>
+
+<p>As this grand tour concludes we hope that you now have a better feeling for the scope of the new API. We haven’t touched on the MongoDB REST API but will be arranging a tour of that soon. Remember to consult our previous two articles for examples of how to to authorize your application and call the REST API in Go and Node.js. Remember that <a href="mailto:support@monogohq.com">support@mongohq.com</a> is your one stop shop for assistance and any queries about how to use the new API.</p>
+
+<p>If you aren’t a MongoHQ user already, why not <a href="https://www.mongohq.com/signup?utm_source=Blog&amp;utm_medium=Content&amp;utm_campaign=blog.mongohq.com_7_16_14">sign up for one of our Elastic Deployments</a> and put the power of MongoHQ’s APIs and auto-scaling MongoDB at your fingertips.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Working%20with%20the%20new%20API%20%E2%80%93%20Part%203%3A%20The%20Grand%20Tour&amp;url=http://localhost:2368/working-with-the-new-api-part-3-the-grand-tour/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/working-with-the-new-api-part-3-the-grand-tour/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/working-with-the-new-api-part-3-the-grand-tour/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

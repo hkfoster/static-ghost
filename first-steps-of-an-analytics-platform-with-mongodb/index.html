@@ -1,0 +1,344 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>First Steps of an Analytics Platform With MongoDB</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/first-steps-of-an-analytics-platform-with-mongodb/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="First Steps of an Analytics Platform With MongoDB">
+    <meta property="og:description" content="MongoDB excels at analytics. Every week, we have customers asking for insight on building an analytics and metrics platform. We have seen outstanding performance from good practices and have seen issues with common bad practices. Customers have different types of...">
+    <meta property="og:url" content="http://localhost:2368/first-steps-of-an-analytics-platform-with-mongodb/">
+    <meta property="article:published_time" content="2013-01-29T21:59:29.000Z">
+    <meta property="article:modified_time" content="2013-08-13T20:24:48.000Z">
+    <meta property="article:tag" content="10gen">
+    <meta property="article:tag" content="analytics">
+    <meta property="article:tag" content="conference">
+    <meta property="article:tag" content="hosted mongodb">
+    <meta property="article:tag" content="mongo hosting">
+    <meta property="article:tag" content="mongoconf">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="mongodb hosting">
+    <meta property="article:tag" content="mongohq">
+    <meta property="article:tag" content="mongosv">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="First Steps of an Analytics Platform With MongoDB">
+    <meta name="twitter:description" content="MongoDB excels at analytics. Every week, we have customers asking for insight on building an analytics and metrics platform. We have seen outstanding performance from good practices and have seen issues with common bad practices. Customers have different types of...">
+    <meta name="twitter:url" content="http://localhost:2368/first-steps-of-an-analytics-platform-with-mongodb/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "chris",
+        "image": "//www.gravatar.com/avatar/862ad981103f3b95d88e265d980ca2c5?d=404&s=250",
+        "url": "http://localhost:2368/author/chris",
+        "sameAs": ""
+    },
+    "headline": "First Steps of an Analytics Platform With MongoDB",
+    "url": "http://localhost:2368/first-steps-of-an-analytics-platform-with-mongodb/",
+    "datePublished": "2013-01-29T21:59:29.000Z",
+    "dateModified": "2013-08-13T20:24:48.000Z",
+    "keywords": "10gen, analytics, conference, hosted mongodb, mongo hosting, mongoconf, mongodb, mongodb hosting, mongohq, mongosv",
+    "description": "MongoDB excels at analytics. Every week, we have customers asking for insight on building an analytics and metrics platform. We have seen outstanding performance from good practices and have seen issues with common bad practices. Customers have different types of..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-10gen tag-analytics tag-conference tag-hosted-mongodb tag-mongo-hosting tag-mongoconf tag-mongodb tag-mongodb-hosting tag-mongohq tag-mongosv blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-10gen tag-analytics tag-conference tag-hosted-mongodb tag-mongo-hosting tag-mongoconf tag-mongodb tag-mongodb-hosting tag-mongohq tag-mongosv container">
+  <header>
+    <h1 class="post-title">First Steps of an Analytics Platform With MongoDB</h1>
+    <small class="post-meta"><time class="post-date" datetime="2013-01-29">January 29th, 2013</time></small>
+  </header>
+
+<p>MongoDB excels at analytics. Every week, we have customers asking for insight on building an analytics and metrics platform. We have seen outstanding performance from good practices and have seen issues with common bad practices.</p>
+
+<p>Customers have different types of analytics engines on our hosted MongoDB platform ranging from usage metrics, business domain specific metrics, to financial platforms. The most generic type of metrics that most clients start tracking are events (e.g. “how many people walked into my stores” or “how many people opened an iPhone application”).</p>
+
+<p>A proper schema is the first step to getting off the ground quickly on a platform that will scale.</p>
+
+<h2 id="thenaiveapproach">The Naive Approach</h2>
+
+<p>With MongoDB, the first urge is to begin inserting documents quickly. The first documents typically have the following schema:</p>
+
+<pre><code>&lt;code data-language="javascript"&gt;{  
+  store_id: ObjectId(), // Object id of a store
+  event: "door open", // will be one of "door opened", "sale made", or "phone calls" 
+  created_at: new Date("2013-01-29T08:43:00Z")
+}
+</code></pre>
+
+<p>To run a query on the <code>event</code>, <code>store_id</code>, and <code>created_at</code>, you run the following query:</p>
+
+<p><code>&lt;code data-language="javascript"&gt;db.events.find({store_id: ObjectId("aaa"), created_at: {$gte: new Date("2013-01-29T00:00:00Z"), $lte: new Date("2013-01-30T00:00:00Z")}})</code></p>
+
+<p>These types of queries are deceptive. When you build the query on your local environment, it is fast. When scaling to 10 GB, they become slow. Typically, to increase speed, compound indexes are added for the following:</p>
+
+<pre><code>&lt;code data-language="javascript"&gt;db.events.ensureIndex({store_id: 1, created_at: 1})  
+db.events.ensureIndex({event: 1, created_at: 1})  
+db.events.ensureIndex({store_id: 1, event: 1, created_at: 1} )  
+</code></pre>
+
+<p>Each of these indexes must entirely fit in RAM.  Any new document will have a seemingly randomly chosen “store_id”.  An insert command will have a high probability of inserting the document record to the middle of an index.  To minimize RAM usage, it is best to insert sequentially: termed “writing to the right side of the index”.  Any new key is greater than or equal to the previous index key.</p>
+
+<h2 id="anoptimizeddocumentschema">An Optimized Document Schema</h2>
+
+<p>To optimize your document schema, create a <code>time_bucket</code> attribute that breaks down acceptable date ranges to hour, day, month, week, quarter, and/or year.</p>
+
+<pre><code>&lt;code data-language="javascript"&gt;{  
+  store_id: ObjectId(), // Object id of a store
+  event: "door open",
+  created_at: new Date("2013-01-29T08:43:00Z"),
+  time_bucket: [
+    "2013-01-29 08-hour",
+    "2013-01-29-day",
+    "2013-04-week",
+    "2013-01-month",
+    "2013-01-quarter",
+    "2013-year"
+  ]
+}
+</code></pre>
+
+<p>With the optimized schema, you would create the following indexes:</p>
+
+<pre><code>&lt;code data-language="javascript"&gt;db.events.ensureIndex({time_bucket: 1, store_id: 1, event: 1})  
+db.events.ensureIndex({time_bucket: 1, event: 1})  
+</code></pre>
+
+<p>With this document schema, we use a practice called “bucketing”. Instead of building a query on a range, we run the query:</p>
+
+<p><code>&lt;code data-language="javascript"&gt;db.events.find({store_id: ObjectId("aaa"), "time_bucket": "2013-01-29-day"})</code></p>
+
+<p>The draw back of this optimized document schema is every query must include a<code>time_bucket</code> attribute for every non-_id query. However, when querying most reporting systems, a date specification is required</p>
+
+<h2 id="betteruseofram">Better Use of RAM</h2>
+
+<p>Using the optimized <code>time_bucket</code>, new documents are added to the right side of the index. Any inserted document will have a greater time_bucket value than the previous documents. By adding to the right side of the index and using <code>time_bucket</code> to query, MongoDB will swap to disk any rarely older documents. MongoDB runs with minimal RAM usage. Your “hot data” size will be the most recently accessed (typically 1 – 3 months with most analytics applications), and the older data will settle nicely to disk.</p>
+
+<p>Neither queries nor inserts will access the middle of the index, and older index chunks can swap to disk.</p>
+
+<h2 id="bonuspointsusingtheaggregationframework">Bonus Points: Using the Aggregation Framework</h2>
+
+<p>Using aggregation to find the number of specific events per day, we can run:</p>
+
+<p><code>&lt;code data-language="javascript"&gt;db.events.aggregate( {$match: {time_bucket: "2013-01-month"}}, {$unwind: "$time_bucket"}, {$project: {time_bucket_event: {$concat: ["$time_bucket", "/", "$event"]}}}, {$group: {_id: "$time_bucket_event", event_count: {"$sum": 1}}} )</code></p>
+
+<p><em>Disclaimer: I used the $concat operator that will be available in MongoDB 2.4. To use a hosted MongoDB 2.4 Development Branch, take a look at our experimental databases.</em></p>
+
+<p>When using the aggregation framework, cache a final run for any particular day to a summated collection. Use this summated collection to present data via any application or reporting server.</p>
+
+<h2 id="followupmaterials">Follow Up Materials</h2>
+
+<p>The premier presentation for MongoDB Analytics is by John Nunemaker of Github. He regularly makes the rounds at MongoDB conferences covering how to do MongoDB analytics properly. 10gen makes these presentations available. <a href="http://www.10gen.com/presentations/mongosv-2012/mongodb-analytics-github">MongoDB for Analytics (at Github)</a></p>
+
+<p>When building a scaling analytics system, look for logical “buckets” for data. Avoid using “$in”, “$gte”, “$lte” operators when possible. MongoDB is fun because it rewards creativity for good schema design.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/chris/">
+        <img src="http://www.gravatar.com/avatar/862ad981103f3b95d88e265d980ca2c5?d=404&amp;s=250" alt="chris">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/chris/">chris</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=First%20Steps%20of%20an%20Analytics%20Platform%20With%20MongoDB&amp;url=http://localhost:2368/first-steps-of-an-analytics-platform-with-mongodb/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/first-steps-of-an-analytics-platform-with-mongodb/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/first-steps-of-an-analytics-platform-with-mongodb/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

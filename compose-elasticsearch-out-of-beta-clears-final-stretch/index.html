@@ -1,0 +1,275 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Compose Elasticsearch out of beta - clears final stretch</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/compose-elasticsearch-out-of-beta-clears-final-stretch/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Compose Elasticsearch out of beta - clears final stretch">
+    <meta property="og:description" content="In the early hours on Monday, the Compose Elasticsearch team met and put their cards on the table. And they were all green meaning that Compose’s Elasticsearch deployments have passed all their quality and resilience checks and that the...">
+    <meta property="og:url" content="http://localhost:2368/compose-elasticsearch-out-of-beta-clears-final-stretch/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/bonsaifield_bzoho3_nibqsx.png">
+    <meta property="article:published_time" content="2014-11-17T10:55:23.000Z">
+    <meta property="article:modified_time" content="2014-12-17T08:43:05.000Z">
+    <meta property="article:tag" content="launch">
+    <meta property="article:tag" content="regions">
+    <meta property="article:tag" content="update">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Compose Elasticsearch out of beta - clears final stretch">
+    <meta name="twitter:description" content="In the early hours on Monday, the Compose Elasticsearch team met and put their cards on the table. And they were all green meaning that Compose’s Elasticsearch deployments have passed all their quality and resilience checks and that the...">
+    <meta name="twitter:url" content="http://localhost:2368/compose-elasticsearch-out-of-beta-clears-final-stretch/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/bonsaifield_bzoho3_nibqsx.png">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Compose Elasticsearch out of beta - clears final stretch",
+    "url": "http://localhost:2368/compose-elasticsearch-out-of-beta-clears-final-stretch/",
+    "datePublished": "2014-11-17T10:55:23.000Z",
+    "dateModified": "2014-12-17T08:43:05.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/bonsaifield_bzoho3_nibqsx.png",
+    "keywords": "launch, regions, update",
+    "description": "In the early hours on Monday, the Compose Elasticsearch team met and put their cards on the table. And they were all green meaning that Compose’s Elasticsearch deployments have passed all their quality and resilience checks and that the..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-launch tag-regions tag-update blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-launch tag-regions tag-update container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/bonsaifield_bzoho3_nibqsx.png)">
+    <h1 class="post-title">Compose Elasticsearch out of beta - clears final stretch</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-11-17">November 17th, 2014</time></small>
+  </header>
+
+<p>In the early hours on Monday, the Compose Elasticsearch team met and put their cards on the table. And they were all green meaning that Compose’s Elasticsearch deployments have passed all their quality and resilience checks and that the users who joined us for the beta testing phase are happy with their deployments.</p>
+
+<p><img src="../content/images/2014/12/composesocial2_bwudi3_cg6pky.png" alt="composesocial2" title="">Elasticsearch, which was the first of Compose’s non-MongoDB database offerings, has moved to the top tier of our platform table. We chose Elasticsearch because it brings the power of rich full-text search engine to users. When we released Elasticsearch into public beta we <a href="../elasticsearch-at-compose-how-it-fits/">explained why Elasticsearch was a good fit</a> with how Compose does things. Elasticsearch with Compose gives you a management dashboard and automatic backups to ensure your data is safe.</p>
+
+<h2 id="transporterofdelights">Transporter of delights</h2>
+
+<p>But we didn’t stop there. During the beta, we <a href="../transporter-gets-mongodb-data-into-elasticsearch/">released our Transporter technology</a> which allows Elasticsearch to get a complete copy of a MongoDB database into Elasticsearch. We then went further and added a <a href="../continuously-synchronize-your-mongodb-data-to-elasticsearch/">continuous mode which lets a constant full stream</a> of updated data from a MongoDB deployment flow into Elasticsearch. That means the two databases can run completely in parallel, freeing the developer from the limitations of MongoDB’s full-text indexes. Or you can transform MongoDB data into a specialised, filtered dataset using the <a href="../transporter-transformers-powering-up-your-data-transfer/">Transformer engine within Transporter</a>.</p>
+
+<h2 id="securelydelivered">Securely delivered</h2>
+
+<p>Elasticsearch deployments run on a private network and we’ve added access portals so <a href="../keeping-elasticsearch-secure-the-compose-network/">you can connect to your database securely</a>. During the beta, we enhanced that facility too with support for <a href="../elasticsearch-ip-whitelisting-and-phonetic-plugins/">an IP whitelist</a> to further control who can connect to your Elasticsearch deployment.</p>
+
+<h2 id="pluginpowerandmore">Plugin power and more</h2>
+
+<p>We’ve also added support for a core set of <a href="../elasticsearch-plugins-are-go/">Elasticsearch plugins</a> including ElasticHQ’s data management console and Kibana’s query development front end and have started adding <a href="../elasticsearch-ip-whitelisting-and-phonetic-plugins/">more plugins</a> as customers request them. For further control, we’ve added <a href="http://127.0.0.1:2368/compose-elasticsearch-out-of-beta-clears-final-stretch/elasticsearch-metrics/">Elasticsearch memory metrics</a> so you can see how your database is behaving. And for developers, we’ve written about <a href="../porting-a-mongodb-full-text-search-app-to-elasticsearch/">how to port MongoDB apps to Elasticsearch</a> and how to use MongoDB and Elasticsearch together with <a href="../mongoosastic-the-power-of-mongodb-and-elasticsearch-together/">Mongoosastic</a>.</p>
+
+<p>As you can see, we’ve been busy at Compose making Elasticsearch the easy to deploy database you want for your full-text searching. And we let you run it off powerful SSD-backed hardware in a three-node deployment. Now Elasticsearch is out of beta, the next stage begins – over the coming weeks and months you’ll find Elasticsearch in more Compose regions so you can have your Elasticsearch closer to your applications.Your first 2GB of Elasticsearch data will cost you $54 and each gigabyte after that, another $18. If you are ready to enjoy Compose’s Elasticsearch and don’t have an account with us <a href="https://www.compose.io/elasticsearch.html?utm_source=elasticsearchoutofbeta&amp;utm_medium=blog&amp;utm_campaign=111714">sign up today</a>. If you already have an account, you know your new Elasticsearch is just a few clicks away on your Compose dashboard.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Compose%20Elasticsearch%20out%20of%20beta%20-%20clears%20final%20stretch&amp;url=http://localhost:2368/compose-elasticsearch-out-of-beta-clears-final-stretch/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/compose-elasticsearch-out-of-beta-clears-final-stretch/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/compose-elasticsearch-out-of-beta-clears-final-stretch/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

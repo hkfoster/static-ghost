@@ -1,0 +1,355 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>MongoDB and Full Text Search: My First Week With MongoDB 2.4 Development Release</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/mongodb-and-full-text-search-my-first-week-with-mongodb-2-4-development-release/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="MongoDB and Full Text Search: My First Week With MongoDB 2.4 Development Release">
+    <meta property="og:description" content="At MongoHQ, we deployed and made available for use a hosted MongoDB 2.3 beta server to allow ourselves and our customers an opportunity to check out some of the new features that 10gen has been working on. Admittedly, a...">
+    <meta property="og:url" content="http://localhost:2368/mongodb-and-full-text-search-my-first-week-with-mongodb-2-4-development-release/">
+    <meta property="article:published_time" content="2013-01-22T21:46:58.000Z">
+    <meta property="article:modified_time" content="2013-05-03T03:47:24.000Z">
+    <meta property="article:tag" content="10gen">
+    <meta property="article:tag" content="conference">
+    <meta property="article:tag" content="hosted mongodb">
+    <meta property="article:tag" content="mongo hosting">
+    <meta property="article:tag" content="mongoconf">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="mongodb hosting">
+    <meta property="article:tag" content="mongohq">
+    <meta property="article:tag" content="mongosv">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="MongoDB and Full Text Search: My First Week With MongoDB 2.4 Development Release">
+    <meta name="twitter:description" content="At MongoHQ, we deployed and made available for use a hosted MongoDB 2.3 beta server to allow ourselves and our customers an opportunity to check out some of the new features that 10gen has been working on. Admittedly, a...">
+    <meta name="twitter:url" content="http://localhost:2368/mongodb-and-full-text-search-my-first-week-with-mongodb-2-4-development-release/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "chris",
+        "image": "//www.gravatar.com/avatar/862ad981103f3b95d88e265d980ca2c5?d=404&s=250",
+        "url": "http://localhost:2368/author/chris",
+        "sameAs": ""
+    },
+    "headline": "MongoDB and Full Text Search: My First Week With MongoDB 2.4 Development Release",
+    "url": "http://localhost:2368/mongodb-and-full-text-search-my-first-week-with-mongodb-2-4-development-release/",
+    "datePublished": "2013-01-22T21:46:58.000Z",
+    "dateModified": "2013-05-03T03:47:24.000Z",
+    "keywords": "10gen, conference, hosted mongodb, mongo hosting, mongoconf, mongodb, mongodb hosting, mongohq, mongosv",
+    "description": "At MongoHQ, we deployed and made available for use a hosted MongoDB 2.3 beta server to allow ourselves and our customers an opportunity to check out some of the new features that 10gen has been working on. Admittedly, a..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-10gen tag-conference tag-hosted-mongodb tag-mongo-hosting tag-mongoconf tag-mongodb tag-mongodb-hosting tag-mongohq tag-mongosv blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-10gen tag-conference tag-hosted-mongodb tag-mongo-hosting tag-mongoconf tag-mongodb tag-mongodb-hosting tag-mongohq tag-mongosv container">
+  <header>
+    <h1 class="post-title">MongoDB and Full Text Search: My First Week With MongoDB 2.4 Development Release</h1>
+    <small class="post-meta"><time class="post-date" datetime="2013-01-22">January 22nd, 2013</time></small>
+  </header>
+
+<p>At MongoHQ, we deployed and made available for use a hosted MongoDB 2.3 beta server to allow ourselves and our customers an opportunity to check out some of the new features that 10gen has been working on. Admittedly, a nice benefit of working at MongoHQ is we get to toy around with a lot of new and interesting technology.</p>
+
+<p>From my initial reading of 2.3 release notes, I underestimated full text searching. Before we get started on what I wanted to talk about today, I wanted to mention one gotcha.</p>
+
+<h3 id="sothegotcha">So, the gotcha …</h3>
+
+<p><strong>CopyDB and Auth</strong> – Using the hosted MongoDB 2.3 server, I wanted to use some of MongoHQ’s tools to transfer data from an existing database to my new MongoDB 2.3 database. To do this, I used the built-in <a href="http://docs.mongodb.org/manual/tutorial/copy-databases-between-instances/"><code>copyDatabase</code> command</a>, which MongoHQ exposes via their web-based UI. When I did that, I saw the following:</p>
+
+<pre><code>&lt;code data-language="shell"&gt;Tue Jan 22 14:58:44.314 [conn697] copydbgetnonce is not supported when running with authentication enabled  
+Tue Jan 22 14:58:44.315 [conn697] copydb is not supported when running with authentication enabled```
+
+I temporarily got around this using the `mongodump` and `mongorestore`command, but it looks like there are still some auth-related bugs to be cleaned up in the developmental release. No worries as that is what developmental releases are put out there to figure out.
+
+Now, on to some details around full-text search…
+
+
+## Underestimating Full Text Searching
+
+Full-text searching with MongoDB 2.4 is more complex and powerful than originally illustrated in our first blog post outlining this feature. In the original example, we showed:
+</code></pre>
+
+<p><code data-language="javascript">db.emails.ensureIndex({body: "text"}, {name: "email<em>body</em>text_index"}) <br>
+db.emails.runCommand( "text", {search: "Pho"} )  </code></p>
+
+<pre><code>However, there are a number of other settings that are available for these query types, including:
+
+- Field weighting
+- Negative Matches
+- Phrase Matching
+- Entire document indexes
+
+So, I’ll quickly break down each one of these parameters, as each is pretty useful:
+
+### Field Weighting
+
+The documented spec only allows one text index per collection, but it allows multiple fields on that single index. Initially, my thought goes to fields like `tags`, `subjects`, and `fulltext`. Using the following:
+</code></pre>
+
+<p><code data-language="javascript">db.emails.ensureIndex({tags: "text", subject: "text", "body": "text"}, { <br>
+    name: "email<em>text</em>index",
+    weight: {
+      tags: 5,    // Assume folks are better at tagging than writing
+      subject: 4, // Assume the subject is better than the body at description
+      body: 1
+    }
+})
+```</code></p>
+
+<p>MongoDB uses a scoring algorithm to choose the most appropriate documents based on the weights and the number of matches.</p>
+
+<h3 id="negativetermsnotyetdocumentedandphrases">Negative Terms (not yet documented) and Phrases</h3>
+
+<p>If you look <a href="https://github.com/mongodb/mongo/blob/master/src/mongo/db/fts/fts_matcher.cpp#L38">at the code</a>, you will see negative words are also possible. So, you run something like the following:</p>
+
+<p><code>&lt;code data-language="javascript"&gt;db.emails.command('text', {search: "Pho -'gangnam chicken'"})</code></p>
+
+<p>Running the above you would find mentions of “Pho”, without mentioning ‘gangnam chicken’.</p>
+
+<h3 id="entiredocumentindexingiewildcard">Entire Document Indexing (i.e. wildcard)</h3>
+
+<p>Scanning through the documentation, I ran across this nugget: “$**”. With it, you can supply the entire document to full text searching like so:</p>
+
+<p><code>&lt;code data-language="javascript"&gt;db.emails.ensureIndex({"$**": "text"}, {name: "email_index_text"})</code></p>
+
+<p><em>If you are following along at home, you will need to drop the index above before adding this one</em></p>
+
+<p>I am working with very large documents on our test database, and as expected the wildcard indexes were noticeably <em>slower</em> than specifying precise fields. This certainly makes sense, but is something to keep in mind as your data set grows.</p>
+
+<h2 id="indexsizes">Index Sizes</h2>
+
+<p>After this first week, I began thinking “how big are these indexes?” How much ram will they require? In our internal tests, we are not working with huge data sets on this project yet, but we were seeing wildcard indexes consuming about 1/3 of the total data size for the collection.</p>
+
+<p>Given this, you should take this type of memory use into consideration as some long-running text searches could inadvertently shove a good chunk of your active data set out of memory. 10gen makes mention of this in their release notes, so make sure you keep this in mind as you plan out resources required to use this feature.</p>
+
+<h2 id="thecode">The Code</h2>
+
+<p>All of MongoDB is open-source. All of the full text search is modularized inside the <code>fts</code> directory at:</p>
+
+<p><a href="https://github.com/mongodb/mongo/tree/master/src/mongo/db/fts">https://github.com/mongodb/mongo/tree/master/src/mongo/db/fts</a></p>
+
+<p>The significant files are:</p>
+
+<ul>
+<li><code>fts_matcher.cpp</code> contains the matching algorithm – there are some undocumented nuggets in there.</li>
+<li><code>fts_search.cpp</code> contains the search runner and result builder.</li>
+</ul>
+
+<p>Even if you are just a Ruby or Node or PHP or Python developer and prefer to stay away from C++, reading code is always a good exercise. As you learn more about this feature, take a moment to learn more about the code that operates it as well.</p>
+
+<p>We are excited about some of the capabilities that full-text search adds to MongoDB and looking forward to seeing this feature mature over the coming months.</p>
+
+<h3 id="getstarted">Get Started</h3>
+
+<p>To get started testing the MongoDB 2.3 release, <a href="https://www.mongohq.com/signup">sign up for MongoHQ</a>, and create a database on the “Experimental” plan.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/chris/">
+        <img src="http://www.gravatar.com/avatar/862ad981103f3b95d88e265d980ca2c5?d=404&amp;s=250" alt="chris">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/chris/">chris</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=MongoDB%20and%20Full%20Text%20Search%3A%20My%20First%20Week%20With%20MongoDB%202.4%20Development%20Release&amp;url=http://localhost:2368/mongodb-and-full-text-search-my-first-week-with-mongodb-2-4-development-release/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/mongodb-and-full-text-search-my-first-week-with-mongodb-2-4-development-release/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/mongodb-and-full-text-search-my-first-week-with-mongodb-2-4-development-release/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

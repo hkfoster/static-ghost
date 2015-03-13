@@ -1,0 +1,311 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>The coming of the MongoDB storage engines</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/the-coming-of-the-mongodb-storage-engines/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="The coming of the MongoDB storage engines">
+    <meta property="og:description" content="We’re around half way to MongoDB 2.8, at least in terms of version numbers with the latest development version, 2.7.6, imminent. It’s also some months since MongoDB’s Eliot Horowitz outlined what was coming for...">
+    <meta property="og:url" content="http://localhost:2368/the-coming-of-the-mongodb-storage-engines/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/Twin-screw_triple-expansion_marine_steam_engines_Rankin_Kennedy_Modern_Engines_Vol_V_small_sayoxs_xwshig.jpg">
+    <meta property="article:published_time" content="2014-09-09T06:57:22.000Z">
+    <meta property="article:modified_time" content="2014-12-17T09:37:50.000Z">
+    <meta property="article:tag" content="Development">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="mongodb 2.8">
+    <meta property="article:tag" content="rocksdb">
+    <meta property="article:tag" content="storage">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The coming of the MongoDB storage engines">
+    <meta name="twitter:description" content="We’re around half way to MongoDB 2.8, at least in terms of version numbers with the latest development version, 2.7.6, imminent. It’s also some months since MongoDB’s Eliot Horowitz outlined what was coming for...">
+    <meta name="twitter:url" content="http://localhost:2368/the-coming-of-the-mongodb-storage-engines/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/Twin-screw_triple-expansion_marine_steam_engines_Rankin_Kennedy_Modern_Engines_Vol_V_small_sayoxs_xwshig.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "The coming of the MongoDB storage engines",
+    "url": "http://localhost:2368/the-coming-of-the-mongodb-storage-engines/",
+    "datePublished": "2014-09-09T06:57:22.000Z",
+    "dateModified": "2014-12-17T09:37:50.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/Twin-screw_triple-expansion_marine_steam_engines_Rankin_Kennedy_Modern_Engines_Vol_V_small_sayoxs_xwshig.jpg",
+    "keywords": "Development, mongodb, mongodb 2.8, rocksdb, storage",
+    "description": "We’re around half way to MongoDB 2.8, at least in terms of version numbers with the latest development version, 2.7.6, imminent. It’s also some months since MongoDB’s Eliot Horowitz outlined what was coming for..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-development tag-mongodb tag-mongodb-2-8 tag-rocksdb tag-storage blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-development tag-mongodb tag-mongodb-2-8 tag-rocksdb tag-storage container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/Twin-screw_triple-expansion_marine_steam_engines_Rankin_Kennedy_Modern_Engines_Vol_V_small_sayoxs_xwshig.jpg)">
+    <h1 class="post-title">The coming of the MongoDB storage engines</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-09-09">September 9th, 2014</time></small>
+  </header>
+
+<p>We’re around half way to MongoDB 2.8, at least in terms of version numbers with the latest development version, 2.7.6, imminent. It’s also some months since MongoDB’s Eliot Horowitz <a href="../content/images/2014/12/DatabasesPluggable3_mzk1ex_f7m0ga.png">outlined what was coming for MongoDB 2.8</a>The new feature with the most potential is pluggable storage modules/engines in MongoDB. Pluggable storage engines means that the boundary between the database and the way it stores files becomes more rigorously defined so that developers can replace the way data is stored with an entirely different system.</p>
+
+<p>In MongoDB’s case, historically it has used memory mapped files for its on-disk storage. This technique hands responsibility for pulling in and pushing out pages of data from memory to whatever operating system is running MongoDB. It’s easy to implement but it does mean that whatever limitations, nuances and variations of the operating system bubble up into MongoDB. That said, the folks at MongoDB have hammered away at it to get it to run as efficiently as possible. That memory mapped storage system will be the default engine loaded by MongoDB 2.8.</p>
+
+<p>In-memory databases have been making their mark and the first thing that the pluggable storage engines allow is to turn MongoDB into one. With no disk persistence, the database is freed from the slow I/O of spinning media or the faster I/O of SSDs and gets to whiz along in main memory. You of course need sufficient main memory and an architecture built with the transient nature of the database in mind. Although there is an in-memory storage plugin, we were unable to get it up and running for this article, but it is expected to be an option when MongoDB 2.8 arrives.</p>
+
+<p>What’s more interesting is the possibility of plugging in a completely different storage system. The one that is being actively developed for MongoDB 2.8 is <a href="https://github.com/facebook/rocksdb/wiki">RocksDB</a>. You may not know RocksDB but it has quite the genealogy. It started life at Facebook and has borrowed code form Google’s “<a href="https://code.google.com/p/leveldb/">leveldb</a>” project and borrows ideas from Apache’s <a href="http://hbase.apache.org">HBase</a>. The idea driving it is to create a high performance key/value store thats makes good use of the high read/write rates that you can get from SSDs and RAM based storage. There’s lots of configuration settings available which let it be tuned to the media its working with and whether compression algorithms should be applied to the data. There’s a lot of potential there and its a logical choice as the first alternate storage engine for MongoDB to be implementing.</p>
+
+<h2 id="buildingwithrocksdb">Building with RocksDB</h2>
+
+<p>But we are only half way through development. With the most recent development release, MongoDB 2.7.5, the RocksDB plugin has not been marked as ready for testing. If you want to build it yourself, here’s the steps we had to go through on Mac OS X 10.9. We’re assuming you already have the appropriate XCode and command line tools installed…</p>
+
+<p>First, we needed to clone the Github repositories for MongoDB and for RocksDB</p>
+
+<pre><code>$ git clone https://github.com/mongodb/mongo.git   
+$ git clone https://github.com/facebook/rocksdb.git
+</code></pre>
+
+<p>Then we needed to build RocksDB.</p>
+
+<pre><code>$ cd rocksdb
+$ make static_lib
+$ cp librocksdb.a /usr/local/lib
+$ cp -r include/* /usr/local/include
+</code></pre>
+
+<p>With RocksDB built, we can now move on to building MongoDB. This uses the Scons build tool:</p>
+
+<pre><code>$ cd ..
+$ cd mongo
+$ scons --rocksdb --rocksdb --libc++ --osx-version-min-10.7 mongo mongod
+</code></pre>
+
+<p>You’ll want to go make a cup of coffee while that does its thing. You can speed it up using “-j n” as an argument – that kicks off parallel builds using “n” simultaneous jobs at a time. You can set that to slightly more than the number of cores you system has to ensure a job is always queued up. You’ll still have plenty of time for that coffee anyway.</p>
+
+<p>When it’s completed building, you’ll have a <code>mongo</code> and <code>mongod</code> binary in the directory. Remember to <em>NOT</em> install them. They are development builds and within them lie horrors, bugs and potential brokeness. For your experiments, you should make a local data directory and run the commands from within the Mongo directory.</p>
+
+<pre><code>$ mkdir ./data
+$ ./mongod  --dbpath ./data --storageEngine=rocksExperiment
+</code></pre>
+
+<p>Just to remind you how experimental this all is, even the name of the storage engine has the word <em>Experiment</em> in it. This should start running and listening for connections. In another session or window, cd to the same directory and you should be able to run</p>
+
+<pre><code>$ ./mongo
+</code></pre>
+
+<p>and interact with the database…</p>
+
+<p>So, now you’ve built it, you’ll probably want to benchmark it. We leave it to your own needs to come up with what benchmark you want to use. But don’t expect huge performance improvements with Rocks right now. In our “Bulk insert a million address records into a completely empty database” test, a very not-a-benchmark test, with the traditional memory mapped files, the task took around 55 seconds. With RocksDB as the storage engine, that went up to 98 seconds. Not unexpected, especially as the RocksDB storage engine hasn’t been marked ready for testing and our test is far from comprehensive. In <a href="https://github.com/facebook/rocksdb/wiki/Performance-Benchmarks">standalone benchmarking</a> and <a href="http://influxdb.com/blog/2014/06/20/leveldb_vs_rocksdb_vs_hyperleveldb_vs_lmdb_performance.html">other comparisons</a> RocksDB shows excellent performance so there’s plenty of power for MongoDB to exploit.</p>
+
+<p>What the test does show is the progress being made in making pluggable storage engines for MongoDB work. When they do arrive in MongoDB 2.8, we should be be able to start profiling them against a full spectrum of tests and see which ones suit which tasks, how resilient they are and what bugs and issues they shake out of the MongoDB woodwork. The in-memory and RocksDB plugins should be just the first in a range of MongoDB developed and third-party developed database plugins – InnoDB is an obvious candidate as is TokuKV, but there’s also the promise of integrating storage with distributed or journaled file systems. MongoDB is going to become a whole lot more flexible in the future.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=The%20coming%20of%20the%20MongoDB%20storage%20engines&amp;url=http://localhost:2368/the-coming-of-the-mongodb-storage-engines/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/the-coming-of-the-mongodb-storage-engines/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/the-coming-of-the-mongodb-storage-engines/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

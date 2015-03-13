@@ -1,0 +1,266 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>RethinkDB Rescaled</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/rethinkdb-rescaled/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="RethinkDB Rescaled">
+    <meta property="og:description" content="With our recent release of RethinkDB, we noted some concern over the cost of RethinkDB while others asked why the memory specified appeared to be relatively low. Well, we’ve looked at how we offer RethinkDB and have reformulated our...">
+    <meta property="og:url" content="http://localhost:2368/rethinkdb-rescaled/">
+    <meta property="article:published_time" content="2014-10-21T13:19:13.000Z">
+    <meta property="article:modified_time" content="2014-12-17T08:43:57.000Z">
+    <meta property="article:tag" content="memory">
+    <meta property="article:tag" content="performance">
+    <meta property="article:tag" content="RAM">
+    <meta property="article:tag" content="scaling">
+    <meta property="article:tag" content="storage">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="RethinkDB Rescaled">
+    <meta name="twitter:description" content="With our recent release of RethinkDB, we noted some concern over the cost of RethinkDB while others asked why the memory specified appeared to be relatively low. Well, we’ve looked at how we offer RethinkDB and have reformulated our...">
+    <meta name="twitter:url" content="http://localhost:2368/rethinkdb-rescaled/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "RethinkDB Rescaled",
+    "url": "http://localhost:2368/rethinkdb-rescaled/",
+    "datePublished": "2014-10-21T13:19:13.000Z",
+    "dateModified": "2014-12-17T08:43:57.000Z",
+    "keywords": "memory, performance, RAM, scaling, storage",
+    "description": "With our recent release of RethinkDB, we noted some concern over the cost of RethinkDB while others asked why the memory specified appeared to be relatively low. Well, we’ve looked at how we offer RethinkDB and have reformulated our..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-memory tag-performance tag-ram tag-scaling tag-storage blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-memory tag-performance tag-ram tag-scaling tag-storage container">
+  <header>
+    <h1 class="post-title">RethinkDB Rescaled</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-10-21">October 21st, 2014</time></small>
+  </header>
+
+<p>With our recent <a href="../rethinkdb-now-on-compose/">release of RethinkDB</a>, we noted some concern over the cost of RethinkDB while others asked why the memory specified appeared to be relatively low. Well, we’ve looked at how we offer RethinkDB and have reformulated our deployment recipes. Now RethinkDB starts with a two node deployment, 1GB of total storage and 102MB of RAM per node, and brought the cost down to $21 a month with each extra gigabyte of storage costing just $12.</p>
+
+<p><img src="../content/images/2014/12/memory-chips-57269_ti6bp4_e8lode.jpg" alt="Chips" title="">Is 102MB enough RAM to run RethinkDB? We say yes, because thats the amount of RAM <em>per node</em> when you have 1GB of storage. Now, you may ask “But how do you come up with 102MB per node?” and we say we know from experience. It’s taught us that as a general rule that we should scale with a 10:1 formula. For each ten units of usable storage, we allocate one unit of RAM. So 1024MB of storage, we allocate 102MB of RAM per node. Add a gigabyte of storage to get 2048MB of storage and the RAM allocation goes up to 204MB of RAM per node and so on as you scale up. Add another for 3072MB and you get 307MB of RAM. If you wanted a gigabyte of RAM for your databases, you’d want to get 10GB of storage.</p>
+
+<p>These numbers though are all per node. With a two node cluster and 1GB of storage, you actually have 204MB of RAM and 2GB of storage spread equally between the nodes. This means there’s 1GB of storage per node and that becomes the maximum size of data set, with indexes and other associated persistent artifacts, that the cluster can handle is therefore 1GB. Any bigger than that and the database would have to be stored as incomplete non-redundant data sets on each of the nodes and nobody wants that in production. And thats where our scaling comes in – when you exceed that gigabyte, you get your next gigabyte allocated automatically.</p>
+
+<p>We like to keep things simple at Compose, so we price according to the maximum size of storage of a node. With RethinkDB you start at 1GB and you get 102MB per node of RAM. When you add a gigabyte of storage, we add a gigabyte to all the nodes and we scale the RAM allocated to the nodes at the same time according to that 10:1 rule. This isn’t a hard and fast rule; if you think you need more RAM talk to <a href="mailto:support@compose.io">support@compose.io</a> – we’ll work with you on your memory issues and if you do need more RAM, then we can make the arrangements to adjust your storage:RAM ratio.</p>
+
+<p>And if you are still wondering if 102MB RAM per node, in a 1GB storage configuration, is still enough, do remember that’s the memory available to your chosen database and its directly supporting applications running in its own container. We’ve stripped our application capsules to make them lean and clean so you are getting all the benefit of that memory. If you want to check out how your memory is being consumed, refer to our <a href="../elasticsearch-metrics/">integrated memory metrics</a> which are built into the Compose interface.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=RethinkDB%20Rescaled&amp;url=http://localhost:2368/rethinkdb-rescaled/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/rethinkdb-rescaled/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/rethinkdb-rescaled/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

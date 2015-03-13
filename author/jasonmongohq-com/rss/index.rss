@@ -1,0 +1,473 @@
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>jasonmongohq-com - Compose Articles</title><description>News, tips, and tricks from the team at Compose</description><link>http://localhost:2368/</link><generator>Ghost 0.5</generator><lastBuildDate>Fri, 13 Mar 2015 15:33:55 GMT</lastBuildDate><atom:link href="http://localhost:2368/author/jasonmongohq-com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Feature Highlight: maxTimeMS in MongoDB 2.6</title><description>&lt;p&gt;It’s probably happened to you before — you have an idea in your head and you want to run an operation against your database to show you the data that will answer your question or find the result you want to act on.&lt;/p&gt;
+
+&lt;p&gt;You conjure the query. &lt;br&gt;
+ You type out the query. &lt;br&gt;
+ You submit the query. &lt;br&gt;
+ You wait. &lt;br&gt;
+ You muse … “Wow, this should have come back quickly.” &lt;br&gt;
+ You investigate and discover your error … “oh man, that field isn’t indexed.”&lt;/p&gt;
+
+&lt;h3 id="whattodo"&gt;What to do&lt;/h3&gt;
+
+&lt;p&gt;Now, you’re visualizing hundreds of thousands of documents being meticulously scanned, memory churning, IO utilization increasing, &lt;a href="http://rapgenius.com/8078"&gt;palms are sweaty, knees weak, arms are heavy&lt;/a&gt;, and so on. Do you allow the query to finish or do you start querying &lt;a href="http://docs.mongodb.org/manual/reference/method/db.currentOp/"&gt;currentOps&lt;/a&gt; to find the offending operation, get its ID, and move to terminate it?&lt;/p&gt;
+
+&lt;p&gt;A nifty new feature in MongoDB 2.6 helps you avoid situations like this by fitting an ejector seat, with timer, to your query. It’s called &lt;strong&gt;maxTimeMS&lt;/strong&gt;. In your MongoDB console (or also supported by an increasing amount of MongoDB drivers), you can do the following:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;db.eminem_songs.find({title: "Lose Yourself"}).maxTimeMS(500)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;aside class="left-gutter"&gt;&lt;dl&gt;&lt;dt&gt;Only CPU Time&lt;/dt&gt;&lt;dd&gt; The maxTimeMS flag only accounts for CPU time and does not include network latency or idle time. &lt;/dd&gt;&lt;/dl&gt;&lt;/aside&gt;Now, if this operation takes more than 500 milliseconds to return, MongoDB automatically gives up and terminates the operation for you. Nice, right? This flag allows the CPU to spend a user-defined amount of time working to generate a result.&lt;/p&gt;
+
+&lt;h3 id="driversupport"&gt;Driver support&lt;/h3&gt;
+
+&lt;p&gt;The &lt;strong&gt;maxTimeMS&lt;/strong&gt; flag is an option that was added to the MongoDB protocol for cursors. Therefore, support for it is steadily being rolled out in clients such as the MongoDB console and popular MongoDB community drivers.&lt;/p&gt;
+
+&lt;h3 id="scenarioswheremaxtimemswouldbeuseful"&gt;Scenarios where maxTimeMS would be useful&lt;/h3&gt;
+
+&lt;p&gt;There are a number of scenarios where a flag like this can be helpful. For example, if you are in discovery mode and want to protect your database performance against unintended runaway operations, you could ensure all your queries include this flag.&lt;/p&gt;
+
+&lt;p&gt;Another scenario would be the batching of results, allowing you to define the amount of time/effort the database should spend returning results until it quits and moves on to the next request. In this situation, the cursor would continue to return results until the allotted amount of time has expired.&lt;/p&gt;
+
+&lt;p&gt;This is a nice features to keep in your toolset for the right occasion. It isn’t something you would use every day, but when you do, you’ll be glad you had it.&lt;/p&gt;
+
+&lt;h3 id="giveitago"&gt;Give it a go!&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href="http://www.mongohq.com/features/"&gt;MongoHQ Elastic Deployments&lt;/a&gt; now include the option to run MongoDB 2.6. So, if you want to try maxTimeMS (and a number of other great features), it is &lt;a href="http://www.mongohq.com/signup/"&gt;easy to get started&lt;/a&gt;.&lt;/p&gt;</description><link>http://localhost:2368/feature-highlight-maxtimems-in-mongodb-2-6/</link><guid isPermaLink="false">95094bd8-9e1c-4b62-ad3d-86cdf3343279</guid><category>performance</category><dc:creator>jasonmongohq-com</dc:creator><pubDate>Thu, 17 Apr 2014 16:13:24 GMT</pubDate></item><item><title>Security: MongoHQ response to OpenSSL "Heartbleed" Vulnerability</title><description>&lt;p&gt;The Operations team at MongoHQ has been working diligently, since yesterday, to correct any exposure that our systems had to the OpenSSL “Heartbleed” vulnerability. We want to share our progress as well as steps that you can take to protect yourself going forward.&lt;/p&gt;
+
+&lt;h3 id="moreontheopensslvulnerability"&gt;More on the OpenSSL Vulnerability&lt;/h3&gt;
+
+&lt;p&gt;By now, you are probably well-aware of this vulnerability and can skip this section, but if not, “Heartbleed” (&lt;a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-0160"&gt;CVE-2014-0160&lt;/a&gt;), is a vulnerability in the extremely popular OpenSSL crypto library, allowing nefariously-minded people to view snippets of the memory content of servers. Most of the Internet uses this library to communicate, privately, with itself. So, if communication that was intended to be private/secure is no longer that way, it’s a really big deal.&lt;/p&gt;
+
+&lt;p&gt;Our Operations team has no evidence that this vulnerability has been used against any of our services. However, such an attack would be very difficult to detect. Therefore, we have (and we are encouraging you to do the same) moved forward with increased scrutiny of the possibilities.&lt;/p&gt;
+
+&lt;h3 id="whatwasaffected"&gt;What was affected?&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Public-facing MongoHQ web applications delivered over SSL.&lt;/li&gt;
+&lt;li&gt;A few specific server environments&lt;/li&gt;
+&lt;li&gt;Customers using a vulnerable version of OpenSSL with MongoDB.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For these systems, we have corrected all potential vulnerabilities and have worked with our hosting providers to ensure that their systems have been updated as well.&lt;/p&gt;
+
+&lt;h3 id="sowhatdidwedo"&gt;So, what did we do?&lt;/h3&gt;
+
+&lt;p&gt;Here is a list of the steps we took (and are actively taking) to correct the vulnerability.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Deployed updated versions of OpenSSL to any affected server environments.&lt;/li&gt;
+&lt;li&gt;Replaced vulnerable versions of OpenSSL that Mongo processes were using and restarted those Mongo processes.&lt;/li&gt;
+&lt;li&gt;We are working to cycle new certificates and expire/reject old ones.&lt;/li&gt;
+&lt;li&gt;We are force-expiring web sessions to MongoHQ web applications.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id="nowwhatyoucando"&gt;Now, what you can do&lt;/h3&gt;
+
+&lt;p&gt;We are encouraging all our users to act with caution. This isn’t to cause alarm, but we want people to know the facts. This is what you can do:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://docs.mongohq.com/accounts/updating_your_mongohq_web_password.html"&gt;Reset your MongoHQ web passwords&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://docs.mongohq.com/accounts/updating_database_passwords_in_mongohq.html"&gt;Reset your MongoHQ database passwords&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://support.mongohq.com/security/mongohq-two-factor-authentication.html"&gt;Enable Two-Factor Authentication&lt;/a&gt; for your MongoHQ account.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As a side note, Two-Factor Authentication offers increased protection from vulnerabilities like the Heartbleed issue, since it prevents a login with a password alone, and requires a time-based token using a pre-shared seed to log in. We &lt;strong&gt;strongly&lt;/strong&gt; recommend you enable this feature for you and your team.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note:&lt;/strong&gt; While it is not mandatory that passwords be changed and there is no indication that the “Heartbleed” exploit was utilized against our systems, changing passwords is encouraged. Plus, it’s just good practice anyway.&lt;/p&gt;
+
+&lt;h3 id="wereheretohelp"&gt;We’re here to help!&lt;/h3&gt;
+
+&lt;p&gt;If you have additional questions or concerns about this event, please reach out to us. You can contact us via Twitter (&lt;a href="http://www.twitter.com/mongohq"&gt;@mongohq&lt;/a&gt;) or via email, at: support@mongohq.com. Our team would enjoy the opportunity to interact.&lt;/p&gt;
+
+&lt;p&gt;We will, of course, keep you up-to-date on any changes or new developments. We encourage you to follow us on twitter and keep an eye on our blog for additional information.&lt;/p&gt;</description><link>http://localhost:2368/openssl-heartbleed-vulnerability/</link><guid isPermaLink="false">5ad00b15-0ddb-4f99-807b-7483ee445286</guid><dc:creator>jasonmongohq-com</dc:creator><pubDate>Tue, 08 Apr 2014 21:19:42 GMT</pubDate></item><item><title>MongoDB Indexing Best Practices</title><description>&lt;p&gt;Going “Best Practice” on any topic is an expansive statement. But, we will give it a go with some high level anti-patterns and best practices. Some best practices will be general statements about the performance of MongoDB.&lt;/p&gt;
+
+&lt;h2 id="indexingconstraints"&gt;Indexing Constraints&lt;/h2&gt;
+
+&lt;p&gt;The following constraints are in affect as of MongoDB 2.4.x series. There is talk of adding features in later versions that will remove of these limitations. Even if these limitations are removed, by using the following constraints will continue to lead to better performance.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;With MongoDB, it&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Can only use 1 index per query&lt;/li&gt;
+&lt;li&gt;Can only use one “multi-value” operator / query (e.g. $nin, $in, $nor, $gte, $ge, $lt, $lte, $near, $sort). Yes, that does include sorting. However you can use a range query and sort on the same field effectively.&lt;/li&gt;
+&lt;li&gt;Must include the multi-value operator as the &lt;strong&gt;last&lt;/strong&gt; used field in the index&lt;/li&gt;
+&lt;li&gt;RAM is fast, disk is slow. You must keep indexes in RAM.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;``
+&amp;lt;code data-language="javascript"&amp;gt;// A Bad query with conflicting&lt;/code&gt;time&lt;code&gt;and&lt;/code&gt;user&lt;em&gt;id` &lt;br&gt;
+db.coll.find({action: "run-process", time: {$gte: ISODate('2013-05-06'), $lt: ISODate('2013-05-07)}).sort({user&lt;/em&gt;id: -1})&lt;/p&gt;
+
+&lt;p&gt;// A better query using date 'bucketing'
+db.coll.find({action: "run-process", day&lt;em&gt;bucket: ISODate('2013-05-06')}).sort({user&lt;/em&gt;id: -1})```&lt;/p&gt;
+
+&lt;p&gt;Commonly, when optimizing queries, you move logic from the query into the schema. Instead of using the query to bound a date field, we are using a date bucket to move that date logic to the schema.&lt;/p&gt;
+
+&lt;p&gt;These indexing constraints will set you free. By following these constraints, you will model data and build a better distributed system.&lt;/p&gt;
+
+&lt;h2 id="toomanyindexes"&gt;Too Many Indexes&lt;/h2&gt;
+
+&lt;p&gt;Everyone thinks of indexes they need, not everyone thinks of the indexes that can be removed.&lt;/p&gt;
+
+&lt;p&gt;Recently, I helped a customer optimize his database. Write lock on the database was running consistently at 95%. CPU was spiking consistently, and making for a poor experience. We looked at the indexes, and determined the customer had too many indexes (126 non-_id indexes). 24 of the indexes were on one collection. For each insert, update that modified keys, MongoDB was having to insert the document, and update 24 indexes. This was the cause of the excessive write lock.&lt;/p&gt;
+
+&lt;p&gt;The first thing we did was delete all of his indexes (&lt;em&gt;do not try this on a database larger than 15 GB&lt;/em&gt;). Immediately after deleting the indexes, write lock when to 0%. The tradeoff for removing indexes was page faults on reads. However, reads were faster with no indexes than when trying to update consistently with too many indexes.&lt;/p&gt;
+
+&lt;p&gt;Once we removed these indexes, we turned on system profiling from the Database &gt; Admin page. After a short analysis on the &lt;code&gt;system.profile&lt;/code&gt; after the database ran for a few hours, we added back 6 essential indexes. Performance was drastically better.&lt;/p&gt;
+
+&lt;p&gt;Be precise with your indexes for the sake of RAM and write lock.&lt;/p&gt;
+
+&lt;h2 id="bestpractices"&gt;Best Practices&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Know thy constriants above&lt;/li&gt;
+&lt;li&gt;Learn to use explain &lt;a href="http://blog.mongohq.com/blog/2013/02/05/explaining-explain/"&gt;explain.explain() – Understanding mongo query behavior&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Limit the number of indexes on a collection. The first index will not hurt performance. But the 24th will. It is up to you to know what is acceptable.&lt;/li&gt;
+&lt;li&gt;Keep track of your indexes and queries. MongoDB doesn’t have a index hit counter on indexes. Go here to vote! &lt;a href="https://jira.mongodb.org/browse/SERVER-2227"&gt;https://jira.mongodb.org/browse/SERVER-2227&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description><link>http://localhost:2368/mongodb-indexing-best-practices/</link><guid isPermaLink="false">8e199321-ef33-41aa-bc35-ba1377c24749</guid><category>best</category><category>indexing</category><category>mongodb</category><category>optimization</category><category>practices</category><dc:creator>jasonmongohq-com</dc:creator><pubDate>Mon, 06 May 2013 15:06:04 GMT</pubDate></item><item><title>MongoDB Atlanta 2013</title><description>&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/BIi2nanCAAMX0-C_rjcrtn_lcvz4b.jpg" alt="MongoDB Atlanta 2013" title=""&gt;The MongoHQ Team is in Atlanta today, sponsoring and presenting at MongoDB Atlanta. This conference, in its third year at at &lt;a href="http://www.gtri.gatech.edu/"&gt;Georgia Tech Research Institute&lt;/a&gt; (GTRI) has a host of great speakers, including our own Chris Winslett. I’m sure the southern food and hospitality will be enjoyed as well. Check out some of the great talks that are happening today:&lt;/p&gt;
+
+&lt;h2 id="mongodbindexconstraintsandcreativeschemas"&gt;MongoDB Index Constraints and Creative Schemas&lt;/h2&gt;
+
+&lt;p&gt;The first step to understanding scaling with MongoDB is understanding the constraints of the system. We will build out the constraints of MongoDB indexing. Then, we will talk about how to use these constraints to optimize schema. &lt;em&gt;Presented by: Chris Winslett, &lt;a href="http://www.mongohq.com/"&gt;MongoHQ&lt;/a&gt;&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id="developerhappinessthroughmongodb"&gt;Developer Happiness Through MongoDB&lt;/h2&gt;
+
+&lt;p&gt;MongoDB is the ideal data store for modern web apps. By providing freedom of choice, a sense of creative control, and a strong adaptability to change, MongoDB makes developers happier. Problems that are tedious or unnecessarily complex to model with a relational database are instead a joy to solve with a schema-less, documented-oriented structure. Those factors along with a suite of built-in tools like full-text search and aggregations contribute to an excellent experience for web developers. &lt;em&gt;Presented by: Luigi Montanez, &lt;a href="http://www.upworthy.com/"&gt;Upworthy&lt;/a&gt;&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id="hashbasedshardinginmongodb24"&gt;Hash-based Sharding in MongoDB 2.4&lt;/h2&gt;
+
+&lt;p&gt;In version 2.4, MongoDB introduces hash-based sharding, a new option for distributing data in sharded collections. Hash-based sharding and range-based sharding present different advantages for MongoDB users deploying large scale systems. In this talk, we’ll provide an overview of this new feature and discuss when to use hash-based sharding or range-based sharding. &lt;em&gt;Presented by: Kelly Stirman, Director of Product Marketing, &lt;a href="http://www.10gen.com/"&gt;10gen&lt;/a&gt;&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;The team at MongoHQ is excited to be a part of this great event and we are looking forward to particiaption in the upcoming MongoSF and MongoNYC events as well.&lt;/p&gt;</description><link>http://localhost:2368/mongodb-atlanta-2013/</link><guid isPermaLink="false">4ea6e7a3-7a7a-48c9-93c0-77fc47ecfd3e</guid><category>atlanta</category><category>conferences</category><category>mongo hosting</category><category>mongodb</category><category>mongodb hosting</category><category>sponsorships</category><dc:creator>jasonmongohq-com</dc:creator><pubDate>Tue, 23 Apr 2013 22:57:25 GMT</pubDate></item><item><title>Converting Data to Metrics - MongoDB Analytics Part 2</title><description>&lt;p&gt;In part one of ”&lt;a href="http://blog.mongohq.com/blog/2013/01/29/constructing-analytics-with-mongohq/"&gt;First Steps of an Analytics Platform with MongoDB&lt;/a&gt;”, we discussed how to build an efficient logging portion of an analytics system using time buckets or time dimension cubes. The next logical step is summating the data from the logs into cacheable values. Toward the end, we showed a simple common example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;code data-language="javascript"&amp;gt;db.events.aggregate(  
+  {$match: {time_bucket: "2013-01-month"}},
+  {$unwind: "$time_bucket"},
+  {$project: {time_bucket_event: {$concat: ["$time_bucket", "/", "$event"]}}},
+  {$group: {_id: "$time_bucket_event", event_count: {"$sum": 1}}}
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let’s take a step back and look at the different options: Aggregation Framework or Map Reduce?&lt;/p&gt;
+
+&lt;h2 id="aggregationframeworkormapreduce"&gt;Aggregation Framework or Map Reduce?&lt;/h2&gt;
+
+&lt;p&gt;Since 2.2.x release, the aggregation framework has been the de facto MongoDB number cruncher. If you are familiar with a SQL db’s &lt;code&gt;group by&lt;/code&gt; functions, you will be at home with the functions. Performance wise, Aggregation Framework smokes MapReduce, &lt;a href="http://stackoverflow.com/questions/13908438/is-mongodb-aggregation-framework-faster-that-map-reduce"&gt;like not even close&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Unless your required data manipulation functions are not present in the current versions, chose Aggregation Framework. For instance, different types of statistical analysis may be difficult with the Aggregation Framework. Averages are easy. Any type of deviation calculations will require aggregation process calls: one for averaging and the other for deviation calculations.&lt;/p&gt;
+
+&lt;p&gt;In sharded MongoDB environments with aggregation framework, you will get the benefit of distributed processing at the data node level as you did with map reduces. Thus, each data node will return the summated results, and the &lt;code&gt;mongos&lt;/code&gt; will concatenate and process the results returned from data nodes.&lt;/p&gt;
+
+&lt;h2 id="gettingstartedwithaggregationframework"&gt;Getting started with Aggregation Framework&lt;/h2&gt;
+
+&lt;p&gt;Aggregation framework is a series of actions, also known as a “pipeline”. This pipeline is processed in order and each action can filter or manipulate data. For instance, if you wanted to filter data and concat a variable called &lt;code&gt;name&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;code data-language="javascript"&amp;gt;db.my_collection.aggregate([  
+  {$match: {first_name: "Clark"}},
+  {$project: {_id: "$id", full_name: {$concat: [$first_name, " ", $last_name]}}}
+])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above will return a full name for all individuals with first_name “Clark”. For a complete list of the functions with the aggregation framework, see the &lt;a href="http://docs.mongodb.org/manual/reference/aggregation/"&gt;10gen Aggregation Framework Reference&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id="processingandcaching"&gt;Processing and Caching&lt;/h2&gt;
+
+&lt;p&gt;Repeat after me: cache aggregation queries. While running aggregation queries is fast, it is best not to run these commands for every application action. As with most activities, running this command once is fast. Running this command 1000s of times per second will deteriorate performance in the rest of the stack. Also, these analytics systems form the backbone of big data; it is small now, but it production these systems grow quickly.&lt;/p&gt;
+
+&lt;p&gt;So, we will run these aggregation commands once, and cache the results. For best results on application performance, try running these actions asynchronously. Trigger the Aggregation Framework through background worker that will run and save the updated values to your aggregation collection.&lt;/p&gt;
+
+&lt;p&gt;You will need to run two commands to save the output: 1) the aggregation command and 2) the upsert command. Upsert is a good use case here to update, or insert if does not exist.&lt;/p&gt;
+
+&lt;h2 id="measurementandsummary"&gt;Measurement and Summary&lt;/h2&gt;
+
+&lt;p&gt;After storing data in a best practice way, summating and caching data is the next step for any analytics platform. There is a right way and many wrong ways, and simple algorithm changes can yield good performance gains. While you are measuring your ability to run these analytics systems, you should also measure the performance of these summation queries. Build the measurement of the queries while you are building the query – perhaps in the same background job.&lt;/p&gt;
+
+&lt;p&gt;I can guarantee your summation jobs will behave differently with 50 GB of data versus 200 MB of data in a development environment. If you do not measure these summation jobs, you will wake up with performance that you have no historical record. Knowing how you got to that point is unknownable without metrics from the beginning. Furthermore, knowing what is “good” is also a shot in the dark. Measure. Measure. Measure.&lt;/p&gt;
+
+&lt;p&gt;Go forth, take your data, and summate.&lt;/p&gt;</description><link>http://localhost:2368/converting-data-to-metrics-mongodb-analytics-part-2/</link><guid isPermaLink="false">b63de6bb-ba07-471e-9754-0e02732932b7</guid><category>analytics</category><category>mongodb</category><dc:creator>jasonmongohq-com</dc:creator><pubDate>Fri, 05 Apr 2013 22:53:20 GMT</pubDate></item><item><title>MongoDB 2.4.1 Maintenance Window Complete</title><description>&lt;p&gt;The maintenance window to upgrade MongoDB for all of our shared environments has been completed.&lt;/p&gt;
+
+&lt;h2 id="whytheforcedupgrade"&gt;Why the forced upgrade?&lt;/h2&gt;
+
+&lt;p&gt;This emergency upgrade was required because of a vulnerability affecting older versions of MongoDB (MongoDB 2.0 and MongoDB 2.2). The vulnerability (&lt;a href="https://jira.mongodb.org/browse/SERVER-9124"&gt;SERVER-9124&lt;/a&gt;) was caused by deficiencies with javascript sandboxing, allowing the possibility of system commands to be run and if properly exploited, could have resulted in access to other data on the host.&lt;/p&gt;
+
+&lt;p&gt;Working with 10gen and understanding the core issue, we made the decision to move quickly to upgrade all of our shared database plans, starting with large databases and finishing, today, with our sandbox/free plans.&lt;/p&gt;
+
+&lt;h2 id="affectedenvironments"&gt;Affected environments&lt;/h2&gt;
+
+&lt;p&gt;The vast majority of our hosts (including all custom deployments) are not at risk from this vulnerability. We’ve isolated Mongo processes on most of our shared hosts in such a way that user data is isolated and individual database vulnerabilities are contained. Some of our older shared hosts haven’t yet been migrated to the new containers, we’re now speeding up our efforts to replace those. Sandbox database hosts are, by definition, going to be more susceptible to problems like this since multiple users share a single Mongo process, we will continue to aggressively upgrade Mongo versions on these.&lt;/p&gt;
+
+&lt;h2 id="emailnotification"&gt;Email notification&lt;/h2&gt;
+
+&lt;p&gt;We received reports of some customers not receiving notifications of the upgrade. We are very sorry about this and have resolved the issue. We strive to provide an excellent customer experience and proper communication is an absolute must.&lt;/p&gt;
+
+&lt;p&gt;Thank you again for your patience. We have talked to many of you today as we worked through this upgrade together, but if you are having any additional issues or have questions, we’d love to help. You can reach our team at: &lt;strong&gt;support@mongohq.com&lt;/strong&gt;.&lt;/p&gt;</description><link>http://localhost:2368/mongodb-2-4-1-maintenance-window-complete/</link><guid isPermaLink="false">6a615bd2-1341-46f8-96b8-60df9b18afd2</guid><category>critical fix</category><category>MongoDB 2.4.1</category><dc:creator>jasonmongohq-com</dc:creator><pubDate>Wed, 27 Mar 2013 22:52:08 GMT</pubDate></item><item><title>MongoDB 2.4 and the New Version Selector</title><description>&lt;p&gt;Today, 10gen announced the final production release of MongoDB 2.4. As we have talked about in previous blog posts, this release includes a number of great new features, including: full-text search (beta), a new javascript engine, better performance on counts, hashed shard keys, and atomic fixed-length arrays. There are a number of smaller fixes and improvements as well … a really solid release.&lt;/p&gt;
+
+&lt;p&gt;Along with this, at MongoHQ we are rolling out a new feature that allows you to choose the version of MongoDB you use, simply by selecting a dropdown in the MongoHQ web interface.&lt;/p&gt;
+
+&lt;p&gt;This is how it works:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Log into &lt;a href="http://localhost:2368/content/images/2014/12/version_dropdown_vxtfie_wan5r1.png"&gt;MongoHQ&lt;/a&gt;  &lt;/li&gt;
+&lt;li&gt;Click the “Change Version” button.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;That’s it. Now, the magic happens. Ok, just kidding … but clicking the “Change Version” button will initiate a job to change the version of your MongoDB database. This is what happens:&lt;/p&gt;
+
+&lt;h2 id="upgradingstandalonesingleinstances"&gt;Upgrading Standalone/Single instances&lt;/h2&gt;
+
+&lt;p&gt;For people using our shared single/standalone MongoDB instances, the update process is simple. Once initiated, we will update the version of MongoDB and perform a brief restart of your database. It should take, at most, 5-10 seconds to complete. From there, you can resume normal database operations.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/single_instance_overview_u0uuis_iyqxct.png" alt="Single Instance Overview"&gt;&lt;/p&gt;
+
+&lt;h2 id="upgradingreplicasets"&gt;Upgrading Replica Sets&lt;/h2&gt;
+
+&lt;p&gt;Upgrading replica sets are a bit different, so the system will perform what we call a “rolling upgrade”. This allows you to migrate to a different version of MongoDB with little to no downtime.&lt;/p&gt;
+
+&lt;p&gt;The rolling update will first update all the secondary members and arbiters of the cluster one-by-one, changing the version, restarting and safely bringing the secondary processes back online. After all of this has happened and has verified successful, the system will trigger a state change of your primary to secondary and will allow MongoDB to promote a new primary.&lt;/p&gt;
+
+&lt;p&gt;Once the new primary has taken over in the cluster, the system will upgrade the old primary (now secondary) to the version of MongoDB you selected. That will complete the upgrade process.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/rs_job_overview_uu38d1_gby14b.png" alt="RS Job Overview" title=""&gt;&lt;strong&gt;Please Note:&lt;/strong&gt; For replica sets, ensure that your driver is properly configured to handle MongoDB replica set state changes, otherwise you may have to restart your application. If you have questions about this, we can help! Just send us a note at: &lt;strong&gt;support@mongohq.com&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id="supportingourproviders"&gt;Supporting our Providers&lt;/h2&gt;
+
+&lt;p&gt;Of course, if you are running MongoDB with MongoHQ on our providers, like: &lt;a href="http://support.mongohq.com/partners/heroku.html"&gt;Heroku&lt;/a&gt;, &lt;a href="http://support.mongohq.com/partners/cloudbees.html"&gt;CloudBees&lt;/a&gt;, &lt;a href="http://support.mongohq.com/partners/appfog.html"&gt;AppFog&lt;/a&gt;, &lt;a href="http://support.mongohq.com/partners/appharbor.html"&gt;AppHarbor&lt;/a&gt;, Engine Yard, Nodejitsu and others, you can use this same version selecting functionality to run MongoDB 2.4 as well.&lt;/p&gt;
+
+&lt;h2 id="mongodbfulltextsearch"&gt;MongoDB Full-Text Search&lt;/h2&gt;
+
+&lt;p&gt;Since full-text search is considered beta for the 2.4 release of MongoDB, we do not enable it by default when you upgrade to MongoDB 2.4. If you would like to try it on larger data sets, please contact us at: support@mongohq.com and we will work with you to make this happen.&lt;/p&gt;
+
+&lt;p&gt;We hope you enjoy this great new feature and that it gives you the flexibilty and control to manage the versions and features of MongoDB that you need to use.&lt;/p&gt;</description><link>http://localhost:2368/mongodb-2-4-and-the-new-version-selector/</link><guid isPermaLink="false">6489838d-eb7a-4f2b-b04d-a4439f2da79e</guid><category>Full Text Search</category><category>javascript</category><category>mongodb</category><category>MongoDB 2.4</category><category>version</category><dc:creator>jasonmongohq-com</dc:creator><pubDate>Tue, 19 Mar 2013 22:44:41 GMT</pubDate></item><item><title>Experience With CircleCI</title><description>&lt;p&gt;We are now using &lt;a href="http://circleci.com/"&gt;CircleCI&lt;/a&gt; to automatically test and deploy our NodeJS services. The business-marketing term for this is “Continuous Integration”. With simple tools like CircleCI, Heroku, and our own managed database services, continuous integration is the norm for us, not the exception. The lynchpin of the process is CircleCi, and it is simple to set up, but there are a few tricks to be aware of.&lt;/p&gt;
+
+&lt;h2 id="whatwehad"&gt;What we had&lt;/h2&gt;
+
+&lt;p&gt;Before CircleCI, we used a self-hosted Jenkins instance. Jenkins works well. Organizing jenkins to deploy were running two independent projects: one for testing code, and one for packaging and publishing the resulting asset.&lt;/p&gt;
+
+&lt;p&gt;This system only built assets for the master branch. All commands for testing, packaging, publishing were stored directly in Jenkins instead of being under version control.&lt;/p&gt;
+
+&lt;p&gt;Our setup was ok, but life can be easier. But, we found the time spent nursing our Jenkins environment to be painful.&lt;/p&gt;
+
+&lt;h2 id="goals"&gt;Goals&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Testing, packaging, publishing steps &lt;em&gt;should&lt;/em&gt; be stored in code&lt;/li&gt;
+&lt;li&gt;Sensitive credentials should &lt;em&gt;not&lt;/em&gt; be stored in code&lt;/li&gt;
+&lt;li&gt;Ci should simply call test, package, publish steps&lt;/li&gt;
+&lt;li&gt;Ci should publish assets for master, stage, and dev branches&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="testingpackagingandpublishingsteps"&gt;Testing, packaging, and publishing steps&lt;/h2&gt;
+
+&lt;p&gt;Being fans of &lt;strong&gt;#badassrockstartech&lt;/strong&gt;, we are using &lt;a href="http://gruntjs.com/"&gt;Grunt&lt;/a&gt;, which is a modular Make system. We use Grunt to run our testing, packaging, and publishing steps.&lt;/p&gt;
+
+&lt;p&gt;Powered by npm, we can utilize 3rd-party code to accomplish common tasks (e.g. transpiling coffeescript into javascript) and can define our own tasks (e.g. packaging and publishing to s3).&lt;/p&gt;
+
+&lt;p&gt;By moving the logic of testing, packaging, and publishing out of Jenkins and into Grunt, configuring CircleCI becomes very simple and intuitive.&lt;/p&gt;
+
+&lt;h2 id="dontcommitcredentials"&gt;Don’t commit credentials&lt;/h2&gt;
+
+&lt;p&gt;We moved our commands to publish to S3 into Grunt, but did not want to commmit our credentials. This is one thing we want to remain hard-coded in our CI settings separate from our code.&lt;/p&gt;
+
+&lt;p&gt;To accomplish this, I decided a simple &lt;code&gt;export AWS_SECRET_KEY=1234&lt;/code&gt; as a command hard-coded into CircleCI’s web interface would do the trick, but due to the &lt;a href="https://circleci.com/docs/environment-variables"&gt;way CircleCI executes your commands&lt;/a&gt; you cannot alter the environmental variables in this way.&lt;/p&gt;
+
+&lt;p&gt;I reached out to Circle for help, and David Lowe at Circle responded within a few hours with a solution.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;We should be adding a secure credential storage mechanism soon, but for now, you will need to work around it.&lt;/p&gt;
+  
+  &lt;p&gt;You’ve got the right idea, but unfortunately, ‘export AWS&lt;em&gt;SECRET&lt;/em&gt;KEY’ won’t quite work because each command runs in a separate shell. Instead, if you want to do this from the UI, you need to do something like:&lt;/p&gt;
+  
+  &lt;p&gt;&lt;code&gt;echo 'export AWS_SECRET_KEY=1234' &amp;gt;&amp;gt; ~/.circlerc&lt;/code&gt;&lt;/p&gt;
+  
+  &lt;p&gt;The .circlerc file is sourced before each test and deploy command.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This works perfectly for our process. We hard-code our sensitive data bits into the pre-dependency section of the web UI.&lt;/p&gt;
+
+&lt;h2 id="simplycalltestpackageandpublishsteps"&gt;Simply call test, package, and publish steps&lt;/h2&gt;
+
+&lt;p&gt;Now that our tasks are defined and our build server configured with credentials, the only thing left is to do all the CI work.&lt;/p&gt;
+
+&lt;p&gt;The web UI is an easy way to specify commands to run, but you get more options and flexibility in defining a circle.yml file to tell CircleCI what to do.&lt;/p&gt;
+
+&lt;p&gt;This is our circle.yml file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;code data-language="javascript"&amp;gt;## Tests  
+test:  
+  override:
+    - grunt test
+
+## Deployment options
+deployment:  
+  default:
+    branch: [master, stage, dev]
+    commands:
+      - grunt clean coffee package publish:"$CIRCLE_BRANCH"
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id="conclusion"&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Being a service company ourselves, we value offloading tasks to others so we can focus more on what we’re good at. CircleCI integrates seamlessly with GitHub, allows us to customize what we need, and gives us a very pretty an intuitive UI with very little effort.&lt;/p&gt;
+
+&lt;p&gt;I’m happy to hear they just &lt;a href="http://blog.circleci.com/so-we-raised-a-bunch-of-money/"&gt;raised a bunch of money&lt;/a&gt;, and I’m excited to see how they continue to make the world of continuous integration easier.&lt;/p&gt;</description><link>http://localhost:2368/experience-with-circleci/</link><guid isPermaLink="false">a850dcdd-8576-4545-9c03-dfff329f92e3</guid><category>CI</category><category>CircleCI</category><category>Development</category><category>nodejs</category><category>Process</category><dc:creator>jasonmongohq-com</dc:creator><pubDate>Fri, 08 Mar 2013 22:31:30 GMT</pubDate></item><item><title>Now Available: $100 SSD Replica Sets, Beta Autoscaling</title><description>&lt;p&gt;We’ve been working hard on our underlying database infrastructure for the last several months in silence (mostly). Today, we’re releasing the first piece of a much larger set of tools: SSD backed replica sets at both $100/mo and $500/mo price levels.&lt;/p&gt;
+
+&lt;p&gt;SSDs are by far the best way to run most Mongo deployments and we’ve been experimenting with various disk setups for a little over a year now (there are a shocking number of SSD options out there). Today’s release represents the future of our hosted service: each database runs in an isolation capsule with dedicated memory, IO capacity and CPU capacity. The memory/CPU/disk resources are tuned to the most common Mongo workloads we’ve seen across our 50,000 hosted databases in the last three years.&lt;/p&gt;
+
+&lt;h2 id="thenewdatabases"&gt;The new databases&lt;/h2&gt;
+
+&lt;p&gt;New database are available at two price levels, the first is a “just going into production” $100/mo replica set database:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;4GB of included SSD storage ($25/GB/mo for extra storage)&lt;/li&gt;
+&lt;li&gt;400MB of dedicated RAM per member&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The second level offer a per/GB price break, starting at $500/mo for a replica set DB:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;25GB of included SSD storage ($20/GB/mo for extra storage)&lt;/li&gt;
+&lt;li&gt;2.5GB of dedicated RAM per member&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="betaautoscaling"&gt;Beta autoscaling&lt;/h2&gt;
+
+&lt;p&gt;We’re also inviting some customers to participate in a private beta test of our database autoscaling. MongoDB loves memory and IO, so we’re rolling out live resource upgrades to help customer databases stay healthy during periods of rapid growth. Adding RAM and IO (vertical scaling) is nearly instantaneous and usually a much better option than forcing your data to work well with sharding. Want in? Just add one of these new DBs to your account and let us know: support@mongohq.com&lt;/p&gt;</description><link>http://localhost:2368/now-available-100-ssd-replica-sets-beta-autoscaling/</link><guid isPermaLink="false">e6cc83ff-a92e-4906-865e-7838cbe98c09</guid><category>dbaas</category><category>mongodb hosting</category><category>MongoDB scaling</category><category>SSD</category><dc:creator>jasonmongohq-com</dc:creator><pubDate>Wed, 27 Feb 2013 22:30:25 GMT</pubDate></item><item><title>MongoDB 2.4.0-rc0 Available on MongoHQ</title><description>&lt;p&gt;The future is now! Are you ready to upgrade your staging Replica Set to MongoDB 2.4.0-rc0 in preparation of the 2.4.0 release? Or, &lt;em&gt;if you ready&lt;/em&gt;, we can even upgrade your production database.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;To upgrade, please send your database name to &lt;a href="http://support.mongohq.com/support/new_request.html?referer=2.4.0-rc0-upgrade"&gt;support@mongohq.com&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Run MongoDB 2.4.0-rc0 on MongoHQ today. On any MongoHQ paid plan, you can use the new 2.4.x features (full-text search, updated aggregation features, and newly optimized geospatial indexes, all backed by the V8 engine). For a refresher of MongoDB 2.4.0 features, take a look at:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://docs.mongodb.org/manual/release-notes/2.4/"&gt;MongoDB 2.4.0 Release Notes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://blog.mongohq.com/blog/2013/01/17/explore-mongodb-2-dot-3-on-mongohq/"&gt;Explore MongoDB 2.3 on MongoHQ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://blog.mongohq.com/blog/2013/01/22/first-week-with-mongodb-2-dot-4-development-release/"&gt;MongoDB and Full Text Search: My First Week With MongoDB 2.4 Development Release&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;*To upgrade, please send your database name to &lt;a href="http://support.mongohq.com/support/new_request.html?referer=2.4.0-rc0-upgrade"&gt;support@mongohq.com&lt;/a&gt;. *&lt;/em&gt;We will upgrade your database as quickly as possible. The upgrade process will require a quick restart of your database; then, you will be off and running. MongoDB 2.4.0 will become the default version when the production release is made available.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;To test MongoDB 2.4.0-rc0 in a non-production environment&lt;/strong&gt;, our Sandbox plans called “Dharma Experimental” are by-default running the latest release candidate. We treat our Sandbox plans like free bread; please, have as many as you like, and keep testing.&lt;/p&gt;</description><link>http://localhost:2368/mongodb-2-4-0-rc0-available-on-mongohq/</link><guid isPermaLink="false">4e962091-70c4-436e-98cb-1904178924b0</guid><category>dbaas</category><category>Development</category><category>Full Text Search</category><category>mongodb hosting</category><category>MongoDB Versions</category><dc:creator>jasonmongohq-com</dc:creator><pubDate>Fri, 22 Feb 2013 22:28:42 GMT</pubDate></item><item><title>MongoHQ Teammates Participate in the Mercedes Marathon</title><description>&lt;p&gt;This past weekend, Kristine Toone and Dusty Hall competed in the &lt;a href="http://localhost:2368/content/images/2014/12/running_bd0rrv_jak3nn.jpg"&gt;Mercedes Marathon&lt;/a&gt;Kristine Toone with her husband, Brian, and children, Analise and Josiah.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/group-shot_sxwqu3_tlfqoe.jpg" alt="Group Shot" title=""&gt;Dusty with daughters Mary Margo and Dottie&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/sign_r6e4jm_qqajsd.jpg" alt="Sign"&gt;&lt;/p&gt;</description><link>http://localhost:2368/mongohq-teammates-participate-in-the-mercedes-marathon/</link><guid isPermaLink="false">46c5ded3-bea7-4913-b8b5-4cc0d58380e4</guid><category>fun</category><category>Mercedes Marathon</category><category>mongohq</category><category>team</category><dc:creator>jasonmongohq-com</dc:creator><pubDate>Thu, 21 Feb 2013 22:24:52 GMT</pubDate></item><item><title>Explore MongoDB 2.3 on MongoHQ</title><description>&lt;p&gt;There are some interesting and exciting changes coming to MongoDB in the 2.4 production release, including:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Full-text search&lt;/li&gt;
+&lt;li&gt;Change in the internal Javascript engine&lt;/li&gt;
+&lt;li&gt;Hashed indexes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We’ll talk a bit more about these changes in just a moment, but first, we wanted to give our customers &lt;strong&gt;a way to try out the new features&lt;/strong&gt;, even though they are in the 2.3 development release. You can do this by doing the following:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="https://new.mongohq.com/"&gt;Log into MongoHQ&lt;/a&gt;  &lt;/li&gt;
+&lt;li&gt;Create a new sandbox databases with the “Dharma 2.3 Experimental” option.  &lt;/li&gt;
+&lt;li&gt;Insert data  &lt;/li&gt;
+&lt;li&gt;Make profit.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Now that you are all set and have your experimental database provisioned and ready to go, let’s talk about a couple of the new features.&lt;/p&gt;
+
+&lt;h2 id="fulltextsearch"&gt;Full-text Search&lt;/h2&gt;
+
+&lt;p&gt;10gen has pointed out on numerous occasions that this has been one of the most-requested features on the MongoDB roadmap, so the engineers are pretty stoked to finally offer it.&lt;/p&gt;
+
+&lt;p&gt;However, it is still highly experimental. Good to explore, but do not use it on production environments.&lt;/p&gt;
+
+&lt;p&gt;If you had a collection of emails with a field called &lt;code&gt;email_body&lt;/code&gt;, you can add the following index:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;code data-language="javascript"&amp;gt;db.emails.ensureIndex({email_body:text}, {name:"email_body_text_index")  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Allow the index to build and from there, you should be good to start testing queries against it. A query may look like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;code data-language="javascript"&amp;gt;db.emails.runCommand( "text", {search: "Pho"} )  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will return a BSON document … not a cursor. So, a bit of a change there.&lt;/p&gt;
+
+&lt;p&gt;This should get you started … there are a number of additional features and options that you can use when querying. For more information about doing text queries with this new functionality, check out the &lt;a href="http://docs.mongodb.org/manual/release-notes/2.4/#text-queries"&gt;release notes for MongoDB 2.3&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id="changestothejavascriptengine"&gt;Changes to the Javascript Engine&lt;/h2&gt;
+
+&lt;p&gt;With the 2.3/2.4 release of MongoDB, 10gen is replacing Mozilla’s Spidermonkey javascript engine with Google’s open-source V8 engine. While there are some speed improvements in various cases, the details of this change are probably a bit out of the realm of the interest of most people using MongoDB as a database.&lt;/p&gt;
+
+&lt;p&gt;Nevertheless, it is a worthwhile endeavor to benchmark some of your map reduce functionality against this new version of MongoDB as compared to 2.2 versions of the code.&lt;/p&gt;
+
+&lt;h2 id="thatsit"&gt;That’s It&lt;/h2&gt;
+
+&lt;p&gt;We hope you have fun testing this developmental release of MongoDB. &lt;strong&gt;Please do not use this environment for anything production-related&lt;/strong&gt;. If you have any questions, we’re happy to help!&lt;/p&gt;</description><link>http://localhost:2368/explore-mongodb-2-3-on-mongohq/</link><guid isPermaLink="false">103f15eb-7148-4885-bedf-2fc92e413aac</guid><category>10gen</category><category>conference</category><category>mongo hosting</category><category>mongoconf</category><category>mongodb</category><category>mongodb hosting</category><category>mongohq</category><category>mongosv</category><dc:creator>jasonmongohq-com</dc:creator><pubDate>Thu, 17 Jan 2013 21:44:04 GMT</pubDate></item><item><title>MongoHQ in Silicon Valley for MongoSV 2012!</title><description>&lt;p&gt;Once again this year, the team at MongoHQ is excited to sponsor and be a part of &lt;a href="http://www.10gen.com/events/mongosv"&gt;10gen’s 2012 MongoSV Conference&lt;/a&gt;. It’s a great time for us to meet with you, give away some shirts, and learn how you are using MongoHQ to expand your data layer.&lt;/p&gt;
+
+&lt;h2 id="prize"&gt;Prize&lt;/h2&gt;
+
+&lt;p&gt;Let’s be honest … while prizes at a conference like this are almost a given, they can be, well, kind of boring. So, this year, we wanted to have a bit of fun with what we are giving away, so we’re going to &lt;a href="http://f.cl.ly/items/3a0k3d1f1o2n2f2T271w/bees.gif"&gt;go all Oprah&lt;/a&gt; and be like “A new car!”&lt;/p&gt;
+
+&lt;p&gt;Ok, it is a car, but more in the “RC” variety. It’s a &lt;a href="http://cl.ly/image/2Y1H3E2m3218"&gt;Traxxas RC Truck&lt;/a&gt; and, simply put, it is a blast to play with. Your life is stressful enough already, so we figured we should provide you something that gives you a brief diversion. We’ll be showing it off, so come by the booth to check it out and for a chance to win!&lt;/p&gt;
+
+&lt;h2 id="solidtalks"&gt;Solid Talks&lt;/h2&gt;
+
+&lt;p&gt;There will be some great talks at MongoSV. Here are a couple that we think look &lt;strong&gt;especially&lt;/strong&gt; good.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;MongoDB for Analytics &lt;em&gt;&lt;/em&gt;&lt;/strong&gt;John Nunemaker, Github The flexibility of MongoDB makes it perfect for storing analytics. John will discuss a few patterns for storing data that he has learned while growing Gaug.es from zero to millions of page views a day.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How We Evaluated MongoDB as an Relational Database Replacement &lt;em&gt;&lt;/em&gt;&lt;/strong&gt;Brig Lamoreaux, Apollo Group. Brig explains the process, methodology, and results used at Apollo Group to evaluated MongoDB to replace Oracle for a core platform component.&lt;/p&gt;
+
+&lt;h2 id="lookingforaticket"&gt;Looking for a Ticket?&lt;/h2&gt;
+
+&lt;p&gt;If you are still looking for a ticket, drop us a note at &lt;em&gt;*support@mongohq.com *&lt;/em&gt;and we can get you hooked up with a nice discount.&lt;/p&gt;
+
+&lt;h2 id="seeyouthere"&gt;See You There!&lt;/h2&gt;
+
+&lt;p&gt;Please take a moment to come by and see Jason, Shaun, Matt, Ben, Chris and Kurt. We’d love to talk to you about how we can help you sleep better at night by running, optimizing and scaling your MongoDB installation.&lt;/p&gt;</description><link>http://localhost:2368/mongohq-in-silicon-valley-for-mongosv-2012/</link><guid isPermaLink="false">93ace95d-eb77-416f-8053-1fbecc61ab2b</guid><category>10gen</category><category>conference</category><category>mongo hosting</category><category>mongoconf</category><category>mongodb</category><category>mongodb hosting</category><category>mongohq</category><category>mongosv</category><dc:creator>jasonmongohq-com</dc:creator><pubDate>Mon, 03 Dec 2012 21:14:12 GMT</pubDate></item><item><title>MongoHQ Is Excited to Sponsor Node Knockout 2012</title><description>&lt;p&gt;We’re excited to announce that we are sponsoring &lt;a href="http://nodeknockout.com/"&gt;Node Knockout&lt;/a&gt; for its &lt;strong&gt;third&lt;/strong&gt; year! This has really become &lt;em&gt;the&lt;/em&gt; event for showcasing the amazing teams and exciting ideas that currently exist in the Node.js community. Along with helping the Node Knockout event team, we are offering free MongoDB services for the event, assistance from our team as people get started and some cool prizes that total almost $20,000 dollars. Dizzang.&lt;/p&gt;
+
+&lt;h2 id="gettingstarted"&gt;Getting Started&lt;/h2&gt;
+
+&lt;p&gt;If you are participating in Node Knockout 2012 and plan to use MongoDB, it’s easy to get started. Just &lt;a href="https://www.mongohq.com/signup"&gt;sign up for a MongoHQ account&lt;/a&gt; and select a free 512MB sandbox database plan and you are on your way.&lt;/p&gt;
+
+&lt;h2 id="driversandcodeexamples"&gt;Drivers and Code Examples&lt;/h2&gt;
+
+&lt;p&gt;For &lt;strong&gt;drivers&lt;/strong&gt;, using the &lt;a href="https://github.com/mongodb/node-mongodb-native"&gt;Node MongoDB Native driver&lt;/a&gt; is recommended. Also, for an ORM, we suggest the &lt;a href="https://github.com/LearnBoost/mongoose"&gt;Mongoose Project&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;There is a nice &lt;strong&gt;tutorial&lt;/strong&gt; for &lt;a href="http://mongodb.github.com/node-mongodb-native/api-articles/nodekoarticle1.html"&gt;getting started wtih MongoDB and the Node driver&lt;/a&gt;. It should help answer basic questions and point you in the right direction.&lt;/p&gt;
+
+&lt;p&gt;If you are looking for &lt;strong&gt;code examples&lt;/strong&gt; to get your application connected to your newly created database, we have &lt;a href="http://support.mongohq.com/starting/mongohq-and-nodejs.html"&gt;docs for connecting to MongoDB with Node&lt;/a&gt;that are available for your use.&lt;/p&gt;
+
+&lt;h2 id="api"&gt;API&lt;/h2&gt;
+
+&lt;p&gt;Thinking about bypassing the MongoDB driver and using a MongoDB-based API with your app? No problem. MongoHQ includes a &lt;a href="http://support.mongohq.com/mongohq-api/introduction.html"&gt;useful REST-based API&lt;/a&gt; for doing basic MongoDB operations. While it will not have the full feature set and functionality of the drivers/ORMs listed above, it is a viable option for basic tasks.&lt;/p&gt;
+
+&lt;h2 id="judges"&gt;Judges&lt;/h2&gt;
+
+&lt;p&gt;The talent level of the participants that Node Knockout uses to judge applications seems to only get better each year. We wanted to take a moment to highlight just a few that we are most excited about.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Christian Kvalheim (10gen)&lt;/li&gt;
+&lt;li&gt;Arnout Kazemier (Nodejitsu)&lt;/li&gt;
+&lt;li&gt;Reuben Katz / Christian Sanz (Geeklist)&lt;/li&gt;
+&lt;li&gt;Aaron Heckmann (10gen)&lt;/li&gt;
+&lt;li&gt;Cole Krumbholz (Backlift)&lt;/li&gt;
+&lt;li&gt;Chris Matthieu (GetVocal, founder of Nodester)&lt;/li&gt;
+&lt;li&gt;Jakub Nesetril (Apiary.io)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="previouswinners"&gt;Previous Winners&lt;/h2&gt;
+
+&lt;p&gt;Another really great aspect of our participation in Node Knockout has been to have the opportunity to support and be part of the story of a lot of cool teams and products. Here are just a few:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Observer (Winner of Node Knockout 2011)&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://2011.nodeknockout.com/teams/opower"&gt;Doodle or Die&lt;/a&gt; (Winner for Utility/Fun 2011)&lt;/li&gt;
+&lt;li&gt;Chess@Home (Winner of Completeness 2011)&lt;/li&gt;
+&lt;li&gt;Scrabb.ly (Winner of Popularity 2010)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As you can see from the participants and the teams from previous years, &lt;a href="http://nodeknockout.com/"&gt;Node Knockout 2012&lt;/a&gt; will be another great event. Kudos to the &lt;a href="http://nodeknockout.com/about"&gt;Node Knockout team&lt;/a&gt;for continuing to put on a well-organized gathering.&lt;/p&gt;</description><link>http://localhost:2368/mongohq-is-excited-to-sponsor-node-knockout-2012/</link><guid isPermaLink="false">643f162a-7b9a-4c44-b322-6c7aee5c4341</guid><category>mongodb</category><category>mongodb hosting</category><category>node</category><category>node knockout</category><category>partners</category><category>sponsorship</category><dc:creator>jasonmongohq-com</dc:creator><pubDate>Thu, 08 Nov 2012 21:09:00 GMT</pubDate></item><item><title>Monitoring the Weather Situation With Hurricane Sandy</title><description>&lt;p&gt;We want to provide a brief update on status as &lt;a href="http://google.org/crisismap/2012-sandy"&gt;Hurricane Sandy&lt;/a&gt; impacts the eastern coast of the United States, where a large portion of our data infrastructure is located. Heavy winds and rain are affecting power in the region and these conditions are set to persist for the next 24-36 hours as Sandy progresses through the Northeast.&lt;/p&gt;
+
+&lt;h2 id="status"&gt;Status&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Our on-call staff is fully available and closely monitoring all aspects of our service offering.&lt;/li&gt;
+&lt;li&gt;We have added multi-region members to replica sets as customers have requested them.&lt;/li&gt;
+&lt;li&gt;We are in communication with all our infrastructure providers, working with them and assessing changing conditions.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Please use the &lt;a href="http://status.mongohq.com/"&gt;MongoHQ Status&lt;/a&gt; web site to monitor changes to server status and reach out to us at &lt;a href="mailto:support@mongohq.com"&gt;support@mongohq.com&lt;/a&gt; for assistance or to have questions answered.&lt;/p&gt;</description><link>http://localhost:2368/monitoring-the-weather-situation-with-hurricane-sandy/</link><guid isPermaLink="false">bf6fb967-24f5-4a3f-b980-bf64d1eaa7a1</guid><category>announcement</category><category>Hurricane Sandy</category><category>status</category><dc:creator>jasonmongohq-com</dc:creator><pubDate>Mon, 29 Oct 2012 21:07:15 GMT</pubDate></item></channel></rss>

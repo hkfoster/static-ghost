@@ -1,0 +1,322 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Get started with Redis on Compose</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/get-started-with-redis-on-compose/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Get started with Redis on Compose">
+    <meta property="og:description" content="In this article, we’re going to run through the steps you’ll go through to get going with Redis on Compose. Once you’ve realised you’ve got some write intensive operations in your application or need a transient...">
+    <meta property="og:url" content="http://localhost:2368/get-started-with-redis-on-compose/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/redisblur2_fbeiv3_xhrvfl.jpg">
+    <meta property="article:published_time" content="2014-12-04T09:04:08.000Z">
+    <meta property="article:modified_time" content="2014-12-17T08:43:18.000Z">
+    <meta property="article:tag" content="compiling">
+    <meta property="article:tag" content="how-to">
+    <meta property="article:tag" content="tutorial">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Get started with Redis on Compose">
+    <meta name="twitter:description" content="In this article, we’re going to run through the steps you’ll go through to get going with Redis on Compose. Once you’ve realised you’ve got some write intensive operations in your application or need a transient...">
+    <meta name="twitter:url" content="http://localhost:2368/get-started-with-redis-on-compose/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/redisblur2_fbeiv3_xhrvfl.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Get started with Redis on Compose",
+    "url": "http://localhost:2368/get-started-with-redis-on-compose/",
+    "datePublished": "2014-12-04T09:04:08.000Z",
+    "dateModified": "2014-12-17T08:43:18.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/redisblur2_fbeiv3_xhrvfl.jpg",
+    "keywords": "compiling, how-to, tutorial",
+    "description": "In this article, we’re going to run through the steps you’ll go through to get going with Redis on Compose. Once you’ve realised you’ve got some write intensive operations in your application or need a transient..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-compiling tag-how-to-2 tag-tutorial blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-compiling tag-how-to-2 tag-tutorial container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/redisblur2_fbeiv3_xhrvfl.jpg)">
+    <h1 class="post-title">Get started with Redis on Compose</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-12-04">December 4th, 2014</time></small>
+  </header>
+
+<p><img src="../content/images/2014/12/RedisCompose_sp6cjb_uxblql.png" alt="RedisCompose" title="">In this article, we’re going to run through the steps you’ll go through to get going with Redis on Compose. Once you’ve realised you’ve got some write intensive operations in your application or need a transient message queue, you’ll probably want to use Redis in your architecture to relieve yourself of performance constraints. With it’s memory-first design and blistering performance, Redis can take on the challenge and leave your other database deployments to free to focus on storage, queries and analysis.</p>
+
+<p>The simple part is provisioning your Redis database on Compose. Assuming you’ve signed up and signed in, just click “Add Deployment”, select Redis, give the deployment a name and a starting capacity, click add and you’re done. Compose takes care of all that for you giving you a two database node cluster with a monitoring Sentinel node and a /content/images/2014/12/Screenshot-2014-12-03-16<em>39</em>21<em>fp6hgp</em>qwfpq4.png)And in the Connect Strings section a URI connection string which can be given to applications with Redis drivers and a command line string. Here it’s</p>
+
+<pre><code>redis-cli -h portal.0.dblayer.com -p 10114 -a [password]  
+</code></pre>
+
+<p>This should be fairly self-explanatory; the <code>-h</code> parameter is the name of host to connect to, the <code>-p</code> parameter is the port to connect to there and the <code>-a</code> parameter is the password which you won’t know.</p>
+
+<p>Redis uses a simple password only authentication. One password gives access to the database, no username needed. At Compose we use that same password to give access through the proxy to the Redis database. We’ll come back to some ways to tighten up your control on that in a moment. For now, just know that’s all you need. To get the password, scroll down on the overview page to the <em>Additional Information</em> section.</p>
+
+<p><img src="../content/images/2014/12/Screenshot-2014-12-03-16_41_25_czmwzr_pxrqda.png" alt="Redis password" title="">By default the password is hidden behind a button. Click the button and the password is revealed as we’re showing here. You can also change the password here but pay attention to that note – it will require a restart on your database to put into effect. Anyway, here our password is <code>REDISPASS</code>. I could now connect to my Redis with the command:</p>
+
+<pre><code>$ redis-cli -h portal.0.dblayer.com -p 10114 -a REDISPASS
+portal.0.dblayer.com:10114&gt;  
+</code></pre>
+
+<p>and you can connect to your Redis by assembling those two strings into a similar command. Now we are able to use the CLI. It has tab auto-completion, history and other handy features for interacting including an extensive help system. Actually interacting with the database is as simple as SET and GET:</p>
+
+<pre><code>portal.0.dblayer.com:10114&gt; set fred 1  
+OK  
+portal.0.dblayer.com:10114&gt; get fred  
+"1"
+portal.0.dblayer.com:10114&gt;  
+</code></pre>
+
+<p>If you are completely new to Redis, check out the <a href="http://try.redis.io/">Try Redis</a> interactive tutorial. If you just want to see what commands are at your command, check out the <a href="http://redis.io/commands">command documentation</a> which lists them all and links through to more documentation on each.</p>
+
+<h2 id="securingyourredis">Securing your Redis</h2>
+
+<p>As you’ll have noticed, there’s only one password for the Redis installation and you will most likely want more control of who can access it. First is IP Whitelisting which can be applied to the TCP/HTTP access portal. When activated, it will block all connections to the proxy unless they come from IP addresses you have added to the white list. You’ll find the white list controls on the <em>Security</em> tab of the database’s deployment. This is probably the simplest route for most users because of what the proxy does behind the scenes.</p>
+
+<p>When a Redis client connects to the TCP/HTTP access portal, the proxy converses with a Redis Sentinel process within the cluster to locate the current Redis master instance. It then connects to the user’s session to that instance. This means you are always connected to the master with no need to be aware of how the Redis Sentinel system works and no need for your drivers to support the Sentinel’s discovery system.</p>
+
+<h2 id="connectingadriver">Connecting a driver</h2>
+
+<p>We are now ready to connect an application to the Redis server. As an example, we’ll use Node.js to write a simple application that sets a key to a value. Here’s the code:</p>
+
+<pre><code>var redis = require("redis");  
+var client = require("redis-url").connect();
+
+client.on("error", function (err) {  
+  console.log("Error " + err);
+});
+
+client.set("just a test set", "a test set", redis.print);
+
+client.quit();  
+</code></pre>
+
+<p>This uses the <a href="https://www.npmjs.org/package/redis"><code>redis</code></a> npm package which provides an extensive API for accesssing the Redis database. The one thing it doesn’t do is allow you pass it a Redis URL. If you look on the <em>Overview</em> page, a Redis URL what you’ll be given. It looks something like this:</p>
+
+<pre><code>redis://x:REDISPASS@portal.0.dblayer.com:10114  
+</code></pre>
+
+<p>Now, it’s a simple process to manually break this up into its parts: the host is “portal.0.dblayer.com”, the port is “10117” and the authentication password is “REDISPASS”. (You can also get those values from the <code>redis_cli</code> command given on the same page). Those three values could be passed to the <code>createClient</code> method of the Redis npm package.</p>
+
+<p>If you’d rather not hardwire them in, then you’d have to work with multiple environment variables. Or… you can use <a href="https://www.npmjs.org/package/redis-url"><code>redis-url</code></a> which can take as a parameter or from a <code>REDIS_URL</code> environment variable the Redis URL, parse it and helpfully sets up the connection got you. This is what the second line of the code does. The rest of the code simply sets up an error handler, sets a key to a value and quits the connection.</p>
+
+<p>Redis URL support isn’t uniformly available through drivers, so do check when you are selecting which of the <a href="http://redis.io/clients">many Redis clients</a> you want to use with your application.</p>
+
+<h2 id="wrappingup">Wrapping up</h2>
+
+<p>You should have everything you need to know and use for connecting to Redis on Compose. Redis-CLI will give you an easy way to connect and manipulate the data, you can restrict access to your Redis database using whitelists and we’ve noted how you’ll have to decide whether you want to use convenient Redis URLs or work with the host, port and password separately when writing applications. Next stop is a Redis optimised application as part of your polybased full database stack.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Get%20started%20with%20Redis%20on%20Compose&amp;url=http://localhost:2368/get-started-with-redis-on-compose/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/get-started-with-redis-on-compose/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/get-started-with-redis-on-compose/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

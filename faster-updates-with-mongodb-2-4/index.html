@@ -1,0 +1,303 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Faster Updates with MongoDB 2.4</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/faster-updates-with-mongodb-2-4/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Faster Updates with MongoDB 2.4">
+    <meta property="og:description" content="You may not be ready to make the move to MongoDB 2.6 yet, but still have an issue getting the best performance from bulk update operations. MongoDB 2.6 has a new Bulk API, but use that API with...">
+    <meta property="og:url" content="http://localhost:2368/faster-updates-with-mongodb-2-4/">
+    <meta property="article:published_time" content="2014-04-29T13:39:17.000Z">
+    <meta property="article:modified_time" content="2014-09-02T09:32:33.000Z">
+    <meta property="article:tag" content="performance">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Faster Updates with MongoDB 2.4">
+    <meta name="twitter:description" content="You may not be ready to make the move to MongoDB 2.6 yet, but still have an issue getting the best performance from bulk update operations. MongoDB 2.6 has a new Bulk API, but use that API with...">
+    <meta name="twitter:url" content="http://localhost:2368/faster-updates-with-mongodb-2-4/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Faster Updates with MongoDB 2.4",
+    "url": "http://localhost:2368/faster-updates-with-mongodb-2-4/",
+    "datePublished": "2014-04-29T13:39:17.000Z",
+    "dateModified": "2014-09-02T09:32:33.000Z",
+    "keywords": "performance",
+    "description": "You may not be ready to make the move to MongoDB 2.6 yet, but still have an issue getting the best performance from bulk update operations. MongoDB 2.6 has a new Bulk API, but use that API with..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-performance blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-performance container">
+  <header>
+    <h1 class="post-title">Faster Updates with MongoDB 2.4</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-04-29">April 29th, 2014</time></small>
+  </header>
+
+<p>You may not be ready to make the move to MongoDB 2.6 yet, but still have an issue getting the best performance from bulk update operations. MongoDB 2.6 has a new Bulk API, but use that API with a 2.4 server and it’ll be just as slow as not using the API. This means that slow updates, especially with a MongoDB replica set, are still a problem with MongoDB 2.4. At MongoHQ we have strategies for dealing with that performance problem.</p>
+
+<p>The key to increasing speed on updates is to note how MongoDB gives a lot of control over how database operations are acknowledged by a server, and more still when dealing with a replica set. For a standalone server, that ranges from not checking (no longer the default, thankfully), through acknowledgment that the operation has been acted on and up to confirming the operation has been written to the journal. In a replica set you can also set the number of servers, or select a majority, that the operation is replicated to. For everything but the not checking option, the <code>getLastError</code> command is called with parameters that reflect how concerned the client is with the progress of the write – the <em>writeconcern</em> – the more concern, the longer it will take for the various write operations to complete or fail.</p>
+
+<h1 id="bulkinsertion">Bulk Insertion</h1>
+
+<p>MongoDB has been able to <a href="http://docs.mongodb.org/manual/core/bulk-inserts/">bulk insert records</a> for some time. Bulk inserts reduce the waiting by attempting to insert all the documents at once; if there’s an invalid document or some other error occurs, the rest of the inserts are discarded. By doing it all at once though, there’s only one wait on <code>getLastError</code>. Bulk inserts are triggered by passing an array of documents to the <code>insert</code> method so, for example, in a test application we could create an array of simple documents and just insert that into the collection:</p>
+
+<pre><code>&lt;code class="language-ruby"&gt;for i in 1..1000 do  
+    newdoc= { "myid" =&gt; i, "name" =&gt; "bar#{i}" }
+    docarray &lt;&lt; newdoc
+end
+
+@collection.insert(docarray)
+</code></pre>
+
+<p>The <code>insert</code> method returns a single ObjectId when it inserts a single document and so, when handed an array for bulk insert, it returns an array of ObjectIds. There are two options for handling errors available. <code>:continue_on_error</code> defaults to false, but when set to true, if there is an error inserting a document from the insert array, it will continue processing the rest of the array. To discover which documents failed to be inserted, another option <code>:collect_on_error</code> aggregates the failed documents into a set which is also returned by the method.</p>
+
+<h1 id="bulkingupupdates">Bulking Up Updates</h1>
+
+<p>But for updates, there is no such convenience. Each update operation will send a <code>getLastError</code> and wait for the results. The higher the <em>writeconcern</em> the longer those waits will be. There is a way to approximate the all-or-nothing bulk insert behavior, but this is where you need to understand your update and data. To make use of this technique you need to know that you can repeatedly apply your update and the resulting records will always be the same – that is to say that your update operations must be <a href="http://en.wikipedia.org/wiki/Idempotence">idempotent</a>. If we look at the some of the <a href="http://docs.mongodb.org/manual/reference/operator/update/">update operators</a> MongoDB supports, we can see that the result multiply applying <code>$set</code> and <code>$unset</code> would always be the same, but the result of doing the same with <code>$inc</code> or <code>$rename</code> would not be. Array operators would also not be idempotent either – multiple applications of <code>$pop</code> would, eventually, lead to an empty array and <code>$push</code> would accept new values for the array forever (for limited values of forever). Also remember that if you are using a query, the record found by that query could, unless it is very specific, vary over multiple calls and thus not be idempotent.</p>
+
+<p>But, if your update operation is idempotent then we can look at optimising an update. For simplicity, we’ll use that example insert to create a set of records then look at performance of various update strategies. First thing we’ll do is open the database and set it with a default writeconcern of 2. With a replica set that means the operation has to be applied on the primary and confirmed on a secondary server.</p>
+
+<pre><code>&lt;code class="language-ruby"&gt;require 'mongo'  
+@mongo_client = Mongo::MongoClient.from_uri(ENV["MONGOHQ_URL"],{ w:2})
+</code></pre>
+
+<p>Now, we’ll create 1000 records as above and then update each one, one at a time.</p>
+
+<pre><code>&lt;code class="language-ruby"&gt;for i in 1..@counts do  
+    @collection.update({ "myid" =&gt; i },{ "$set" =&gt; { "name" =&gt; "foo#{i}" }  } )
+end  
+</code></pre>
+
+<p>And in our test, running from a Heroku instance, that takes nearly 5 seconds to complete, around 200 operations per second. If we take the writeconcern down to 1, purely by adding { :w =&gt; 1 } to the update options, that performance improves slightly, taking 3.7 seconds, 270 ops per second.</p>
+
+<p>Now though, we want to see the effect of a writeconcern of 0. This will mean no call to <code>getLastError</code> on each call, so we’ll do it ourselves and only do that with a writeconcern of 2, like so:</p>
+
+<pre><code>&lt;code class="language-ruby"&gt;  for i in 1..@counts do  
+     @collection.update({ "myid" =&gt; i },{ "$set" =&gt; { "name" =&gt; "foo#{i}" }  }, { :w =&gt; 0 } )
+  end
+  error=@db.get_last_error( { :w=&gt;2 })
+</code></pre>
+
+<p>And if we run this <a href="http://blog.mongohq.com/benchmarking-faster-updates/" title="Benchmarking Faster Updates">benchmark code</a>, it completes in 0.3 seconds of real time, which would equate to 3000 operations per second. Obviously with only a thousand records, this is somewhat high; if we push the number of records up to ten thousand, we get 100 ops/sec with w at 2, 126 ops/sec with w at 1 and 550 ops/sec with our w at 0.</p>
+
+<p>It’s a great improvement on performance for updates, but it comes with strings attached. You can only use the technique with an idempotent update, because if there is an error, you won’t know which updates failed and will have to reapply the entire set of operations again and if it’s not idempotent, then it would begin corrupting any data already updated.</p>
+
+<p>Of course, with MongoDB 2.6’s new Bulk API and write protocol, the most reliable way to get faster bulk updates is to move to MongoDB 2.6 and use that API. In the next part of this series, we’ll look at what 2.6 has to offer in detail, give examples of 2.6 bulking in action in various languages.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Faster%20Updates%20with%20MongoDB%202.4&amp;url=http://localhost:2368/faster-updates-with-mongodb-2-4/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/faster-updates-with-mongodb-2-4/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/faster-updates-with-mongodb-2-4/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

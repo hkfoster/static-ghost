@@ -1,0 +1,270 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>How we do it : Good deeds recognised</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/how-we-do-it-good-deeds-recognised/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How we do it : Good deeds recognised">
+    <meta property="og:description" content="How often have you accomplished something at work, raised your head from the desk and found you are in an empty office and no one will ever know the epic challenge you took on? Awful isn’t it. No champagne,...">
+    <meta property="og:url" content="http://localhost:2368/how-we-do-it-good-deeds-recognised/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/bubbles-1024_opnfl3_auyq0b.jpg">
+    <meta property="article:published_time" content="2014-09-02T09:54:08.000Z">
+    <meta property="article:modified_time" content="2014-12-17T11:16:05.000Z">
+    <meta property="article:tag" content="how we do it">
+    <meta property="article:tag" content="remote working">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How we do it : Good deeds recognised">
+    <meta name="twitter:description" content="How often have you accomplished something at work, raised your head from the desk and found you are in an empty office and no one will ever know the epic challenge you took on? Awful isn’t it. No champagne,...">
+    <meta name="twitter:url" content="http://localhost:2368/how-we-do-it-good-deeds-recognised/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/bubbles-1024_opnfl3_auyq0b.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "How we do it : Good deeds recognised",
+    "url": "http://localhost:2368/how-we-do-it-good-deeds-recognised/",
+    "datePublished": "2014-09-02T09:54:08.000Z",
+    "dateModified": "2014-12-17T11:16:05.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/bubbles-1024_opnfl3_auyq0b.jpg",
+    "keywords": "how we do it, remote working",
+    "description": "How often have you accomplished something at work, raised your head from the desk and found you are in an empty office and no one will ever know the epic challenge you took on? Awful isn’t it. No champagne,..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-how-we-do-it-2 tag-remote-working blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-how-we-do-it-2 tag-remote-working container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/bubbles-1024_opnfl3_auyq0b.jpg)">
+    <h1 class="post-title">How we do it : Good deeds recognised</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-09-02">September 2nd, 2014</time></small>
+  </header>
+
+<p>How often have you accomplished something at work, raised your head from the desk and found you are in an empty office and no one will ever know the epic challenge you took on? Awful isn’t it. No champagne, no boss coming in to shake your hand and… wait, that doesn’t happen anyway but the effect is amplified when you work remotely. There’s that moment when you go for a high five from the cat and, after failing to get that and bandaging your clawed hand, having to make do with a fresh cup of coffee rather than champagne.</p>
+
+<p><img src="../content/images/2014/12/composesocialicon-blue_h0svq9_gjlbi9.png" alt="Compose Social Icon" title="">Sitting here with my fresh cup of coffee in my bandaged hand, I can tell you that remote working would be so much better with some way of getting feedback for those little things. Well, now we have that in-house at Compose…</p>
+
+<p>One of our internal systems at Compose is called Fizz. We’ve been running it for a while and traditionally Fizz has been about creating and reporting progress towards milestones. It’s a fabulously fluid system which allows us to go from idea to team to completion quickly and without drama (unless we’re organising the Compose Annual Play, in which case there’s lots of drama). While Fizz was great for the bigger jobs, it didn’t handle the smaller tasks…</p>
+
+<p>While we were becoming Compose, Fizz got an overhaul and one thing that was added was a whole new system of Deeds. When anyone goes to Fizz they are presented with a text field and list of the latest deeds. Done something that you think is worthy of getting a little congratulation? Enter it into the text field and hit the <em>Humblebrag!</em> button and it’ll get added to the list of deeds.</p>
+
+<p>If you haven’t got a deed done, then you can browse down the list and hand out your daily allocation of two thumbs up to anyone else’s deed that you appreciate. Better still, if the deed engages your interest, you can leave a comment on it so you can ask “How did you achieve this epic feat” or some more specific query if the mood takes you. Those humblebrags, votes and comments are echoed into the company chat system, so people don’t have to visit the Fizz system to find out whats going on, and when they want to respond</p>
+
+<p>Fizz Deeds are a simple system to tackle a simple problem, but like the stapler and the staple remover, the most useful office tools are pretty simple but effective. We’re already seeing better recognition of the smaller un-milestoned work and it offers an easy on-ramp to Fizz’s team building and tracking platform.</p>
+
+<p>The lessons learned? Look to recognise the small achievements during the working day. And don’t try and high five a cat. But mostly it’s the recognising small achievements thing, because thats how we do it at Compose.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=How%20we%20do%20it%20%3A%20Good%20deeds%20recognised&amp;url=http://localhost:2368/how-we-do-it-good-deeds-recognised/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/how-we-do-it-good-deeds-recognised/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/how-we-do-it-good-deeds-recognised/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

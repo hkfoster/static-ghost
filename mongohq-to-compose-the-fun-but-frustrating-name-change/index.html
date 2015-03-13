@@ -1,0 +1,262 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Project ChuckleDuck - How MongoHQ became Compose</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/mongohq-to-compose-the-fun-but-frustrating-name-change/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Project ChuckleDuck - How MongoHQ became Compose">
+    <meta property="og:description" content="*MongoHQ is now Compose – Learn More We had a name, we had a logo, then it was time to have fun with it. Our team began playing with the logo and mashing it up with other concepts. DJ, our content...">
+    <meta property="og:url" content="http://localhost:2368/mongohq-to-compose-the-fun-but-frustrating-name-change/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/Unknown_joopds_k87mwa.jpg">
+    <meta property="article:published_time" content="2014-08-08T11:36:50.000Z">
+    <meta property="article:modified_time" content="2014-12-17T11:16:03.000Z">
+    <meta property="article:tag" content="compose">
+    <meta property="article:tag" content="how we do it">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Project ChuckleDuck - How MongoHQ became Compose">
+    <meta name="twitter:description" content="*MongoHQ is now Compose – Learn More We had a name, we had a logo, then it was time to have fun with it. Our team began playing with the logo and mashing it up with other concepts. DJ, our content...">
+    <meta name="twitter:url" content="http://localhost:2368/mongohq-to-compose-the-fun-but-frustrating-name-change/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/Unknown_joopds_k87mwa.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "thom",
+        "image": "//www.gravatar.com/avatar/a450ef8575e5305c65e7a1b6f7e5c204?d=404&s=250",
+        "url": "http://localhost:2368/author/thom",
+        "sameAs": ""
+    },
+    "headline": "Project ChuckleDuck - How MongoHQ became Compose",
+    "url": "http://localhost:2368/mongohq-to-compose-the-fun-but-frustrating-name-change/",
+    "datePublished": "2014-08-08T11:36:50.000Z",
+    "dateModified": "2014-12-17T11:16:03.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/Unknown_joopds_k87mwa.jpg",
+    "keywords": "compose, how we do it",
+    "description": "*MongoHQ is now Compose – Learn More We had a name, we had a logo, then it was time to have fun with it. Our team began playing with the logo and mashing it up with other concepts. DJ, our content..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-compose-2 tag-how-we-do-it-2 blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-compose-2 tag-how-we-do-it-2 container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/Unknown_joopds_k87mwa.jpg)">
+    <h1 class="post-title">Project ChuckleDuck - How MongoHQ became Compose</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-08-08">August 8th, 2014</time></small>
+  </header>
+
+<p></p><center><em>*</em>MongoHQ is now Compose – <a href="../content/images/2014/12/composelogo-e1407433429804_fkuhwu_kpkdhv.png">Learn More</a>
+
+<p>We had a name, we had a logo, then it was time to have fun with it. Our team began playing with the logo and mashing it up with other concepts. DJ, our content curator, created space invaders with the logo, Brandon, an awesome designer here at Compose, threw in some suggestions, I tweaked the invaders a bit and bam, we had our banner image for social media and this post.</p>
+
+<p>A name and brand change is not something that just happens on a whim, or at least it shouldn’t be. Like everything else here at Compose, it was a team effort, open and engaged the entire company in the search. A great new name will go well with all the great things we have planned and everyone here knows they were a part of selecting it. Because thats how we do it at Compose.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="http://127.0.0.1:2368/author/thom/">
+        <img src="http://www.gravatar.com/avatar/a450ef8575e5305c65e7a1b6f7e5c204?d=404&amp;s=250" alt="thom">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="http://127.0.0.1:2368/author/thom/">thom</a>
+          <p>Growth Guy at Compose, Thom likes running A/B tests, looking at metrics and playing on social media.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Project%20ChuckleDuck%20-%20How%20MongoHQ%20became%20Compose&amp;url=http://localhost:2368/mongohq-to-compose-the-fun-but-frustrating-name-change/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/mongohq-to-compose-the-fun-but-frustrating-name-change/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/mongohq-to-compose-the-fun-but-frustrating-name-change/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</center></article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

@@ -1,0 +1,212 @@
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>addison - Compose Articles</title><description>News, tips, and tricks from the team at Compose</description><link>http://localhost:2368/</link><generator>Ghost 0.5</generator><lastBuildDate>Fri, 13 Mar 2015 15:33:57 GMT</lastBuildDate><atom:link href="http://localhost:2368/author/addison/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Node.js, MongoDB, and You: an Intro in Parts</title><description>&lt;p&gt;A few years ago, two technologies were born. One was a platform for building network applications, the other a database. Both were slightly rebellious and shared a fascination with javascript. Their courtship was inevitable.&lt;/p&gt;
+
+&lt;p&gt;In the years since, both technologies have grown up. Node.js and MongoDB have matured as a couple and if you haven’t had a chance to get to know them, its high time you took a few minutes and familiarized yourself.&lt;/p&gt;
+
+&lt;p&gt;While hype doesn’t make a language or a database, both technologies have their benefits. Node.js delivers relatively good concurrency and performance by making asynchronous IO the norm, and wraps it all up with the best package manager ever. MongoDB serves as a simplified persistence layer that eschews the overhead of strict schema design for a document based approach and has a simple query interface to make working with your data easy. The fact that both have great communities that are actively making things better is a nice cherry on top. Certainly, no technology is perfect for all uses cases, but node.js and MongoDB make it fairly easy to get start building production network applications.&lt;/p&gt;
+
+&lt;h2 id="gettingstarted"&gt;Getting Started&lt;/h2&gt;
+
+&lt;p&gt;Make sure you &lt;a href="http://nodejs.org/download/"&gt;download and install&lt;/a&gt; Node.js and npm. You will also need access to a MongoDB databases. If you don’t want to go through the struggle of setting up your own, spend five minutes and &lt;a href="https://bridge.mongohq.com/signup?utm_campaign=blog&amp;amp;utm_medium=content&amp;amp;utm_source=blog.mongohq.com"&gt;create a free database&lt;/a&gt; on MongoHQ.&lt;/p&gt;
+
+&lt;p&gt;Start by creating a directory for your work:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;mkdir node_playground &amp;amp;&amp;amp; cd node_playground&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Next, use npm (the node package manager) to create a template &lt;code&gt;package.json&lt;/code&gt; file. This file is used to specify package metadata and dependencies. &lt;code&gt;npm init&lt;/code&gt; will create one for us by asking some questions, use the defaults if you’re in a hurry.&lt;/p&gt;
+
+&lt;p&gt;And last, we need a way to connect to our running mongo instance, for that, we will install the &lt;code&gt;mongodb&lt;/code&gt; driver.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;npm install mongodb --save #--save will add the dependency to our package.json&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;With that, its time to write some code.&lt;/p&gt;
+
+&lt;h2 id="thebasics"&gt;The Basics&lt;/h2&gt;
+
+&lt;p&gt;To get started, lets connect to the database, write a document, update it, and then read it back (if the wall of code is intimidating, start with the inline comments):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// basic-mongo.js
+// import the mongo driver that we installed above and grab
+// the MongoClient that helps us connect
+var MongoClient = require("mongodb").MongoClient  
+// connecting requires passing a mongodb uri
+// these can take lots of options, but here we keep it simple 
+// and connect to the superhero db with a username and password
+// you will need to change this!
+MongoClient.connect("mongodb://addison:supersecure@paulo.mongohq.com:10000/superhero", function(err, db) {  
+  // if we didn't connect, throw the error
+  if (err) throw err
+
+  // in mongo, documents are grouped in collection (like a table)
+  // lets make one!
+  var superheroes = db.collection("superheroes")
+  // inserting a new document is easy, just pass arbitrary json
+  superheroes.insert({name: "Addison", superpower: "insert"}, 
+    function(err, result) {
+      if (err) throw err
+
+      // all documents in mongo get assigned a unique id, _id
+      // we use this to find the document we just inserted
+      var _id = result[0]._id
+
+      // to update, we write a 'selector', and then the update
+      // notice the use of $set, it is a special operator 
+      // that sets the fields in the document, otherwise, we would
+      // wipe out the existing document
+      superheroes.update({_id: _id}, {$set: {superpower: "update"}}, function(err) {
+        if (err) throw err
+
+        // finding a document needs a selector like above
+        superheroes.findOne({_id: _id}, function(err, doc) {
+          if (err) throw err
+          console.log(doc.name + " has the power to " + doc.superpower)
+          // close our database so the process will die
+          db.close()
+        }) 
+      })
+
+   })
+})```
+
+To run it, we just do:
+
+`node basic-mongo.js`
+
+If all went well we should see the following:
+
+`&amp;gt; Addison has the power to update`
+
+This is a dumb example and kinda ugly, but it gives a basic example of interacting with mongo from node. There are a few problems here, though, that we should fix. A lot of people getting started with node have the tendency to nest lots of anonymous functions, creating the dreaded “pyramid of doom”. By breaking out some functions and naming them, we can make it a lot cleaner and easier to follow.
+
+Also, a script with no interaction is boring, let’s tweak things a bit and turn this into a small command line app that allows us to read and update our list of heroes and superpowers. We’ll also introduce a few other important MongoDB concepts.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;// super-cli.js
+var MongoClient = require("mongodb").MongoClient&lt;/p&gt;
+
+&lt;p&gt;// we move connecting into a function to avoid the "pyramid of doom"
+function getConnection(cb) { &lt;br&gt;
+  MongoClient.connect("mongodb://addison:supersecure@paulo.mongohq.com:10000/superhero", function(err, db) {
+    if (err) return cb(err)
+    var superheroes = db.collection("superheroes")
+    // because we are searching by name, we need an index! without an index, things can get slow
+    // if you want to learn more: &lt;a href="http://docs.mongodb.org/manual/core/indexes-introduction/"&gt;http://docs.mongodb.org/manual/core/indexes-introduction/&lt;/a&gt;
+    superheroes.ensureIndex({name: true}, function(err) {
+      if (err) return cb(err)
+      cb(null, superheroes)
+    })
+  })
+}&lt;/p&gt;
+
+&lt;p&gt;// an upsert will create a new record OR update an existing record, which makes things easier
+// in mongo, we can do this with a findAndModify and passing the upsert option
+// to have the updated document returned, we pass the new option as well
+function upsertPower(collection, name, power, cb) { &lt;br&gt;
+  collection.findAndModify({name: name}, {}, {$set: {superpower: power}}, {upsert: true, new: true}, cb)
+}&lt;/p&gt;
+
+&lt;p&gt;// instead of finding just one hero, we can list all of the
+// documents by passing an empty selector.
+// This returns a 'cursor', which allows us to walk through the documents
+// look at how we do this in processHeroes
+function readAll(collection, cb) { &lt;br&gt;
+  collection.find({}, cb)
+}&lt;/p&gt;
+
+&lt;p&gt;function readPower(collection, name, cb) { &lt;br&gt;
+  collection.findOne({name: name}, cb)
+}&lt;/p&gt;
+
+&lt;p&gt;function printHero(hero) { &lt;br&gt;
+  // make sure we found our hero!
+  if (!hero) {
+    console.log("couldn't find the hero you asked for!")
+  }
+  console.log(hero.name + " has the power of " + hero.superpower)
+}&lt;/p&gt;
+
+&lt;p&gt;// the each method allows us to walk through the result set, notice the callback, as every time the callback
+// is called, there is another chance of an error
+function printHeroes(heroes, cb) { &lt;br&gt;
+  heroes.each(function(err, hero) {
+    if (err) return cb(err)
+    printHero(hero)
+  })
+}&lt;/p&gt;
+
+&lt;p&gt;function superPowerCli(operation, name, superpower, cb) { &lt;br&gt;
+  getConnection(function(err, collection) {
+    if (err) return cb(err)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// we need to make sure to close the database, otherwise, the process
+// won't stop
+function processHero(err, hero) {
+  if (err) return cb(err)
+  printHero(hero)
+  collection.db.close()
+  cb()
+}
+
+// use this function when dealing with lots of heroes
+function processHeroes(err, heroes) {
+  if (err) return cb(err)
+  // the callback to each is called for every result, once it returns a null, we know
+  // the result set is done
+  heroes.each(function(err, hero) {
+    if (err) return cb(err)
+    if (hero) {
+      printHero(hero)
+    } else {
+      collection.db.close()
+      cb()
+    }
+  })
+}
+
+if (operation === "list") {
+  readAll(collection, processHeroes)
+} else if (operation === "update") {
+  upsertPower(collection, name, superpower, processHero)
+} else if (operation === "read" ){
+  readPower(collection, name, processHero)
+} else {
+  return cb(new Error("unknown operation!"))
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;})
+}&lt;/p&gt;
+
+&lt;p&gt;var operation = process.argv[2] &lt;br&gt;
+var name = process.argv[3] &lt;br&gt;
+var superpower = process.argv[4]&lt;/p&gt;
+
+&lt;p&gt;superPowerCli(operation, name, superpower, function(err) { &lt;br&gt;
+  if (err) {
+    console.log("had an error!", err)
+    process.exit(1)
+  }
+})```&lt;/p&gt;
+
+&lt;p&gt;Now, interaction!:&lt;/p&gt;
+
+&lt;p&gt;```
+node super-cli.js update Addison puns  &lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Addison has the power of puns
+  node super-cli.js update Ian coding &lt;br&gt;
+  Ian has the power of coding
+  node super-cli read Addison &lt;br&gt;
+  Addison has the power of puns
+  node super-cli list &lt;br&gt;
+  Addison has the power of puns
+  Ian has the power of coding```&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This is better! We cleaned up the code, got rid of those pesky pyramids, and also learned a bit about indexes, upserts, and cursors.&lt;/p&gt;
+
+&lt;p&gt;With these simple MongoDB operations and a bit of Javascript code structuring knowledge, you have the basics to dig and and start getting a bit more familiar with these two technologies.&lt;/p&gt;
+
+&lt;p&gt;In the coming weeks, expect another article on how to use MongoDB with Express and Mongoose to help build a simple API service.&lt;/p&gt;
+
+&lt;p&gt;In the mean time, if you want to learn more, make sure to look at the docs for the &lt;a href="http://mongodb.github.io/node-mongodb-native/"&gt;Node.js MongoDB driver&lt;/a&gt;.&lt;/p&gt;</description><link>http://localhost:2368/node-js-mongodb-and-you-an-intro-in-parts/</link><guid isPermaLink="false">11cf3d20-d6db-4c6b-888d-0daf57a5a9bb</guid><dc:creator>addison</dc:creator><pubDate>Thu, 16 Jan 2014 18:24:06 GMT</pubDate></item></channel></rss>

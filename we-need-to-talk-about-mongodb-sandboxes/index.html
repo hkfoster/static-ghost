@@ -1,0 +1,286 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>We need to talk about MongoDB sandboxes...</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/we-need-to-talk-about-mongodb-sandboxes/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="We need to talk about MongoDB sandboxes...">
+    <meta property="og:description" content="At Compose, we’ve historically had a free tier of MongoDB service, but with the advances made in our paid service, we think its time to explain the difference in more detail, especially to our paying customers who also use...">
+    <meta property="og:url" content="http://localhost:2368/we-need-to-talk-about-mongodb-sandboxes/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/sandboxpersp_p9zmpt_m276lc.jpg">
+    <meta property="article:published_time" content="2014-10-02T09:07:26.000Z">
+    <meta property="article:modified_time" content="2014-12-17T09:32:08.000Z">
+    <meta property="article:tag" content="best practice">
+    <meta property="article:tag" content="compose">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="qa">
+    <meta property="article:tag" content="sandbox">
+    <meta property="article:tag" content="test">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="We need to talk about MongoDB sandboxes...">
+    <meta name="twitter:description" content="At Compose, we’ve historically had a free tier of MongoDB service, but with the advances made in our paid service, we think its time to explain the difference in more detail, especially to our paying customers who also use...">
+    <meta name="twitter:url" content="http://localhost:2368/we-need-to-talk-about-mongodb-sandboxes/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/sandboxpersp_p9zmpt_m276lc.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "We need to talk about MongoDB sandboxes...",
+    "url": "http://localhost:2368/we-need-to-talk-about-mongodb-sandboxes/",
+    "datePublished": "2014-10-02T09:07:26.000Z",
+    "dateModified": "2014-12-17T09:32:08.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/sandboxpersp_p9zmpt_m276lc.jpg",
+    "keywords": "best practice, compose, mongodb, qa, sandbox, test",
+    "description": "At Compose, we’ve historically had a free tier of MongoDB service, but with the advances made in our paid service, we think its time to explain the difference in more detail, especially to our paying customers who also use..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-best-practice tag-compose-2 tag-mongodb tag-qa tag-sandbox tag-test blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-best-practice tag-compose-2 tag-mongodb tag-qa tag-sandbox tag-test container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/sandboxpersp_p9zmpt_m276lc.jpg)">
+    <h1 class="post-title">We need to talk about MongoDB sandboxes...</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-10-02">October 2nd, 2014</time></small>
+  </header>
+
+<p>At Compose, we’ve historically had a free tier of MongoDB service, but with the advances made in our paid service, we think its time to explain the difference in more detail, especially to our paying customers who also use sandboxes. To understand the present, you need to know where we came from.</p>
+
+<h3 id="howwegothere">How we got here</h3>
+
+<p><img src="../content/images/2014/12/sandboxicontransp_rwkdmm_sirkmd.jpg" alt="Sandbox" title="">When we started Compose (MongoHQ), the service was fairly homogeneous in that the same platform was used to support both the free and paid tiers. The only difference was that the free tiers shared a single mongod instance on a server and all the free users resided on that system. Other users had dedicated processes on shared systems or dedicated systems. But the underlying fabric of the system was the same.</p>
+
+<p>Time passed and everything was scaled up, including the sandboxes. At the same time we were working on our next generation network fabric and we focussed on the needs of the paying customers. That meant a platform that could bring up containerised and virtualised instances on command and automatically arrange them into auto-scaling clusters. That has become our Elastic Deployments technology and we’re taking that technology even further with Transporter interconnects and new database support for Elasticsearch.</p>
+
+<h3 id="sandboxesthepitfalls">Sandboxes: the pitfalls</h3>
+
+<p>But while we’ve developed that, the sandboxes have remained essentially the same. They are not as resilient, they aren’t backed up, they are still shared on a single <code>mongod</code> instance. Elastic Deployments don’t scale down into sandboxes for free. This has meant an odd situation has arisen because paying customers with production Elastic Deployments have also found the sandboxes useful for “QA and testing” code before taking it live.</p>
+
+<p>We don’t recommend this at all. The problem is the free sandboxes aren’t running on the same underlying platform or in a similar environment. For example, sandboxes run on a fixed version of MongoDB that is, by design, a version or two out from the current version. If you are testing on the sandbox but run the latest MongoDB on your Elastic Deployment, you’re not going to be testing with the same version.</p>
+
+<p>And because your Elastic Deployment is a replica set already and your sandbox isn’t, you won’t have the ability to test your application against replica sets so when your production primary server does a step down, you won’t know how your application will react. And a lack of backup and restore also means you can’t easily verify the whole life cycle of your data and, for example, audit the data on disk for a strict QA test.</p>
+
+<h3 id="sandboxalternativesforqaandproduction">Sandbox alternatives for QA and Production</h3>
+
+<p>If you want to do QA and testing in a meaningful way, then what we recommend is that you get a separate Elastic Deployment and remember to keep the data stored on it under 1GB. You can set exactly the same MongoDB version as your production database, you can test your applications with replica sets and step downs and you get the automated and on-demand backups you need for auditing. If you need a number of QA databases, remember that you can set up as many databases within a single deployment as you need. You can create those extra databases through the Compose dashboard by selecting the deployment you want the database added to. Then select <code>Add Database</code> on the deployment’s database view. You will now be prompted to name your new database and click <code>Add Database</code> when done and your new database will be created. Don’t create extra test/QA databases within your production deployment though; performing a stepdown on those databases will also stepdown your production database. Make sure it’s in a separate test/QA Elastic Deployment.</p>
+
+<p>Even more worrying for us are users who are running production systems using sandboxes as a database backend. When a sandbox server goes down, we will use our best efforts to get it back on line, but at the same time, we don’t make any assurances about uptime on the sandbox servers – our production customers come first. There’s also no customer accessible automatic backup so unless you are writing code to back up your database, you will be leaving yourself exposed. Sandboxes are fragile by design and it is possible that you can lose your data – we obviously try for that not to happen, but it can happen. That is the risk you take in our sandboxes. They aren’t production-ready databases.</p>
+
+<p><img src="../content/images/2014/12/DSC02181_jxik2d_qts1wu.jpg" alt="Perfect unbox" title="">For that assurance you want an Elastic Deployment of MongoDB. Not only will that give you the reliability of a replica set with a secondary to fall back on, automatic and on-demand backups, and access to the full range of Compose tools, it’ll give you all that for only $18/GB/Month. If you’ve been living in the sandbox then you know at most you’ve only got half that data thanks to the 512MB sandbox limit, so you get plenty of room to expand too with no extra costs. And when your startup needs more data? You can elastically scale up automatically to up to a terabyte, all at a simple predictable cost and leaving you to get on with running your business, not your databases.</p>
+
+<p>We’re happy to see our free sandboxes being used by customers who are beginning to find their way around MongoDB and want to start experimenting with it without any financial commitment. But we really do have to recommend that if your business relies on a free sandbox that you seriously consider what a great deal more power, support and capabilities you can get by getting an Elastic Deployment of MongoDB at Compose. You can clone your existing sandbox to an Elastic Deployment or provision a deployment and then import the data from the sandbox. If you need guidance or further advice, drop a mail to support@compose.io where we’ll be happy to help you.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=We%20need%20to%20talk%20about%20MongoDB%20sandboxes...&amp;url=http://localhost:2368/we-need-to-talk-about-mongodb-sandboxes/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/we-need-to-talk-about-mongodb-sandboxes/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/we-need-to-talk-about-mongodb-sandboxes/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

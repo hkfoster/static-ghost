@@ -1,0 +1,439 @@
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Dj - Compose Articles</title><description>News, tips, and tricks from the team at Compose</description><link>http://localhost:2368/</link><generator>Ghost 0.5</generator><lastBuildDate>Fri, 13 Mar 2015 15:33:50 GMT</lastBuildDate><atom:link href="http://localhost:2368/author/dj/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Holiday Support Desk: Better Browsing &amp; Christmas Coverage</title><description>&lt;p&gt;For the holiday we’re bringing a refresh to one of Compose’s familiar components – the data browser. The data browser is what you see when you use the Compose dashboard to look into your MongoDB database. Apart from the obvious administration and monitoring, it also lets you dive into collections and create ad-hoc queries on them.&lt;/p&gt;
+
+&lt;p&gt;It’s super useful and we’ve just changed it all. We expect though that the only thing you’ll notice is better, faster, more responsive browsing. We’ve rewritten the entire data browser but made sure it looks, almost, exactly the same because you’ve told us you love the clean and simple lines of our user experience.&lt;/p&gt;
+
+&lt;p&gt;That doesn’t mean we can’t make things better though. For example, to administer users used to mean going down into the admin side-tab and then selecting a top tab for users. We’ve promoted it to the side-tab next to admin because you’ve shown us thats one of the more travelled paths.&lt;/p&gt;
+
+&lt;h2 id="composecoverageoverchristmas"&gt;Compose Coverage Over Christmas&lt;/h2&gt;
+
+&lt;p&gt;Although Christmas and the New Year is a time for holiday cheer, it’s also a time when you need to be sure you’ve got all eventualities covered. With Compose, they are – we’ll have people staffing the support contact email address, &lt;a href="http://localhost:2368/support@compose.io"&gt;support@compose.io&lt;/a&gt;. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/santa_rocco.jpg#align-right" alt="" title=""&gt; &lt;/p&gt;
+
+&lt;p&gt;And as we do go into the holiday, we at Compose would like to say thanks to &lt;a href="https://watsi.org/"&gt;Watsi&lt;/a&gt; for coming up with the idea of gift cards. A simple idea which enabled the company to let all of us at Compose help give someone, somewhere better healthcare this Christmas.&lt;/p&gt;
+
+&lt;p&gt;So as Christmas Eve begins, everyone at Compose would like to wish you a Merry Christmas and a Happy New Year. We’re really looking forward to 2015 as we have so much to show you… as a tiny foretaste, here’s a glimpse of Rocco the Rhino in his Santa outfit and mug of delicious coffee. You’ll hear more about him on the blog in 2015.&lt;/p&gt;</description><link>http://localhost:2368/holiday-support-desk-better-browsing-and-christmas-coverage/</link><guid isPermaLink="false">ca5c5843-7c0d-4714-8638-f8f6f2ba3e72</guid><category>2014</category><category>christmas</category><dc:creator>Dj</dc:creator><pubDate>Wed, 24 Dec 2014 09:01:26 GMT</pubDate></item><item><title>Compose in 2014 - Summer Onwards</title><description>&lt;p&gt;We’d reached July in the &lt;a href="http://localhost:2368/compose-in-2014-winter-to-summer/"&gt;previous part&lt;/a&gt; of our look back at the year. As the summer moved on, so did we. Our year resumes in August with a big announcement…&lt;/p&gt;
+
+&lt;h2 id="augusthellocomposehelloelasticsearch"&gt;&lt;strong&gt;August&lt;/strong&gt; – Hello Compose! Hello Elasticsearch!&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/RedisCompose_sp6cjb_uxblql.png#align-right" alt="compose-logo-stacked-black" title=""&gt;We still had another database to launch in 2014 and that database was &lt;a href="http://localhost:2368/redis-on-compose-get-it-now-no-waiting/"&gt;Redis&lt;/a&gt;. Redis brings a high-performance in-memory database to the Compose line-up of MongoDB, Elasticsearch and RethinkDB. It was a busy month, not just for features…&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;With HTTP and SSH access portals available for most Compose databases, we &lt;a href="http://localhost:2368/how-to-securely-access-your-compose-databases/"&gt;looked at how to choose which one to use&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Elasticsearch - was &lt;a href="http://localhost:2368/compose-elasticsearch-out-of-beta-clears-final-stretch/"&gt;moved out of beta&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;got &lt;a href="http://localhost:2368/elasticsearch-ip-whitelisting-and-phonetic-plugins/"&gt;IP whitelisting and phonetic plugin&lt;/a&gt; support.&lt;/li&gt;
+&lt;li&gt;saw the &lt;a href="http://localhost:2368/optimizing-sdns-for-compose-elasticsearch/"&gt;Software Defined Networking that powers Elasticsearch deployments&lt;/a&gt; detailed.&lt;/li&gt;
+&lt;li&gt;and we published an article on a &lt;a href="http://localhost:2368/elasticsearch-tools-and-compose/"&gt;number of Elasticsearch tools&lt;/a&gt; and how to use them effectively with Compose.&lt;/li&gt;
+&lt;li&gt;MongoDB released a release candidate for version 2.8 and we &lt;a href="http://localhost:2368/first-release-candidate-for-mongodb-2-8/"&gt;examined what was being delivered&lt;/a&gt;, what wasn’t being delivered and how it would affect MongoDB users&lt;/li&gt;
+&lt;li&gt;We congratulated the &lt;a href="http://localhost:2368/congratulations-to-meteor-on-reaching-version-1-0/"&gt;Meteor framework developers for reaching version 1.0&lt;/a&gt; and offered a &lt;a href="http://localhost:2368/meteor-and-compose-a-beginners-guide-to-using-them-together/"&gt;guide for using Meteor and Compose MongoDB&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We also got social and &lt;a href="http://localhost:2368/meetup-with-rethinkdb-meteor-and-compose/"&gt;held a meetup at our HQ&lt;/a&gt; with RethinkDB and Meteor and we released our &lt;a href="http://localhost:2368/composecast-beta-1-kurt-and-slava-talk-queries/"&gt;first ComposeCast podcast&lt;/a&gt;. And at the end of the month, we asked everyone at Compose what &lt;a href="http://localhost:2368/composing-our-thanks/"&gt;they were thankful for&lt;/a&gt; and rather than trimming a turkey, we &lt;a href="http://localhost:2368/weve-trimmed-our-prices-for-black-friday/"&gt;trimmed our prices&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id="decemberonwardsintothenewyear"&gt;&lt;strong&gt;December&lt;/strong&gt; – Onwards into the new year!&lt;/h2&gt;
+
+&lt;p&gt;We didn’t slow down in December either. So far this month, we’ve…&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;announced &lt;a href="http://localhost:2368/elasticsearch-rethinkdb-and-redis-now-also-hosted-in-europe/"&gt;Redis, RethinkDB and Elasticsearch availability in Europe&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;announced the &lt;a href="http://localhost:2368/weve-open-sourced-the-new-compose-transporter/"&gt;open sourcing of the next generation of our Transporter technology&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;published a &lt;a href="http://localhost:2368/get-started-with-redis-on-compose/"&gt;guide for Redis on Compose&lt;/a&gt; to get people up and running quickly.&lt;/li&gt;
+&lt;li&gt;looked at the differences between &lt;a href="http://localhost:2368/rethinking-changes-how-two-databases-handle-change-notification/"&gt;RethinkDB and MongoDB&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;And there’s more to come, but that’ll have to go in a &lt;em&gt;post&lt;/em&gt;script to this round-up. It’s been an exciting year at Compose and this is only the beginning for Compose, figuratively as well as literally.&lt;/p&gt;</description><link>http://localhost:2368/compose-in-2014-summer-onwards/</link><guid isPermaLink="false">264ee7b6-2519-4349-b0dd-d916ae6f77b0</guid><category>2014</category><dc:creator>Dj</dc:creator><pubDate>Thu, 18 Dec 2014 11:42:33 GMT</pubDate></item><item><title>We’ve Open Sourced the New Compose Transporter</title><description>&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/transporter2_ehtzfd.png#align-right" alt="transporter2"&gt;&lt;/p&gt;
+
+&lt;p&gt;We’re really happy with how the Compose Transporter has been moving your data around on the Compose platform. That said, we always want to do better and with that in mind we’ve been building the next version of Transporter. We have now reached a point where we are pleased to release the code as is, as open source, while we continue development.&lt;/p&gt;
+
+&lt;p&gt;With the new Transporter, we have set out to create a flexible framework for all of the various data transportation and transformations that people will want to do. That’s a big range of potential tasks, from simple bulk uploading to continuous synchronisation, taking data from different databases, data generators, pipes, sockets and files and delivering it back to a similar set of outputs.&lt;/p&gt;
+
+&lt;p&gt;To achieve this the new Transporter is more modular and flexible. It can be run as a self-contained command line tool, entirely configured using a combination of JavaScript and a YAML file, or it can be used as a Go library where the configuration and operation is controlled by your own code. Transporter can already work with MongoDB, Elasticsearch, RethinkDB, InfluxDB and raw files of JSON.&lt;/p&gt;
+
+&lt;p&gt;Devops should find the command line tool a compelling way of moving data around, developers will love the ability to create new, dedicated data transfer commands quickly and efficiently and both models should make system integrators lives easier. All these communities also have the potential to make the Transporter a better tool and the capability to make meaningful contributions to the code base. We want to add new and better adaptors, improve the configuration language, ensure the library is as simple as possible to consume and make the new Transporter as reliable and effective as possible.&lt;/p&gt;
+
+&lt;p&gt;That’s where we would like you, the community, to join in. We’ve released Transporter as BSD licensed project and it’s available in it’s own &lt;a href="https://github.com/compose/transporter"&gt;Transporter Github repository&lt;/a&gt;, along with a &lt;a href="https://github.com/compose/transporter-examples"&gt;Transporter Examples repository&lt;/a&gt; which currently has a custom Twitter to MongoDB Transporter.&lt;/p&gt;
+
+&lt;aside class="right-gutter"&gt;  
+  Feature photo by &lt;a href="https://www.flickr.com/photos/aeruginosa/2171535014/"&gt;aeruginosa&lt;/a&gt; / &lt;a href="http://foter.com/"&gt;Foter&lt;/a&gt; / &lt;a href="http://creativecommons.org/licenses/by/2.0/"&gt;CC BY&lt;/a&gt;
+&lt;/aside&gt;
+
+&lt;p&gt;This first release is an alpha and we’ll be constructing our road map to version 1.0 in the coming weeks – on Github as an issue so you can take part in the planning. To help you using the new Transporter, there’ll also be some articles here looking into how the new Transporter works as a command line tool and as a library. We look forward to you joining us in directing Transporter’s evolution.&lt;/p&gt;</description><link>http://localhost:2368/weve-open-sourced-the-new-compose-transporter/</link><guid isPermaLink="false">4dc83ae4-3815-4e39-b0e8-fbcb18ea5e82</guid><dc:creator>Dj</dc:creator><pubDate>Wed, 17 Dec 2014 09:42:40 GMT</pubDate></item><item><title>Elasticsearch, RethinkDB &amp; Redis Now Also Hosted in Europe</title><description>&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/composelogo-e1407433429804_fkuhwu_kpkdhv.png#align-left" alt="composelogo" title=""&gt;The new kids on the Compose block are heading to Europe. While our MongoDB deployments have been available in Ireland (Amazon) and London (DigitalOcean), we’ve been keeping Elasticsearch, RethinkDB and Redis to the US as we honed the technology behind it. We are now ready to bring it to more of the world. We are pleased to announce the availability, today, of Elasticsearch, RethinkDB and Redis hosted in Europe.&lt;/p&gt;
+
+&lt;p&gt;They will be available from Amazon’s Ireland EU West 1 datacenter and will allow the three databases to enjoy lower latency connections to the countries of Europe. Now you can enjoy faster full text search with Elasticsearch from London, speedier RethinkDB from Paris and rapider Redis from Rome with Compose. Just select &lt;code&gt;Amazon EU West 1&lt;/code&gt; on the New Deployments page when configuring your next Redis, RethinkDB or Elasticsearch database.&lt;/p&gt;
+
+&lt;p&gt;To start using Compose databases in Europe, just &lt;a href="https://www.compose.io/signup?utm_source=NowInEurope&amp;amp;utm_medium=Blog&amp;amp;utm_campaign=121614"&gt;sign up&lt;/a&gt; and add a deployment.&lt;/p&gt;</description><link>http://localhost:2368/elasticsearch-rethinkdb-and-redis-now-also-hosted-in-europe/</link><guid isPermaLink="false">3ce286e3-9dd4-4acd-8a94-fadd52445ed8</guid><category>europe</category><dc:creator>Dj</dc:creator><pubDate>Tue, 16 Dec 2014 00:47:42 GMT</pubDate></item><item><title>Support Desk: Elasticsearch 1.4.1, 1.3.6 &amp; Redis 2.8.18</title><description>&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/supportdesk-320_no84hc.png" alt="supportdesk 320" title=""&gt;We’re constantly tracking, building and testing the latest releases of databases to run on the Compose platform. When they are ready, we add them to the Settings/Version selector in your dashboard for you to seamlessly migrate when you are ready. Of course, you need to know these new versions are around, and that’s one of the reasons we do these Support Desk posts.&lt;/p&gt;
+
+&lt;h2 id="elasticsearch"&gt;Elasticsearch&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Elasticsearch 1.4.1&lt;/strong&gt;: The latest version of Elasticsearch, 1.4.1, is now available on Compose. Version 1.4 is all about resilience and stability so most of the changes are under the hood. There are some useful new features in 1.4 such as the &lt;a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/1.4/index-modules-fielddata.html#request-circuit-breaker"&gt;circuitbreaker for requests&lt;/a&gt; which can stop excessive use of memory in a query and some new aggregation functions. See this &lt;a href="http://www.elasticsearch.org/blog/elasticsearch-1-4-0-released/"&gt;Elasticsearch blog post&lt;/a&gt; for a summary of the changes.&lt;/p&gt;
+
+&lt;p&gt;Version 1.4.1 builds on that with improvements to disk sharding, handling parent/child and nested documents better and fixing some outstanding timestamp issues. See &lt;a href="http://www.elasticsearch.org/blog/elasticsearch-1-4-1-released/"&gt;this blog post&lt;/a&gt; for details of those fixes.&lt;/p&gt;
+
+&lt;p&gt;New deployments of Elasticsearch will use version 1.4.1 as it’s the current stable version. For existing deployments, they can be upgraded to 1.4.1 or continue using the 1.3 branch but if so, read on…&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Elasticsearch 1.3.6&lt;/strong&gt;: If you are happy with your current Elasticsearch 1.3 installation, then there’s Elasticsearch 1.3.6 available as an upgrade for you. It’s all bug fixes according to the &lt;a href="http://www.elasticsearch.org/downloads/1-3-6"&gt;release notes&lt;/a&gt; and is a simple upgrade for any Elasticsearch deployment on Compose.&lt;/p&gt;
+
+&lt;h2 id="redis"&gt;Redis&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Redis 2.8.18&lt;/strong&gt;: This is a low priority update with some non-critical bug fixes and a number of new features. The &lt;a href="https://raw.githubusercontent.com/antirez/redis/2.8/00-RELEASENOTES"&gt;Redis release notes for 2.8&lt;/a&gt; lists them. The biggest feature, &lt;a href="http://antirez.com/news/81"&gt;diskless replication&lt;/a&gt;, is still officially experimental and so isn’t being activated on Compose deployments. Other changes include bandwidth tracking in INFO and improved Lua scripting. If you build your own &lt;code&gt;redis-cli&lt;/code&gt; executable to connect with Redis you may want to update it to the version from Redis 2.8.18 as some terminal issues have been cleared up along with a long-standing long timeout connect bug where the client would just quit. This means there’s no rush to update for existing installs but new deployments will use the newest version.&lt;/p&gt;
+
+&lt;h2 id="theleagueofversions"&gt;The League of Versions&lt;/h2&gt;
+
+&lt;p&gt;To keep track of all current available versions, we are introducing our League of Versions table. This’ll be updated as we roll out new versions or change defaults. Generally, we support upgrades only – contact &lt;a href="mailto:support@compose.io"&gt;support@compose.io&lt;/a&gt; if you need advice of any other version change.&lt;/p&gt;
+
+&lt;table width="100%"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th align="left"&gt;Database&lt;/th&gt;&lt;th align="left"&gt;Available Versions&lt;/th&gt;&lt;th align="left"&gt;Default Version&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;MongoDB&lt;/td&gt;&lt;td&gt;2.6.4, 2.6.5&lt;/td&gt;&lt;td&gt;2.6.5&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Elasticsearch&lt;/td&gt;&lt;td&gt;1.1.1, 1.2.1, 1.3.2, 1.3.4, 1.3.5, 1.3.6, 1.4.1&lt;/td&gt;&lt;td&gt;1.4.1&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;RethinkDB&lt;/td&gt;&lt;td&gt;1.15.1, 1.15.2&lt;/td&gt;&lt;td&gt;1.15.2&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Redis&lt;/td&gt;&lt;td&gt;2.8.17, 2.8.18&lt;/td&gt;&lt;td&gt;2.8.18&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;</description><link>http://localhost:2368/support-desk-elasticsearch-1-4-1-and-1-3-6-and-redis-2-8-18/</link><guid isPermaLink="false">c3b80fd8-fb5d-4dce-a201-1e9267ff343a</guid><category>default</category><category>table</category><category>version</category><dc:creator>Dj</dc:creator><pubDate>Thu, 11 Dec 2014 10:47:06 GMT</pubDate></item><item><title>Compose in 2014 - Winter to Summer</title><description>&lt;p&gt;&lt;em&gt;At the start of 2014, Compose was called MongoHQ, a well-known and much relied on purveyor of fine cloud-based instances of MongoDB. Years of experience had honed our skills and we were ready to take the next step. For the first half of the year though we would be laying down the foundations, making our MongoDB offering better than ever and using our blog to disseminate knowledge. We start in January, as we roll out the first new feature of the year…&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id="januarylaunchingthesecondfactor"&gt;&lt;strong&gt;January&lt;/strong&gt; – Launching The Second Factor&lt;/h2&gt;
+
+&lt;p&gt;We added &lt;a href="http://localhost:2368/two-factor-authentication-and-security-auditing-now-available-for-all-mongohq-accounts/"&gt;two factor authentication&lt;/a&gt; to our platform to let people secure their MongoDB databases more while on the blog we also…&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/wizardhat-250x265.png" alt="wizardhat" title=""&gt; &lt;br&gt;
+ * Talked about how we &lt;a href="http://localhost:2368/making-remote-work-work-an-adventure-in-time-and-space/"&gt;made Remote Working work for everyone&lt;/a&gt;. &lt;br&gt;
+ * Showed how to &lt;a href="http://localhost:2368/how-i-stopped-worrying-and-learned-to-love-the-mongo-shell/"&gt;love the Mongo shell&lt;/a&gt; and how to save &lt;a href="http://localhost:2368/saving-private-functions/"&gt;private functions&lt;/a&gt; using it. &lt;br&gt;
+ * Introduced people to &lt;a href="http://localhost:2368/node-js-mongodb-and-you-an-intro-in-parts/"&gt;Node.js and MongoDB&lt;/a&gt; and explained why and how &lt;a href="http://localhost:2368/redis-mongodb-and-the-power-of-incremency/"&gt;Redis and MongoDB&lt;/a&gt; could work together.&lt;/p&gt;
+
+&lt;h2 id="februarybetterconnected"&gt;&lt;strong&gt;February&lt;/strong&gt; – Better connected&lt;/h2&gt;
+
+&lt;p&gt;This month was all about the connections. In the blog we demonstrated experiments with the &lt;a href="http://localhost:2368/building-mongodb-into-your-internet-of-things-a-tutorial/"&gt;Internet of Things and MongoDB&lt;/a&gt; by building an Arduino based temperature sensor and logging its activity to MongoDB. &lt;img src="http://localhost:2368/content/images/2014/12/Screenshot-2014-02-17-12_31_57_dgm96n_dcafki.png" alt="A Node-RED flow with sentiment analysis and JavaScript functions" title=""&gt;That was followed by a look at how you could use Node-RED, a tool designed for IoT work, to connect your MongoDB to many other services.And then showed how to use &lt;a href="http://localhost:2368/zapier-your-data-to-mongohq/"&gt;Zapier and your MongoDB&lt;/a&gt; to plug your data into even more services. We also…&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Talked about the &lt;a href="http://localhost:2368/you-dont-have-big-data/"&gt;misperceptions of “Big Data”&lt;/a&gt; and how &lt;a href="http://localhost:2368/changing-the-growth-formula/"&gt;optimization can change how you grow&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;We looked forward to MongoDB 2.6’s &lt;a href="http://localhost:2368/content/images/2014/12/Robomongo_hxf4m9.jpg"&gt;index intersection&lt;/a&gt;In March, we showed the world the future of cloud deployed databases as we rolled out our &lt;a href="http://localhost:2368/new-elastic-deployments-now-available/"&gt;elastic deployments of MongoDB&lt;/a&gt;. These bring an auto-scaling, auto-backed-up platform to satisfy your database needs. We went into detail on &lt;a href="http://localhost:2368/how-we-scale-mongodb/"&gt;how we scaled MongoDB&lt;/a&gt; in a later article. Elastic Deployments also expanded with us so &lt;a href="http://localhost:2368/elastic-deployments-now-available-in-australia/"&gt;Australia got them too&lt;/a&gt;. Other things that happened in March included…&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Making the &lt;a href="http://localhost:2368/elastic-deployments-now-with-oplog-access/"&gt;MongoDB oplog accessible&lt;/a&gt; so people could tap into the real time change stream from the database. We showed the details of how you could &lt;a href="http://localhost:2368/the-mongodb-oplog-and-node-js/"&gt;get at the oplog with Node.js&lt;/a&gt; and interpret that change stream. And because we like elegance, we showed a &lt;a href="http://localhost:2368/node-js-and-mongo-oplog-elegant-oplog-consumption/"&gt;nicer way&lt;/a&gt; to consume the oplog too.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;Expanded upon how we &lt;a href="http://localhost:2368/how-mongohq-uses-hipchat-to-connect-a-distributed-team/"&gt;remote worked with HipChat&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Showed how not to &lt;a href="http://localhost:2368/node-js-mongodb-and-pool-pollution-problems/"&gt;pollute the pool in Node.js&lt;/a&gt;, took a look at the graphical database environment that is &lt;a href="http://localhost:2368/robomongo-your-next-shell/"&gt;Robomongo&lt;/a&gt; and gave a tutorial on how to turn database alerts into &lt;a href="http://localhost:2368/more-destinations-for-mongohq-alerts-with-zapier/"&gt;Zapier events&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="aprilmongodb26arrives"&gt;&lt;strong&gt;April&lt;/strong&gt; – MongoDB 2.6 Arrives&lt;/h2&gt;
+
+&lt;p&gt;April saw the arrival of MongoDB 2.6 and we &lt;a href="http://localhost:2368/elastic-deployments-now-with-mongodb-2-6/"&gt;made it available on Elastic Deployments&lt;/a&gt;. We illustrated the power and the pitfalls in articles on 2.6’s &lt;a href="http://localhost:2368/content/images/2014/12/on-demand-backups-2_dfakhy_s6pscv.png"&gt;improved bulk operations&lt;/a&gt; &lt;br&gt;
+ * Two factor authentication, in the form of our own &lt;a href="http://localhost:2368/two-factor-authentication-made-authfully-easy/"&gt;Authful API, was open sopurced&lt;/a&gt;. &lt;br&gt;
+ * Elastic Deployments &lt;a href="http://localhost:2368/elastic-deployments-now-available-in-europe/"&gt;landed in Europe&lt;/a&gt;. &lt;br&gt;
+ * &lt;a href="http://localhost:2368/on-demand-backups-now-available-for-elastic-deployments-2/"&gt;On Demand Backups for Elastic Deployments&lt;/a&gt; were introduced for when you need a backup right now. &lt;br&gt;
+ * The beta launch of &lt;a href="http://localhost:2368/mongodb-elastic-deployments-now-in-beta-on-digitalocean/"&gt;Elastic Deployments on DigitalOcean&lt;/a&gt;. &lt;br&gt;
+ * Our mission to explain the Oplog continued with a look at how you can use &lt;a href="http://localhost:2368/meteor-the-oplog-and-elastic-deployment/"&gt;Meteor and Elastic Deployments&lt;/a&gt; together for real time web apps and a &lt;a href="http://localhost:2368/oplog-tools-and-libraries-for-all/"&gt;roundup of oplog accessing tools for Ruby, Go and Java&lt;/a&gt;. &lt;br&gt;
+ * Faster &lt;a href="http://localhost:2368/faster-updates-with-mongodb-2-4/"&gt;update techniques for MongoDB 2.4&lt;/a&gt; were illustrated for those not ready to upgrade.&lt;/p&gt;
+
+&lt;h2 id="maymore26"&gt;&lt;strong&gt;May&lt;/strong&gt; – More 2.6&lt;/h2&gt;
+
+&lt;p&gt;In May, we continued to detail the interesting things about MongoDB 2.6. We looked at the &lt;a href="http://localhost:2368/mongodb-2-6-indexing-improvements-things-worth-knowing/"&gt;improved indexing&lt;/a&gt;, changes to the &lt;a href="http://localhost:2368/mongodb-2-6-shell-and-tools-things-worth-knowing/"&gt;shell and tools&lt;/a&gt; and introduced the &lt;a href="http://localhost:2368/aggregation-in-mongodb-2-6-things-worth-knowing/"&gt;enhancements to the aggregation framework&lt;/a&gt;. The most extensive article on 2.6 was the &lt;a href="http://localhost:2368/bulk-updates-for-all/"&gt;deep dive into the new Bulk API&lt;/a&gt; which gave examples in Mongo Shell, Node.js, Ruby, Python and Java. We were all about the educating in May with articles on…&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;How to use &lt;a href="http://localhost:2368/back-up-for-performance/"&gt;backups for performance&lt;/a&gt; by quickly cloning a database locally.&lt;/li&gt;
+&lt;li&gt;How to &lt;a href="http://localhost:2368/counting-and-not-counting-with-mongodb/"&gt;not count and count&lt;/a&gt; to get a performance boost by pre-limiting queries.&lt;/li&gt;
+&lt;li&gt;How to &lt;a href="http://localhost:2368/customising-mongodbs-shell-with-compact-prompts/"&gt;make your shell prompt compact and bijou&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;How to use &lt;a href="http://localhost:2368/tinkertank-visualizing-mongodb-with-javascript/"&gt;JavaScript to visualise database activity&lt;/a&gt; in a rolling graph. &lt;br&gt;
+&lt;img src="http://localhost:2368/content/images/2014/12/oregon_trail_zdpzce_ddd1tl.png" alt="oregon_trail" title=""&gt; &lt;br&gt;
+We also rolled out Elastic Deployments &lt;a href="http://localhost:2368/mongodb-elastic-deployments-now-available-in-oregon/"&gt;in Oregon&lt;/a&gt; and talked about &lt;a href="http://localhost:2368/tooltime-at-mongohq/"&gt;our favorite tools&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="junedigitaloceanleavesbeta"&gt;&lt;strong&gt;June&lt;/strong&gt; – DigitalOcean leaves beta&lt;/h2&gt;
+
+&lt;p&gt;At the end of the June, we were pleased to take the &lt;a href="http://localhost:2368/guest-post-mongohq-digitalocean-a-perfect-match/"&gt;beta label off our DigitalOcean elastic deployments&lt;/a&gt; in DO’s NY2 datacenter and roll out the latest update, &lt;a href="http://localhost:2368/now-available-mongodb-2-6-3/"&gt;MongoDB 2.6.3&lt;/a&gt; to Elastic Deployments, giving users the power to upgrade when they wanted to at the selecting of a dropdown and the click of a mouse. Meanwhile, on the blog we were covering all sorts of subjects…&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;What are the &lt;a href="http://localhost:2368/gridfs-and-mongodb-pros-and-cons/"&gt;pros and cons of GridFS&lt;/a&gt; on MongoDB and when should you use the large file storage mechanism.&lt;/li&gt;
+&lt;li&gt;Structured database access with &lt;a href="http://localhost:2368/mongoose-reintroduced/"&gt;Mongoose and MongoDB&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Keeping your storage usage down by &lt;a href="http://localhost:2368/sizing-and-trimming-your-mongodb/"&gt;sizing and trimming your MongoDB&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Keeping your database performance up with &lt;a href="http://localhost:2368/mongodb-and-indexing-best-practices-redux/"&gt;best practice indexing&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Using MongoDB’s &lt;a href="http://localhost:2368/full-text-search-with-mongodb-and-node-js/"&gt;full text search with Node.js&lt;/a&gt; to deliver a simple web-based scoring search application.&lt;/li&gt;
+&lt;li&gt;Last month’s JavaScript visualisation was only a precusor to putting &lt;a href="http://localhost:2368/tinkertank-mongodb-in-lights/"&gt;MongoDB in lights&lt;/a&gt; using an Arduino Uno and an RGB LED shield. An ideal addition to your physical dashboard.  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class="wp-video" style="width: 640px; height: 360px; "&gt;&lt;video class="wp-video-shortcode" controls="controls" height="360" id="video-1040-5" preload="metadata" width="640"&gt;&lt;source src="http://localhost:2368/content/images/2014/12/lights.mp4?_=5" type="video/mp4"&gt;[/content/images/2014/12/lights.mp4](/content/images/2014/12/lights.mp4)&lt;/video&gt;&lt;/div&gt;  
+
+&lt;p&gt;Finally, we gave some insight into one of our internal processes, using the &lt;a href="http://localhost:2368/pull-requests-as-a-conversation-starter/"&gt;Pull Request as a conversation starter&lt;/a&gt;. That was an article that came out of the development work which would land with users in July…&lt;/p&gt;
+
+&lt;h2 id="julythedawnofthenewapi"&gt;&lt;strong&gt;July&lt;/strong&gt; – The dawn of the new API&lt;/h2&gt;
+
+&lt;p&gt;July opened with the beta release of a new REST API for the platform. Previously we’d allowed people to interact with the databases in deployment through a REST//content/images/2014/12/globalpizza&lt;em&gt;vvpdzu&lt;/em&gt;flvnff.png)How we ran a &lt;a href="http://localhost:2368/how-we-do-it-at-mongohq-running-a-global-remote-pizza-party/"&gt;remote global pizza party&lt;/a&gt; and the pitfalls that can open up. &lt;br&gt;
+- How &lt;a href="http://localhost:2368/tablelist-fights-for-your-right-to-party/"&gt;Tablelist&lt;/a&gt; use our MongoDB deployments to keep your party going.
+- How we now supported deployments on &lt;a href="http://localhost:2368/gogrid-and-mongohq-a-balanced-proposition/"&gt;GoGrid&lt;/a&gt;.
+- How our free sandbox is &lt;a href="http://localhost:2368/are-you-still-playing-in-the-mongohq-sandbox/"&gt;not like our paid-for Elastic deployments&lt;/a&gt;.
+- News on the latest release of the Go MongoDB driver &lt;a href="http://localhost:2368/mongodb-go-driver-mgo-gets-special-release/"&gt;mgo&lt;/a&gt;.
+- How &lt;a href="http://localhost:2368/big-bobby-tables-gets-a-mongohq-database/"&gt;Big Bobby Tables&lt;/a&gt; can get their own database.&lt;/p&gt;
+
+&lt;p&gt;We closed July with another new tool, &lt;a href="http://localhost:2368/a-power-tool-for-devops-the-mongohq-cli/"&gt;the CLI tool&lt;/a&gt; which made the API available for users as shell commands without needing to write code in a particular language. All this development work was laying the foundation for the second half of the year… which we’ll come to in the next part of the annual roundup.&lt;/p&gt;</description><link>http://localhost:2368/compose-in-2014-winter-to-summer/</link><guid isPermaLink="false">05193f13-abbf-483c-809f-8ae7edf1a76a</guid><category>2014</category><dc:creator>Dj</dc:creator><pubDate>Wed, 10 Dec 2014 07:39:02 GMT</pubDate></item><item><title>Get started with Redis on Compose</title><description>&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/RedisCompose_sp6cjb_uxblql.png" alt="RedisCompose" title=""&gt;In this article, we’re going to run through the steps you’ll go through to get going with Redis on Compose. Once you’ve realised you’ve got some write intensive operations in your application or need a transient message queue, you’ll probably want to use Redis in your architecture to relieve yourself of performance constraints. With it’s memory-first design and blistering performance, Redis can take on the challenge and leave your other database deployments to free to focus on storage, queries and analysis.&lt;/p&gt;
+
+&lt;p&gt;The simple part is provisioning your Redis database on Compose. Assuming you’ve signed up and signed in, just click “Add Deployment”, select Redis, give the deployment a name and a starting capacity, click add and you’re done. Compose takes care of all that for you giving you a two database node cluster with a monitoring Sentinel node and a /content/images/2014/12/Screenshot-2014-12-03-16&lt;em&gt;39&lt;/em&gt;21&lt;em&gt;fp6hgp&lt;/em&gt;qwfpq4.png)And in the Connect Strings section a URI connection string which can be given to applications with Redis drivers and a command line string. Here it’s&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;redis-cli -h portal.0.dblayer.com -p 10114 -a [password]  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This should be fairly self-explanatory; the &lt;code&gt;-h&lt;/code&gt; parameter is the name of host to connect to, the &lt;code&gt;-p&lt;/code&gt; parameter is the port to connect to there and the &lt;code&gt;-a&lt;/code&gt; parameter is the password which you won’t know.&lt;/p&gt;
+
+&lt;p&gt;Redis uses a simple password only authentication. One password gives access to the database, no username needed. At Compose we use that same password to give access through the proxy to the Redis database. We’ll come back to some ways to tighten up your control on that in a moment. For now, just know that’s all you need. To get the password, scroll down on the overview page to the &lt;em&gt;Additional Information&lt;/em&gt; section.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/Screenshot-2014-12-03-16_41_25_czmwzr_pxrqda.png" alt="Redis password" title=""&gt;By default the password is hidden behind a button. Click the button and the password is revealed as we’re showing here. You can also change the password here but pay attention to that note – it will require a restart on your database to put into effect. Anyway, here our password is &lt;code&gt;REDISPASS&lt;/code&gt;. I could now connect to my Redis with the command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ redis-cli -h portal.0.dblayer.com -p 10114 -a REDISPASS
+portal.0.dblayer.com:10114&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and you can connect to your Redis by assembling those two strings into a similar command. Now we are able to use the CLI. It has tab auto-completion, history and other handy features for interacting including an extensive help system. Actually interacting with the database is as simple as SET and GET:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;portal.0.dblayer.com:10114&amp;gt; set fred 1  
+OK  
+portal.0.dblayer.com:10114&amp;gt; get fred  
+"1"
+portal.0.dblayer.com:10114&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you are completely new to Redis, check out the &lt;a href="http://try.redis.io/"&gt;Try Redis&lt;/a&gt; interactive tutorial. If you just want to see what commands are at your command, check out the &lt;a href="http://redis.io/commands"&gt;command documentation&lt;/a&gt; which lists them all and links through to more documentation on each.&lt;/p&gt;
+
+&lt;h2 id="securingyourredis"&gt;Securing your Redis&lt;/h2&gt;
+
+&lt;p&gt;As you’ll have noticed, there’s only one password for the Redis installation and you will most likely want more control of who can access it. First is IP Whitelisting which can be applied to the TCP/HTTP access portal. When activated, it will block all connections to the proxy unless they come from IP addresses you have added to the white list. You’ll find the white list controls on the &lt;em&gt;Security&lt;/em&gt; tab of the database’s deployment. This is probably the simplest route for most users because of what the proxy does behind the scenes.&lt;/p&gt;
+
+&lt;p&gt;When a Redis client connects to the TCP/HTTP access portal, the proxy converses with a Redis Sentinel process within the cluster to locate the current Redis master instance. It then connects to the user’s session to that instance. This means you are always connected to the master with no need to be aware of how the Redis Sentinel system works and no need for your drivers to support the Sentinel’s discovery system.&lt;/p&gt;
+
+&lt;h2 id="connectingadriver"&gt;Connecting a driver&lt;/h2&gt;
+
+&lt;p&gt;We are now ready to connect an application to the Redis server. As an example, we’ll use Node.js to write a simple application that sets a key to a value. Here’s the code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var redis = require("redis");  
+var client = require("redis-url").connect();
+
+client.on("error", function (err) {  
+  console.log("Error " + err);
+});
+
+client.set("just a test set", "a test set", redis.print);
+
+client.quit();  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This uses the &lt;a href="https://www.npmjs.org/package/redis"&gt;&lt;code&gt;redis&lt;/code&gt;&lt;/a&gt; npm package which provides an extensive API for accesssing the Redis database. The one thing it doesn’t do is allow you pass it a Redis URL. If you look on the &lt;em&gt;Overview&lt;/em&gt; page, a Redis URL what you’ll be given. It looks something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;redis://x:REDISPASS@portal.0.dblayer.com:10114  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, it’s a simple process to manually break this up into its parts: the host is “portal.0.dblayer.com”, the port is “10117” and the authentication password is “REDISPASS”. (You can also get those values from the &lt;code&gt;redis_cli&lt;/code&gt; command given on the same page). Those three values could be passed to the &lt;code&gt;createClient&lt;/code&gt; method of the Redis npm package.&lt;/p&gt;
+
+&lt;p&gt;If you’d rather not hardwire them in, then you’d have to work with multiple environment variables. Or… you can use &lt;a href="https://www.npmjs.org/package/redis-url"&gt;&lt;code&gt;redis-url&lt;/code&gt;&lt;/a&gt; which can take as a parameter or from a &lt;code&gt;REDIS_URL&lt;/code&gt; environment variable the Redis URL, parse it and helpfully sets up the connection got you. This is what the second line of the code does. The rest of the code simply sets up an error handler, sets a key to a value and quits the connection.&lt;/p&gt;
+
+&lt;p&gt;Redis URL support isn’t uniformly available through drivers, so do check when you are selecting which of the &lt;a href="http://redis.io/clients"&gt;many Redis clients&lt;/a&gt; you want to use with your application.&lt;/p&gt;
+
+&lt;h2 id="wrappingup"&gt;Wrapping up&lt;/h2&gt;
+
+&lt;p&gt;You should have everything you need to know and use for connecting to Redis on Compose. Redis-CLI will give you an easy way to connect and manipulate the data, you can restrict access to your Redis database using whitelists and we’ve noted how you’ll have to decide whether you want to use convenient Redis URLs or work with the host, port and password separately when writing applications. Next stop is a Redis optimised application as part of your polybased full database stack.&lt;/p&gt;</description><link>http://localhost:2368/get-started-with-redis-on-compose/</link><guid isPermaLink="false">4b725837-e361-4f78-aed0-849a1b1760e2</guid><category>compiling</category><category>how-to</category><category>tutorial</category><dc:creator>Dj</dc:creator><pubDate>Thu, 04 Dec 2014 09:04:08 GMT</pubDate></item><item><title>Rethinking changes - How two databases handle change notification</title><description>&lt;p&gt;What makes RethinkDB different from say MongoDB? Since we added RethinkDB to the Compose database service, that’s a question we’ve been asked. We could talk about the ground up scaling that’s engineered in or the integrated web interface but today I’d like to talk to you about how you can monitor changes in database tables because it’s something that really picks out the difference in philosophy between the two databases.&lt;/p&gt;
+
+&lt;p&gt;As web applications have become more real-time, more collaborative and more interlocked, it’s more important than ever to be able to appropriately react to changes in data and, with a lot of clients or backend servers, you don’t know where those changes are coming from. The traditional technique has been to poll databases for changes with regularly executed queries, but this burns database processing time and is only as up to date as the last query made.&lt;/p&gt;
+
+&lt;h2 id="themongodbway"&gt;The MongoDB Way&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/mongodb-leaf_euorgb_ntcsqk.png" alt="mongodb-leaf" title=""&gt;With MongoDB, there is an option, at least for back-end services in the form of the oplog. When MongoDB developers built their replication system they did so by generating a stream of all the changes in the database, an operational log of activity. This oplog was for a long time, only used by other MongoDB servers in a replica set to keep up to date with the master server. Eventually, the oplog was used by other applications as a source of changes to tap into and frameworks like Meteor picked up on that and developed drivers that subscribed to the oplog’s flow. That allows them to respond immediately to changes.&lt;/p&gt;
+
+&lt;p&gt;There are pitfalls in the oplog approach though. It needs more configuration and the granting of oplog access permissions to users but more critically, you get all the changes. When we say all the changes, even if you are only interested in one collection, you will get all the changes for every collection and you’ll have to write your application server to drop the oplog activity you aren’t interested in. Having oplog access though is incredibly useful, so people work their way around the pitfalls. If you want to know more, do look at our &lt;a href="http://localhost:2368/content/images/2014/12/change_huwtjl_w7xuru.png"&gt;previous articles&lt;/a&gt;With RethinkDB, there’s been no borrowing of replication data. The process of following changes is built into the API with a mechanism called change feeds. The feature was introduced in June 2014 after a long period of development where the challenge of making change notification working over multiple servers was taken on and overcome. The result is that you can get a change feed from any table in your database simply using the &lt;a href="http://rethinkdb.com/api/javascript/changes/"&gt;&lt;code&gt;changes&lt;/code&gt;&lt;/a&gt; method in a chain of commands:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;code class="language-javascript"&amp;gt;r.table("changables").changes().run(conn,function(err,cursor) {  
+    cursor.each(console.log);
+    });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is the JavaScript version; when a change occurs in the table, it and any other changes are delivered to a user defined function as a cursor which they can process as they wish. Here we simply print out each change. In Ruby this would read:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;code class="language-ruby"&amp;gt;r.table("changables").changes().run(conn).each{ |change| p(change) }  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;While in Python it would be:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;code class="language-python"&amp;gt;feed=r.table("changables").changes().run(conn)  
+for change in feed:  
+    print change
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The API is unified over the three platforms only varying for the idiomatic variation of each language. We’ll use JavaScript for the rest of this article though.&lt;/p&gt;
+
+&lt;p&gt;&lt;aside class="right-gutter"&gt;When reading the RethinkDB/ReQL documentation, do remember in the top right of the page is a selector that lets you view either the JavaScript, Python or Ruby versions of the documentation&lt;/aside&gt;With &lt;code&gt;changes&lt;/code&gt; method, the results come in the form of an old&lt;em&gt;val object and new&lt;/em&gt;val object. Both will have values for updates and replaces, inserts will have a null old&lt;em&gt;val while delete has a null new&lt;/em&gt;value. With that information, it’s simple to determine what operation took place. An added plus is that you can &lt;code&gt;filter&lt;/code&gt; or &lt;code&gt;map&lt;/code&gt; the results before they are returned to your application. For example, if you wanted to only process changes belonging to a particular customer ‘Fred” then you could do:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;code class="language-javascript"&amp;gt;r.table("changables").changes()  
+    .filter(r.row('old_val')('customer').eq('Fred'))
+    .run(conn,function(err,cursor) {
+        cursor.each(console.log);
+    });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is a limitations to this though; you can’t count or sort the change feed stream (because its endless and counting and sorting rely on results being finite). Despite that, it’s a powerful way to get your database changes pushed to you. One hint worth noting; run your change feeds on their own RethinkDB connection to ensure that your other connections can remain consistent and responsive even when a lot of changes are happening.&lt;/p&gt;
+
+&lt;p&gt;What is a complex bolt-on in MongoDB is a tightly integrated part of the query syntax of RethinkDB. If you want to learn more about change feeds in practices, see RethinkDB’s blog posting “&lt;a href="http://rethinkdb.com/blog/cats-of-instagram/"&gt;Catthink&lt;/a&gt;” which teams up the cats of Instagram with RethinkDB and the &lt;a href="http://rethinkdb.com/docs/changefeeds/javascript/"&gt;introductory documentation&lt;/a&gt;. Meanwhile, we’ll be looking at more RethinkDB features in future articles.&lt;/p&gt;</description><link>http://localhost:2368/rethinking-changes-how-two-databases-handle-change-notification/</link><guid isPermaLink="false">598d306d-5c39-4fb6-a2e0-728d4d7407f6</guid><category>change</category><category>notification</category><dc:creator>Dj</dc:creator><pubDate>Tue, 02 Dec 2014 08:11:05 GMT</pubDate></item><item><title>We've Trimmed Our Prices for Black Friday/Cyber Monday</title><description>&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/compose-logo-stacked-black_htgbqp_peyzzf.png" alt="compose-logo-stacked-black" title=""&gt;We aren’t going crazy on Black Friday (or Cyber Monday) cutting prices for a whole day. We know you want better value all year around and that’s why we’re announcing we’re trimming our prices for Elasticsearch, RethinkDB and Redis hosting. “Won’t that mean less database?” I hear you ask and the answer is no! We’ve made savings in how we provide access portals and we’re passing those savings on to you!&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Elasticsearch&lt;/strong&gt; used to start at $54 a month, but by cutting the costs of the two access portals it comes with, it’s now just &lt;strong&gt;$45 a month&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;RethinkDB&lt;/strong&gt; would have cost you $21 a month at its entry level, but we’ve had a think about the price of its access portal and got it down to $16.50, yes &lt;strong&gt;$16.50 a month&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Redis&lt;/strong&gt; users would have needed at least $25 a month to get on our speedy Redis hosting, but we redid the pricing to get it down to just &lt;strong&gt;$20.50 a month&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;And those prices aren’t special offers for the day. These are the prices starting now for existing customers will pay and for new customers who sign up for those Compose hosted databases. And rest assured we’re constantly working on the pricing of all our databases, including MongoDB, to get you the best value production-ready hosted databases on the internet. If you’re new to Compose, check out all our &lt;a href="https://www.compose.io/pricing"&gt;pricing and plans&lt;/a&gt; and sign up for a Compose account.&lt;/p&gt;</description><link>http://localhost:2368/weve-trimmed-our-prices-for-black-friday/</link><guid isPermaLink="false">cf769cdf-3ffb-4203-9383-2956837123f0</guid><dc:creator>Dj</dc:creator><pubDate>Fri, 28 Nov 2014 13:21:41 GMT</pubDate></item><item><title>Composing our thanks</title><description>&lt;p&gt;It’s that day of the year when everyone in the United States gets to reflect on the year past and what they are thankful for. Before most of the Compose crew went to celebrate the day, I asked them what things make us thankful about Compose…&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/map-40972_640_f1yryq_hxpmv0.png" alt="map-40972_640"&gt;&lt;/p&gt;
+
+&lt;h2 id="thanksforremoteworking"&gt;Thanks for remote working&lt;/h2&gt;
+
+&lt;p&gt;Kyle, who’s based out in South Africa, says “I’m really thankful for having the opportunity to work at a company that is killing it and for the 500+ hours that I’ve regained annually since I started working remotely because I don’t have to commute anymore. I’m undecided as to whether I should use that time to nap or learn a new skill.”&lt;/p&gt;
+
+&lt;p&gt;Steve, who’s come from the UK to the US with Compose, said “I’m thankful that I’ve been able to experience living in a different country, and all the help the company gave me to make that happen (and also that I know I can just as happily move back to the UK and work from there if I ever need to). I am also thankful that my colleagues put up with (and sometimes share) my often questionable sense of humour.”&lt;/p&gt;
+
+&lt;p&gt;“I’m thankful for a company that makes remote work… work so well” says Wesley but adds that “as much as I’m hoping to get to one or both of the offices in the near future.”&lt;/p&gt;
+
+&lt;p&gt;Thom, who looks after marketing, added his thanks with “I’m pretty thankful that I get to work for a great company and still live in Tulsa. I’m also thankful for co-working so I don’t have to work alone.”&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/composesocial2_bwudi3_cg6pky.png" alt="composesocial2"&gt;&lt;/p&gt;
+
+&lt;h2 id="thanksforcompanyculture"&gt;Thanks for company culture&lt;/h2&gt;
+
+&lt;p&gt;Nick had two things he was thankful for – “Thankful for being able to work with friends that treat each other like family, on a product that we love. Thankful that not every database lives in the JVM.”&lt;/p&gt;
+
+&lt;p&gt;“I am thankful for an understanding wife on on call nights when Rackspace or Amazon has an outage” said Matt who was “also thankful for Jason McCay introducing the company to Ninja Ball and getting to watch Nick body check Kyle into a wall while playing it in a bar. Thankful for a company that allows you to laugh as hard as you work. Also thankful for the company requirement you watch Pitch Perfect before joining. Life changing movie”. He’s not joking about the movie and we’ll tell all about Ninja Ball during the holidays.&lt;/p&gt;
+
+&lt;p&gt;Tim picked up on one of the company’s core philosophies to be thankful for – “I’m thankful that there’s a level of trust at the company that allows everyone to pitch in, try something new, or fix a flaw without fear of stepping on toes”. He also enjoys the benefits of remote working adding “I’m also thankful that, by working in Chicago, I am not subjected to Pitch Perfect screenings until such time that Stockholm Syndrome sets in and it becomes not only watchable, but desirably so.”&lt;/p&gt;
+
+&lt;p&gt;“I’m thankful to be able to work for a company that understands how important family is” said JP explaining that “It doesn’t matter if you have no kids or 5 kids, when our families need us, they come first. I’m also thankful for every person I get to work with, everyone is super talented and always willing to help others out. And finally, I’m thankful for having been introduced to Pitch Perfect.”&lt;/p&gt;
+
+&lt;p&gt;Michele was also grateful for that company culture – “I am thankful I am surrounded by a bunch of ridiculously smart, interesting, and dedicated people who get excited about what they do every day. I’m also thankful that I get to work for a company that actively removes most of the usual barriers that can make it hard to balance work and family, so that everyone can just focus on building cool stuff and taking care of our customers.”… There was one other thing she wanted to be thankful for. “Finally, and perhaps most importantly, I’m thankful that the people I work with understand that good coffee, made correctly, is an essential part of life.”&lt;/p&gt;
+
+&lt;p&gt;One particular member of the Compose crew, Brandon, was thankful for the intersection of remote working and company culture – “My wife and I just had our third child, a baby girl, in October. We’re both so thankful for her, but also we’re especially grateful for the way Compose supports families. I work from the Birmingham office, but we wanted to have our baby near my wife’s family in Wisconsin. So we packed up our kids and traveled north for the last three months of the pregnancy. I worked remotely while we stayed with family in Green Bay and after our baby was born, I was so thankful for Compose’s “take what you need” paternity leave and for how flexible and supportive they are through this whole adventure.&lt;/p&gt;
+
+&lt;h2 id="thanksformachines"&gt;Thanks for machines&lt;/h2&gt;
+
+&lt;p&gt;“The San Mateo coffee machine, for being resilient despite the abuse we put it through, and for continuing to produce drinkable coffee” was the recipient of thanks from Navam.&lt;/p&gt;
+
+&lt;p&gt;While it’s important to have machines that help us focus, on the other hand, Chris was thankful for devices that distract – Raspberry Pis and Arduinos – as they “makes for fun adventure time away from databases and software”.&lt;/p&gt;
+
+&lt;p&gt;Thom added some extra thanks for his Mac which he’d switched to after being nudged into it “by the people I work with who keep me from making horrible purchasing decisions”&lt;/p&gt;
+
+&lt;h2 id="thanksfortheweather"&gt;Thanks for the weather&lt;/h2&gt;
+
+&lt;p&gt;Finally Kurt was I’m thankful that the weather in the Bay lets me play non-virtual soccer year round. Also for the proliferation of really interesting open source DBs.&lt;/p&gt;
+
+&lt;p&gt;And me? I’m thankful I’m not the smartest guy in the virtual room at Compose and I get to write about what everyone else is doing. Have a good Thanksgiving everyone.&lt;/p&gt;</description><link>http://localhost:2368/composing-our-thanks/</link><guid isPermaLink="false">4c45d89a-3b3d-4647-92ad-f9555ca86e69</guid><category>thanksgiving</category><dc:creator>Dj</dc:creator><pubDate>Thu, 27 Nov 2014 07:06:54 GMT</pubDate></item><item><title>ComposeCast Beta #1: Kurt and Slava talk queries</title><description>&lt;p&gt;Recently, Compose co-founder Kurt Mackey and RethinkDB co-founder Slava Akhmechet sat down with an audio recorder and talked databases and queries. You can listen to the full chat here in the first episode of ComposeCast Beta, an occasional podcast from Compose, or you can read on for a run-through of everything that was discussed.&lt;/p&gt;
+
+&lt;p&gt;&lt;figure class="embed"&gt;&lt;iframe allowfullscreen mozallowfullscreen="" msallowfullscreen="" oallowfullscreen="" scrolling="no" src="http://html5-player.libsyn.com/embed/episode/id/3204924/height/360/width/640/theme/standard/direction/no/autoplay/no/autonext/no/thumbnail/yes/preload/no/no_addthis/no/" style="border: none" webkitallowfullscreen=""&gt;&lt;/iframe&gt;&lt;/figure&gt;- Podcast Beta #1 – &lt;a href="http://traffic.libsyn.com/composecast/ComposeCastep01.mp3"&gt;Direct Download&lt;/a&gt; &lt;br&gt;
+- ComposeCast Podcast – &lt;a href="http://composecast.libsyn.com/rss"&gt;RSS/Podcast feed&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id="composecastbeta1notes"&gt;ComposeCast Beta #1 Notes&lt;/h2&gt;
+
+&lt;h3 id="itsallaboutthechains"&gt;It’s all about the chains&lt;/h3&gt;
+
+&lt;p&gt;The discussion began with talk about the foundational goals of RethinkDB and how the query language developed. Slava talked about how jQuery’s function chaining inspired the RethinkDB’s ReQL. In queries this meant creating chains of selectors creates an intuitive data flow. He also discussed how the protocol beneath has made writing drivers harder and where they’ve simplified it to make it easier for community driver developers. This led into a look at the &lt;a href="http://rethinkdb.com/blog/lambda-functions/"&gt;lambda functionality&lt;/a&gt; of RethinkDB which pushes query functions into the database.&lt;/p&gt;
+
+&lt;p&gt;Kurt moved the discussion onto the problem of abstraction in frameworks like ActiveRecord and how such frameworks can make developers feel comfortable writing queries which cause problems when they hit the actual database. That’s not a problem for RethinkDB so much said Slava, because it does make people think more and be more explicit over their queries. “You get an intuitive sense of how things get executed” he said, so you can see how the data flows through the query rather than allowing a library to obscure how many joins the database is going to need to do. Noting that “In realtime systems you almost always want some degree of explicitness” to get predictability in queries and the ReQL query language is all about intuitive explicitness.&lt;/p&gt;
+
+&lt;h3 id="queryorupdateor"&gt;Query or update or?&lt;/h3&gt;
+
+&lt;p&gt;This led into a discussion about how query and update operations in databases are unified within RethinkDB, rather than, as some databases do, treating each as similar but different operations. Slava explained how query operations return sets of results as selection-typed data and those are inherently updatable. When an operation creates an aggregation, projection or join, these are called streams and these aren’t updatable.&lt;/p&gt;
+
+&lt;p&gt;The conversation moved on to the idea of treating database query languages as set theory and Slava revealed that this is a guiding principle of the ReQL design process. One complication though is sharding and Slava outlined how a RethinkDB handles a cross-shard query and update operation using analysis and routing of the parts of the query.&lt;/p&gt;
+
+&lt;p&gt;Kurt compared the focus on ensuring data locality in &lt;a href="https://spark.apache.org/"&gt;Spark&lt;/a&gt; and how RethinkDB does its query/update handling and asks whether aggregations can be executed locally on the shards. All the built-in aggregators are able to execute locally except for average, where it has to be more carefully done, calculating a sum and count on each shard and passing the results back to the original node where the results from the shards are used to calculate the final average.&lt;/p&gt;
+
+&lt;h3 id="doitherethereoreverywhere"&gt;Do it here, there or everywhere?&lt;/h3&gt;
+
+&lt;p&gt;The subject of spreading load over the shards leads on to talking about how RethinkDB’s map/reduce has evolved from a single method, &lt;code&gt;GroupMapReduce&lt;/code&gt;, which took three functions, and how it became a chained set of methods which can be run independently or combined to get a powerful solution. Slava detailed the limits on this process, namely ensuring that the operations are safe.&lt;/p&gt;
+
+&lt;p&gt;The map/reduce functionality is often used behind the scenes responded Slava, after Kurt asked about how many people use the functionality. This makes it hard to work out how many users actually use map/reduce, whether explicitly or not, though Slava is fairly confident that most common tasks which need map/reduce are already handled and that Rethink’s goal is that people should never need to explicitly call on map/reduce functionality by making sure there’s a higher level tool to handle that. Map/reduce is a “wonderful piece of infrastructure” but that “you don’t want to be writing for it” as it’s “not a great way to express your queries” said Slava.&lt;/p&gt;
+
+&lt;p&gt;Recalling the Phil Karlton quote “There are only two hard things in Computer Science: cache invalidation and naming things”, Kurt and Slava considered how people are rediscovering and reinventing older ideas like abstracting complexity away into higher level tools and relearning that understanding the underlying system helps you use the first iterations of high level tools.&lt;/p&gt;
+
+&lt;h3 id="timeseriestunnels"&gt;Time series tunnels&lt;/h3&gt;
+
+&lt;p&gt;Consideration is then given to the question of whether RethinkDB could be as good a time-series database as any of the dedicated time-series databases out there. Slava thinks that dedicated databases tend to be better, but that in most cases, people don’t use a dedicated database and instead push their business data alongside say a time series of apache logs within the same database. He is confident that they can usually get RethinkDB to cover 90% of these use cases.&lt;/p&gt;
+
+&lt;p&gt;He used the example of binary blobs as a feature in RethinkDB and how customers are “super happy” with it – it doesn’t store massive video files, but for most users it’s enough. Initially though, the RethinkDB developers resisted implementing it because of the potential negative impact it could have. The same, he says, goes for the geospatial functions and covers 95% of cases for mobile. If you want something more than that, you are probably going to want to go dedicated. Kurt notes a parallel issue for Compose: working out when customers are going to need to need to switch to a dedicated solution.&lt;/p&gt;
+
+&lt;p&gt;For his example, Kurt picked at graph problems and said that, deep down, many systems have a graph problem at their core. Many people, though, end up writing odd code to map the graph in a general purpose database without realising what kind of problem they have.&lt;/p&gt;
+
+&lt;p&gt;Slava concurred, noting that RethinkDB boundaries are pushed by graph problems and pushing map/reduce to do machine learning or classifiers. You can do both, but it’s not as good as a system built with these tasks in mind. “People tend to push things surprisingly far in directions where it doesn’t make sense” he added. Kurt pointed out that these boundary pushing solutions often move from working to failing very quickly at an arbitrary point of the data growth.&lt;/p&gt;
+
+&lt;h3 id="featuritisandfinefeatures"&gt;Featuritis and Fine Features&lt;/h3&gt;
+
+&lt;p&gt;Slava and Kurt moved on from there to discuss how features get added to a database. Noting that the RethinkDB development has seen them learn and then solve the vast array of customer needs, Slava is more aware than ever of how careful one has to be adding features. He picks out the MongoDB model of feature expansion as an example of bad practice in that the developers often add features which work well on a single node but don’t scale out well – “We try not to do that”.&lt;/p&gt;
+
+&lt;p&gt;An example of a problematic feature given by Kurt was MongoDB’s unique indexes which are difficult to shard whatever. Features that work on one node are very convenient, but for RethinkDB, if it works on one node, it’ll work on many nodes. One example of this is &lt;a href="http://rethinkdb.com/docs/changefeeds/ruby/"&gt;changefeeds&lt;/a&gt; which allows a client to subscribe to changes on a table – simple to implement on a single node, very difficult on multiple nodes – which, says Slava, was a real challenge but worth doing properly even if it took “way longer”. “Following changes in data is something everyone wants from their databases now” notes Kurt, picking out Elasticsearch and Redis as databases it is hard to do on. Slava says among the changes coming to changefeeds on RethinkDB are updates based on changes in aggregation results – that feature should land before Thanksgiving.&lt;/p&gt;
+
+&lt;p&gt;Change tracking is important for Compose as it develops Transporter. The interesting issue is that import/export applications tend, says Kurt, to be built by either one database vendor or the other. A neutrally created tool is rare, but that’s what Transporter is. It approaches the problem as an ETL task and puts JavaScript into the core but also uses best techniques, avoiding deprecated elements (like Elasticsearch rivers) for solid reliable mechanisms.&lt;/p&gt;
+
+&lt;p&gt;Kurt and Slava finished the chat discussing where Hadoop fits into either company’s plans and how Compose hopes to have Transporter talking to other people’s databases in the future.&lt;/p&gt;
+
+&lt;h3 id="inconclusion"&gt;In conclusion&lt;/h3&gt;
+
+&lt;p&gt;And that’s the first ComposeCast Beta release. Remember you can &lt;a href="http://traffic.libsyn.com/composecast/ComposeCastep01.mp3"&gt;directly download this episode&lt;/a&gt; or &lt;a href="http://composecast.libsyn.com/rss"&gt;subscribe&lt;/a&gt; in your preferred Podcast player to get future episodes.&lt;/p&gt;</description><link>http://localhost:2368/composecast-beta-1-kurt-and-slava-talk-queries/</link><guid isPermaLink="false">9026ae8e-41a4-4939-8c26-bfdabae4758c</guid><category>composecast</category><category>podcast</category><category>rethinkdb</category><dc:creator>Dj</dc:creator><pubDate>Wed, 26 Nov 2014 09:38:48 GMT</pubDate></item><item><title>Elasticsearch tools and Compose</title><description>&lt;p&gt;Outside of the core Elasticsearch toolset, there’s a world of tools that make the search and analytics database even more useful and accessible. In this article we’ll look at some and show what you do to get them working with Compose’s Elasticsearch deployments. We’ll &lt;img src="http://localhost:2368/content/images/2014/12/speciesscope_sjoq7v_dy1roz.jpg" alt="speciesscope" title=""&gt; &lt;br&gt;
+ start with a command line tool, move on to a simple search tool and finish with an all purpose client for searching and manipulating your Elasticsearch database…&lt;/p&gt;
+
+&lt;h2 id="es2unixcommandlinepower"&gt;Es2unix – Command line power&lt;/h2&gt;
+
+&lt;p&gt;Let us start the tool tour with Es2unix, from the Elasticsearch developers. Es2unix is a version of the Elasticsearch API that you can use from the command line. It doesn’t just make the API calls though, it also converts the returned results into a line-oriented, tabular format like many other Unix tools output. That makes it ideal for integrating Elasticsearch into your awk, grep and sort using shell scripts.&lt;/p&gt;
+
+&lt;p&gt;Es2unix will need Java installed, Java 7 at least, and the binary version can be simply downloaded with a curl command and enabled with chmod as per the installation instructions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;curl -s download.elasticsearch.org/es2unix/es &amp;gt;~/bin/es  
+chmod +x ~/bin/es  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note this assumes you have a bin directory in your $HOME and it’s on your path.&lt;/p&gt;
+
+&lt;p&gt;Now, when you run &lt;code&gt;es&lt;/code&gt; it’ll assume that Elasticsearch is running locally. When you are using Compose Elasticsearch, that isn’t the case. If you’ve got the /content/images/2014/12/Screenshot-2014-11-20-11&lt;em&gt;44&lt;/em&gt;54&lt;em&gt;tfrljj&lt;/em&gt;radftf.png)It’s a quick way to get a pretty search query front end up locally without wrestling with forming Curl/JSON requests or deploying a full on server.&lt;/p&gt;
+
+&lt;h2 id="esclient"&gt;ESClient&lt;/h2&gt;
+
+&lt;p&gt;Where Calaca’s great for a super simple search client, you might want something a little more potent for your searching. For that, try &lt;a href="http://localhost:2368/content/images/2014/12/esclientscreen_ezjxdo_fedq0q.png"&gt;ESClient&lt;/a&gt;Double clicking on a result will let you edit the documents that make up the result or you can use the results as a guide for a delete operation. If you set to “Raw JSON” switch in the &lt;em&gt;Configuration&lt;/em&gt; tab, you’ll also be able to view the complete raw returned results in the &lt;em&gt;JSON Results&lt;/em&gt; tab.&lt;/p&gt;
+
+&lt;p&gt;It’s all rather usefully functional and there’s only one slight problem. If you look at the top of the ESClient page, you’ll see it’s displaying the username and password as part of the URL for the database you are connecting to. Not really ideal that, but the SSH access portal can help out there too. If you set up and activate the tunnel, then you can return the &lt;code&gt;CLUSTER_URL&lt;/code&gt; value in the config.js file to &lt;code&gt;http://localhost:9200&lt;/code&gt; and there’ll be no username or password to display on screen.&lt;/p&gt;
+
+&lt;h2 id="wrappingup"&gt;Wrapping up&lt;/h2&gt;
+
+&lt;p&gt;&lt;aside class="right-gutter"&gt;The dataset used in this article comes from the examples of &lt;a href="http://exploringelasticsearch.com/"&gt;Exploring Elasticsearch&lt;/a&gt; and can be found on &lt;a href="https://github.com/andrewvc/ee-datasets"&gt;GitHub&lt;/a&gt;&lt;/aside&gt;We’ve touched on three tools in this article, but more importantly we’ve shown the practical differences between using the HTTP/TCP and SSH access portals on componse. With HTTP/TCP access, there will be usernames and passwords embedded in the URL you use and this will leave any scripts or tools you configure susceptible to shoulder surfers and the like. That said, for occasionally launched tools it is quick and simple.&lt;/p&gt;
+
+&lt;p&gt;With the SSH access portal, the configuration and authentication is done when you set up the tunnel in a separate process and the tunnel means you can use Elasticsearch as if the node was installed locally. The downside is you do need to make sure the SSH tunnel is up before you run any command and it may be easier to go through the HTTP/TCP access portal. But then thats why we give you both options at Compose so you can choose what suits you and your applications best.&lt;/p&gt;</description><link>http://localhost:2368/elasticsearch-tools-and-compose/</link><guid isPermaLink="false">0c389d5b-e9b6-4df5-8729-38428cbff488</guid><category>search</category><category>tools</category><category>utility</category><dc:creator>Dj</dc:creator><pubDate>Thu, 20 Nov 2014 11:22:47 GMT</pubDate></item><item><title>Optimizing SDNs for Compose Elasticsearch</title><description>&lt;p&gt;As you may have read, we’ve taken the beta label off Compose Elasticsearch. We spent months refining our high performance Elasticsearch offering and making sure it was as exceptionally good as our other databases. During that time we hit a few obstacles which had to be overcome before we could push forward to release. Now Compose Elasticsearch is out of beta, we thought we’d talk about one in particular – how we optimized our networking for Compose Elasticsearch.&lt;/p&gt;
+
+&lt;p&gt;When developing the Compose platform, we were able to maximize our CPU and storage I/O performance on the host whilst retaining flexibility in resource allocation. The modern database is the sum of its distributed components and the connections between them and the advent of powerful software defined networking has meant we can use many of the same approaches for our network connections as we use elsewhere.&lt;/p&gt;
+
+&lt;p&gt;That has, in turn, allowed for a tighter, but also more flexible, fit of our networking topology to the task at hand – running your database deployments. To illustrate how this works in practice, let’s show you how we initially deployed our SDN and what we had to change to maximize its potential.&lt;/p&gt;
+
+&lt;h2 id="howweconnect"&gt;How we connect&lt;/h2&gt;
+
+&lt;p&gt;Each node in any user’s deployment is run in an LXC-based container. We’re big believers in the containerized ecosystem and have been using the technology for several years. We had to create our own way of packaging the applications and filesystems for these containers and we call this combination a “capsule”. Capsules are brought to life within an LXC container and are the unit of compute power around Compose. They are used throughout Compose’s internal infrastructure, providing both user facing and internal applications on demand on a range of hardware.&lt;/p&gt;
+
+&lt;p&gt;When we create a database deployment, we create capsules for the database and access portals on large, heavily provisioned, shared systems. Each one of these host systems runs &lt;a href="http://localhost:2368/content/images/2014/12/compose-logo-stacked-black_htgbqp_peyzzf.png"&gt;Open vSwitch&lt;/a&gt;When the database instances in the capsules on the various hosts connect, we know the tunnelling is being routed correctly. We then monitor the capsules and VXLAN connections to detect any problems.&lt;/p&gt;
+
+&lt;p&gt;Some weeks ago, we switched over the Elasticsearch deployments to this new configuration. Because of the change in tunnelling, we had to schedule a brief period of down time. Once done though we found a network configuration that is now unbothered by packet loss or slowed during reconfiguration. The ability to roll this change out without physical hardware changes and map it precisely to our use case also shows us how powerful software defined networking can be.&lt;/p&gt;</description><link>http://localhost:2368/optimizing-sdns-for-compose-elasticsearch/</link><guid isPermaLink="false">4fe0a7aa-3562-49a7-a108-181b9c407636</guid><category>optimization</category><category>SDN</category><category>software defined networking</category><dc:creator>Dj</dc:creator><pubDate>Wed, 19 Nov 2014 09:20:50 GMT</pubDate></item><item><title>Compose Elasticsearch out of beta - clears final stretch</title><description>&lt;p&gt;In the early hours on Monday, the Compose Elasticsearch team met and put their cards on the table. And they were all green meaning that Compose’s Elasticsearch deployments have passed all their quality and resilience checks and that the users who joined us for the beta testing phase are happy with their deployments.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/composesocial2_bwudi3_cg6pky.png" alt="composesocial2" title=""&gt;Elasticsearch, which was the first of Compose’s non-MongoDB database offerings, has moved to the top tier of our platform table. We chose Elasticsearch because it brings the power of rich full-text search engine to users. When we released Elasticsearch into public beta we &lt;a href="http://localhost:2368/elasticsearch-at-compose-how-it-fits/"&gt;explained why Elasticsearch was a good fit&lt;/a&gt; with how Compose does things. Elasticsearch with Compose gives you a management dashboard and automatic backups to ensure your data is safe.&lt;/p&gt;
+
+&lt;h2 id="transporterofdelights"&gt;Transporter of delights&lt;/h2&gt;
+
+&lt;p&gt;But we didn’t stop there. During the beta, we &lt;a href="http://localhost:2368/transporter-gets-mongodb-data-into-elasticsearch/"&gt;released our Transporter technology&lt;/a&gt; which allows Elasticsearch to get a complete copy of a MongoDB database into Elasticsearch. We then went further and added a &lt;a href="http://localhost:2368/continuously-synchronize-your-mongodb-data-to-elasticsearch/"&gt;continuous mode which lets a constant full stream&lt;/a&gt; of updated data from a MongoDB deployment flow into Elasticsearch. That means the two databases can run completely in parallel, freeing the developer from the limitations of MongoDB’s full-text indexes. Or you can transform MongoDB data into a specialised, filtered dataset using the &lt;a href="http://localhost:2368/transporter-transformers-powering-up-your-data-transfer/"&gt;Transformer engine within Transporter&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id="securelydelivered"&gt;Securely delivered&lt;/h2&gt;
+
+&lt;p&gt;Elasticsearch deployments run on a private network and we’ve added access portals so &lt;a href="http://localhost:2368/keeping-elasticsearch-secure-the-compose-network/"&gt;you can connect to your database securely&lt;/a&gt;. During the beta, we enhanced that facility too with support for &lt;a href="http://localhost:2368/elasticsearch-ip-whitelisting-and-phonetic-plugins/"&gt;an IP whitelist&lt;/a&gt; to further control who can connect to your Elasticsearch deployment.&lt;/p&gt;
+
+&lt;h2 id="pluginpowerandmore"&gt;Plugin power and more&lt;/h2&gt;
+
+&lt;p&gt;We’ve also added support for a core set of &lt;a href="http://localhost:2368/elasticsearch-plugins-are-go/"&gt;Elasticsearch plugins&lt;/a&gt; including ElasticHQ’s data management console and Kibana’s query development front end and have started adding &lt;a href="http://localhost:2368/elasticsearch-ip-whitelisting-and-phonetic-plugins/"&gt;more plugins&lt;/a&gt; as customers request them. For further control, we’ve added &lt;a href="http://localhost:2368/elasticsearch-metrics/"&gt;Elasticsearch memory metrics&lt;/a&gt; so you can see how your database is behaving. And for developers, we’ve written about &lt;a href="http://localhost:2368/porting-a-mongodb-full-text-search-app-to-elasticsearch/"&gt;how to port MongoDB apps to Elasticsearch&lt;/a&gt; and how to use MongoDB and Elasticsearch together with &lt;a href="http://localhost:2368/mongoosastic-the-power-of-mongodb-and-elasticsearch-together/"&gt;Mongoosastic&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;As you can see, we’ve been busy at Compose making Elasticsearch the easy to deploy database you want for your full-text searching. And we let you run it off powerful SSD-backed hardware in a three-node deployment. Now Elasticsearch is out of beta, the next stage begins – over the coming weeks and months you’ll find Elasticsearch in more Compose regions so you can have your Elasticsearch closer to your applications.Your first 2GB of Elasticsearch data will cost you $54 and each gigabyte after that, another $18. If you are ready to enjoy Compose’s Elasticsearch and don’t have an account with us &lt;a href="https://www.compose.io/elasticsearch.html?utm_source=elasticsearchoutofbeta&amp;amp;utm_medium=blog&amp;amp;utm_campaign=111714"&gt;sign up today&lt;/a&gt;. If you already have an account, you know your new Elasticsearch is just a few clicks away on your Compose dashboard.&lt;/p&gt;</description><link>http://localhost:2368/compose-elasticsearch-out-of-beta-clears-final-stretch/</link><guid isPermaLink="false">de5ff03c-dee9-40e3-bf20-ca0894916029</guid><category>launch</category><category>regions</category><category>update</category><dc:creator>Dj</dc:creator><pubDate>Mon, 17 Nov 2014 10:55:23 GMT</pubDate></item><item><title>How to securely access your Compose databases</title><description>&lt;p&gt;Our new access portals, available on Elasticsearch, RethinkDB and Redis have had people asking us which one should they use, so we thought we’d explain the differences and show where they fit.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/lock320_oc4lf7_g4q1vv.png" alt="lock320" title=""&gt;First a refresher on what the Compose access portals do. Databases like Elasticsearch, RethinkDB and Redis have historically tended to run on private networks, assuming a friendly network and not having user authentication or minimal security. If you just put these databases onto the internet raw, you’d find them full of archived cat images pretty quickly. At Compose, each database deployment gets its own virtual private network to keep it, and its contents, safe. But that brings up the problem of how to get to the databases from the internet, and thats where the access portals come in.&lt;/p&gt;
+
+&lt;p&gt;Access portals are specialised nodes on the private network with an external IP address. We’ve isolated the security responsibility into these access portals, so there’s no other processes running on them but the processes needed to manage and control the transit of traffic from the outside world into the private network. We have got two types of access portals currently available, the TCP/HTTP portal and the SSH portal.&lt;/p&gt;
+
+&lt;h2 id="thetcphttpportal"&gt;The TCP/HTTP Portal&lt;/h2&gt;
+
+&lt;p&gt;The TCP/HTTP portal runs a web proxy, haproxy to be exact, which only accepts HTTPS connections from the outside and requires that the connection is authenticated with a username and password. It then forwards the request into the private network and returns the response.&lt;/p&gt;
+
+&lt;p&gt;The proxy automatically follows which system is the current primary node in the database’s cluster of nodes and sends the traffic to that node. This is great for giving users web and REST access to your database without requiring them to have a lot of information to configure their connection.&lt;/p&gt;
+
+&lt;p&gt;By default, the TCP/HTTP portal accepts connections from anywhere on the internet but will still need a valid username and password to let traffic through. There’s an &lt;a href="http://localhost:2368/elasticsearch-ip-whitelisting-and-phonetic-plugins/"&gt;IP whitelist facility&lt;/a&gt; which lets you block all traffic unless it’s coming from an IP address in the whitelist too. Again, you’ll still need valid credentials to get a connection. We have been asked if we could drop the requirement for authentication when the whitelist is in operation but a source IP address is relatively easy to fake so we won’t be allowing that.&lt;/p&gt;
+
+&lt;h2 id="thesshportal"&gt;The SSH Portal&lt;/h2&gt;
+
+&lt;p&gt;The SSH portal runs an SSH daemon configured to allow tunnels to be created from the outside into the private network. To configure tunnels like this, connecting systems must be in possession of the private part of a key and have registered to public key with the SSH portal. Then the remote system can run SSH and authenticate itself with the access portal securely – even if the public key falls into the hands of black hats, thats not enough to get access to the system. The connection process is also automatic so can be seamlessly integrated into your application architecture.&lt;/p&gt;
+
+&lt;p&gt;The added bonus to this more complex authentication is that you can configure any port on your local system to be mapped to any host/node and port in your database cluster using the SSH tunnelling command options. For an example of how to configure this, see “&lt;em&gt;&lt;a href="http://localhost:2368/connecting-to-composes-rethinkdb-deployments-with-ssh/"&gt;Connecting to Compose’s RethinkDB Deployments with SSH&lt;/a&gt;&lt;/em&gt;” where we work through the process for RethinkDB. There, each one of the hosts in the RethinkDB cluster gets it’s own local IP address and then port 8080 and 28015 are tunnelled across to each, connecting the web interface and the application client driver to the database. You can configure the SSH portal with a one to one mapping or configure so that all your nodes are visible to your application. We’ll look at some more complex configurations in a future article.&lt;/p&gt;
+
+&lt;h2 id="bestofboth"&gt;Best of both&lt;/h2&gt;
+
+&lt;p&gt;You can, if you want, run both access portals side by side, giving you the convenience of the TCP/HTTP portal with it’s name/password authentication along with the added security and powerful configuration options of the SSH portal. Do remember that our database plans include only one access portal and an extra access portal will cost $9/month extra – for most users, one or other of the current access portals will fit your needs.&lt;/p&gt;
+
+&lt;p&gt;These are also only the first of our access portals. We have more in development which will offer further ways to access your databases with new security and connectivity features. With Compose’s platform for database-as-a-service you can be assured that these future features will, like the current options of TCP/HTTP and SSH, be just a click away.&lt;/p&gt;</description><link>http://localhost:2368/how-to-securely-access-your-compose-databases/</link><guid isPermaLink="false">112e9c3b-3254-4e10-a9fa-53abbb3752df</guid><category>access</category><category>portals</category><category>proxy</category><category>Security</category><category>ssh</category><category>tcp/http</category><dc:creator>Dj</dc:creator><pubDate>Fri, 14 Nov 2014 08:15:50 GMT</pubDate></item></channel></rss>

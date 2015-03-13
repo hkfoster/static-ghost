@@ -1,0 +1,247 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>conference - Compose Articles</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/tag/conference/">
+    <link rel="next" href="http://localhost:2368/page/2/">
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="tag-template tag-conference blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+<header class="main-header tag-head no-cover">
+    <nav class="main-nav overlay clearfix">
+        <a class="back-button icon-arrow-left" href="http://localhost:2368">Home</a>
+        <a class="subscribe-button icon-feed" href="http://localhost:2368/tag/conference/rss/">conference</a>
+    </nav>
+    <div class="vertical">
+        <div class="main-header-content inner">
+            <h1 class="page-title">conference</h1>
+            <h2 class="page-description">A 9-post collection</h2>
+        </div>
+    </div>
+</header>
+
+<main class="content" role="main">
+
+    
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../mongodb-israel-2013-june-16th/">MongoDB Israel 2013 - June 16th</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2013-06-13">June 13, 2013</time>
+           in <span class="tags"><a href="index.html">conference</a></span>
+        </small>
+    
+    
+        <p class="excerpt">Weekly, we speak with developers and data architects from Israel.  We are floored with the surge in the startup scene in Israel.  Either it was always there, and we did not see it; or, it has exploded over the past…</p>
+    
+        <p><a class="read-more" href="../../mongodb-israel-2013-june-16th/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../first-steps-of-an-analytics-platform-with-mongodb/">First Steps of an Analytics Platform With MongoDB</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2013-01-29">January 29, 2013</time>
+           in <span class="tags"><a href="../10gen/">10gen</a> &amp;bullet; <a href="../analytics/">analytics</a> &amp;bullet; <a href="index.html">conference</a> &amp;bullet; <a href="../hosted-mongodb/">hosted mongodb</a> &amp;bullet; <a href="../mongo-hosting/">mongo hosting</a> &amp;bullet; <a href="../mongoconf/">mongoconf</a> &amp;bullet; <a href="../mongodb/">mongodb</a> &amp;bullet; <a href="../mongodb-hosting/">mongodb hosting</a> &amp;bullet; <a href="../mongohq/">mongohq</a> &amp;bullet; <a href="../mongosv/">mongosv</a></span>
+        </small>
+    
+    
+        <p class="excerpt">MongoDB excels at analytics. Every week, we have customers asking for insight on building an analytics and metrics platform. We have seen outstanding performance from good practices and have seen issues with common bad practices. Customers have different types of…</p>
+    
+        <p><a class="read-more" href="../../first-steps-of-an-analytics-platform-with-mongodb/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../mongodb-and-full-text-search-my-first-week-with-mongodb-2-4-development-release/">MongoDB and Full Text Search: My First Week With MongoDB 2.4 Development Release</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2013-01-22">January 22, 2013</time>
+           in <span class="tags"><a href="../10gen/">10gen</a> &amp;bullet; <a href="index.html">conference</a> &amp;bullet; <a href="../hosted-mongodb/">hosted mongodb</a> &amp;bullet; <a href="../mongo-hosting/">mongo hosting</a> &amp;bullet; <a href="../mongoconf/">mongoconf</a> &amp;bullet; <a href="../mongodb/">mongodb</a> &amp;bullet; <a href="../mongodb-hosting/">mongodb hosting</a> &amp;bullet; <a href="../mongohq/">mongohq</a> &amp;bullet; <a href="../mongosv/">mongosv</a></span>
+        </small>
+    
+    
+        <p class="excerpt">At MongoHQ, we deployed and made available for use a hosted MongoDB 2.3 beta server to allow ourselves and our customers an opportunity to check out some of the new features that 10gen has been working on. Admittedly, a…</p>
+    
+        <p><a class="read-more" href="../../mongodb-and-full-text-search-my-first-week-with-mongodb-2-4-development-release/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../explore-mongodb-2-3-on-mongohq/">Explore MongoDB 2.3 on MongoHQ</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2013-01-17">January 17, 2013</time>
+           in <span class="tags"><a href="../10gen/">10gen</a> &amp;bullet; <a href="index.html">conference</a> &amp;bullet; <a href="../mongo-hosting/">mongo hosting</a> &amp;bullet; <a href="../mongoconf/">mongoconf</a> &amp;bullet; <a href="../mongodb/">mongodb</a> &amp;bullet; <a href="../mongodb-hosting/">mongodb hosting</a> &amp;bullet; <a href="../mongohq/">mongohq</a> &amp;bullet; <a href="../mongosv/">mongosv</a></span>
+        </small>
+    
+    
+        <p class="excerpt">There are some interesting and exciting changes coming to MongoDB in the 2.4 production release, including: Full-text search Change in the internal Javascript engine Hashed indexes We’ll talk a bit more about these changes in just a moment,…</p>
+    
+        <p><a class="read-more" href="../../explore-mongodb-2-3-on-mongohq/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../replica-set-read-preferences-and-mongodb-2-2/">Replica Set Read Preferences and MongoDB 2.2</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2013-01-15">January 15, 2013</time>
+           in <span class="tags"><a href="../10gen/">10gen</a> &amp;bullet; <a href="index.html">conference</a> &amp;bullet; <a href="../mongo-hosting/">mongo hosting</a> &amp;bullet; <a href="../mongoconf/">mongoconf</a> &amp;bullet; <a href="../mongodb/">mongodb</a> &amp;bullet; <a href="../mongodb-hosting/">mongodb hosting</a> &amp;bullet; <a href="../mongohq/">mongohq</a> &amp;bullet; <a href="../mongosv/">mongosv</a></span>
+        </small>
+    
+    
+        <p class="excerpt">When making the transition from a single server setup to a Replica Set there are many more benefits than just a hot standby. Read preferences are one that should be heavily considered. Benefits vary from reducing system load and/or…</p>
+    
+        <p><a class="read-more" href="../../replica-set-read-preferences-and-mongodb-2-2/">Read More »</a></p>
+    
+      </article>
+    
+    <nav class="pagination big-push">
+      <small class="page-number">Page 1 of 2</small>
+        <a class="btn mini older" href="page/2/">Older Articles »</a>
+    </nav>
+</main>
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

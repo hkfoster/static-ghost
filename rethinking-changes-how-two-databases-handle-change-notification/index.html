@@ -1,0 +1,298 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Rethinking changes - How two databases handle change notification</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/rethinking-changes-how-two-databases-handle-change-notification/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Rethinking changes - How two databases handle change notification">
+    <meta property="og:description" content="What makes RethinkDB different from say MongoDB? Since we added RethinkDB to the Compose database service, that’s a question we’ve been asked. We could talk about the ground up scaling that’s engineered in or the integrated web...">
+    <meta property="og:url" content="http://localhost:2368/rethinking-changes-how-two-databases-handle-change-notification/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/lightblueburst_qfrnsr_fmathp.jpg">
+    <meta property="article:published_time" content="2014-12-02T08:11:05.000Z">
+    <meta property="article:modified_time" content="2014-12-17T08:42:35.000Z">
+    <meta property="article:tag" content="change">
+    <meta property="article:tag" content="notification">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Rethinking changes - How two databases handle change notification">
+    <meta name="twitter:description" content="What makes RethinkDB different from say MongoDB? Since we added RethinkDB to the Compose database service, that’s a question we’ve been asked. We could talk about the ground up scaling that’s engineered in or the integrated web...">
+    <meta name="twitter:url" content="http://localhost:2368/rethinking-changes-how-two-databases-handle-change-notification/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/lightblueburst_qfrnsr_fmathp.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Rethinking changes - How two databases handle change notification",
+    "url": "http://localhost:2368/rethinking-changes-how-two-databases-handle-change-notification/",
+    "datePublished": "2014-12-02T08:11:05.000Z",
+    "dateModified": "2014-12-17T08:42:35.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/lightblueburst_qfrnsr_fmathp.jpg",
+    "keywords": "change, notification",
+    "description": "What makes RethinkDB different from say MongoDB? Since we added RethinkDB to the Compose database service, that’s a question we’ve been asked. We could talk about the ground up scaling that’s engineered in or the integrated web..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-change tag-notification blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-change tag-notification container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/lightblueburst_qfrnsr_fmathp.jpg)">
+    <h1 class="post-title">Rethinking changes - How two databases handle change notification</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-12-02">December 2nd, 2014</time></small>
+  </header>
+
+<p>What makes RethinkDB different from say MongoDB? Since we added RethinkDB to the Compose database service, that’s a question we’ve been asked. We could talk about the ground up scaling that’s engineered in or the integrated web interface but today I’d like to talk to you about how you can monitor changes in database tables because it’s something that really picks out the difference in philosophy between the two databases.</p>
+
+<p>As web applications have become more real-time, more collaborative and more interlocked, it’s more important than ever to be able to appropriately react to changes in data and, with a lot of clients or backend servers, you don’t know where those changes are coming from. The traditional technique has been to poll databases for changes with regularly executed queries, but this burns database processing time and is only as up to date as the last query made.</p>
+
+<h2 id="themongodbway">The MongoDB Way</h2>
+
+<p><img src="../content/images/2014/12/mongodb-leaf_euorgb_ntcsqk.png" alt="mongodb-leaf" title="">With MongoDB, there is an option, at least for back-end services in the form of the oplog. When MongoDB developers built their replication system they did so by generating a stream of all the changes in the database, an operational log of activity. This oplog was for a long time, only used by other MongoDB servers in a replica set to keep up to date with the master server. Eventually, the oplog was used by other applications as a source of changes to tap into and frameworks like Meteor picked up on that and developed drivers that subscribed to the oplog’s flow. That allows them to respond immediately to changes.</p>
+
+<p>There are pitfalls in the oplog approach though. It needs more configuration and the granting of oplog access permissions to users but more critically, you get all the changes. When we say all the changes, even if you are only interested in one collection, you will get all the changes for every collection and you’ll have to write your application server to drop the oplog activity you aren’t interested in. Having oplog access though is incredibly useful, so people work their way around the pitfalls. If you want to know more, do look at our <a href="../content/images/2014/12/change_huwtjl_w7xuru.png">previous articles</a>With RethinkDB, there’s been no borrowing of replication data. The process of following changes is built into the API with a mechanism called change feeds. The feature was introduced in June 2014 after a long period of development where the challenge of making change notification working over multiple servers was taken on and overcome. The result is that you can get a change feed from any table in your database simply using the <a href="http://rethinkdb.com/api/javascript/changes/"><code>changes</code></a> method in a chain of commands:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;r.table("changables").changes().run(conn,function(err,cursor) {  
+    cursor.each(console.log);
+    });
+</code></pre>
+
+<p>This is the JavaScript version; when a change occurs in the table, it and any other changes are delivered to a user defined function as a cursor which they can process as they wish. Here we simply print out each change. In Ruby this would read:</p>
+
+<pre><code>&lt;code class="language-ruby"&gt;r.table("changables").changes().run(conn).each{ |change| p(change) }  
+</code></pre>
+
+<p>While in Python it would be:</p>
+
+<pre><code>&lt;code class="language-python"&gt;feed=r.table("changables").changes().run(conn)  
+for change in feed:  
+    print change
+</code></pre>
+
+<p>The API is unified over the three platforms only varying for the idiomatic variation of each language. We’ll use JavaScript for the rest of this article though.</p>
+
+<p><aside class="right-gutter">When reading the RethinkDB/ReQL documentation, do remember in the top right of the page is a selector that lets you view either the JavaScript, Python or Ruby versions of the documentation</aside>With <code>changes</code> method, the results come in the form of an old<em>val object and new</em>val object. Both will have values for updates and replaces, inserts will have a null old<em>val while delete has a null new</em>value. With that information, it’s simple to determine what operation took place. An added plus is that you can <code>filter</code> or <code>map</code> the results before they are returned to your application. For example, if you wanted to only process changes belonging to a particular customer ‘Fred” then you could do:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;r.table("changables").changes()  
+    .filter(r.row('old_val')('customer').eq('Fred'))
+    .run(conn,function(err,cursor) {
+        cursor.each(console.log);
+    });
+</code></pre>
+
+<p>There is a limitations to this though; you can’t count or sort the change feed stream (because its endless and counting and sorting rely on results being finite). Despite that, it’s a powerful way to get your database changes pushed to you. One hint worth noting; run your change feeds on their own RethinkDB connection to ensure that your other connections can remain consistent and responsive even when a lot of changes are happening.</p>
+
+<p>What is a complex bolt-on in MongoDB is a tightly integrated part of the query syntax of RethinkDB. If you want to learn more about change feeds in practices, see RethinkDB’s blog posting “<a href="http://rethinkdb.com/blog/cats-of-instagram/">Catthink</a>” which teams up the cats of Instagram with RethinkDB and the <a href="http://rethinkdb.com/docs/changefeeds/javascript/">introductory documentation</a>. Meanwhile, we’ll be looking at more RethinkDB features in future articles.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Rethinking%20changes%20-%20How%20two%20databases%20handle%20change%20notification&amp;url=http://localhost:2368/rethinking-changes-how-two-databases-handle-change-notification/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/rethinking-changes-how-two-databases-handle-change-notification/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/rethinking-changes-how-two-databases-handle-change-notification/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

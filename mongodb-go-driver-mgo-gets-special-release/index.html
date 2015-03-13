@@ -1,0 +1,280 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>MongoDB Go driver Mgo gets special release</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/mongodb-go-driver-mgo-gets-special-release/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="MongoDB Go driver Mgo gets special release">
+    <meta property="og:description" content="TL;DR: MongoDB Go driver has moved and developers will want to update their code. There’s a lot of MongoDB drivers out there, both official and unofficial, and mgo is one of the stars of those drivers. If you’...">
+    <meta property="og:url" content="http://localhost:2368/mongodb-go-driver-mgo-gets-special-release/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/gophermongohq_sbik0p_v26l0w.png">
+    <meta property="article:published_time" content="2014-07-23T12:40:20.000Z">
+    <meta property="article:modified_time" content="2014-09-02T08:45:25.000Z">
+    <meta property="article:tag" content="driver">
+    <meta property="article:tag" content="go">
+    <meta property="article:tag" content="mgo">
+    <meta property="article:tag" content="mongodb">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MongoDB Go driver Mgo gets special release">
+    <meta name="twitter:description" content="TL;DR: MongoDB Go driver has moved and developers will want to update their code. There’s a lot of MongoDB drivers out there, both official and unofficial, and mgo is one of the stars of those drivers. If you’...">
+    <meta name="twitter:url" content="http://localhost:2368/mongodb-go-driver-mgo-gets-special-release/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/gophermongohq_sbik0p_v26l0w.png">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "MongoDB Go driver Mgo gets special release",
+    "url": "http://localhost:2368/mongodb-go-driver-mgo-gets-special-release/",
+    "datePublished": "2014-07-23T12:40:20.000Z",
+    "dateModified": "2014-09-02T08:45:25.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/gophermongohq_sbik0p_v26l0w.png",
+    "keywords": "driver, go, mgo, mongodb",
+    "description": "TL;DR: MongoDB Go driver has moved and developers will want to update their code. There’s a lot of MongoDB drivers out there, both official and unofficial, and mgo is one of the stars of those drivers. If you’..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-driver tag-go tag-mgo tag-mongodb blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-driver tag-go tag-mgo tag-mongodb container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/gophermongohq_sbik0p_v26l0w.png)">
+    <h1 class="post-title">MongoDB Go driver Mgo gets special release</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-07-23">July 23rd, 2014</time></small>
+  </header>
+
+<p><strong><em>TL;DR:</em></strong> MongoDB Go driver has moved and developers will want to update their code.</p>
+
+<p>There’s a lot of MongoDB drivers out there, both official and unofficial, and mgo is one of the stars of those drivers. If you’ve not come across mgo, it’s a driver written for the Go language. It has taken its API design cues from Go rather than be driven to a common spec. That can make it look unfamiliar to anyone coming from another language and one of the official drivers, but it does mean it is perfect for Go developers and has become a firm favourite with its cluster discovery, failover management, pre-fetching of results, pooling-aware authentication and GridFS support.</p>
+
+<p>The <a href="http://blog.labix.org/2014/07/21/mgo-release-r2014-07-21-now-at-gopkg-in">announcement of the latest version</a> explains the cause of this special release; mgo is changing how its hosted, how developers import it and how to get the library. The package import path is changing to <code>gopkg.in/mgo.v2</code> as the library changes its distribution path from a static file on the labix.org servers to the geographically distributed <a href="http://labix.org/gopkg.in">gopkg.in</a>. To get the library, users will now need to run <code>go get gopkg.in/mgo.v2</code>.</p>
+
+<p>Who’s gopkg.in you ask? It’s actually labix.org’s latest project for supplying stable versioned APIs to Go developers. The service uses git and github.com in the background. That also means that the mgo source code is now only <a href="https://github.com/go-mgo/mgo">residing on github</a> and you don’t need to build bzr to download it. Old import paths and source repositories will continue to work, but you’ll want to update as soon as you can as the old repos are “already holding out-of-date code”. We’ve updated our <a href="http://docs.mongohq.com/languages/golang.html">Go documentation</a> already.</p>
+
+<p>There are new features in the release too:</p>
+
+<ul>
+<li>A flexible socket pool size limit</li>
+<li>A driver-enforced ten second time out on TCP name resolution</li>
+<li>json.Numbers handled as numbers</li>
+<li>Fixes for GridFS handling</li>
+<li>Support for Plain LDAP authentication.</li>
+</ul>
+
+<p>There’s also the first elements of a Bulk API to match MongoDB 2.6’s bulk operations. Right now its experimental and just supports bulk inserts by allowing the operations to be queued up and run in an ordered or unordered mode. It’s laying the foundations for a more complete Bulk operations API in the future.</p>
+
+<p>It’s also interesting to note that although it is an unofficial driver, some of the credited feature requests and many of the problems reports came from MongoDB, with a patch coming from Facebook and a request from Canonical. MongoDB Inc It looks like MongoDB Inc are paying attention to one of our favourite drivers here at MongoHQ.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=MongoDB%20Go%20driver%20Mgo%20gets%20special%20release&amp;url=http://localhost:2368/mongodb-go-driver-mgo-gets-special-release/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/mongodb-go-driver-mgo-gets-special-release/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/mongodb-go-driver-mgo-gets-special-release/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

@@ -1,0 +1,323 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>explain.explain() - Understanding Mongo Query Behavior</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/explain-explain-understanding-mongo-query-behavior/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="explain.explain() - Understanding Mongo Query Behavior">
+    <meta property="og:description" content="MongoDB has an extremely flexible query syntax. The flexibility allows all sorts of useful queries, and some that are mysteriously slow. It’s reasonably easy to figure out why a query is slow … you simply need to ask MongoDB to...">
+    <meta property="og:url" content="http://localhost:2368/explain-explain-understanding-mongo-query-behavior/">
+    <meta property="article:published_time" content="2013-02-05T22:14:55.000Z">
+    <meta property="article:modified_time" content="2014-12-17T11:52:29.000Z">
+    <meta property="article:tag" content="10gen">
+    <meta property="article:tag" content="analytics">
+    <meta property="article:tag" content="hosted mongodb">
+    <meta property="article:tag" content="mongo hosting">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="mongodb hosting">
+    <meta property="article:tag" content="mongohq">
+    <meta property="article:tag" content="optimization">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="explain.explain() - Understanding Mongo Query Behavior">
+    <meta name="twitter:description" content="MongoDB has an extremely flexible query syntax. The flexibility allows all sorts of useful queries, and some that are mysteriously slow. It’s reasonably easy to figure out why a query is slow … you simply need to ask MongoDB to...">
+    <meta name="twitter:url" content="http://localhost:2368/explain-explain-understanding-mongo-query-behavior/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "ian",
+        "url": "http://localhost:2368/author/ian",
+        "sameAs": ""
+    },
+    "headline": "explain.explain() - Understanding Mongo Query Behavior",
+    "url": "http://localhost:2368/explain-explain-understanding-mongo-query-behavior/",
+    "datePublished": "2013-02-05T22:14:55.000Z",
+    "dateModified": "2014-12-17T11:52:29.000Z",
+    "keywords": "10gen, analytics, hosted mongodb, mongo hosting, mongodb, mongodb hosting, mongohq, optimization",
+    "description": "MongoDB has an extremely flexible query syntax. The flexibility allows all sorts of useful queries, and some that are mysteriously slow. It’s reasonably easy to figure out why a query is slow … you simply need to ask MongoDB to..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-10gen tag-analytics tag-hosted-mongodb tag-mongo-hosting tag-mongodb tag-mongodb-hosting tag-mongohq tag-optimization blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-10gen tag-analytics tag-hosted-mongodb tag-mongo-hosting tag-mongodb tag-mongodb-hosting tag-mongohq tag-optimization container">
+  <header>
+    <h1 class="post-title">explain.explain() - Understanding Mongo Query Behavior</h1>
+    <small class="post-meta"><time class="post-date" datetime="2013-02-05">February 5th, 2013</time></small>
+  </header>
+
+<p>MongoDB has an extremely flexible query syntax. The flexibility allows all sorts of useful queries, and some that are mysteriously slow. It’s reasonably easy to figure out <em>why</em> a query is slow … you simply need to ask MongoDB to explain itself.</p>
+
+<h2 id="explainyourselfmongo">.explain() yourself mongo</h2>
+
+<p>By simply adding .explain() to the end of your mongo query, mongo will return details about how it goes about fulfilling that query. This will help you understand what indexes are being used and how many documents mongo actually sifts through to generate the result.</p>
+
+<h2 id="acontrivedexample">a contrived example</h2>
+
+<p>First, let’s generate a dataset… how about some people. Running the following code right in the mongo shell will create us 200k person objects to work with, each with their own birthdate, gender, and hair color. No indexes have been created (yet).</p>
+
+<pre><code>&lt;code data-language="javascript"&gt;var genderChoices = ['male', 'female'];  
+var hairChoices = ['black', 'brown', 'blond', 'red', 'auburn',  
+'chestnut', 'white'];  
+var birthdate = new Date();  
+birthdate.setYear(1970);
+
+for (var i = 0; i &lt; 200000; ++i) {  
+  birthdate.setHours(birthdate.getHours() + 1);
+  db.people.insert({
+    gender: genderChoices[Math.floor(Math.random() *
+genderChoices.length)],  
+    hair: hairChoices[Math.floor(Math.random() * hairChoices.length)],
+    birthdate: birthdate
+  })
+}
+</code></pre>
+
+<h2 id="gounindexedquery">go unindexed query!</h2>
+
+<p>Let’s filter down to the first 10 males with a tasteful chestnut hair color and sort them by birthdate. I’ll use the pretty web interface.</p>
+
+<p><img src="../content/images/2014/12/no-index_ufm4hj_bdxcjl.png" alt="No Index" title="">Performance is already pretty bad on this query. With only 200k documents, our query takes over 100ms (which is bad enough to automatically get logged by MongoDB as a slow query).</p>
+
+<p>Notice also, the cursor is a <code>BasicCursor</code> which means that no index was used.</p>
+
+<p>The killer information that you should look for is the number of objects MongoDB scanned through fulfilling this query. I inserted 200k documents, and well, the nscanned value tells us we’re searching through every single document.</p>
+
+<p>For sorted queries, also pay attention to scanAndOrder which when true means that MongoDB spent time sorting the results instead of using an index.</p>
+
+<h2 id="indexrace">index race</h2>
+
+<p>Just for example, I’m going to add two separate indexes: one on hair and one on gender. Again, I’ll use the pretty web interface.</p>
+
+<p><strong>be careful adding indexes to production data</strong></p>
+
+<p><img src="../content/images/2014/12/creating-index_ezie1f_k0ouu5.png" alt="Creating Index" title="">With an index on hair, and a separate index on gender, let’s run the query again.</p>
+
+<p><img src="../content/images/2014/12/competing-indexes_tiqwqh_evrvwa.png" alt="Competing Indexes" title="">I’m cutting off part of this explain() result for later, but first look at the cursor value.</p>
+
+<p>The cursor is <code>BtreeCursor hair_1</code> which says we’re using an index on hair. Mongo only needed to scan through 28.5k documents to complete the query. But why use the hair index?</p>
+
+<h2 id="adbwithaplan">a DB with a plan</h2>
+
+<p>Here is the next part of the explain output:</p>
+
+<p><img src="../content/images/2014/12/attempted-plans_zbts9t_kcxgff.png" alt="Attempted Plans" title="">This shows that MongoDB tried 3 ways to fulfil my query. It tried using the hair index, the gender index, and no indexing. The poor gender and BasicCursor options only scanned through about 200 documents before MongoDB terminated them (because it already had the answer from the hair index).</p>
+
+<p>So, we did better by adding the hair index. If this is the only query we ever run against our data, then the gender index isn’t helping (and actually slows down updates/inserts/deletes to maintain the index).</p>
+
+<p>Looking back at the hair index, the nscanned tells us that MongoDB scanned 28.5k documents and generated a result of 14k documents that pass the query.</p>
+
+<p>28.5k is about 15% of our total data, which is a nice reduction. We can do better though with a compound index which will bring the nscanned value closer to the total result set.</p>
+
+<h2 id="betterstrongerfaster">better, stronger, faster</h2>
+
+<p>Let’s create an index on hair, gender, and then birthdate. We’re choosing hair first because that’s the most efficient at breaking apart our data into smaller fragments (which is why MongoDB chose it in our index race above).</p>
+
+<p><img src="../content/images/2014/12/creating-compound-index_e2x93e_q90y3z.png" alt="Creating Compound Index" title="">How does it perform?</p>
+
+<p><img src="../content/images/2014/12/full-index_awj4cv_ul9e7v.png" alt="Full Index" title="">The results are much faster, and in this optimal case, our nscanned is equal to n and scanAndOrder is false. Good job contrived example. You show us what we can aspire to.</p>
+
+<h2 id="explainyourself">Explain yourself</h2>
+
+<p>Explain is a great tool to understand a little more about how your query is actually working with your indexes, and with MongoHQ it’s a single pretty button away from helping you.</p>
+
+
+<footer class="post-footer big-push">
+
+
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=explain.explain()%20-%20Understanding%20Mongo%20Query%20Behavior&amp;url=http://localhost:2368/explain-explain-understanding-mongo-query-behavior/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/explain-explain-understanding-mongo-query-behavior/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/explain-explain-understanding-mongo-query-behavior/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

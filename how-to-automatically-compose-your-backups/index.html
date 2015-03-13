@@ -1,0 +1,435 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>How to: Automatically Compose your backups</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/how-to-automatically-compose-your-backups/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How to: Automatically Compose your backups">
+    <meta property="og:description" content="We showed how you could use Compose’s user interface to easily make manual backups of your databases on demand in the previous article. Of course, you can’t really include that sort of manual download in your daily processes...">
+    <meta property="og:url" content="http://localhost:2368/how-to-automatically-compose-your-backups/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/composenotes_j1gjpt_nrho7n.jpg">
+    <meta property="article:published_time" content="2014-08-19T09:42:26.000Z">
+    <meta property="article:modified_time" content="2014-12-17T11:15:59.000Z">
+    <meta property="article:tag" content="backup">
+    <meta property="article:tag" content="compose api">
+    <meta property="article:tag" content="database">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="node.js">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to: Automatically Compose your backups">
+    <meta name="twitter:description" content="We showed how you could use Compose’s user interface to easily make manual backups of your databases on demand in the previous article. Of course, you can’t really include that sort of manual download in your daily processes...">
+    <meta name="twitter:url" content="http://localhost:2368/how-to-automatically-compose-your-backups/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/composenotes_j1gjpt_nrho7n.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "How to: Automatically Compose your backups",
+    "url": "http://localhost:2368/how-to-automatically-compose-your-backups/",
+    "datePublished": "2014-08-19T09:42:26.000Z",
+    "dateModified": "2014-12-17T11:15:59.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/composenotes_j1gjpt_nrho7n.jpg",
+    "keywords": "backup, compose api, database, mongodb, node.js",
+    "description": "We showed how you could use Compose’s user interface to easily make manual backups of your databases on demand in the previous article. Of course, you can’t really include that sort of manual download in your daily processes..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-backup tag-compose-api tag-database tag-mongodb tag-node-js blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-backup tag-compose-api tag-database tag-mongodb tag-node-js container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/composenotes_j1gjpt_nrho7n.jpg)">
+    <h1 class="post-title">How to: Automatically Compose your backups</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-08-19">August 19th, 2014</time></small>
+  </header>
+
+<p>We showed how you could use Compose’s user interface to easily make manual backups of your databases on demand in the <a href="../how-to-compose-your-backups-manually/">previous article</a>. Of course, you can’t really include that sort of manual download in your daily processes so in this article we’ll show you how to use the Compose API to automate and integrate on-demand backup management into your processes.</p>
+
+<p><img src="../content/images/2014/12/backup_mijvbw_gtiwgo.png" alt="Backup" title=""> <br>
+ As always, we like to show rather than tell, so we’re going to introduce a Node.js application, backupnow, which can be run from the command line. Given the name of a deployment, it can create an on-demand backup of that deployment and download it with no manual intervention. You may ask why it’s backing up a deployment rather than a database. Well, behind the scenes at Compose, databases live within deployments and a deployment can contain a number of databases. It’s those deployments that are backed up rather than the individual databases. It just happens that by default it’s one database to one deployment and the database and deployment have the same name, so the terms are almost interchangeable.</p>
+
+<p>With that information delivered, we can start looking at our code. If you want to cut to just downloading and trying it out, skip to “Running the code”</p>
+
+<h2 id="preludetoanapirequest">Prelude to an API request</h2>
+
+<p>As with all applications, we have a number of things to set up or include before doing Compose API requests in Node.js.</p>
+
+<pre><code>var util = require('util');  
+var https = require('https');  
+var Client = require('node-rest-client').Client;  
+var fs = require('fs');  
+var accesstoken = fs.readFileSync("./accesstoken.txt");
+
+var baseURL = "https://api.compose.io";
+
+var headers = {  
+  "Content-Type": "application-json",
+  "Accept-Version": "2014-06",
+  "Authorization": "Bearer " + accesstoken
+}
+
+var httpArgs = {  
+  "headers": headers
+}
+
+var client = new Client();  
+</code></pre>
+
+<p>We covered most of this in our <a href="../working-with-the-new-api-part-2-node-js/">previous guide to the API</a>. The only change is that the baseURL is, post the API going generally available and <a href="../mongohq-is-now-compose-and-launching-elasticsearch/">MongoHQ becoming Compose</a>, <code>https://api.compose.io</code>. To use the API, you need to generate a personal access token in the Compose user account management page. That generated token can be saved in a file called <code>accesstoken.txt</code>. This code will, when run, read the token from that file and include it in a set of HTTP headers used to authenticate each request.</p>
+
+<p>We now start our work:</p>
+
+<pre><code>if (process.argv.length == 3) {
+
+  var deployment = process.argv[2];
+  var accountslug = "";
+  var backupId = "";
+  var backupFilename = "";
+  var timeoutTimer;
+
+  getAccount(function(err, slug) {
+    exitIfErr(err, "Could not get account");
+    accountslug = slug;
+</code></pre>
+
+<p>If we have a deployment name, taking the argument count up to three, we save it in a variable as we set up some global variables. The <code>getAccount</code> function we’ll detail later, but it establishes what the account’s short name, or slug, is and passes it to a callback function. If anything goes wrong, it’ll pass an error. The <code>exitIfErr</code> function in another helper which, as it says, exist the application after printing an error message, if there was an error returned. Otherwise, we save our account slug and we’re ready to make backup things happen.</p>
+
+<h2 id="triggeringthebackup">Triggering the backup</h2>
+
+<p>Backups happen when a HTTP POST is made to a <a href="https://docs.compose.io/rest-api/2014-06/backups.html#trigger-on-demand-backup">particular API endpoint</a><code>/deployments/[accountslug]/[deployment]/backups</code>. We’ll do that in the code now:</p>
+
+<pre><code>    client.post(util.format("%s/deployments/%s/%s/backups", baseURL,
+      accountslug, deployment), httpArgs, function(backup, response) {
+      if (response.statusCode != 201) {
+        console.log(backup.error + " (" + response.headers.status + ")");
+        process.exit(1);
+      }
+</code></pre>
+
+<p>We check the response for errors before moving on. Only one backup can be in progress at a time, so when error that can be returned is a <code>503 Service Unavailable</code> – the service isn’t down, it’s just buy with another backup. We exit the app anyway (and leave it as an exercise to the reader to retry until the service is available). When the backup has triggered, a “backup” data object is returned with various details about the backup that has been queued up. At this point we’re just interested in the backup id. We then print a “backup started” message and set up a timer.</p>
+
+<pre><code>      backupId = backup.id;
+      console.log("Backup started for with id=" + backupId)
+      timerTimeout = setTimeout(backupReady, 15 * 1000);
+    });
+</code></pre>
+
+<p>Why the timer? Well, to find out if the backup is complete, we need to poll an endpoint for our in progress backup and wait for it to be complete. We do this every 15 seconds using the <code>setTimeout</code> function.</p>
+
+<h2 id="pollingthebackup">Polling the backup</h2>
+
+<p>The polling work is handled by our <code>backupready</code> function which will also be responsible to downloading the resulitng file. Let’s skip forward in the code to look at that:</p>
+
+<pre><code>function backupReady() {  
+  clearTimeout(timerTimeout);
+  client.get(util.format("%s/accounts/%s/backups/%s", baseURL,
+    accountslug, backupId), httpArgs, function(backup, response) {
+    if (backup.status === "complete") {
+      console.log("Backup completed - now retrieving: " + backup.filename); 
+      ...
+    } else {
+      timerTimeout = setTimeout(backupReady, 15 * 1000);
+    }
+  })
+};
+</code></pre>
+
+<p>The first thing <code>backupReady</code> does is clear the timeout function. Then it queries the <a href="https://docs.compose.io/rest-api/2014-06/backups.html#get-one-backup">“Get One Backup”</a> endpoint to get the status of the backup. If that status comes back as complete, it would start downloading the backup (we’ve skipped that). If not, it reschedules the timer event to go off in another 15 seconds.</p>
+
+<p>There actual download process is a little more complex than just getting a URL. First we need to retrieve the download link from the backup information. In the backup information returned by our query are a list of hyper links with specific purposes. We have to walk through that list looking for the one marked “download”:</p>
+
+<pre><code>      for (var i = 0; i &lt; backup.links.length; i++) {
+        link = backup.links[i];
+        if (link.rel == "download") {
+</code></pre>
+
+<p>And then we have to make another request. This is because the link we’ve found is an API link which will send a redirect to where the backup file can be retrieved. So we do a REST GET on the link, complete with our authenticating headers and then take the redirect’s location and download that:</p>
+
+<pre><code>          client.get(link.href, httpArgs, function(doc, response) {
+            download(response.headers.location, backup.filename, function() {
+              console.log("Download complete");
+            });
+          });
+        }
+</code></pre>
+
+<p>And we exit naturally when the download is complete. The <code>download</code> function is a simple one found in many examples out there, with one difference. It uses the https library rather than http to download because Compose servers downloads over SSL:</p>
+
+<pre><code>var download = function(url, dest, cb) {  
+  var file = fs.createWriteStream(dest);
+  var request = https.get(url, function(response) {
+    response.pipe(file);
+    file.on('finish', function() {
+      file.close(cb);
+    });
+  });
+}
+</code></pre>
+
+<p>At the end of the code there’s also the <code>getAccount</code> and <code>exitIfErr</code>, the former method being especially useful when writing a Compose API application in Node as it encapsulates the process of working out the account name and then invokes a callback. We’re including them here for completeness…</p>
+
+<pre><code>function getAccount(callback) {  
+  client.get(util.format("%s/accounts", baseURL), httpArgs,
+    function(accounts, response) {
+      if (response.statusCode != 200) {
+        if (accounts.hasOwnProperty("error")) {
+          callback(accounts.error, null);
+        } else {
+          callback(response.headers.status, null);
+        }
+        return;
+      }
+      callback(null, accounts[0].slug);
+    })
+}
+
+function exitIfErr(err, message) {  
+  if (err != null) {
+    console.log(message + ": " + err);
+    process.exit(1);
+  }
+}
+</code></pre>
+
+<h2 id="runningthecode">Running the code</h2>
+
+<p>If you’ve skipped to here, downloaded the code from the <a href="https://github.com/compose-ex/backupnow">backupnow repository</a> which you’ll find in the <a href="https://github.com/compose-ex">Compose Examples</a> Github pages. Once checked out, run <code>npm install</code> to ensure the node-rest-client package is installed. Get a personal access token by following the instructions on the <a href="https://docs.compose.io/rest-api/2014-06/authorization.html">authorization documentation</a> then placing that in a file called <code>accesstoken.txt</code>. To test the code, you can run the program with no deployment name; it will list available deployment names to backup something like this:</p>
+
+<pre><code>$ node backupnow.js                    
+You need to give a deployment as a parameter to this command  
+Available deployments are:  
+minty  
+exemplumdep  
+testing  
+$
+</code></pre>
+
+<p>Now that you can see some deployment names, you can use one to run a backup:</p>
+
+<pre><code>$ node backupnow.js exemplumdep
+Backup started for with id=53f1e05553670f2d59001e6d  
+Backup completed - now retrieving: 2014-08-18_11-15-33_UTC_exemplum.tar.gz  
+Download complete  
+$
+</code></pre>
+
+<p>There will, depending on how large your database is, be delays between these lines being printed, first in generating the backup and then downloading it, but by the time it finishes you’ll have a backup as a <code>tar.gz</code> file in your directory.</p>
+
+<h2 id="wrappingup">Wrapping up</h2>
+
+<p>So, we’ve shown you how you use Node.js to take an on-demand backup of your Compose database. The process shown can, of course, be implemented in any language capable of make REST API requests and integrated into any systems you want to orchestrate your backup management.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=How%20to%3A%20Automatically%20Compose%20your%20backups&amp;url=http://localhost:2368/how-to-automatically-compose-your-backups/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/how-to-automatically-compose-your-backups/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/how-to-automatically-compose-your-backups/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

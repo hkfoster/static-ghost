@@ -1,0 +1,303 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>MongoDB Indexing Best Practices</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/mongodb-indexing-best-practices/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="MongoDB Indexing Best Practices">
+    <meta property="og:description" content="Going “Best Practice” on any topic is an expansive statement. But, we will give it a go with some high level anti-patterns and best practices. Some best practices will be general statements about the performance of MongoDB. Indexing Constraints The...">
+    <meta property="og:url" content="http://localhost:2368/mongodb-indexing-best-practices/">
+    <meta property="article:published_time" content="2013-05-06T15:06:04.000Z">
+    <meta property="article:modified_time" content="2013-09-15T15:03:15.000Z">
+    <meta property="article:tag" content="best">
+    <meta property="article:tag" content="indexing">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="optimization">
+    <meta property="article:tag" content="practices">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="MongoDB Indexing Best Practices">
+    <meta name="twitter:description" content="Going “Best Practice” on any topic is an expansive statement. But, we will give it a go with some high level anti-patterns and best practices. Some best practices will be general statements about the performance of MongoDB. Indexing Constraints The...">
+    <meta name="twitter:url" content="http://localhost:2368/mongodb-indexing-best-practices/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "jasonmongohq-com",
+        "image": "//www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&s=250",
+        "url": "http://localhost:2368/author/jasonmongohq-com",
+        "sameAs": "http://www.mongohq.com"
+    },
+    "headline": "MongoDB Indexing Best Practices",
+    "url": "http://localhost:2368/mongodb-indexing-best-practices/",
+    "datePublished": "2013-05-06T15:06:04.000Z",
+    "dateModified": "2013-09-15T15:03:15.000Z",
+    "keywords": "best, indexing, mongodb, optimization, practices",
+    "description": "Going “Best Practice” on any topic is an expansive statement. But, we will give it a go with some high level anti-patterns and best practices. Some best practices will be general statements about the performance of MongoDB. Indexing Constraints The..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-best tag-indexing tag-mongodb tag-optimization tag-practices blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-best tag-indexing tag-mongodb tag-optimization tag-practices container">
+  <header>
+    <h1 class="post-title">MongoDB Indexing Best Practices</h1>
+    <small class="post-meta"><time class="post-date" datetime="2013-05-06">May 6th, 2013</time></small>
+  </header>
+
+<p>Going “Best Practice” on any topic is an expansive statement. But, we will give it a go with some high level anti-patterns and best practices. Some best practices will be general statements about the performance of MongoDB.</p>
+
+<h2 id="indexingconstraints">Indexing Constraints</h2>
+
+<p>The following constraints are in affect as of MongoDB 2.4.x series. There is talk of adding features in later versions that will remove of these limitations. Even if these limitations are removed, by using the following constraints will continue to lead to better performance.</p>
+
+<p><strong>With MongoDB, it</strong></p>
+
+<ul>
+<li>Can only use 1 index per query</li>
+<li>Can only use one “multi-value” operator / query (e.g. $nin, $in, $nor, $gte, $ge, $lt, $lte, $near, $sort). Yes, that does include sorting. However you can use a range query and sort on the same field effectively.</li>
+<li>Must include the multi-value operator as the <strong>last</strong> used field in the index</li>
+<li>RAM is fast, disk is slow. You must keep indexes in RAM.</li>
+</ul>
+
+<p><code>``
+&lt;code data-language="javascript"&gt;// A Bad query with conflicting</code>time<code>and</code>user<em>id` <br>
+db.coll.find({action: "run-process", time: {$gte: ISODate('2013-05-06'), $lt: ISODate('2013-05-07)}).sort({user</em>id: -1})</p>
+
+<p>// A better query using date 'bucketing'
+db.coll.find({action: "run-process", day<em>bucket: ISODate('2013-05-06')}).sort({user</em>id: -1})```</p>
+
+<p>Commonly, when optimizing queries, you move logic from the query into the schema. Instead of using the query to bound a date field, we are using a date bucket to move that date logic to the schema.</p>
+
+<p>These indexing constraints will set you free. By following these constraints, you will model data and build a better distributed system.</p>
+
+<h2 id="toomanyindexes">Too Many Indexes</h2>
+
+<p>Everyone thinks of indexes they need, not everyone thinks of the indexes that can be removed.</p>
+
+<p>Recently, I helped a customer optimize his database. Write lock on the database was running consistently at 95%. CPU was spiking consistently, and making for a poor experience. We looked at the indexes, and determined the customer had too many indexes (126 non-_id indexes). 24 of the indexes were on one collection. For each insert, update that modified keys, MongoDB was having to insert the document, and update 24 indexes. This was the cause of the excessive write lock.</p>
+
+<p>The first thing we did was delete all of his indexes (<em>do not try this on a database larger than 15 GB</em>). Immediately after deleting the indexes, write lock when to 0%. The tradeoff for removing indexes was page faults on reads. However, reads were faster with no indexes than when trying to update consistently with too many indexes.</p>
+
+<p>Once we removed these indexes, we turned on system profiling from the Database &gt; Admin page. After a short analysis on the <code>system.profile</code> after the database ran for a few hours, we added back 6 essential indexes. Performance was drastically better.</p>
+
+<p>Be precise with your indexes for the sake of RAM and write lock.</p>
+
+<h2 id="bestpractices">Best Practices</h2>
+
+<ul>
+<li>Know thy constriants above</li>
+<li>Learn to use explain <a href="http://blog.mongohq.com/blog/2013/02/05/explaining-explain/">explain.explain() – Understanding mongo query behavior</a></li>
+<li>Limit the number of indexes on a collection. The first index will not hurt performance. But the 24th will. It is up to you to know what is acceptable.</li>
+<li>Keep track of your indexes and queries. MongoDB doesn’t have a index hit counter on indexes. Go here to vote! <a href="https://jira.mongodb.org/browse/SERVER-2227">https://jira.mongodb.org/browse/SERVER-2227</a></li>
+</ul>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/jasonmongohq-com/">
+        <img src="http://www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&amp;s=250" alt="jasonmongohq-com">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/jasonmongohq-com/">jasonmongohq-com</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=MongoDB%20Indexing%20Best%20Practices&amp;url=http://localhost:2368/mongodb-indexing-best-practices/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/mongodb-indexing-best-practices/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/mongodb-indexing-best-practices/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

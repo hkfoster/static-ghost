@@ -1,0 +1,318 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Oplog: Tools and Libraries for All</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/oplog-tools-and-libraries-for-all/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Oplog: Tools and Libraries for All">
+    <meta property="og:description" content="As the final post in this short series on the oplog and what your applications can do with it now that MongoHQ’s Elastic Deployments give you access to it, we’ll look at the libraries (in various languages) and...">
+    <meta property="og:url" content="http://localhost:2368/oplog-tools-and-libraries-for-all/">
+    <meta property="article:published_time" content="2014-04-08T16:51:14.000Z">
+    <meta property="article:modified_time" content="2014-08-11T14:53:34.000Z">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Oplog: Tools and Libraries for All">
+    <meta name="twitter:description" content="As the final post in this short series on the oplog and what your applications can do with it now that MongoHQ’s Elastic Deployments give you access to it, we’ll look at the libraries (in various languages) and...">
+    <meta name="twitter:url" content="http://localhost:2368/oplog-tools-and-libraries-for-all/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Oplog: Tools and Libraries for All",
+    "url": "http://localhost:2368/oplog-tools-and-libraries-for-all/",
+    "datePublished": "2014-04-08T16:51:14.000Z",
+    "dateModified": "2014-08-11T14:53:34.000Z",
+    "description": "As the final post in this short series on the oplog and what your applications can do with it now that MongoHQ’s Elastic Deployments give you access to it, we’ll look at the libraries (in various languages) and..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post container">
+  <header>
+    <h1 class="post-title">Oplog: Tools and Libraries for All</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-04-08">April 8th, 2014</time></small>
+  </header>
+
+<p>As the final post in this short series on the oplog and what your applications can do with it now that MongoHQ’s Elastic Deployments give you access to it, we’ll look at the libraries (in various languages) and tools that use the oplog. Although the steps in getting the oplog are simple enough, making sure the code is reliable for all cases means it’s often easier to use an existing library.</p>
+
+<h2 id="ruby">Ruby</h2>
+
+<p>We start with <a href="https://github.com/stripe/mongoriver">Mongoriver</a>, a Ruby gem created and released as open source (MIT licence) by the developers at <a href="https://stripe.com/">Stripe</a>. Mongoriver has some interesting features. In our examples we’ve tended to start reading the latest from the oplog, but it is possible to work through the oplog from a particular point in time. Mongoriver can start from the beginning of the oplog, or be passed a particular time from which to work. For more complex tailing work there’s also a persistant tailer which tracks the time of the operation it last read from the oplog and saves it in a collection which, when it restarts, it will refer to so it can start off without missing anything. The driver for this functionality can be found in another Stripe project, <a href="https://github.com/stripe/mosql">MoSQL</a>, which replicates MongoDB collections content in a table within a PostgreSQL database. Stripe uses the replicated data as part of their offline analytics and uses MoSQL’s oplog tailing to build and keep that replica up-to-date.</p>
+
+<p>As well as separating out the insert, delete and update operations, Mongoriver goes slightly further than other libraries in attempting to decode the various commands, like creating and dropping collections. All this is passed to an implementation of an AbstractOutlet:</p>
+
+<pre><code>&lt;code class="language-ruby"&gt;module Mongoriver  
+  class OplogWatcher &lt; AbstractOutlet
+    include Mongoriver::Logging
+
+    def insert(db_name, collection_name, document)
+      puts("got an insert for #{db_name}.#{collection_name}! #{document.inspect}")
+    end
+
+    def remove(db_name, collection_name, document)
+      puts("got a remove for #{db_name}.#{collection_name}! #{document.inspect}")
+    end
+
+    def update(db_name, collection_name, selector, updates)
+      puts("got an update for #{db_name}.#{collection_name}! #{selector}, #{updates}")
+    end
+  end
+end  
+</code></pre>
+
+<p>To connect to this to the MongoDB database, we’ve found it easiest to create our own connection with a MongoDB URI and pass that to Mongoriver.</p>
+
+<pre><code>&lt;code class="language-ruby"&gt;  client = Mongo::MongoClient.from_uri(ENV["MONGOHQ_URL"])  
+  tailer = Mongoriver::Tailer.new([client], :existing)
+  outlet = Mongoriver::OplogWatcher.new
+  stream = Mongoriver::Stream.new(tailer, outlet)
+</code></pre>
+
+<p>This code uses the MongoClient <code>from_uri</code> method so it can use Mongo URIs as generated by the MongoHQ administration dashboard. In previous posts we mentioned how the URI needs to be modified so it connects to the “local” database but authenticates with the named database. In this case we don’t have to make that change and can use the <code>mongodb://username:password@host1:port1,host2:port2/database</code> format as generated (it turns out we can’t use the ?authSource= flag with the Ruby driver but it doesn’t matter with Mongoriver as it switches itself to using the “local” database). With that set up, all that’s left to do is to start the stream off processing with <code>stream.run_forever()</code> which can take a start time as a parameter and the oplog begins to flow. The full code for this is available on the <a href="http://blog.mongohq.com/oplog-tailing-in-ruby-and-go-examples/" title="Oplog tailing in Ruby and Go — Examples">examples page</a>.</p>
+
+<p>If you are looking for other Mongoriver examples, check out <a href="https://github.com/sspinc/mongo_delta">mongo_delta</a> which uses Mongoriver as well as the incoming stream to replicate parts of that stream to separate database instances.</p>
+
+<h2 id="go">Go</h2>
+
+<p>For Go developers, tailing the oplog in Go is simple thanks to a number of methods in the Labix <a href="http://labix.org/mgo">mgo</a> driver for MongoDB. A <code>Find()</code> query can be postfixed with <code>.LogReplay()</code> and <code>.Tail()</code> to give a constantly updating stream of events. Of course, anything can be improved with a little wrapping and the <a href="https://github.com/Clever/mgotail">mgotail</a> library is just that. A little wrapping that takes care of reading the oplog in a Go routine, decanting its content into a Oplog struct, and delivering it through a Go channel. There’s also a function for getting the highest/latest timestamp from the oplog. That reduces the code needed to read the oplog to:</p>
+
+<pre><code>&lt;code class="language-go"&gt;    logs := make(chan mgotail.Oplog)  
+    done := make(chan bool)
+    last := mgotail.LastTime(session)
+
+    q := mgotail.OplogQuery{session, bson.M{"ts": bson.M{"$gt": last} , "ns": "wiktory.userinfo" }, time.Second * 3}
+    go q.Tail(logs, done)
+    go printlog(&amp;results, logs)
+</code></pre>
+
+<p>Where <code>session</code> is the database session, and <code>printlog</code> is a routine you’ll find in the full listing of the <a href="http://blog.mongohq.com/oplog-tailing-in-ruby-and-go-examples/" title="Oplog tailing in Ruby and Go — Examples">Go example</a> which prints out the results as they appear.</p>
+
+<p>For a more extensive use of the oplog in Go, you should look at MongoHQ’s own <a href="https://github.com/MongoHQ/seed">Seed</a> application. Seed is a Go program for zero-downtime replication of MongoDB replica sets with the abilty to rename databases during the migration process. In the BSD-licensed open source code you’ll find definitions for an <a href="https://github.com/MongoHQ/seed/blob/master/oplogdoc.go">OplogDoc</a> and supporting functions, including a last-timestamp extractor and operation decoder while the <a href="https://github.com/MongoHQ/seed/blob/master/logreplayer.go">logReplayer</a> shows another way to consume the oplog.</p>
+
+<h2 id="java">Java</h2>
+
+<p>For Java, there’s actually <a href="https://github.com/mongodb/mongo-java-driver/blob/master/src/examples/example/ReadOplog.java">example code</a> for reading the oplog in the MongoDB driver, though it’s far from production code, as it eats through any oplog entries available and then sleeps the thread for a second. With the range of frameworks that people develop Java applications with, it’d be unlikely that any one enhanced example would be useful.</p>
+
+<p>If you want to see a more comprehensive use of the oplog, check out the <a href="https://github.com/richardwilly98/elasticsearch-river-mongodb">MongoDB River Plugin for ElasticSearch</a>. As its name suggests, the application takes data from MongoDB and passes selected content over to ElasticSearch for deeper indexing and search.</p>
+
+<h2 id="nodejs">Node.js</h2>
+
+<p>Finally, we return to Node.js and a mention for an oplog tailing library, <a href="https://github.com/TorchlightSoftware/mongo-watch">mongo-watch</a>. This library was originally developed with some extensive caching and event triggering functionality which has since been modularized out into <a href="https://github.com/torchlightsoftware/particle">Particle</a>. Particle is being developed as a library for distributed state synchronization, keeping local data models in sync with a server. Although it’s a work in progress, with read only local data models, the plan is to enhance it to support not only writing back but to potentially include other data sources.</p>
+
+<p>Although the oplog was built for replication, watching it can unlock all kinds of uses for MongoDB, from Meteor’s ability to maintain real-time scaling or gathering metrics or triggering actions in remote systems. The oplog gives you a view into the beating heart of the data inside your database.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Oplog%3A%20Tools%20and%20Libraries%20for%20All&amp;url=http://localhost:2368/oplog-tools-and-libraries-for-all/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/oplog-tools-and-libraries-for-all/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/oplog-tools-and-libraries-for-all/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

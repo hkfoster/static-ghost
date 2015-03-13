@@ -1,0 +1,410 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Porting a MongoDB full text search app to Elasticsearch</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/porting-a-mongodb-full-text-search-app-to-elasticsearch/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Porting a MongoDB full text search app to Elasticsearch">
+    <meta property="og:description" content="MongoHQ is now Compose – Learn MoreA few weeks ago we showed how you could use MongoDB’s full text search facility to index and search a field with scored results. As we’ve just launched Elasticsearch, we thought porting the...">
+    <meta property="og:url" content="http://localhost:2368/porting-a-mongodb-full-text-search-app-to-elasticsearch/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/Magna_Carta_1297_version_Parliament_House_Canberra_Australia-e1403808947640_aid1v2_rjiw79.jpg">
+    <meta property="article:published_time" content="2014-08-13T10:14:40.000Z">
+    <meta property="article:modified_time" content="2014-09-02T08:42:00.000Z">
+    <meta property="article:tag" content="compose">
+    <meta property="article:tag" content="elasticsearch">
+    <meta property="article:tag" content="express">
+    <meta property="article:tag" content="node.js">
+    <meta property="article:tag" content="port">
+    <meta property="article:tag" content="tutorial">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Porting a MongoDB full text search app to Elasticsearch">
+    <meta name="twitter:description" content="MongoHQ is now Compose – Learn MoreA few weeks ago we showed how you could use MongoDB’s full text search facility to index and search a field with scored results. As we’ve just launched Elasticsearch, we thought porting the...">
+    <meta name="twitter:url" content="http://localhost:2368/porting-a-mongodb-full-text-search-app-to-elasticsearch/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/Magna_Carta_1297_version_Parliament_House_Canberra_Australia-e1403808947640_aid1v2_rjiw79.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Porting a MongoDB full text search app to Elasticsearch",
+    "url": "http://localhost:2368/porting-a-mongodb-full-text-search-app-to-elasticsearch/",
+    "datePublished": "2014-08-13T10:14:40.000Z",
+    "dateModified": "2014-09-02T08:42:00.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/Magna_Carta_1297_version_Parliament_House_Canberra_Australia-e1403808947640_aid1v2_rjiw79.jpg",
+    "keywords": "compose, elasticsearch, express, node.js, port, tutorial",
+    "description": "MongoHQ is now Compose – Learn MoreA few weeks ago we showed how you could use MongoDB’s full text search facility to index and search a field with scored results. As we’ve just launched Elasticsearch, we thought porting the..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-compose-2 tag-elasticsearch-2 tag-express tag-node-js tag-port tag-tutorial blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-compose-2 tag-elasticsearch-2 tag-express tag-node-js tag-port tag-tutorial container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/Magna_Carta_1297_version_Parliament_House_Canberra_Australia-e1403808947640_aid1v2_rjiw79.jpg)">
+    <h1 class="post-title">Porting a MongoDB full text search app to Elasticsearch</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-08-13">August 13th, 2014</time></small>
+  </header>
+
+<p></p><center><strong><em>MongoHQ is now Compose – <a href="http://blog.compose.io/mongohq-is-now-compose-and-launching-elasticsearch/" title="MongoHQ is now Compose, and launching Elasticsearch">Learn More</a></em></strong></center>A few weeks ago we showed how you could use <a href="http://blog.compose.io/full-text-search-with-mongodb-and-node-js/" title="Full Text Search with MongoDB and Node.js">MongoDB’s full text search facility</a> to index and search a field with scored results. As we’ve just launched Elasticsearch, we thought porting the simple web application created in that article to Elasticsearch would be a good place to start. So, let’s dive in and get porting. If you want to follow along, copy the code from the MongoDB example at <a href="https://github.com/codepope/ftslite">ftslite</a> into a clean directory and we can begin.
+
+<p>The first thing we need is an Elasticsearch library for Node.js; the good folks at Elasticsearch produce <a href="http://www.elasticsearch.org/guide/en/elasticsearch/client/javascript-api/current/index.html">elasticsearch.js</a> which is an full implementation of the Elasticsearch API. You can install it with <code>npm install elasticsearch --save</code> in your applications directory. With that in place, we can open <code>index.js</code> for editing.</p>
+
+<p>The first change we’ll make is in the require section. Where the application requires MongoDB…</p>
+
+<pre><code>var mongodb = require('mongodb'),  
+  MongoClient = mongodb.MongoClient;
+</code></pre>
+
+<p>… we will replace it with a require for the elasticsearch package:</p>
+
+<pre><code>var elasticsearch = require('elasticsearch'),  
+  esClient = new elasticsearch.Client({ host: process.env.ES_URL } );
+</code></pre>
+
+<p>This is slightly different as it sets up the client with the connection URL, which we pull from the environment variable <code>ES_URL</code>. In the original code, the connection is made later in the code, but with Elasticsearch, because of the REST API, there is no persistent connection and connections to the database are made on every call to the API. That <code>ES_URL</code> can be obtained from the Elasticsearch Overview dashboard, in the Connect Strings section. The username and password are generated under the users tab. If your new to Elasticsearch, you’ll find that the database itself has no user-based security but is in fact protected by a proxy. The username and password are actuallyfor that proxy rather than the database. Do remember to set the <code>ES_URL</code> variable before running the application.</p>
+
+<h2 id="startitup">Start it up</h2>
+
+<p>The next change we need to make is connecting to the database and checking that our collection exists. We don’t need to make a persistent connection for Elasticsearch so we can skip that. We do, though, need to check if what Elasticsearch calls an index, roughly analagous to a collection, exists. For that we call on the API’s <code>indices.exists()</code> method…</p>
+
+<pre><code>esClient.indices.exists({  
+  index: "textstore"
+}, function(err, response, status) {
+</code></pre>
+
+<p>The first argument is a hash of parameters, in this case one parameter, the name of the index. That’s a parameter which is specific to this particular API request, but there are also <a href="http://www.elasticsearch.org/guide/en/elasticsearch/client/javascript-api/current/api-conventions.html">generic parameters</a> common to all calls in the API. Another thing that’s common across the API is what is passed to callbacks, specifically an error code (if there was one), the HTTP response and the HTTP status code. It’s the status code we’re interested in here because if the index doesn’t exist, it will be set to 404 and if it does, it will be 200…</p>
+
+<pre><code>   if (status == 404) {
+    esClient.indices.create({
+      index: "textstore"
+    }, function(err, response, status) {
+      if(err) {
+        console.log(err)
+        process.exit(1)
+      }
+      console.log("Created index "+response);
+    });
+  }
+  app.listen(3000);
+</code></pre>
+
+<p>If the index doesn’t exist, we call <code>indices.create()</code> passing it a hash with the index’s name set. In the callback for that, we check the returned error code and if one is set we print it and exit. Otherwise, we announce the index has been created. Finally, everything gets to start the Express web server listening.</p>
+
+<h2 id="addingadocument">Adding a document</h2>
+
+<p>Next up, the code for adding a document. In the example we used a single text area in a form to gather a block of text which we would place in the MongoDB collections free text search indexed field. For Elasticsearch we don’t have that one field limit. The whole record is indexed for search while the searching can be optimised by adding information about the type of data in a particular field. This makes adding our field pretty simple when the user posts a form:</p>
+
+<pre><code>app.post("/add", function(req, res) {  
+  esClient.create({
+    index: 'textstore',
+    type: 'basicdoc',
+    body: {
+      document: req.body.newDocument,
+      created: new Date()
+    }
+  }, function(err, result,status) {
+    if (err == null) {
+      res.sendfile("./views/add.html");
+    } else {
+      res.send("Error:" + err);
+    }
+  });
+});
+</code></pre>
+
+<p>The meat of the method is call to <code>create()</code>. Again, it takes a hash of parameters, with the first parameter <code>index</code> being the the name of the index in which we want to create the document. We then give a type to the document which, in this case, will be dynamically mapped by Elasticsearch. For now, we’ll call our type “basicdoc”. The next parameter in the hash is the body, the document itself. This is a JSON document and we’ll place the text content in a field called <code>document</code> and copy the date into a field called <code>created</code>. The <code>body</code> parameter is a generic parameter in the JavaScript API and can be found being used by many API methods. The contents of the <code>body</code> parameter are sent to the server as the data content of a POST request being made.</p>
+
+<p>Things we aren’t setting include the document id which will be generated by Elasticsearch because this call, by default, uses the HTTP POST method at the REST API level. The REST API uses the HTTP method to discriminate – PUTs for operations with an id and POSTs for those without.</p>
+
+<p>In the callback to the create, if there’s no error, we go back to the add.html page otherwise we display the error. And that’s it for handling the add. Now we can do the searching.</p>
+
+<h2 id="searchingforterms">Searching for terms</h2>
+
+<p>We use another simple form here to gather up a set of search terms which are then POSTed. We’ll pick up the code where it handles that post.</p>
+
+<pre><code>app.post("/search", function(req, res) {  
+  esClient.search({
+      index: 'textstore',
+      body: {
+        query: {
+          match: {
+            document: req.body.query
+          }
+        }
+      }
+    },
+    function(err, response, status) {
+      res.send(pagelist(response.hits.hits));
+    });
+});
+</code></pre>
+
+<p>As you have probably guessed, searching involves the <code>search()</code> API method and again we are passing it a hash of parameters. Despite appearances, there are only two parameters being passed, the index and the body. In this case, the body is a JSON document defining the search. We are running the simplest possible search, just looking for the best scoring matches with the document field, so it’s a <code>query:</code> looking for <code>match:</code> in the <code>document:</code> with the query text from the form. The query uses a <a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/1.x/query-dsl.html">rich DSL</a> which has numerous options to control the search. Just the <a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/1.x/query-dsl-match-query.html">match</a> operator includes options for tuning how fuzzy the search is, how the text will by analysed, set minimums or frequency cut offs for matching or force the query terms to be handled as a phrase. You may notice that we’ve specified the <code>document</code> field in the query. If we wanted to search all the fields in the stored JSON document, we could change the field name to <code>_all</code>.</p>
+
+<p>When we get the result in the callback to the search there’s a lot of data to work through. Here’s an example:</p>
+
+<pre><code>{
+  took: 6,
+  timed_out: false,
+  _shards: {
+    total: 5,
+    successful: 5,
+    failed: 0
+  },
+  hits: {
+    total: 1,
+    max_score: 0.109375,
+    hits: [{
+      _index: 'textstore',
+      _type: 'basicdoc',
+      _id: 'VQGu5g0vTOub1W9jw_ONFg',
+      _score: 0.109375,
+      _source: {
+        document: 'Sometimes ..... the problem.rn',
+        created: '2014-08-04T10:48:32.316Z'
+      }
+    }]
+  }
+}
+</code></pre>
+
+<p>This response starts with <code>took</code>, the milliseconds it took to execute the search, <code>timed_out</code>, which tells us if the search timed out and <code>_shards</code>, which reports on how the query ran across the database’s shards. Then comes the <code>hits</code> hash which contains some more statistics (the total number of results and the highest matching score in the results) and finally a <code>hits</code> array which carries those matching records. It’s this array we pass on to the page formatting function with <code>pagelist(response.hits.hits)</code>.</p>
+
+<pre><code>function pagelist(items) {  
+  result = "&lt;ul&gt;";
+  items.forEach(function(item) {
+    itemstring = "&lt;li&gt;" + item._id +
+      "&lt;ul&gt;&lt;li&gt;" + item._score +
+      "&lt;/li&gt;&lt;li&gt;" + item._source.created +
+      "&lt;/li&gt;&lt;li&gt;" + item._source.document +
+      "&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;";
+    result = result + itemstring;
+  });
+  result = result + "&lt;/ul&gt;";
+  return result;
+}
+</code></pre>
+
+<p>That function merely steps through the hits and writes out some HTML. Each hit includes <code>_index</code>, the index it came from and <code>_type</code>, the document’s type, because searches can cross over indexes and types. It then carries the <code>_id</code> of the document and it’s <code>_score</code> in the matching. Finally, there’s the <code>_source</code> hash which carries the fields requested from the record; in this case, all of them, <code>document</code> and <code>created</code>. We just print the id, score, created and the content of the document.</p>
+
+<p>If you run this application and put a few dozen documents into it, you’ll notice you only get ten results maximum from any query. That’s because in the query we omitted <a href="http://www.elasticsearch.org/guide/en/elasticsearch/reference/1.x/search-request-from-size.html">from and size</a> parameters which allow for pagination through data but also default to 0 and 10 respectively.</p>
+
+<h2 id="wrappingup">Wrapping up</h2>
+
+<p>With the changes in place and your ES_URL environment variable correcty set, running node index.js should bring up a server on localhost port 3000 where you can add and search documents. If you didn’t follow along, the code is available from a <a href="https://github.com/codepope/esftslite">github repository</a>. We were only porting a MongoDB full text search application here so we’ve barely touched Elasticsearch’s type mapping and search capabilities.</p>
+
+<p>You should see that although there’s a rich Elasticsearch REST API is wrapped up with the Elasticsearch JavaScript libraries, it is worth being familiar with both. The abstraction of that REST API is leaky, HTTP elements like status values can be returned where you may expect true/false or other enumerations so regard the REST API documentation as the primary source of truth for all of the various libraries. Knowing that, your journey with Elasticsearch and Node.js will become a lot easier as you start to harness the search power of Elasticsearch.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Porting%20a%20MongoDB%20full%20text%20search%20app%20to%20Elasticsearch&amp;url=http://localhost:2368/porting-a-mongodb-full-text-search-app-to-elasticsearch/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/porting-a-mongodb-full-text-search-app-to-elasticsearch/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/porting-a-mongodb-full-text-search-app-to-elasticsearch/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

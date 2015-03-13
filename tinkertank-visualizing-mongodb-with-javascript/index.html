@@ -1,0 +1,349 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Tinkertank: Visualizing MongoDB with JavaScript</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/tinkertank-visualizing-mongodb-with-javascript/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Tinkertank: Visualizing MongoDB with JavaScript">
+    <meta property="og:description" content="*TL;DR We’ll give you the basic tools to start visualizing MongoDB activity.   We’ve been working at MongoHQ’s Tinkertank on visualizing MongoDB activity in various ways that fit in with the idea of ubiquitous information. In the...">
+    <meta property="og:url" content="http://localhost:2368/tinkertank-visualizing-mongodb-with-javascript/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/featuregraph_ko3w1m_njyfsh.png">
+    <meta property="article:published_time" content="2014-05-29T09:36:57.000Z">
+    <meta property="article:modified_time" content="2014-09-02T09:00:45.000Z">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tinkertank: Visualizing MongoDB with JavaScript">
+    <meta name="twitter:description" content="*TL;DR We’ll give you the basic tools to start visualizing MongoDB activity.   We’ve been working at MongoHQ’s Tinkertank on visualizing MongoDB activity in various ways that fit in with the idea of ubiquitous information. In the...">
+    <meta name="twitter:url" content="http://localhost:2368/tinkertank-visualizing-mongodb-with-javascript/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/featuregraph_ko3w1m_njyfsh.png">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Tinkertank: Visualizing MongoDB with JavaScript",
+    "url": "http://localhost:2368/tinkertank-visualizing-mongodb-with-javascript/",
+    "datePublished": "2014-05-29T09:36:57.000Z",
+    "dateModified": "2014-09-02T09:00:45.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/featuregraph_ko3w1m_njyfsh.png",
+    "description": "*TL;DR We’ll give you the basic tools to start visualizing MongoDB activity.   We’ve been working at MongoHQ’s Tinkertank on visualizing MongoDB activity in various ways that fit in with the idea of ubiquitous information. In the..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/featuregraph_ko3w1m_njyfsh.png)">
+    <h1 class="post-title">Tinkertank: Visualizing MongoDB with JavaScript</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-05-29">May 29th, 2014</time></small>
+  </header>
+
+<p><em>*</em>TL;DR We’ll give you the basic tools to start visualizing MongoDB activity.  </p>
+
+<hr>
+
+<p>We’ve been working at MongoHQ’s <em>Tinkertank</em> on visualizing MongoDB activity in various ways that fit in with the idea of ubiquitous information. In the process of putting one particular project together, we realized that we had also come up with a way of using the oplog for creating statistics and thought it would be worth sharing it. For this project, you’ll want a MongoDB database configured as a member of a replica set so you can have oplog access. MongoHQ’s Elastic Deployments make this simple because MongoDB in an Elastic Deployments is already set up as a replica sets and you can select oplog access when creating a new user.</p>
+
+<h1 id="consolecollection">Console collection</h1>
+
+<p>What we want to do with this project is count and sample the number of inserts, updates and deletions happening in a particular collection every second. We’ll later show you how to simply visualize this on the web. But first let’s gather our data. Our application will be written in Node.js for this but the technique is applicable to any capable language. The Mongo-oplog library is able to manage our connection needs, so remember to <code>npm install mongo-oplog</code> if you are following along. We can then start creating our application:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;var MongoOplog = require('mongo-oplog');
+
+var MongoHQURL="mongodb://&lt;user&gt;:&lt;password&gt;@&lt;host&gt;:&lt;port&gt;,&lt;host&gt;:&lt;port&gt;/local?authSource=&lt;databasename&gt;"
+
+var oplog = MongoOplog(MongoHQURL,  
+                       '&lt;databasename&gt;.&lt;collection&gt;').tail();
+</code></pre>
+
+<p>The user and password in the MongoHQURL should be for a user with oplog access, while host names and ports can be obtained from the replica set URI (given on the MongoHQ admin page for the database). We then open the oplog, giving the name of the collection we want to monitor. That monitoring will consist, for now, of three counters so lets initialize them:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;var insertCount=0;  
+var updateCount=0;  
+var deleteCount=0;  
+</code></pre>
+
+<p>Now, Mongo-oplog lets us register for inserts, updates and deletes and when we get one, we’ll bump those counters up by one each time.</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;oplog.on('insert', function (doc) {  
+  insertCount=insertCount+1;
+});
+
+oplog.on('update', function (doc) {  
+  updateCount=updateCount+1;
+});
+
+oplog.on('delete', function (doc) {  
+  deleteCount=deleteCount+1;
+});
+</code></pre>
+
+<p>We’ll want to gather a little history as we monitor the database. Not too much, just enough to help initialize any late coming connections later on. For that we’ll create four arrays, one each for inserts, updates and deletes and one for timestamps, and put 16 elements in each of them so they can serve as queues for new values:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;var stamps=[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];  
+var inserts=[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];  
+var updates=[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];  
+var deletes=[ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];  
+</code></pre>
+
+<p>Now we can create our <code>sampler</code> function. When this runs, it’ll grab the various count values and print them to the console:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;function sampler() {  
+    console.log("i:"+insertCount+
+                " u:"+updateCount+
+                " d:"+deleteCount);
+</code></pre>
+
+<p>Then it will grab the current time and push that, and the various counts onto the appropriate arrays and shift the queues so they stay holding only 16 elements:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;    var now=new Date().getTime();  
+    stamps.push(now);
+    inserts.push(insertCount);
+    updates.push(updateCount);
+    deletes.push(deleteCount);
+    stamps.shift();
+    inserts.shift();
+    updates.shift();
+    deletes.shift();
+</code></pre>
+
+<p>The final thing it needs to do is clear the counts and set a timer so it’s called again in a second.</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;    insertCount=0;  
+    updateCount=0;
+    deleteCount=0;
+    setTimeout(sampler,1000);
+}
+</code></pre>
+
+<p>Now, you may be concerned that the sampler could miss increments of the counts happening while it is running. That isn’t a concern though because the asynchronous styling of Node.js means that there is only one thread in play so when it enters the <code>sampler</code> function, other function calls are effectively blocked till it finished.</p>
+
+<p>Of course, this code would do little unless we actually started the sampler, so we end the code doing that:</p>
+
+<p><code>sampler();</code></p>
+
+<p>Run this and if all goes well, you should see updated counts for the last second every second for your selected collection.</p>
+
+<h1 id="tothebrowser">To the browser</h1>
+
+<p>For the next stage, we wanted to get the application to be accessible from a browser and where it could display a visualization of the changing data. For the web server, we’ll use <a href="../content/images/2014/12/smoothiechartvideo.mp4?_=1" type="video/mp4">[/content/images/2014/12/smoothiechartvideo.mp4](/content/images/2014/12/smoothiechartvideo.mp4"&gt;express</a>Around half way through the video, all the records are deleted from the monitored collection and the application managing the records starts to rebuild the data. You’ll see how the Smoothie chart quickly rescales to capture this event and then gently adjusts itself as the pattern of usage settles back down.</p>
+
+<h1 id="graphicallyexplicit">Graphically explicit</h1>
+
+<p>What we’ve covered here is just the basics of putting together a visualization of oplog data. MongoDB users may note that the statistics appear to be available as part of the db.serverStats data, but not quite. ServerStats are server wide, but what we have done is counted inserts, updates and deletes on a specific collection within the database. We could zoom in even more precisely if we wanted to by writing rules in the oplog handlers to filter by particular customer classes say or specific devices.</p>
+
+<p>In a future MongoHQ <em>Tinkertank</em>, we’ll take this code and use it as part of an ambient status monitor which lights up a room. Until then, you can find the code on <a href="https://github.com/codepope/node-lights">Github</a> – check it out, remember to edit the files to set your database, collection and credentials and run <code>npm install</code> to get all the Node.js packages, then run either <code>node lights-web.js</code>.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Tinkertank%3A%20Visualizing%20MongoDB%20with%20JavaScript&amp;url=http://localhost:2368/tinkertank-visualizing-mongodb-with-javascript/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/tinkertank-visualizing-mongodb-with-javascript/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/tinkertank-visualizing-mongodb-with-javascript/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

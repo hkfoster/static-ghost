@@ -1,0 +1,276 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>GridFS and MongoDB: Pros and cons</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/gridfs-and-mongodb-pros-and-cons/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="GridFS and MongoDB: Pros and cons">
+    <meta property="og:description" content="We often get asked “Should I use GridFS for file storage with MongoDB”. As with most things, the answer is a staunch “it depends”. GridFS looks like a great idea on paper – a virtual filesystem held within MongoDB which allows...">
+    <meta property="og:url" content="http://localhost:2368/gridfs-and-mongodb-pros-and-cons/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/nokiatronencomtwitter_lgbw3g_ucjfmn.jpg">
+    <meta property="article:published_time" content="2014-06-05T10:15:26.000Z">
+    <meta property="article:modified_time" content="2014-09-02T08:54:48.000Z">
+    <meta property="article:tag" content="file storage">
+    <meta property="article:tag" content="gridfs">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="optimization">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GridFS and MongoDB: Pros and cons">
+    <meta name="twitter:description" content="We often get asked “Should I use GridFS for file storage with MongoDB”. As with most things, the answer is a staunch “it depends”. GridFS looks like a great idea on paper – a virtual filesystem held within MongoDB which allows...">
+    <meta name="twitter:url" content="http://localhost:2368/gridfs-and-mongodb-pros-and-cons/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/nokiatronencomtwitter_lgbw3g_ucjfmn.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "GridFS and MongoDB: Pros and cons",
+    "url": "http://localhost:2368/gridfs-and-mongodb-pros-and-cons/",
+    "datePublished": "2014-06-05T10:15:26.000Z",
+    "dateModified": "2014-09-02T08:54:48.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/nokiatronencomtwitter_lgbw3g_ucjfmn.jpg",
+    "keywords": "file storage, gridfs, mongodb, optimization",
+    "description": "We often get asked “Should I use GridFS for file storage with MongoDB”. As with most things, the answer is a staunch “it depends”. GridFS looks like a great idea on paper – a virtual filesystem held within MongoDB which allows..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-file-storage tag-gridfs tag-mongodb tag-optimization blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-file-storage tag-gridfs tag-mongodb tag-optimization container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/nokiatronencomtwitter_lgbw3g_ucjfmn.jpg)">
+    <h1 class="post-title">GridFS and MongoDB: Pros and cons</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-06-05">June 5th, 2014</time></small>
+  </header>
+
+<p>We often get asked “Should I use GridFS for file storage with MongoDB”. As with most things, the answer is a staunch “it depends”.</p>
+
+<p>GridFS looks like a great idea on paper – a virtual filesystem held within MongoDB which allows for larger than 16MB files to be held, synced and replicated. It’s very tempting when architecting your solutions to want to consider using GridFS. It appears to be able to take on the problem of storing many thousands or millions of files without consuming file-system resources where there are often hard limits on the number of file names. It also seems to allow for massive files to be stored without any obvious downsides.</p>
+
+<p>It is important, though, to know what GridFS is under the hood. For any file being stored with GridFS, the file is chopped into 255KB chunks. Those chunks are saved in a bucket, called fs, and a collection in that bucket, <code>fs.chunks</code>. Metadata about the files is stored in another collection in the same bucket, <code>fs.files</code>, though you can have more buckets with different bucket names in the same database. An index makes retrieving the chunks quick. All this chunking and metadata management is not done by the MongoDB database though. It is a task performed by the client’s driver which is then wrapped in a GridFS API for that driver.</p>
+
+<p>When you put or retrieve a large file of size <em>n</em>KB, in its entirety, what is happening is the driver is retrieving all the relevant chunks, all <em>n</em>KB/255KB chunks, as documents, assembling them at the client end and writing them out to wherever they are needed. So a 16MB file is retrieved as 65 documents of 255K each. Consider what would happen if you did that regularly on your MongoDB database outside of GridFS; there would be severe competition for the servers RAM between those documents and the rest of the database.</p>
+
+<p>The chunking with GridFS and the fact that it is done by the driver also means that large operations like replacing an entire file within GridFS are not atomic and there’s no built in versioning to fall back on. This may, or may not, be a problem for some applications where files are concurrently accessible by many users or their applications. You can, though, work around this by layering on your own versioning scheme over GridFS, only making replacement files the latest version when they have completed writing.</p>
+
+<p>There is an upside of to chunking though – it is remarkably cheap to access particular sections of files because they are broken up into manageable blocks during the chunking so if you need to access particular parts of large binary files, you won’t be pushing the working set out of memory in the server. You can also adjust the chunk size so if your application would work better with a smaller or larger chunk, you can tune your GridFS usage by requesting a particular size of chunk. Smaller chunks would push fewer parts of the working set out of memory, larger chunks less so.</p>
+
+<p>You can avoid the entire issue of contention with your working set of data by having another MongoDB server dedicated to GridFS storage and optimized towards your file storage use patterns. This also lets you focus on tuning the best performance out of your core database instance without having to look over your shoulder for the march of the GridFS files through your working set. With MongoHQ, creating a separate database instance is easier than ever and there’ll be a plan to suit your needs.</p>
+
+<p>If you are dealing with files less than 16MB and want to handle them as atomic entities, it is also worth considering whether you need to use GridFS at all because you can have MongoDB documents with 16MB fields. You will have to ensure that when reading the database, you only pull the large fields into memory when you need to, but this does give you the atomic replacement writes and architecturally simpler system you may desire. The down side is that access to binary ranges within the file will likely require downloading the file, modifying it and re-writing it, but it is all about balance and matching your file storage and use patterns.</p>
+
+<p>So, as we said at the beginning, “it depends” if GridFS is a good fit for your application’s file storage needs. There are some pitfalls which you can avoid at planning time with some estimates of what quantity of file data you want to store and how you want to access it. There are also many benefits to a MongoDB and GridFS solution, especially in terms of replication and synchronisation.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=GridFS%20and%20MongoDB%3A%20Pros%20and%20cons&amp;url=http://localhost:2368/gridfs-and-mongodb-pros-and-cons/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/gridfs-and-mongodb-pros-and-cons/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/gridfs-and-mongodb-pros-and-cons/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

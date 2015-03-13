@@ -1,0 +1,290 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Mongoosastic: The Power of MongoDB and Elasticsearch Together</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/mongoosastic-the-power-of-mongodb-and-elasticsearch-together/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Mongoosastic: The Power of MongoDB and Elasticsearch Together">
+    <meta property="og:description" content="TL;DR: Two databases can be better as one as we show how you can use Mongoosastic to user MongoDB and Elasticsearch at the same time leveraging each one’s strengths without rebuilding your code. At Compose we’re all...">
+    <meta property="og:url" content="http://localhost:2368/mongoosastic-the-power-of-mongodb-and-elasticsearch-together/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/motorcycle-227827_1920_abiser_p8spfn.jpg">
+    <meta property="article:published_time" content="2014-10-30T12:37:58.000Z">
+    <meta property="article:modified_time" content="2014-12-17T11:16:05.000Z">
+    <meta property="article:tag" content="elasticsearch">
+    <meta property="article:tag" content="Full Text Search">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="mongoosastic">
+    <meta property="article:tag" content="mongoose">
+    <meta property="article:tag" content="search">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mongoosastic: The Power of MongoDB and Elasticsearch Together">
+    <meta name="twitter:description" content="TL;DR: Two databases can be better as one as we show how you can use Mongoosastic to user MongoDB and Elasticsearch at the same time leveraging each one’s strengths without rebuilding your code. At Compose we’re all...">
+    <meta name="twitter:url" content="http://localhost:2368/mongoosastic-the-power-of-mongodb-and-elasticsearch-together/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/motorcycle-227827_1920_abiser_p8spfn.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Mongoosastic: The Power of MongoDB and Elasticsearch Together",
+    "url": "http://localhost:2368/mongoosastic-the-power-of-mongodb-and-elasticsearch-together/",
+    "datePublished": "2014-10-30T12:37:58.000Z",
+    "dateModified": "2014-12-17T11:16:05.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/motorcycle-227827_1920_abiser_p8spfn.jpg",
+    "keywords": "elasticsearch, Full Text Search, mongodb, mongoosastic, mongoose, search",
+    "description": "TL;DR: Two databases can be better as one as we show how you can use Mongoosastic to user MongoDB and Elasticsearch at the same time leveraging each one’s strengths without rebuilding your code. At Compose we’re all..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-elasticsearch-2 tag-full-text-search tag-mongodb tag-mongoosastic tag-mongoose tag-search blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-elasticsearch-2 tag-full-text-search tag-mongodb tag-mongoosastic tag-mongoose tag-search container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/motorcycle-227827_1920_abiser_p8spfn.jpg)">
+    <h1 class="post-title">Mongoosastic: The Power of MongoDB and Elasticsearch Together</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-10-30">October 30th, 2014</time></small>
+  </header>
+
+<p><strong>TL;DR<em></em></strong>: Two databases can be better as one as we show how you can use Mongoosastic to user MongoDB and Elasticsearch at the same time leveraging each one’s strengths without rebuilding your code.</p>
+
+<p>At Compose we’re all about using the right database for the job, and sometimes that can mean using more than one database harnessed to one another. If that sounds strange or over complex, let’s show you an example where Elasticsearch can help overcome some of the inadequacies of MongoDB.</p>
+
+<p><img src="../content/images/2014/12/composesocialicon-blue_h0svq9_gjlbi9.png" alt="composesocialicon-blue" title="">MongoDB is a great general purpose database but one place where its limitations show up is with its full text searching. We only got a finalised full text search mechanism in MongoDB 2.6 and even then you can only have one field per collection indexed for searching in that way. If you also want richer full text search capabilities than what MongoDB offers then you will need an alternative. Elasticsearch gives you a much more extensive and powerful search capability, being built upon the Lucene text search library, but you may not want to move your application over to another database. Apart from anything else, the other database may not be suitable for the rest of your application workload.</p>
+
+<p>Splitting your database between two databases can seem like a complex problem, but there are tools to assist in the process. To demonstrate one way we can approach the problem, we’re going to talk about a simple book database, written using Node.js, Express and using the Mongoose library to access the MongoDB database. If you’ve not encountered Mongoose before, we’ve got some <a href="../mongoose-reintroduced/">background articles</a> on it, but in short its a schema-defined object layer for working with MongoDB in JavaScript which makes working with well-defined data sets easier.</p>
+
+<h2 id="thebookdatabase">The Book Database</h2>
+
+<p>Our starting point is ridiculously simple and you can find it in our <a href="../content/images/2014/12/Screenshot-2014-10-30-19_07_55_pdhczu_zdpwil.png">Compose Examples</a>As you can see, a single mention of “Bennet” scores very low while both terms appearing in a block of text scores much higher. It’s likely though, that often you’ll want all the other MongoDB stored data with your found Elasticsearch documents. For that, Mongoosastic has the hydrate option (but see the update at the end):</p>
+
+<pre><code>    Book.search({ query:terms }, { hydrate:true }, function(err,results) {
+</code></pre>
+
+<p>With hydrate set, once the results come back from Elasticsearch, the plugin does a second trip to MongoDB to unite those fields with the MongoDB data. It then reformats the contents of the inner <code>hits</code> array, adding in the MongoDB data and removing most of the metadata so that the contents look more like a MongoDB JSON object. That does mean that you lose the relevancy score though, so its down to what you need to do with the results as to whether you hydrate or not.</p>
+
+<p>We have examples of hydrated and un-hydrated searches in the <a href="https://github.com/compose-ex/bookdbtastic">Bookdbtastic github repository</a> so you can see the differences.</p>
+
+<h2 id="justthestart">Just the start</h2>
+
+<p>This has been just a quick glimpse of how you can harness two different databases together. Mongoosastic opens up numerous possibilities for a developer – The query system gives you extensive access to the Elasticsearch Query DSL while the mapping facility allows you to tune your Elasticsearch indexes for faster more precise responses. And you get all this without giving up the convenience of MongoDB. And you’ll find both MongoDB and Elasticsearch hosted at Compose.</p>
+
+<p><strong>Update</strong>: And just as after we published this article, Mongoosastic 2.0.0 has been released. It now uses the official Elasticsearch driver and has a number of changes in the syntax for a hydrating query which would change our last example line to:</p>
+
+<pre><code>    Book.search( query_string:{ query:terms }, { hydrate:true }, function(err,results) {
+</code></pre>
+
+<p>Hydration options can now control which fields are included in the hydrated records and hydration can be turned on by default. It’s a great update to a great library.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Mongoosastic%3A%20The%20Power%20of%20MongoDB%20and%20Elasticsearch%20Together&amp;url=http://localhost:2368/mongoosastic-the-power-of-mongodb-and-elasticsearch-together/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/mongoosastic-the-power-of-mongodb-and-elasticsearch-together/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/mongoosastic-the-power-of-mongodb-and-elasticsearch-together/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

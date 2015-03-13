@@ -1,0 +1,19 @@
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>mongohq - Compose Articles</title><description>News, tips, and tricks from the team at Compose</description><link>http://localhost:2368/</link><generator>Ghost 0.5</generator><lastBuildDate>Fri, 13 Mar 2015 15:33:57 GMT</lastBuildDate><atom:link href="http://localhost:2368/author/mongohq/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>How MongoHQ Uses HipChat to Connect a Distributed Team</title><description>&lt;p&gt;*This blog post is republished from the &lt;a href="http://localhost:2368/content/images/2014/12/WaterCooler.png"&gt;HipChat&lt;/a&gt;Beyond the practicalities of communication, HipChat is essential to our healthy remote working culture.&lt;/p&gt;
+
+&lt;p&gt;With a couple of central offices (Birmingham, AL and San Mateo, CA), it would be easy to spend all day interacting with our office-buddies and neglecting our remote colleagues. If this were to happen, our remote folks would feel isolated and unsupported.&lt;/p&gt;
+
+&lt;p&gt;We wouldn’t want that, so we have a rule, which is “work as if you’re not here”. That means put it in writing, whether on HipChat or one of the other collaborative work tools we use like &lt;a href="http://localhost:2368/content/images/2014/12/Integrations-screenshot_d80oze_kkphnx.png"&gt;Confluence&lt;/a&gt;It’s great to have so many tools at our disposal, but sometimes it can be hard to keep track of everything. HipChat solves this problem for the MongoHQ team.&lt;/p&gt;
+
+&lt;h2 id="bringingbotstolife"&gt;Bringing Bots to Life&lt;/h2&gt;
+
+&lt;p&gt;Not only does HipChat provide us with a virtual office and central notification system, it’s also given us the opportunity to develop our own virtual workmate, affectionately named Toothy McBotPants.&lt;/p&gt;
+
+&lt;p&gt;Toothy is an adaptation of Hubot, Github’s open source chatbot. Toothy lives happily in HipChat and we ask him to do a range of tasks such as telling us who is on call and performing simple web searches.&lt;/p&gt;
+
+&lt;p&gt;He also keeps us inline by reprimanding us when we breach he verbal morality code. Toothy is a rather sensitive fellow with a long list of words that he doesn’t like. Chances are that if it doesn’t offend Toothy, it won’t offend anyone else.&lt;/p&gt;
+
+&lt;p&gt;Toothy also provides essential cheer throughout the day. We’ve programmed him to tell jokes on command.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/Toothy-Joke_xqxgwr_uvfxjg.png" alt="Toothy Joke" title=""&gt;He also provides ‘pug bombs’ on demand.&lt;/p&gt;
+
+&lt;figure class="wp-caption aligncenter" id="attachment_556"&gt;![Toothy just pug-bombed you!](/content/images/2014/12/Toothy-Pugbomb_ymznsk_hr7xqk.png)&lt;figcaption class="wp-caption-text"&gt;Toothy just pug-bombed you!&lt;/figcaption&gt;&lt;/figure&gt;</description><link>http://localhost:2368/how-mongohq-uses-hipchat-to-connect-a-distributed-team/</link><guid isPermaLink="false">4bb437f1-0bd5-4430-9454-b020583aa715</guid><dc:creator>mongohq</dc:creator><pubDate>Thu, 20 Mar 2014 22:06:53 GMT</pubDate></item></channel></rss>

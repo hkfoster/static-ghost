@@ -1,0 +1,511 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Bulk updates for all</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/bulk-updates-for-all/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Bulk updates for all">
+    <meta property="og:description" content="TL;DRMongoDB’s new Bulk API is remarkably consistent and fluent across the different languages’ drivers, giving everyone the chance to speed up those larger operations. The new Bulk Update API for MongoDB is opening the way for performance improvements...">
+    <meta property="og:url" content="http://localhost:2368/bulk-updates-for-all/">
+    <meta property="article:published_time" content="2014-05-01T13:56:47.000Z">
+    <meta property="article:modified_time" content="2014-09-02T09:16:45.000Z">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Bulk updates for all">
+    <meta name="twitter:description" content="TL;DRMongoDB’s new Bulk API is remarkably consistent and fluent across the different languages’ drivers, giving everyone the chance to speed up those larger operations. The new Bulk Update API for MongoDB is opening the way for performance improvements...">
+    <meta name="twitter:url" content="http://localhost:2368/bulk-updates-for-all/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Bulk updates for all",
+    "url": "http://localhost:2368/bulk-updates-for-all/",
+    "datePublished": "2014-05-01T13:56:47.000Z",
+    "dateModified": "2014-09-02T09:16:45.000Z",
+    "description": "TL;DRMongoDB’s new Bulk API is remarkably consistent and fluent across the different languages’ drivers, giving everyone the chance to speed up those larger operations. The new Bulk Update API for MongoDB is opening the way for performance improvements..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post container">
+  <header>
+    <h1 class="post-title">Bulk updates for all</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-05-01">May 1st, 2014</time></small>
+  </header>
+
+<p><strong>TL;DR<em></em></strong>MongoDB’s new Bulk API is remarkably consistent and fluent across the different languages’ drivers, giving everyone the chance to speed up those larger operations.</p>
+
+<p>The new Bulk Update API for MongoDB is opening the way for performance improvements when using the latest MongoDB Shell or drivers. Bulk operations eliminate the to-and-fro between client and database, allowing the database to consume commands much faster. Of course, anything that makes your MongoDB-based application quicker is something that we at MongoHQ want to encourage.</p>
+
+<p>What is especially notable about this new functionality is that the MongoDB team took the opportunity to introduce it as a <em>fluent</em> API. Fluent APIs are designed to be more readable. Rather than having functions which take a list of parameters, a function is broken down into smaller functions that take one parameter, chained together. For example, a fictional function that takes a name, threshold, and new value that traditionally would have read:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;    updateNameFunction(name,threshold,value)  
+</code></pre>
+
+<p>now expands out to:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;    updateName(name).overThreshold(threshold).with(value)`  
+</code></pre>
+
+<p>Fluent APIs nudge developers into writing more readable code that can withstand future API changes better. More readable code and less fragile code … both good things in our book.</p>
+
+<p>For this post, we will start our tour of the various implementations of the Bulk API with the one everyone has easy access to: <em>the Mongo Shell</em>.</p>
+
+<h2 id="bulkshell">Bulk Shell</h2>
+
+<p>To start a bulk operation you need to get a <em>BulkOp</em> from the collection the operation applies to. These come in both <em>ordered</em> and <em>unordered</em> forms.</p>
+
+<p><strong>Ordered Bulk operations</strong></p>
+
+<p>Ordered bulk operations are stepped through in order (thus the name), halting when there’s an error.</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;    var bulkop=db.collection.initializeOrderedBulkOp()  
+</code></pre>
+
+<p><strong>Unordered bulk operations</strong></p>
+
+<p>Unordered bulk operations are executed in no particular order (<em>potentially in parallel</em>) and these operations do not stop when an error occurs.</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;    var bulkop=db.collection.intializeUnorderedBulkOp()  
+</code></pre>
+
+<p>The returned Bulk operation builder can have many commands added to it, but they will only be run when the <code>.execute()</code> method is invoked on it. Once executed, you will not be able to re-execute the same Bulk Op and will have to create a new one – this is particularly relevant when recovering from an error of some sort.</p>
+
+<h3 id="commands">Commands</h3>
+
+<p>Now we can start adding database commands to our bulk operation. First up, is the insert which is the simplest of all the commands:</p>
+
+<p><strong>Inserting with bulk operations</strong></p>
+
+<p>Unlike the standalone insert command, this takes just one document for insertion rather than offering the option of passing it an array – with the Bulk API you just keep adding insert operations to get the same effect.</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;    bulkop.insert({ lastname:"Haley", firstname:"Bill" });  
+    bulkop.insert({ lastname:"Halley", firstname:"Edmond" });
+    bulkop.insert({ lastname:"Bopp", firstname:"Hale"});
+</code></pre>
+
+<p>All other operations on the database start the same way, with a <code>.find()</code> function. Whether you are <em>updating</em>, <em>removing</em> or <em>replacing</em> one or many documents, it all starts with a find.</p>
+
+<p><strong>Find with bulk operations</strong></p>
+
+<p>The find operation takes one parameter, a query which can return any number of documents – the next command in the chain will set the scope of the operation, not the find part. The first set of commands work on one document, <code>.updateOne()</code>, <code>.replaceOne()</code> and <code>.removeOne()</code>. The will operate on the first document found to match the <code>.find()</code> query and, respectively, update the document using the given parameter, replace it with another document specified in the parameter, and finally, just remove the document – no parameter needed.</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;    bulkop.find({ lastname:"Haley" }).updateOne( { $set: { year:1925 } } );  
+    bulkop.find({ firstname:"Edmond"}).replaceOne({ lastname:"Blackadder", firstname:"Edmund", year:1455 });
+    bulkop.find({ lastname:"Bopp" }).removeOne();
+</code></pre>
+
+<p>The <code>.updateOne()</code> and <code>.removeOne()</code> commands also have versions, <code>.update()</code> and <code>.remove()</code>, that work on multiple documents and are the equivalent of specifying “{ multi:true }” in the options on a non-bulk operation.</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;    bulkop.find({ lastname:"Blackadder" }).remove( );  
+    bulkop.find({ lastname:"Haley" }).update( {$set: { comet:false } } );
+</code></pre>
+
+<p><strong>Upsert with bulk operations</strong></p>
+
+<p>There’s one other command you’ll want to know about. It, too, can go into the chain of commands before an update or a replace, and thats the <code>.upsert()</code> command. Important to note, this command changes the default upsert and behaves as if <code>{ upsert: true }</code> were set in the options. Therefore, it creates a document based on the <em>query</em> and <em>update/replace</em> parameters if no document is found by the query.</p>
+
+<p>The details of how the new document is created are explained on the <a href="http://docs.mongodb.org/manual/reference/method/Bulk.find.upsert/">MongoDB Bulk upsert manual page</a>. The command looks like this:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;    bulkop.find({ lastname:"Halle" }).upsert().update( { $set: { firstname:"Berry" }});  
+</code></pre>
+
+<h3 id="executeandresults">Execute and results</h3>
+
+<p>Once we’ve prepared our bulk operation, we can execute it. But, before we do, it is worth having a look at the <em>bulkop</em> itself. If we ran all the preceding commands, in the order they appear, the output would look like this:</p>
+
+<pre><code>&gt; bulkop
+{
+ "nInsertOps": 3,
+ "nUpdateOps": 4,
+ "nRemoveOps": 2,
+ "nBatches": 4
+}
+</code></pre>
+
+<p>These stats are specific to the shell’s Bulk operation implementation; despite this, they are informative.</p>
+
+<p><strong>So, what are the numbers telling us?</strong></p>
+
+<p>The numbers tell us our operation has three inserts, three updates and two remove operations and that they have been split up into <strong>four</strong> batches. The shell batching mechanism was <a href="http://blog.mongohq.com/better-bulking-for-mongodb-2-6-and-beyond/">covered in an earlier part of this series</a>, but for this example, the three insert statements form <em>one batch</em>, the next update and replace form <em>another batch</em>, the two consecutive removes make <em>another batch</em>, and finally the last update is the sole occupant of the <em>final batch</em>. With <strong>nBatches</strong> at 4, it means <strong>four</strong> round trips to the database when this bulk operation is executed. Important to note: An unordered bulk operation should always come out at <strong>three</strong> nBatches.</p>
+
+<p>We are now ready to execute our bulk operation. The output, in the Mongo shell, looks like this:</p>
+
+<pre><code>&gt; results=bulkop.execute();
+BulkWriteResult({  
+  "writeErrors": [ ],
+  "writeConcernErrors": [ ],
+  "nInserted": 3,
+  "nUpserted": 1,
+  "nMatched": 3,
+  "nModified": 3,
+  "nRemoved": 2,
+  "upserted": [
+    {
+      "index": 8,
+      "_id": ObjectId("536258ad3649b3e9dc49c313")
+    }
+  ]
+})
+</code></pre>
+
+<p>What we get back is a result full of information. Let’s start with the statistics:</p>
+
+<p><strong>nInserted &amp; nUpserted</strong></p>
+
+<p><code>nInserted</code> and <code>nUpserted</code> tell us how many new records were created and how many of those were the result of a non-matching update operation.</p>
+
+<p><strong>nMatched</strong></p>
+
+<p><code>nMatched</code> gives us the total number of documents that matched any of the <code>find()</code> clauses and if those lead to documents being changed or removed.</p>
+
+<p><strong>nModified &amp; nRemoved</strong></p>
+
+<p>If documents were changed or removed, counts are available in <code>nModified</code> and <code>nRemoved</code>.</p>
+
+<p><strong>upserted</strong></p>
+
+<p>Beyond the statistics though there’s some potentially useful information available such as the <code>upserted</code> array which lists each upserted document’s given _id and an index number which <em>could</em> point at the particular operation in the Bulk op that caused the upsert to occur.</p>
+
+<p>We say ‘<em>could</em>‘ above because if you look at the contents of <code>bulk.getOperations()</code> in the shell, you’ll find that those operations have already been batched up and only the <em>index</em> of the first element of the batch is preserved. Therefore, you’ll either want to write code to walk the operations table (which will depend on driver implementation) or adopt a strategy which doesn’t involve getting the id value from the upsert operation.</p>
+
+<p>The shell, of course, is hardly the place where you’d be writing code with error recovery strategies, but as we’ll see, other drivers are no better on mapping these indexes to the bulk operations.</p>
+
+<p><strong>More on the errors array</strong></p>
+
+<p>This errors array is made up of documents which list, for each error, the index number of the operations (<code>index</code>), identifying code for the error (<code>code</code>), a readable error message (<code>errmsg</code>), and a document (<code>op</code>) which contains the values that made up the operation.</p>
+
+<p>For an ordered bulk operation, there will only be one document here, by design, for as soon as an error occurs, the ordered bulk operation stops processing. For unordered bulk operations, there could be many error documents present as it continues to process after errors occur.</p>
+
+<p>Finally, there’s <code>writeConcernError</code>, a document which details any write issues which have occurred but which didn’t stop the processing of the bulk update.</p>
+
+<h2 id="otherdrivers">Other drivers</h2>
+
+<p>We’ve now covered the MongoDB shell’s implementation of the Bulk API, but if you are writing code which needs to have a some level of error recovery, then you aren’t going to be relying on the shell. So, let’s take a quick look at the other drivers available and see how they compare to the baseline that the MongoDB shell provides.</p>
+
+<h2 id="nodejs">Node.js</h2>
+
+<p>We start with the official Node.js driver. You’ll need <strong>version 1.4.2 or later</strong> of the driver to get Bulk API support. The Node.js driver is, syntactically, very similar to the shell, with the exception that the execute function takes a callback to return results. What’s interesting is that the driver is implemented differently than the shell and, as such, currently offers no equivalent of <code>.getOperations()</code> and apparently no visibility, at all, of the operations queued up.</p>
+
+<h3 id="nodejsexample">Node.js example</h3>
+
+<pre><code>&lt;code class="language-javascript"&gt;var bulkop=collection.initializeOrderedBulkOp();  
+bulkop.insert({ lastname:"Haley", firstname:"Bill" });  
+bulkop.insert({ lastname:"Halley", firstname:"Edmond" });  
+bulkop.insert({ lastname:"Bopp", firstname:"Hale" });  
+bulkop.find({ lastname:"Haley" }).updateOne( { $set: { year:1925 } } );  
+bulkop.find({ firstname:"Edmond" }).replaceOne({ lastname:"Blackadder", firstname:"Edmund", year:1455 });  
+bulkop.find({ lastname:"Bopp" }).removeOne();  
+bulkop.find({ lastname:"Blackadder" }).remove( );  
+bulkop.find({ lastname:"Haley" }).update( { $set: { comet:false } } );  
+bulkop.find({ lastname:"Halle" }).upsert().update( { $set: { firstname:"Berry" }});  
+results=bulkop.execute(function(err,result) {  
+    console.log(JSON.stringify(result));
+});
+</code></pre>
+
+<h2 id="ruby">Ruby</h2>
+
+<p>The Ruby Bulk API is introduced with <strong>version 1.10</strong> of the native driver. Beyond the obvious difference that the API commands are underscored rather than camel-cased – <code>initializeOrderedBulkOp()</code> becomes <code>initialize_ordered_bulk_op()</code> – it is worth noting that the errors from the <code>execute</code> method are raised as an exception rather than as a result. Before <code>execute</code> is called, calling the <code>inspect</code> method on the (<a href="http://api.mongodb.org/ruby/current/Mongo/BulkWriteCollectionView.html)%60">http://api.mongodb.org/ruby/current/Mongo/BulkWriteCollectionView.html)`</a> will return details of all the queued up operations. After execution, that will be reset and contain the bulk operation statistics.</p>
+
+<h3 id="rubyexample">Ruby example</h3>
+
+<pre><code>&lt;code class="language-ruby"&gt;collection = db['updatetest']  
+begin  
+    bulkop=collection.initialize_ordered_bulk_op();
+
+    bulkop.insert({  :lastname  =&gt; "Haley",  :firstname  =&gt;"Bill" });
+    bulkop.insert({  :lastname  =&gt; "Halley",  :firstname  =&gt; "Edmond" });
+    bulkop.insert({  :lastname  =&gt; "Bopp", :firstname   =&gt; "Hale" });
+    bulkop.find({  :lastname  =&gt; "Haley" }).update_one( { "$set" =&gt; { :year =&gt; 1925 } } );
+    bulkop.find({  :firstname  =&gt; "Edmond" }).replace_one({  :lastname  =&gt; "Blackadder",  :firstname  =&gt; "Edmund", :year =&gt; 1455 });
+    bulkop.find({  :lastname  =&gt; "Bopp" }).remove_one;
+    bulkop.find({  :lastname  =&gt; "Blackadder" }).remove;
+    bulkop.find({  :lastname  =&gt; "Haley" }).update( { "$set" =&gt; { :comet =&gt; false } } );
+    bulkop.find({ :lastname =&gt; "Halle" }).upsert().update( { "$set" =&gt; { :firstname =&gt; "Berry" }});
+    result=bulkop.execute;
+    puts result.inspect;
+rescue =&gt; bwe  
+    puts bwe.result;
+end  
+mongo_client.close;  
+</code></pre>
+
+<h2 id="python">Python</h2>
+
+<p>The Python driver saw the Bulk API added in <strong>version 2.7</strong>. Like Ruby, method calls are down-cased with underscores in Python. The <code>execute</code> method returns separate results in a format very much as described in the shell and throws an exception when there is an error. Behind the scenes a <a href="http://api.mongodb.org/python/current/api/pymongo/bulk.html">BulkOperationBuilder</a> class is used to compose the operation. For further examples consult the <a href="http://api.mongodb.org/python/current/examples/bulk.html">driver’s tutorial</a>.</p>
+
+<h3 id="pythonexample">Python example</h3>
+
+<pre><code>&lt;code class="language-python"&gt;collection=db['updatetest']  
+bulkop=collection.initialize_ordered_bulk_op()  
+bulkop.insert({ 'lastname':'Haley', 'firstname':'Bill' })  
+bulkop.insert({ 'lastname':'Halley', 'firstname':'Edmond' })  
+bulkop.insert({ 'lastname':'Bopp', 'firstname':'Hale' })  
+bulkop.find({ 'lastname':'Haley' }).update_one( { '$set': { 'year':1925 } } )  
+bulkop.find({ 'firstname':'Edmond' }).replace_one({ 'lastname':'Blackadder', 'firstname':'Edmund', 'year':1455 })  
+bulkop.find({ 'lastname':'Bopp' }).remove_one()  
+bulkop.find({ 'lastname':'Blackadder' }).remove( )  
+bulkop.find({ 'lastname':'Haley' }).update( { '$set': { 'comet':0 } } )  
+bulkop.find({ 'lastname':'Halle' }).upsert().update( { '$set':{ 'firstname':'Berry' }});  
+try:  
+    result=bulkop.execute()
+    pprint(result)
+except BulkWriteError as bre:  
+    pprint(bre.details)
+</code></pre>
+
+<h2 id="java">Java</h2>
+
+<p>Last but not least, we highlight the Bulk API implementation of the Java driver. The Bulk API was implemented in <strong>version 2.12</strong> and, as you will see, there is no obvious differences from the other implementations. However, the fluency of the API is somewhat drowned out by the need to create BasicDBObjects when creating queries and defining updates.</p>
+
+<h3 id="javaexample">Java Example</h3>
+
+<pre><code>&lt;code class="language-java"&gt;DBCollection collection=db.getCollection("updatetest");  
+BulkWriteOperation bulkop=collection.initializeOrderedBulkOperation();  
+bulkop.insert(new BasicDBObject("lastname","Haley").append("firstname","Bill" ));  
+bulkop.insert(new BasicDBObject("lastname","Halley").append("firstname","Edmond" ));  
+bulkop.insert(new BasicDBObject("lastname","Bopp").append("firstname","Hale" ));  
+bulkop.find(new BasicDBObject("lastname","Haley")).updateOne(new BasicDBObject("$set",new BasicDBObject("year",1925)));  
+bulkop.find(new BasicDBObject("firstname","Edmond")).replaceOne(new BasicDBObject("lastname","Blackadder").append("firstname","Edmund").append("year",1455));  
+bulkop.find(new BasicDBObject("lastname","Bopp")).removeOne();  
+bulkop.find(new BasicDBObject("lastname","Blackadder")).remove();  
+bulkop.find(new BasicDBObject("lastname","Haley")).update(new BasicDBObject("$set",new BasicDBObject("comet",false)));
+
+try {  
+    BulkWriteResult result=bulkop.execute();
+    System.out.println(result);
+} catch (MongoException me) {
+    System.out.println(me);
+}       
+</code></pre>
+
+<h2 id="wrappingup">Wrapping up</h2>
+
+<p>What is the most interesting in this new functionality is how MongoDB has implemented one common, <em>fluent</em> API across all of the MongoDB drivers. Apart from some language-centric casing and variations in how the results and errors are handled, the consistency of the API implementations are remarkably high.</p>
+
+<p>From what we’ve found, the only major variation is around the returned index numbers for operation errors and upserts which can’t easily or consistently be used to look at the bulk operation as issued. If you want to write code that will do partial error recovery, you will probably have to keep your own index number tally when operations are added.</p>
+
+<p>Remember to not mix different types of operations too liberally anyway (see a <a href="http://blog.mongohq.com/better-bulking-for-mongodb-2-6-and-beyond/">previous article</a> in this series for more on that) and keep your bulk operations fairly homogenous.</p>
+
+<p>If you do all that, you will see a huge performance boost for your bulkier updates. Hopefully, this detailed look has increased your MongoDB skills and given you good insight into this powerful new functionality.</p>
+
+<h2 id="tryoutthemongodbbulkapionmongohqelasticdeployments">Try out the MongoDB Bulk API on MongoHQ Elastic Deployments</h2>
+
+<p>If you don’t have a MongoHQ account already, <a href="http://www.mongohq.com/signup/">signing up is easy</a>! If you’re already a MongoHQ user, you can provision a new Elastic Deployment with the “Create Database” button.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Bulk%20updates%20for%20all&amp;url=http://localhost:2368/bulk-updates-for-all/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/bulk-updates-for-all/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/bulk-updates-for-all/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

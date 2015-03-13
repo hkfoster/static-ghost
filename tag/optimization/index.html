@@ -1,0 +1,247 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>optimization - Compose Articles</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/tag/optimization/">
+    <link rel="next" href="http://localhost:2368/page/2/">
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="tag-template tag-optimization blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+<header class="main-header tag-head no-cover">
+    <nav class="main-nav overlay clearfix">
+        <a class="back-button icon-arrow-left" href="http://localhost:2368">Home</a>
+        <a class="subscribe-button icon-feed" href="http://localhost:2368/tag/optimization/rss/">optimization</a>
+    </nav>
+    <div class="vertical">
+        <div class="main-header-content inner">
+            <h1 class="page-title">optimization</h1>
+            <h2 class="page-description">A 6-post collection</h2>
+        </div>
+    </div>
+</header>
+
+<main class="content" role="main">
+
+    
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../optimizing-sdns-for-compose-elasticsearch/">Optimizing SDNs for Compose Elasticsearch</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-11-19">November 19, 2014</time>
+           in <span class="tags"><a href="index.html">optimization</a> &amp;bullet; <a href="../sdn/">SDN</a> &amp;bullet; <a href="../software-defined-networking/">software defined networking</a></span>
+        </small>
+    
+    
+        <p class="excerpt">As you may have read, we’ve taken the beta label off Compose Elasticsearch. We spent months refining our high performance Elasticsearch offering and making sure it was as exceptionally good as our other databases. During that time we hit…</p>
+    
+        <p><a class="read-more" href="../../optimizing-sdns-for-compose-elasticsearch/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../gridfs-and-mongodb-pros-and-cons/">GridFS and MongoDB: Pros and cons</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-06-05">June 05, 2014</time>
+           in <span class="tags"><a href="../file-storage/">file storage</a> &amp;bullet; <a href="../gridfs/">gridfs</a> &amp;bullet; <a href="../mongodb/">mongodb</a> &amp;bullet; <a href="index.html">optimization</a></span>
+        </small>
+    
+    
+        <p class="excerpt">We often get asked “Should I use GridFS for file storage with MongoDB”. As with most things, the answer is a staunch “it depends”. GridFS looks like a great idea on paper – a virtual filesystem held within MongoDB which allows…</p>
+    
+        <p><a class="read-more" href="../../gridfs-and-mongodb-pros-and-cons/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../mongodb-slow-queries-tracker-profiler/">MongoDB Slow Queries Tracker &amp; Profiler</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2013-07-16">July 16, 2013</time>
+           in <span class="tags"><a href="index.html">optimization</a> &amp;bullet; <a href="../performance/">performance</a></span>
+        </small>
+    
+    
+        <p class="excerpt">“How can I get more performance from my database?”   “Is MongoDB web-scale?” [1] Typically, when we answer these questions for MongoDB databases, we are looking at a handful of issues that can often be solved with: Adding RAM Optimizing slow…</p>
+    
+        <p><a class="read-more" href="../../mongodb-slow-queries-tracker-profiler/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../mongodb-indexing-best-practices/">MongoDB Indexing Best Practices</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2013-05-06">May 06, 2013</time>
+           in <span class="tags"><a href="../best/">best</a> &amp;bullet; <a href="../indexing/">indexing</a> &amp;bullet; <a href="../mongodb/">mongodb</a> &amp;bullet; <a href="index.html">optimization</a> &amp;bullet; <a href="../practices/">practices</a></span>
+        </small>
+    
+    
+        <p class="excerpt">Going “Best Practice” on any topic is an expansive statement. But, we will give it a go with some high level anti-patterns and best practices. Some best practices will be general statements about the performance of MongoDB. Indexing Constraints The…</p>
+    
+        <p><a class="read-more" href="../../mongodb-indexing-best-practices/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../using-ruby-resque-with-mongodb-improve-your-performance-with-a-single-gem/">Using Ruby &amp; Resque With MongoDB? Improve Your Performance With a Single Gem.</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2013-02-13">February 13, 2013</time>
+           in <span class="tags"><a href="../10gen/">10gen</a> &amp;bullet; <a href="../driver/">driver</a> &amp;bullet; <a href="../hosted-mongodb/">hosted mongodb</a> &amp;bullet; <a href="../mongo-hosting/">mongo hosting</a> &amp;bullet; <a href="../mongodb/">mongodb</a> &amp;bullet; <a href="../mongodb-hosting/">mongodb hosting</a> &amp;bullet; <a href="../mongohq/">mongohq</a> &amp;bullet; <a href="index.html">optimization</a> &amp;bullet; <a href="../performance/">performance</a> &amp;bullet; <a href="../resque/">resque</a> &amp;bullet; <a href="../ruby/">ruby</a></span>
+        </small>
+    
+    
+        <p class="excerpt">Who should win: your web visitors or your background workers? Hopefully, you will not have to answer this question … or if you are planning for exponential growth, hopefully you will. We have seen a pattern recently with MongoDB, Ruby, and…</p>
+    
+        <p><a class="read-more" href="../../using-ruby-resque-with-mongodb-improve-your-performance-with-a-single-gem/">Read More »</a></p>
+    
+      </article>
+    
+    <nav class="pagination big-push">
+      <small class="page-number">Page 1 of 2</small>
+        <a class="btn mini older" href="page/2/">Older Articles »</a>
+    </nav>
+</main>
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

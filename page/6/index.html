@@ -1,0 +1,241 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Compose Articles - Page 6</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/page/6/">
+    <link rel="prev" href="http://localhost:2368/page/5/">
+    <link rel="next" href="http://localhost:2368/page/7/">
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="paged archive-template blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+<header class="hero no-cover">
+
+
+      <h1 class="caps">Compose <strong>Articles</strong></h1>
+      <p>News, tips, and tricks from the team at Compose</p>
+
+</header>
+
+
+  <article class="excerpt big-push">
+
+    <h2 class="post-title"><a href="../../support-desk-elasticsearch-1-3-4-update/">Support Desk: Elasticsearch 1.3.4 update</a></h2>
+
+    <small class="post-meta">
+      Published <time class="post-date" datetime="2014-10-16">October 16, 2014</time>
+       in <span class="tags"><a href="../../tag/support-desk/">support desk</a> &amp;bullet; <a href="../../tag/update/">update</a></span>
+    </small>
+
+
+    <p class="excerpt">Although we’ve just launched RethinkDB on Compose, we’ve been keeping busy with our other databases. Elasticsearch 1.3.4 is now available to our Elasticsearch users. Elasticsearch 1.3.3 was released recently and included changes which reduced…</p>
+
+    <p><a class="read-more" href="../../support-desk-elasticsearch-1-3-4-update/">Read More »</a></p>
+
+  </article>
+  <article class="excerpt big-push">
+
+    <h2 class="post-title"><a href="../../connecting-to-composes-rethinkdb-deployments-with-ssh/">Connecting to Compose's RethinkDB deployments with SSH</a></h2>
+
+    <small class="post-meta">
+      Published <time class="post-date" datetime="2014-10-16">October 16, 2014</time>
+       in <span class="tags"><a href="../../tag/configure/">configure</a> &amp;bullet; <a href="../../tag/rethinkdb-2/">rethinkdb</a> &amp;bullet; <a href="../../tag/ssh/">ssh</a> &amp;bullet; <a href="../../tag/ssh-tunnel/">ssh tunnel</a></span>
+    </small>
+
+
+    <p class="excerpt">If you install RethinkDB on your local system, you will see that it, by design, happily accepts connections from anywhere without authentication. This is great for development but does mean you have to think about how you deploy RethinkDB when…</p>
+
+    <p><a class="read-more" href="../../connecting-to-composes-rethinkdb-deployments-with-ssh/">Read More »</a></p>
+
+  </article>
+  <article class="excerpt big-push">
+
+    <h2 class="post-title"><a href="../../rethinkdb-now-on-compose/">RethinkDB now on Compose</a></h2>
+
+    <small class="post-meta">
+      Published <time class="post-date" datetime="2014-10-15">October 15, 2014</time>
+       in <span class="tags"><a href="../../tag/beta/">beta</a> &amp;bullet; <a href="../../tag/compose-2/">compose</a> &amp;bullet; <a href="../../tag/database/">database</a> &amp;bullet; <a href="../../tag/json/">json</a> &amp;bullet; <a href="../../tag/new/">new</a> &amp;bullet; <a href="../../tag/platform/">platform</a> &amp;bullet; <a href="../../tag/ssh/">ssh</a></span>
+    </small>
+
+
+    <p class="excerpt">The one thing we love at Compose is databases, so when we get the opportunity to offer our users one of the hottest, feature packed document databases around to run on our platform, we go for it. RethinkDBRethinkDB is a…</p>
+
+    <p><a class="read-more" href="../../rethinkdb-now-on-compose/">Read More »</a></p>
+
+  </article>
+  <article class="excerpt big-push">
+
+    <h2 class="post-title"><a href="http://127.0.0.1:2368/a-duty-to-alert-pagerduty-at-compose/">A Duty To Alert - PagerDuty at Compose</a></h2>
+
+    <small class="post-meta">
+      Published <time class="post-date" datetime="2014-10-08">October 08, 2014</time>
+       in <span class="tags"><a href="http://127.0.0.1:2368/tag/alerts/">alerts</a> &amp;bullet; <a href="http://127.0.0.1:2368/tag/applications/">applications</a> &amp;bullet; <a href="http://127.0.0.1:2368/tag/full-stack/">full stack</a> &amp;bullet; <a href="../../tag/how-we-do-it-2/">how we do it</a> &amp;bullet; <a href="http://127.0.0.1:2368/tag/monitoring/">monitoring</a></span>
+    </small>
+
+
+    <p class="excerpt">*Compose’s Tim Yocum recently wrote a guest blog at Pagerduty   Compose users know that we take care of their data and their databases with our intelligent infrastructure and smart people ready to respond to alerts 24/7 and take…</p>
+
+    <p><a class="read-more" href="http://127.0.0.1:2368/a-duty-to-alert-pagerduty-at-compose/">Read More »</a></p>
+
+  </article>
+  <article class="excerpt big-push">
+
+    <h2 class="post-title"><a href="../../going-slow-for-performance-mongodb-shell-power/">Going Slow for Performance - MongoDB Shell Power</a></h2>
+
+    <small class="post-meta">
+      Published <time class="post-date" datetime="2014-10-07">October 07, 2014</time>
+       in <span class="tags"><a href="../../tag/locking/">locking</a> &amp;bullet; <a href="../../tag/mongodb-shell/">mongodb shell</a> &amp;bullet; <a href="../../tag/performance/">performance</a></span>
+    </small>
+
+
+    <p class="excerpt">Just recently we were asked by a customer if we could help him not lock his MongoDB database. The problem seemed simple on the face of it. All he needed to do was remove one field that had been accidentally…</p>
+
+    <p><a class="read-more" href="../../going-slow-for-performance-mongodb-shell-power/">Read More »</a></p>
+
+  </article>
+
+<nav class="pagination big-push">
+    <a class="btn mini newer" href="../5/">« Newer Articles</a>
+  <small class="page-number">Page 6 of 46</small>
+    <a class="btn mini older" href="http://127.0.0.1:2368/page/7/">Older Articles »</a>
+</nav>
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

@@ -1,0 +1,267 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>OSCON 2013 Wrapup</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/oscon-2013-wrapup/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="OSCON 2013 Wrapup">
+    <meta property="og:description" content="This year’s oscon was almost overwhelmed with “We’re hiring!” From vender booths, after-hours events, attendee badges and even the conference app, it was clear that 80% of people were trying to hire the remaining 20%. By the way,...">
+    <meta property="og:url" content="http://localhost:2368/oscon-2013-wrapup/">
+    <meta property="article:published_time" content="2013-07-26T20:49:07.000Z">
+    <meta property="article:modified_time" content="2014-09-02T09:21:18.000Z">
+    <meta property="article:tag" content="conferences">
+    <meta property="article:tag" content="oscon">
+    <meta property="article:tag" content="space is big">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="OSCON 2013 Wrapup">
+    <meta name="twitter:description" content="This year’s oscon was almost overwhelmed with “We’re hiring!” From vender booths, after-hours events, attendee badges and even the conference app, it was clear that 80% of people were trying to hire the remaining 20%. By the way,...">
+    <meta name="twitter:url" content="http://localhost:2368/oscon-2013-wrapup/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "ian",
+        "url": "http://localhost:2368/author/ian",
+        "sameAs": ""
+    },
+    "headline": "OSCON 2013 Wrapup",
+    "url": "http://localhost:2368/oscon-2013-wrapup/",
+    "datePublished": "2013-07-26T20:49:07.000Z",
+    "dateModified": "2014-09-02T09:21:18.000Z",
+    "keywords": "conferences, oscon, space is big",
+    "description": "This year’s oscon was almost overwhelmed with “We’re hiring!” From vender booths, after-hours events, attendee badges and even the conference app, it was clear that 80% of people were trying to hire the remaining 20%. By the way,..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-conferences-2 tag-oscon tag-space-is-big blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-conferences-2 tag-oscon tag-space-is-big container">
+  <header>
+    <h1 class="post-title">OSCON 2013 Wrapup</h1>
+    <small class="post-meta"><time class="post-date" datetime="2013-07-26">July 26th, 2013</time></small>
+  </header>
+
+<p>This year’s oscon was almost overwhelmed with “We’re hiring!”</p>
+
+<p><img src="http://127.0.0.1:2368/content/images/2014/12/badge-250x134.png" alt="&quot;we're hiring&quot; badge" title="">From vender booths, after-hours events, attendee badges and even the conference app, it was clear that 80% of people were trying to hire the remaining 20%.</p>
+
+<p>By the way, <a href="https://www.mongohq.com/j">we’re hiring</a>.</p>
+
+<p>Notwithstanding oscon almost becoming a career fair, creativity and community abounded from open hardware up to self-organized open management.</p>
+
+<p>Talks expose a playground of lego blocks to use for building interesting technology, businesses and teams. Sharing the building blocks of community were some of the most interesting talks, and from interesting speakers such as Tom Preston-Werner, Paul Fenwick, and Robert Lefkowitz.</p>
+
+<p>One trait of open source software is there are so many solutions for a single problem. For those in the MongoDB community, we try and make your life simpler by taking care of all the hosting/backup/monitoring/scaling solutions related to using a MongoDB database, so that you can focus on piecing together your application.</p>
+
+<p>The image that sums up the creativity, community and humor of oscon comes from reacting to Piers Cawley singing “space is big” on stage.</p>
+
+<blockquote>
+  <p>This is awesome! RT: <a href="https://twitter.com/NatiTal">@NatiTal</a>: <a href="https://twitter.com/search?q=%23livesketching&amp;src=hash">#livesketching</a> <a href="https://twitter.com/pdcawley">@pdcawley</a> singing at <a href="https://twitter.com/search?q=%23oscon&amp;src=hash">#oscon</a> <a href="http://t.co/YK23KXD682">pic.twitter.com/YK23KXD682</a></p>
+  
+  <p>— Piers Cawley (@pdcawley) <a href="https://twitter.com/pdcawley/statuses/360806787663937536">July 26, 2013</a></p>
+</blockquote>
+
+<p>If you have time to watch just one talk, watch Paul Fenwick’s closing keynote talk “<a href="http://www.oscon.com/oscon2013/public/schedule/detail/29029">Fear, Uncertainty, and Dopamine</a>” and start hacking on a hobby, because you won’t regret it (guaranteed). Then, of course, if your hobby needs some MongoDB storage, let us help so you can focus on building something awesome.</p>
+
+<p>You can find a playlist of recorded oscon sessions on youtube: <a href="http://www.youtube.com/playlist?list=PL055Epbe6d5aclKNAa8msO1VvDOJ8sYlS">http://www.youtube.com/playlist?list=PL055Epbe6d5aclKNAa8msO1VvDOJ8sYlS</a></p>
+
+
+<footer class="post-footer big-push">
+
+
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=OSCON%202013%20Wrapup&amp;url=http://localhost:2368/oscon-2013-wrapup/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/oscon-2013-wrapup/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/oscon-2013-wrapup/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

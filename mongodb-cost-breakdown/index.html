@@ -1,0 +1,297 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>MongoDB Cost Breakdown</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/mongodb-cost-breakdown/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="MongoDB Cost Breakdown">
+    <meta property="og:description" content="No conversation about hosted MongoDB can be complete without someone bringing up cost. Though generally not a software team’s number one concern–it’s certainly in the top three. You could argue that someone who works for a hosted...">
+    <meta property="og:url" content="http://localhost:2368/mongodb-cost-breakdown/">
+    <meta property="article:published_time" content="2011-12-15T15:05:41.000Z">
+    <meta property="article:modified_time" content="2013-05-03T03:30:39.000Z">
+    <meta property="article:tag" content="costs">
+    <meta property="article:tag" content="hosted mongodb">
+    <meta property="article:tag" content="mongo hosting">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="mongodb hosting">
+    <meta property="article:tag" content="mongohq">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="MongoDB Cost Breakdown">
+    <meta name="twitter:description" content="No conversation about hosted MongoDB can be complete without someone bringing up cost. Though generally not a software team’s number one concern–it’s certainly in the top three. You could argue that someone who works for a hosted...">
+    <meta name="twitter:url" content="http://localhost:2368/mongodb-cost-breakdown/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "eric",
+        "image": "//www.gravatar.com/avatar/1d4549fe1d311b3db0a1647f7e36909a?d=404&s=250",
+        "url": "http://localhost:2368/author/eric",
+        "sameAs": ""
+    },
+    "headline": "MongoDB Cost Breakdown",
+    "url": "http://localhost:2368/mongodb-cost-breakdown/",
+    "datePublished": "2011-12-15T15:05:41.000Z",
+    "dateModified": "2013-05-03T03:30:39.000Z",
+    "keywords": "costs, hosted mongodb, mongo hosting, mongodb, mongodb hosting, mongohq",
+    "description": "No conversation about hosted MongoDB can be complete without someone bringing up cost. Though generally not a software team’s number one concern–it’s certainly in the top three. You could argue that someone who works for a hosted..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-costs tag-hosted-mongodb tag-mongo-hosting tag-mongodb tag-mongodb-hosting tag-mongohq blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-costs tag-hosted-mongodb tag-mongo-hosting tag-mongodb tag-mongodb-hosting tag-mongohq container">
+  <header>
+    <h1 class="post-title">MongoDB Cost Breakdown</h1>
+    <small class="post-meta"><time class="post-date" datetime="2011-12-15">December 15th, 2011</time></small>
+  </header>
+
+<p>No conversation about <a href="http://mongohq.com/" title="MongoHQ">hosted MongoDB</a> can be complete without someone bringing up <em>cost</em>. Though generally not a software team’s number one concern–it’s certainly in the top three. You could argue that someone who works for a hosted database service showing cost breakdowns might be tempted to skew the numbers–so I provide citations where available.</p>
+
+<p>We should begin by saying these figures are rough estimates based on feedback from some of our thousands of customers–and the research we checked seemed to support that. This doesn’t mean you should not run up your own figures. This is also not meant to imply that MongoDB costs more than any other database to manage. That’s, again, an individual matter, but in our experience Mongo actually costs less for the types of distributed architecture it supports.</p>
+
+<p>Let’s begin with the most expensive aspect of any software system: labor (all costs are in USD as of Dec 16, 2011).</p>
+
+<h2 id="laborcosts">Labor Costs</h2>
+
+<p>Your average MongoDB employee will rake in about <a href="http://www.indeed.com/salary?q1=MongoDB" title="MongoDB Salary">$95,000 a year</a>. If that seems spendy, the average DBA nets <a href="http://www.indeed.com/salary?q1=DBA" title="Database Administrator Salary">$2,000 more</a>. Of course, add on top of this benefits, payroll taxes, office space, etc, and you’re looking at nearer to $120,000/yr–or a cool $10,000 a month for a MongoDB administrator.</p>
+
+<p>If you’re smaller, you likely won’t have a dedicated administrator–so this is a wash, right? Well, not quite. I’ll use my previous employer as an example.</p>
+
+<p>Like every overconfident developer, I was <em>certain</em> the whole process would only take a day. But I didn’t know what I didn’t know–and two weeks later we had a running Mongo system in production. Day one was easy. Install the OS, tools, patches, and MongoDB. Day two and onward was learning to administer, secure, optimize, handle backups and restores, and so on. That entire process cost my company $5,000 in time, with a labor maintinence of approx. 10 minutes a week per person, as folks wrestled with a poorly configured system. That’s a cost of about $500 per month spread across our 11 man team.</p>
+
+<p>Or we could have set up the same system <em>plus</em> replication, hosted for $149 a month in 15 minutes, including all operations, nightly backups, security, and hardware. Speaking of which:</p>
+
+<h2 id="hardwarecosts">Hardware Costs</h2>
+
+<p>This varies greatly based on your data size, I/O, CPU and RAM requirements, which can also drive replication and sharding, and so on. With all of the variables, how can we quantify a cost? Let’s keep things simple with a couple fixed examples: smaller and larger.</p>
+
+<p>The smallest and cheapest plan you’d probably have is a single small cloud server. With 1 year signup, a small AWS EC2 reserved instance (1.7 GB RAM) plus, say, 5 GB EBS storage will cost you about <a href="http://aws.amazon.com/ec2/pricing/" title="Small EC2">$45</a> a month. A similar MongoHQ hosted plan will cost you <a href="http://mongohq.com/pricing">$49</a> a month with no yearly commitment. If even that’s too rich for your blood, we have an even smaller plan for $15 a month–a deal you’d be hard pressed to replicate on the cheapest virtual host.</p>
+
+<p>A bigger setup might be six quadruple extra large servers (two shards and a config, with two replset servers for each). These heavy utilization servers will cost you <a href="http://aws.amazon.com/ec2/pricing/" title="Quad Extra Large EC2">$6,400 each</a> for a 1 year term ($38,400 for all six), plus around $2025 per month usage costs–or $5225 total a month.</p>
+
+<p>Let’s ponder this: is it worth getting the quads, or should you get doubles for half price if you use EBS, since you still have to deal with the EBS I/O constraint anyway? Or should you just buy your own dedicated, bare metal hardware? If so, where do you host that relative to your application to reduce I/O rates and costs? Those are all questions worth asking… the kind we happen to be equipped to answer. A hosted solution can actually save you money on hardware costs–because when you manage nearly 20,000 database installs, we get pretty good at right-sizing.</p>
+
+<p>If that’s not a persuasive cost-saving argument–consider that hosted solutions like MongoHQ also leverage <a href="http://en.wikipedia.org/wiki/Economies_of_scale">economies of scale</a> by providing similar (virtual) hardware to thousands of clients. In other words: our environment providers like us very much.</p>
+
+<h2 id="othercosts">Other costs</h2>
+
+<p><a href="http://www.mongodb.org/">MongoDB</a> is open source, so licensing costs equal zero, correct? Yes, for the bare-bones MongoDB software. However, periphery software, like <a href="http://www.siteuptime.com/prem_plan.php">monitoring services</a>, stats tools, <a href="http://www.mongodb.org/display/DOCS/Admin+UIs">web interfaces</a>… these all have associated licensing and service costs from free, to thousands of dollars each. What about SLAs? Open source software doesn’t exactly provide one.</p>
+
+<p>MongoHQ can wrap all these up in one monthly price; along with free extras you won’t get by self-hosting, like a powerful <a href="http://docs.mongohq.com/api" title="MongoHQ REST API">REST API</a> for database and invoice management, and relevant DB/server statistics.</p>
+
+<p>Finally, you need some support. Of course, your $10,000 a month operations person can resove many issues–but sometimes even she can reach a dead-end. For the server environment, this often requires a support tier with access to the details of the underlying hardware (in AWS this can cost thousands of dollars for this kind of access, or pay-per support in dedicated hardware). Hosted solutions generally buy support in bulk, and thus can recieve high-level deals and priorities that smaller operations cannot. And don’t forget about MongoDB’s <a href="http://www.10gen.com/support">commerical support</a> through 10gen (the company that created MongoDB).</p>
+
+<h2 id="totals">Totals</h2>
+
+<p>When taken as a whole, supporting one’s own database can be an expensive proposition. Ignoring the improved reliability, security and simplicity of leveraging a dedicated and experienced team, using a <a href="http://mongohq.com/" title="MongoHQ">hosted Mongo</a> solution can actually save labor, hardware, licensing, service, support, and other costs. We also provide all this with a single monthly payment. Oh, you also get to sleep at night while we fix things… but that’s a post for another day.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/eric/">
+        <img src="http://www.gravatar.com/avatar/1d4549fe1d311b3db0a1647f7e36909a?d=404&amp;s=250" alt="eric">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/eric/">eric</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=MongoDB%20Cost%20Breakdown&amp;url=http://localhost:2368/mongodb-cost-breakdown/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/mongodb-cost-breakdown/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/mongodb-cost-breakdown/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

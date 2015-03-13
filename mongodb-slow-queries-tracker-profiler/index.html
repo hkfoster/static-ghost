@@ -1,0 +1,307 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>MongoDB Slow Queries Tracker &amp; Profiler</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/mongodb-slow-queries-tracker-profiler/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="MongoDB Slow Queries Tracker &amp; Profiler">
+    <meta property="og:description" content="“How can I get more performance from my database?”   “Is MongoDB web-scale?” [1] Typically, when we answer these questions for MongoDB databases, we are looking at a handful of issues that can often be solved with: Adding RAM Optimizing slow...">
+    <meta property="og:url" content="http://localhost:2368/mongodb-slow-queries-tracker-profiler/">
+    <meta property="article:published_time" content="2013-07-16T18:49:00.000Z">
+    <meta property="article:modified_time" content="2014-12-17T11:44:50.000Z">
+    <meta property="article:tag" content="optimization">
+    <meta property="article:tag" content="performance">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="MongoDB Slow Queries Tracker &amp; Profiler">
+    <meta name="twitter:description" content="“How can I get more performance from my database?”   “Is MongoDB web-scale?” [1] Typically, when we answer these questions for MongoDB databases, we are looking at a handful of issues that can often be solved with: Adding RAM Optimizing slow...">
+    <meta name="twitter:url" content="http://localhost:2368/mongodb-slow-queries-tracker-profiler/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "chris",
+        "image": "//www.gravatar.com/avatar/862ad981103f3b95d88e265d980ca2c5?d=404&s=250",
+        "url": "http://localhost:2368/author/chris",
+        "sameAs": ""
+    },
+    "headline": "MongoDB Slow Queries Tracker &amp; Profiler",
+    "url": "http://localhost:2368/mongodb-slow-queries-tracker-profiler/",
+    "datePublished": "2013-07-16T18:49:00.000Z",
+    "dateModified": "2014-12-17T11:44:50.000Z",
+    "keywords": "optimization, performance",
+    "description": "“How can I get more performance from my database?”   “Is MongoDB web-scale?” [1] Typically, when we answer these questions for MongoDB databases, we are looking at a handful of issues that can often be solved with: Adding RAM Optimizing slow..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-optimization tag-performance blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-optimization tag-performance container">
+  <header>
+    <h1 class="post-title">MongoDB Slow Queries Tracker &amp; Profiler</h1>
+    <small class="post-meta"><time class="post-date" datetime="2013-07-16">July 16th, 2013</time></small>
+  </header>
+
+<p><em>“How can I get more performance from my database?” <br>
+ “Is MongoDB web-scale?” [1]</em></p>
+
+<p>Typically, when we answer these questions for MongoDB databases, we are looking at a handful of issues that can often be solved with:</p>
+
+<ul>
+<li>Adding RAM</li>
+<li>Optimizing slow queries</li>
+</ul>
+
+<p>Our team is excited to announce that we have released a new feature, Slow Query Tracking, making one aspect of improving MongoDB performance very simple for our customers. This new tool tracks all queries on databases taking longer than 100ms. The tool then documents and ranks the queries. Finally, it recommends indexes to add to restore performance.</p>
+
+<p><img src="../content/images/2014/12/slow-queries_bzyizp_kq9tsw.png" alt="MongoHQ Slow Query Tracker and Profiler" title="">From the tool, you can click to add the recommended index and a job is created in the web interface that adds a background index to your database. Simple and fast, but powerful.</p>
+
+<p>Now that you know what Slow Query Tracking is, here are some additional details about the features it includes:</p>
+
+<h2 id="thepainscore">The Pain Score</h2>
+
+<p>So, what exactly is a pain score? We created this metric to reflect the fact that poor indexing can present in a number of ways. For example:</p>
+
+<ul>
+<li>Total documents scanned (shown as an “nscanned” value)</li>
+<li>Number of concurrent queries</li>
+<li>Number of times, per day, a query is run</li>
+<li>Total time consumed to run each query</li>
+</ul>
+
+<blockquote>
+  <p>“My prediction? Pain” – Mr. T in Rocky II</p>
+</blockquote>
+
+<p>Any one of these characteristics (or a combination of all of them) can drastically reduce performance on your database and cause your application pain and discomfort. We want to help you quickly identify the worst offenders and resolve your issues. So, this pain index provides you important context on which queries you should take action on first.</p>
+
+<h2 id="indexrecommendationandadding">Index Recommendation and Adding</h2>
+
+<p>Along with rating the most pressing operations to take action on, the Slow Query Tracker offers a Recommended Index based on an evaluation of the operation being performed. Along with the recommendation, it includes a “Create Index” button that allows you to add the index, from the MongoHQ web interface, in the background.</p>
+
+<p>An important note … as with adding indexes to MongoDB in general, it is best to add indexes to your database one-at-a-time. This is important for two reasons:</p>
+
+<ol>
+<li>A high number of concurrent indexes being added can really affect database performance.  </li>
+<li>It is best to add an index, then evaluate your overall database performance. In essence: a measure, change, measure cycle is a best practice.</li>
+</ol>
+
+<p>As a side note, along with all of our real-time monitoring tools, we include a smooth New Relic Integration (<a href="http://blog.mongohq.com/mongohq-new-relic/">http://blog.mongohq.com/mongohq-new-relic/</a>) that you can use to measure performance improvements.</p>
+
+<h2 id="gettingstartedwithfixingslowqueries">Getting Started with Fixing Slow Queries</h2>
+
+<p>All databases (except our Sandbox plans) on our MongoDB hosting platform have “Slow Queries” feature. Simply choose the database that you want to view any slow queries on and click on the “Slow Queries” tab. From there, you are off and going.</p>
+
+<p>Hooray for optimized databases and fast applications!</p>
+
+<p><em>[1] Yes, MongoDB is web-scale. So is /dev/null. <img src="https://blog.compose.io/wp-includes/images/smilies/icon_smile.gif" alt=":)" title=""></em></p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/chris/">
+        <img src="http://www.gravatar.com/avatar/862ad981103f3b95d88e265d980ca2c5?d=404&amp;s=250" alt="chris">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/chris/">chris</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=MongoDB%20Slow%20Queries%20Tracker%20%26%20Profiler&amp;url=http://localhost:2368/mongodb-slow-queries-tracker-profiler/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/mongodb-slow-queries-tracker-profiler/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/mongodb-slow-queries-tracker-profiler/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

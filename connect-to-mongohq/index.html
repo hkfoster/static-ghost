@@ -1,0 +1,480 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Connect to MongoHQ</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/connect-to-mongohq/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Connect to MongoHQ">
+    <meta property="og:description" content="In the first of many posts to simplify connecting to MongoHQ, we’re providing sample code for many programming languages, frameworks and setups (replica sets, slaveOk, etc). These examples all assume that your MongoHQ connection string is set in an...">
+    <meta property="og:url" content="http://localhost:2368/connect-to-mongohq/">
+    <meta property="article:published_time" content="2012-02-20T15:45:20.000Z">
+    <meta property="article:modified_time" content="2014-09-02T09:06:04.000Z">
+    <meta property="article:tag" content="coffee">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="mongohq">
+    <meta property="article:tag" content="nodejs">
+    <meta property="article:tag" content="php">
+    <meta property="article:tag" content="ruby">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Connect to MongoHQ">
+    <meta name="twitter:description" content="In the first of many posts to simplify connecting to MongoHQ, we’re providing sample code for many programming languages, frameworks and setups (replica sets, slaveOk, etc). These examples all assume that your MongoHQ connection string is set in an...">
+    <meta name="twitter:url" content="http://localhost:2368/connect-to-mongohq/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "eric",
+        "image": "//www.gravatar.com/avatar/1d4549fe1d311b3db0a1647f7e36909a?d=404&s=250",
+        "url": "http://localhost:2368/author/eric",
+        "sameAs": ""
+    },
+    "headline": "Connect to MongoHQ",
+    "url": "http://localhost:2368/connect-to-mongohq/",
+    "datePublished": "2012-02-20T15:45:20.000Z",
+    "dateModified": "2014-09-02T09:06:04.000Z",
+    "keywords": "coffee, mongodb, mongohq, nodejs, php, ruby",
+    "description": "In the first of many posts to simplify connecting to MongoHQ, we’re providing sample code for many programming languages, frameworks and setups (replica sets, slaveOk, etc). These examples all assume that your MongoHQ connection string is set in an..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-coffee tag-mongodb tag-mongohq tag-nodejs tag-php tag-ruby blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-coffee tag-mongodb tag-mongohq tag-nodejs tag-php tag-ruby container">
+  <header>
+    <h1 class="post-title">Connect to MongoHQ</h1>
+    <small class="post-meta"><time class="post-date" datetime="2012-02-20">February 20th, 2012</time></small>
+  </header>
+
+<p>In the first of many posts to simplify connecting to MongoHQ, we’re providing sample code for many programming languages, frameworks and setups (replica sets, slaveOk, etc).</p>
+
+<p>These examples all assume that your MongoHQ connection string is set in an environment variable MONGOHQ_URL, like this:</p>
+
+<p><code>export MONGOHQ_URL=mongodb://user:pass@server.mongohq.com/db_name</code></p>
+
+<p>If you use any of our <a href="http://support.mongohq.com/topics/partners/who-are-mongohq-platform-partners.html">PaaS providers</a> this environment variable should already be set when you choose the MongoHQ add-on. Or you can set it yourself using whatever mechanism the Paas allows. For example, in Heroku:</p>
+
+<p><code>heroku config:add MONGOHQ_URL=mongodb://...</code></p>
+
+<p>Today I’ll roll out <a href="https://gist.github.com/1871068">PHP</a>, <strong>two</strong> NodeJS (<a href="https://gist.github.com/1872894">JS</a> and <a href="https://gist.github.com/1872995">Coffee</a>), and <a href="https://gist.github.com/1872516">Ruby</a> snippets. In every case we use the basic driver to connect (no frameworks like CakePHP or Mongoid–those will come later).</p>
+
+<h2 id="phpconnectiontomongohq">PHP Connection to MongoHQ</h2>
+
+<p>This originally began as a <a href="https://gist.github.com/coderoshi">Gist</a> from Larry Hitchon of AppFog. I fixed it up a bit and made it MongoHQ-centric. It’s a pretty <a href="http://php.net/manual/en/class.mongodb.php">straightforward driver</a>. If you don’t have PECL, you should <a href="http://pecl.php.net/">install PECL</a>.</p>
+
+<p><code>sudo pecl install mongo</code></p>
+
+<pre><code>&lt;code data-language="html"&gt;&lt;!-- PHP Mongo Docs: http://php.net/manual/en/class.mongodb.php --&gt;
+
+
+&lt;h1&gt;MongoHQ Test&lt;/h1&gt;  
+&lt;?php  
+  try {
+    // connect to MongoHQ assuming your MONGOHQ_URL environment
+    // variable contains the connection string
+    $connection_url = getenv("MONGOHQ_URL");
+
+    // create the mongo connection object
+    $m = new Mongo($connection_url);
+
+    // extract the DB name from the connection path
+    $url = parse_url($connection_url);
+    $db_name = preg_replace('/\/(.*)/', '$1', $url['path']);
+
+    // use the database we connected to
+    $db = $m-&gt;selectDB($db_name);
+
+    echo "&lt;h2&gt;Collections&lt;/h2&gt;";
+    echo "&lt;ul&gt;";
+
+    // print out list of collections
+    $cursor = $db-&gt;listCollections();
+    $collection_name = "";
+    foreach( $cursor as $doc ) {
+      echo "&lt;li&gt;" .  $doc-&gt;getName() . "&lt;/li&gt;";
+      $collection_name = $doc-&gt;getName();
+    }
+    echo "&lt;/ul&gt;";
+
+    // print out last collection
+    if ( $collection_name != "" ) {
+      $collection = $db-&gt;selectCollection($collection_name);
+      echo "&lt;h2&gt;Documents in ${collection_name}&lt;/h2&gt;";
+
+      // only print out the first 5 docs
+      $cursor = $collection-&gt;find();
+      $cursor-&gt;limit(5);
+      echo $cursor-&gt;count() . ' document(s) found. &lt;br/&gt;';
+      foreach( $cursor as $doc ) {
+        echo "
+
+&lt;pre&gt;";
+        var_dump($doc);
+        echo "&lt;/pre&gt;";
+      }
+    }
+
+    // disconnect from server
+    $m-&gt;close();
+  } catch ( MongoConnectionException $e ) {
+    die('Error connecting to MongoDB server');
+  } catch ( MongoException $e ) {
+    die('Mongo Error: ' . $e-&gt;getMessage());
+  } catch ( Exception $e ) {
+    die('Error: ' . $e-&gt;getMessage());
+  }
+?&gt;
+</code></pre>
+
+<h2 id="nodejsconnectiontomongohqjavascript">NodeJS Connection to MongoHQ (JavaScript)</h2>
+
+<p>This code uses the <a href="https://github.com/christkv/node-mongodb-native">node-mongodb-native</a> driver, though in production you may want something a little less… <em>nesty</em>. Like all good Node packages, you can get it via <a href="http://npmjs.org/">NPM</a>.</p>
+
+<p><code>npm install mongodb</code></p>
+
+<pre><code>&lt;code data-language="javascript"&gt;// npm install mongodb  
+var mongodb = require('mongodb');  
+var url = require('url');  
+var log = console.log;
+
+var connectionUri = url.parse(process.env.MONGOHQ_URL);  
+var dbName = connectionUri.pathname.replace(/^\//, '');
+
+mongodb.Db.connect(process.env.MONGOHQ_URL, function(error, client) {  
+  if (error) throw error;
+
+  client.collectionNames(function(error, names){
+    if(error) throw error;
+
+    // output all collection names
+    log("Collections");
+    log("===========");
+    var lastCollection = null;
+    names.forEach(function(colData){
+      var colName = colData.name.replace(dbName + ".", '')
+      log(colName);
+      lastCollection = colName;
+    });
+
+    var collection = new mongodb.Collection(client, lastCollection);
+    log("\nDocuments in " + lastCollection);
+    var documents = collection.find({}, {limit:5});
+
+    // output a count of all documents found
+    documents.count(function(error, count){
+      log("  " + count + " documents(s) found");
+      log("====================");
+
+      // output the first 5 documents
+      documents.toArray(function(error, docs) {
+        if(error) throw error;
+
+        docs.forEach(function(doc){
+          log(doc);
+        });
+
+        // close the connection
+        client.close();
+      });
+    });
+  });
+});
+</code></pre>
+
+<h2 id="nodejsconnectiontomongohqcoffeescript">NodeJS Connection to MongoHQ (CoffeeScript)</h2>
+
+<p><em>(Side note… <a href="http://www.livestream.com/nodepdx/video?clipId=pla_84d1391f-49c6-4a54-b25a-c9c54028c93c">I love coffeescript</a>)</em></p>
+
+<pre><code>&lt;code data-language="coffeescript"&gt;# npm install mongodb  
+mongodb = require 'mongodb'  
+url = require 'url'  
+log = console.log
+
+connection_uri = url.parse(process.env.MONGOHQ_URL)  
+db_name = connection_uri.pathname.replace(/^\//, '')
+
+mongodb.Db.connect process.env.MONGOHQ_URL, (error, client)-&gt;  
+  throw error if error
+
+  client.collectionNames (error, names)-&gt;
+    throw error if error
+
+    # output all collection names
+    log "Collections"
+    log "==========="
+    last_collection = null
+    for col_data in names
+      col_name = col_data.name.replace("#{db_name}.", '')
+      log col_name
+      last_collection = col_name
+
+    collection = new mongodb.Collection(client, last_collection)
+    log "\nDocuments in #{last_collection}"
+    documents = collection.find({}, limit : 5)
+
+    # output a count of all documents found
+    documents.count (error, count)-&gt;
+      log "  #{count} documents(s) found"
+      log "===================="
+
+      # output the first 5 documents
+      documents.toArray (error, docs)-&gt;
+        throw error if error
+
+        for doc in docs then log doc
+
+        # close the connection
+        client.close()
+</code></pre>
+
+<h2 id="rubyconnectiontomongohq">Ruby Connection to MongoHQ</h2>
+
+<p>We wrap up today by connecting Ruby to MongoHQ. To get started, install the <code>mongo</code> gem. If you want more speed, install the native <code>bson_ext</code>, and if you are in less than Ruby 1.9, you’ll need the <code>json</code> gem. It should go without saying, but you will need <a href="http://rubygems.org/">RubyGems</a>.</p>
+
+<p><code>gem install mongo bson_ext json</code></p>
+
+<pre><code>&lt;code data-language="ruby"&gt;# gem install mongo bson_ext json  
+require 'rubygems'  # if less than Ruby 1.9  
+require 'mongo'  
+require 'uri'  
+require 'json'
+
+def get_connection  
+  return @db_connection if @db_connection
+  db = URI.parse(ENV['MONGOHQ_URL'])
+  db_name = db.path.gsub(/^\//, '')
+  @db_connection = Mongo::Connection.new(db.host, db.port).db(db_name)
+  @db_connection.authenticate(db.user, db.password) unless (db.user.nil? || db.user.nil?)
+  @db_connection
+end
+
+db = get_connection
+
+puts "Collections"  
+puts "==========="  
+collections = db.collection_names  
+puts collections
+
+last_collection = collections[-1]  
+coll = db.collection(last_collection)
+
+# just show 5
+docs = coll.find().limit(5)
+
+puts "\nDocuments in #{last_collection}"  
+puts "  #{docs.count()} documents(s) found"  
+puts "=========================="  
+docs.each{ |doc| puts doc.to_json }  
+</code></pre>
+
+<p>Part 2 will be Python and Java, and maybe more.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/eric/">
+        <img src="http://www.gravatar.com/avatar/1d4549fe1d311b3db0a1647f7e36909a?d=404&amp;s=250" alt="eric">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/eric/">eric</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Connect%20to%20MongoHQ&amp;url=http://localhost:2368/connect-to-mongohq/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/connect-to-mongohq/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/connect-to-mongohq/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

@@ -1,0 +1,276 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>First release candidate for MongoDB 2.8</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/first-release-candidate-for-mongodb-2-8/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="First release candidate for MongoDB 2.8">
+    <meta property="og:description" content="The MongoDB developers have announced the first release candidate of MongoDB 2.8 and commenced the community “bug hunt” to eliminate issues. Here on the Compose blog we covered what was expected to land in this new release earlier this...">
+    <meta property="og:url" content="http://localhost:2368/first-release-candidate-for-mongodb-2-8/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/mongodbleaf-e1415876292416_wysfwl_zmnjli.jpg">
+    <meta property="article:published_time" content="2014-11-13T10:04:13.000Z">
+    <meta property="article:modified_time" content="2014-11-13T12:03:17.000Z">
+    <meta property="article:tag" content="mongodb 2.8">
+    <meta property="article:tag" content="release candidate">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="First release candidate for MongoDB 2.8">
+    <meta name="twitter:description" content="The MongoDB developers have announced the first release candidate of MongoDB 2.8 and commenced the community “bug hunt” to eliminate issues. Here on the Compose blog we covered what was expected to land in this new release earlier this...">
+    <meta name="twitter:url" content="http://localhost:2368/first-release-candidate-for-mongodb-2-8/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/mongodbleaf-e1415876292416_wysfwl_zmnjli.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "First release candidate for MongoDB 2.8",
+    "url": "http://localhost:2368/first-release-candidate-for-mongodb-2-8/",
+    "datePublished": "2014-11-13T10:04:13.000Z",
+    "dateModified": "2014-11-13T12:03:17.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/mongodbleaf-e1415876292416_wysfwl_zmnjli.jpg",
+    "keywords": "mongodb 2.8, release candidate",
+    "description": "The MongoDB developers have announced the first release candidate of MongoDB 2.8 and commenced the community “bug hunt” to eliminate issues. Here on the Compose blog we covered what was expected to land in this new release earlier this..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-mongodb-2-8 tag-release-candidate blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-mongodb-2-8 tag-release-candidate container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/mongodbleaf-e1415876292416_wysfwl_zmnjli.jpg)">
+    <h1 class="post-title">First release candidate for MongoDB 2.8</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-11-13">November 13th, 2014</time></small>
+  </header>
+
+<p>The MongoDB developers have <a href="http://blog.mongodb.org/post/102461818738/announcing-mongodb-2-8-0-rc0-release-candidate-and-bug">announced</a> the first release candidate of MongoDB 2.8 and commenced the community “bug hunt” to eliminate issues. Here on the Compose blog we covered what was expected to land in this new release earlier this year and now, as this has solidified into a release candidate, we can see how those expectations have been met.</p>
+
+<h2 id="storagepluggedin">Storage plugged in</h2>
+
+<p>One expected highlight is <a href="../the-coming-of-the-mongodb-storage-engines/">the arrival of pluggable storage engines</a> and this has landed in the release candidate. More importantly though, the current storage engine, now named MMAPv1 will be joined by a new MongoDB storage engine based on the <a href="http://www.wiredtiger.com">WiredTiger</a> storage technology.</p>
+
+<p>WiredTiger is a company founded by Dr Michael Cahill and Keith Bostic who previously were architect and founder at Sleepycat, the company behind Berkley DB, acquired by Oracle back in 2006. In 2010, they launched WiredTiger and have been developing their non-locking, high performance, open source storage system since then.</p>
+
+<p>MongoDB isn’t making its WiredTiger-based storage engine default yet, but as you’ll see, reading onwards, that is likely to happen in a version after 2.8. The <a href="http://docs.mongodb.org/manual/release-notes/2.8/">development release notes</a> point out that WiredTiger has a new on-disk format. This means switching engines it will require either a replica set rolling update (as you can mix WiredTiger and MMAPv1 in a replica set) or a performing a mongodump/mongorestore cycle using the old then new storage engine. It can only be hoped that beyond 2.8 and with the wider use of pluggable storage engines that MongoDB Inc come up with a better in-place process such as parallel loading engines to perform migrations.</p>
+
+<h2 id="concurrencylimited">Concurrency limited</h2>
+
+<p>The other expected highlight of 2.8 was improved concurrency with <a href="../the-coming-of-the-mongodb-document-locks/">document level locking</a> offering a chance to really enhance the throughput of a busy MongoDB server. Well, document level locking is coming but only with the WiredTiger storage engine and as we have said, that isn’t the default storage engine in 2.8. The MMAPv1 engine has improved its concurrency, moving from database level locking to collection level locking, which will help throughput where there are multiple collections being written to at the same time. But it is a disappointment that the current storage engine isn’t getting document level locking in this release</p>
+
+<p>With the WiredTiger storage engine, that performance improvement should be seen throughout the database, especially with applications with a few highly contended collections. Other improvements tied to WiredTiger include support for on-disk data compression which can be configured on a per collection basis, which means lower disk I/O and a 30%-80% reduction in disk storage use. It also means that CPU usage will go up too when MongoDB 2.8 is working. But that storage engine will need a reasonable time in the field working with production systems before it becomes the default storage engine and those benefits are widely realised.</p>
+
+<p>The release notes also pick up on some other changes. The maximum size of replica sets goes up to 50 now, but there’s no increase in the maximum number of voting members (7) in those sets. There’s also new query introspection system, the backend to <code>explain()</code>, which provides more statistics to help in working out how your queries are being performed.</p>
+
+<p>At Compose we’ll be looking at all these changes and ensuring that we can bring you all the production-ready features to your databases. For now, its the start of testing and bug hunting.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=First%20release%20candidate%20for%20MongoDB%202.8&amp;url=http://localhost:2368/first-release-candidate-for-mongodb-2-8/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/first-release-candidate-for-mongodb-2-8/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/first-release-candidate-for-mongodb-2-8/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

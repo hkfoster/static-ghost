@@ -1,0 +1,301 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>How We Scale MongoDB</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/how-we-scale-mongodb/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How We Scale MongoDB">
+    <meta property="og:description" content="We recently launched Elastic Deployments for MongoDB, which represent the best method we’ve found for scaling customers’ MongoDB datasets appropriately. The word “appropriate” is, well, appropriate when considering scaling. A 10GB MongoDB dataset has different requirements than a 10TB...">
+    <meta property="og:url" content="http://localhost:2368/how-we-scale-mongodb/">
+    <meta property="article:published_time" content="2014-03-16T20:15:30.000Z">
+    <meta property="article:modified_time" content="2014-09-02T09:32:14.000Z">
+    <meta property="article:tag" content="elastic deployments">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="performance">
+    <meta property="article:tag" content="scaling">
+    <meta property="article:tag" content="Sharding">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="How We Scale MongoDB">
+    <meta name="twitter:description" content="We recently launched Elastic Deployments for MongoDB, which represent the best method we’ve found for scaling customers’ MongoDB datasets appropriately. The word “appropriate” is, well, appropriate when considering scaling. A 10GB MongoDB dataset has different requirements than a 10TB...">
+    <meta name="twitter:url" content="http://localhost:2368/how-we-scale-mongodb/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "kurt",
+        "image": "//www.gravatar.com/avatar/bd9e9506bb3d9d9b2383f2b13fb756b2?d=404&s=250",
+        "url": "http://localhost:2368/author/kurt",
+        "sameAs": ""
+    },
+    "headline": "How We Scale MongoDB",
+    "url": "http://localhost:2368/how-we-scale-mongodb/",
+    "datePublished": "2014-03-16T20:15:30.000Z",
+    "dateModified": "2014-09-02T09:32:14.000Z",
+    "keywords": "elastic deployments, mongodb, performance, scaling, Sharding",
+    "description": "We recently launched Elastic Deployments for MongoDB, which represent the best method we’ve found for scaling customers’ MongoDB datasets appropriately. The word “appropriate” is, well, appropriate when considering scaling. A 10GB MongoDB dataset has different requirements than a 10TB..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-elastic-deployments tag-mongodb tag-performance tag-scaling tag-sharding blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-elastic-deployments tag-mongodb tag-performance tag-scaling tag-sharding container">
+  <header>
+    <h1 class="post-title">How We Scale MongoDB</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-03-16">March 16th, 2014</time></small>
+  </header>
+
+<p>We recently launched <a href="http://blog.mongohq.com/new-elastic-deployments-now-available/">Elastic Deployments for MongoDB</a>, which represent the best method we’ve found for scaling customers’ MongoDB datasets appropriately. The word “appropriate” is, well, appropriate when considering scaling. A 10GB MongoDB dataset has different requirements than a 10TB dataset which has different requirements than a 10PB dataset. There aren’t hard rules for the best time to scale these data sets using more complex methods.</p>
+
+<aside class="right-gutter"><dl><dt>Redundancy</dt><dd>Discussions about horizontal scale frequently conflate redundancy and performance, but they are two separate concepts, particularly in MongoDB. Horizontal scale in MongoDB is primarily used for performance gain. </dd></dl></aside>It can be damaging (and technically and emotionally painful) to build for the wrong scale — planning too big is most common, and means a developer having to give up nice features of the database that can help simplify or speed up development. It can often be related to the same “premature optimization” arguments that are made on the application side.
+
+<aside class="left-gutter"><dl><dt>Replication</dt><dd>MongoDB achieves redundancy through primary/secondaries [replication](http://docs.mongodb.org/manual/replication/). MongoHQ Elastic Deployments are three-member, high-availability, journaled replica sets. </dd></dl></aside>  
+
+<h2 id="firstwescalevertically">First, we scale vertically</h2>
+
+<p>MongoDB, like most databases, craves RAM and IO capacity. It sometimes likes CPU. The simplest conceptual way of scaling performance for a MongoDB dataset is to give it more system resources without worrying about spreading the load across servers. Normally, this is painful for cost or operational reasons. Doubling the capacity of a production MongoDB replica set means swapping larger servers in, figuring out what to do with the old ones, and hoping the new ones are just the right size to keep things healthy for a long period of time.</p>
+
+<p>We tackled this problem by buying the biggest reasonable commodity servers around, run customer databases in isolated containers, and allocate system resources on the fly. When an Elastic Deployment data set grows, we give it more RAM and IO capacity in proportions that work well for the bulk of the production databases we’ve managed. This is an incredibly effective way to scale most MongoDB datasets that are less than 250GB in size.</p>
+
+<aside class="left-gutter"><dl><dt>Big iron, 2014</dt><dd>- 256GB of RAM is normal  
+- SSDs mean incredible random IO perf
+
+</dd></dl></aside>  
+
+<h2 id="thenwescaleverticallyagain">Then, we scale vertically again</h2>
+
+<p>Sadly, MongoDB itself will usually become a bottleneck before the capacity of a server is exhausted. Write lock is almost always the biggest problem (though there are practical limits to how much IO capacity a single MongoDB process can take advantage of). When it is clear that write lock could become a factor, we gracefully convert databases to a setup we call “core sharding” — running multiple MongoDB shards on the same physical (high-availability replica set) servers, up to one shard per CPU core. This allows MongoDB to better utilize IO, for instance, when otherwise it would be bounded by write lock.</p>
+
+<p><aside class="right-gutter"><dl><dt>“Cloud” networking</dt><dd>Consistent network performance is something that, as you scale on popular cloud providers (like ones that rhyme with, um, kabamamazon), you can’t expect to be “always” reliable. </dd></dl></aside>Fortunately, we can handle most datasets up to 2.5TB on the same group of physical servers. I say fortunately because keeping a MongoDB setup operationally compact limits the potential failure modes of a production cluster. In particular, networking over the loopback adapter is fast and reliable. Layer 2 networking (even in the same local network) is a bit slower and a bit more susceptible to chaos. Degraded network performance can manifest itself as a heisenbug in a freshly-sharded MongoDB application, so we just avoid the network when it’s easy and give customer applications and datasets time to mature before they need to take the next step.</p>
+
+<p>Quite a bit of what we do is try to limit chaos on behalf of our customers, so when we do core shard, we spend as much time as necessary to make sure a customer’s shard key decisions are the right ones for a given dataset. (As an aside, we will continue to be skeptical that good shard key decisions can be made when you are just starting out with a data set.)</p>
+
+<p>Choosing the wrong shard keys for a MongoDB cluster is a nicely embossed invitation for chaos to bring a guest to a database party. Core sharding is our best opportunity to intervene and apply our experience in a way that minimizes party fouls and allows our customers to gracefully implement intelligent strategies. Each one is different … there is no “one way” to do it and the more you take time to understand your data, the better your decisions will be.</p>
+
+<h2 id="thenwescaleout">Then, we scale out</h2>
+
+<p>At this point, scaling out MongoDB is easy. A well-built, sharded MongoDB dataset is easy to reason about and will scale linearly across other servers. For the most part, our customers don’t know or care when physical horizontal scale comes into play. When a customer dataset is “mature” and growing, we migrate core shards to other servers behind the scenes as needed to provide the right amount of scale.</p>
+
+<h2 id="thenelasticdeploymentsmakeshardingawesometoo">Then, Elastic Deployments make Sharding Awesome, too.</h2>
+
+<p>The nice thing about having a way to scale a logical MongoDB process vertically is that we can apply it to the shards in a big cluster. Under extreme load, increasing horizontal capacity in a MongoDB cluster can be difficult. Migrating data adds write load and, through <a href="http://blog.mongohq.com/new-elastic-deployments-now-available/">Elastic Deployments</a>, ramping up the resources on each shard is a really nice way to buy time to get past load spikes (or buy capacity to let MongoDB shard balancing do its thing).</p>
+
+<p>We actually use this ability proactively, when possible. It’s common for customers to hear that they’re going to get a massive increase in activity ahead of time (an upcoming Google or Apple App Store promotion, for instance) and let us know. Our team simply adjusts resources behind the scenes. Once we’ve thrown hardware at the problem, we can either use the extra power to migrate data to new shards quicker, or just use it to absorb the load directly.</p>
+
+<h2 id="flexibilityisarequirementofanevolvingdataset">Flexibility is a requirement of an evolving data set</h2>
+
+<p>MongoDB offers numerous features that make developers lives easier. It also offers features for scale. Using the scaling features at the wrong time means compromising on developer-friendly features (unique constraints, oplog usefulness, capped collections). There is a great deal of pressure on developers to use the MongoDB sharding features even when they’re <strong>not</strong> necessary, which makes their lives worse in aggregate. The most healthy MongoDB setups started with developers using features that helped them move faster, and evolved as understanding of the problem scope and appropriate scale increased.</p>
+
+<p>For developers that use MongoDB, we help them make smart decisions and don’t force them down a path before they even have a map. This, we have found, always leads to the best likelihood for success.</p>
+
+<p><em>This post was previously a badly thought out attempt to generically talk about scaling databases vertically. Based on feedback from customers and smart people on Twitter, we felt it was best to tackle this subject in a much narrower scope rather than presenting badly communicated opinions without much substantiation.</em></p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/kurt/">
+        <img src="http://www.gravatar.com/avatar/bd9e9506bb3d9d9b2383f2b13fb756b2?d=404&amp;s=250" alt="kurt">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/kurt/">kurt</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=How%20We%20Scale%20MongoDB&amp;url=http://localhost:2368/how-we-scale-mongodb/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/how-we-scale-mongodb/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/how-we-scale-mongodb/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

@@ -1,0 +1,268 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>How we do it at MongoHQ: Integrating Engineering and Support</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/how-we-do-it-at-mongohq-integrating-engineering-and-support/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How we do it at MongoHQ: Integrating Engineering and Support">
+    <meta property="og:description" content="We are always looking for ways to be better at MongoHQ. One of those ways is by making sure that support and engineering are not just working well together but are generating value for our customers and for us. That’...">
+    <meta property="og:url" content="http://localhost:2368/how-we-do-it-at-mongohq-integrating-engineering-and-support/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/mongohqrocketwallpaper_kjxbr3_chpkma.png">
+    <meta property="article:published_time" content="2014-07-08T11:42:05.000Z">
+    <meta property="article:modified_time" content="2014-07-08T11:42:05.000Z">
+    <meta property="article:tag" content="engineering">
+    <meta property="article:tag" content="support">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How we do it at MongoHQ: Integrating Engineering and Support">
+    <meta name="twitter:description" content="We are always looking for ways to be better at MongoHQ. One of those ways is by making sure that support and engineering are not just working well together but are generating value for our customers and for us. That’...">
+    <meta name="twitter:url" content="http://localhost:2368/how-we-do-it-at-mongohq-integrating-engineering-and-support/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/mongohqrocketwallpaper_kjxbr3_chpkma.png">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "How we do it at MongoHQ: Integrating Engineering and Support",
+    "url": "http://localhost:2368/how-we-do-it-at-mongohq-integrating-engineering-and-support/",
+    "datePublished": "2014-07-08T11:42:05.000Z",
+    "dateModified": "2014-07-08T11:42:05.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/mongohqrocketwallpaper_kjxbr3_chpkma.png",
+    "keywords": "engineering, support",
+    "description": "We are always looking for ways to be better at MongoHQ. One of those ways is by making sure that support and engineering are not just working well together but are generating value for our customers and for us. That’..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-engineering tag-support blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-engineering tag-support container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/mongohqrocketwallpaper_kjxbr3_chpkma.png)">
+    <h1 class="post-title">How we do it at MongoHQ: Integrating Engineering and Support</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-07-08">July 8th, 2014</time></small>
+  </header>
+
+<p>We are always looking for ways to be better at MongoHQ. One of those ways is by making sure that support and engineering are not just working well together but are generating value for our customers and for us. That’s why we’ve been bringing in a new way of connecting support and engineering with our Engineer Rotation program. We’ve modelled it on the best practices of other companies while making sure that we’re not just implementing a support process but going beyond that to build more conversations with our customers.</p>
+
+<p>Each week, a different member of the MongoHQ engineering team takes on the role of dedicated support engineer, switching from their normal work pattern to become part of the support team for that week. At the start of the week, the extended team, support and engineering, come together to look at the outstanding issues, triaging them for best effect, and to balance projects and priorities. This means that even though there are rotating engineers, the rotation has no effect on the throughput of our support staff or the continuity of support. It also means engineering and support understand each other’s current workloads.</p>
+
+<p>Once the engineer has triaged the outstanding issues for support, they shift their role to become the first layer of assistance for the support team and act as a knowledgeable buffer between support and engineering. It also means there’s an experienced engineer available who can build tools to immediately solve problems for customers. Those tools will have been built with engineering’s processes and will provide a functional sample of tools we can turn into self-service features for customers later.</p>
+
+<p>Support also have their life simplified with a single point of contact from engineering, able to dedicate their whole time to assisting support in resolving the incoming issues. That leads to more effective triage and a higher quality of response from the support team, which all our customers will appreciate. But this isn’t just about simplifying the pathway between support and engineering. More importantly, each engineer passing through rotation gets to understand the full scope of the support queries that need engineering support over a typical week, rather than just the ones related to projects they have worked on, and this has an effect on the engineering process.</p>
+
+<p>There are the short term benefits – the engineer’s role as buffer assists engineering as it reduces the potential for interruption of ongoing engineering work. But in the medium and long term it’s the fact that the engineers get a broader view of things. From a better understanding of our customers, which can help them come up with innovations within future MongoHQ development, to a more complete feel for the support process, so they can develop tools that will make support easier and more effective. They already have an innate understanding of the engineering process, so being on rotation makes them more complete as a MongoHQ engineer, able to use the knowledge that the most important conversations you can have are with customers.</p>
+
+<p>All companies aim to have people who grasp the “big picture”. At MongoHQ, our Engineer Rotation program is designed to empower a development team of holistic engineers; people who don’t just read the use case, but understand it because they’ve been there, working the use case. As they have a greater understanding of the problem they can strive to bring better products to our existing and future customers, and they can ensure that today’s issues are dealt with swiftly. And that’s how we do it at MongoHQ.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=How%20we%20do%20it%20at%20MongoHQ%3A%20Integrating%20Engineering%20and%20Support&amp;url=http://localhost:2368/how-we-do-it-at-mongohq-integrating-engineering-and-support/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/how-we-do-it-at-mongohq-integrating-engineering-and-support/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/how-we-do-it-at-mongohq-integrating-engineering-and-support/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

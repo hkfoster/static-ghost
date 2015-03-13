@@ -1,0 +1,257 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>jasonmongohq-com - Page 3 - Compose Articles</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../../../../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../../../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/author/jasonmongohq-com/page/3/">
+    <link rel="prev" href="http://localhost:2368//author/jasonmongohq-com/page/2/">
+    <link rel="next" href="http://localhost:2368//author/jasonmongohq-com/page/4/">
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="author-template author-jasonmongohq-com paged archive-template blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../../../../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../../../../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+    <header class="main-header author-head no-cover">
+        <nav class="main-nav overlay clearfix">
+            <a class="back-button icon-arrow-left" href="http://localhost:2368">Home</a>
+            <a class="subscribe-button icon-feed" href="../../rss/index.rss">jasonmongohq-com</a>
+        </nav>
+    </header>
+
+    <section class="author-profile inner">
+        <figure class="author-image">
+            <div class="img" style="background-image: url(http://www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&amp;s=250)"><span class="hidden">jasonmongohq-com's Picture</span></div>
+        </figure>
+        <h1 class="author-title">jasonmongohq-com</h1>
+        <h2 class="author-bio">0</h2>
+        <div class="author-meta">
+            
+            <span class="author-link icon-link"><a href="http://www.mongohq.com">http://www.mongohq.com</a></span>
+            <span class="author-stats"><i class="icon-stats"></i> 37 posts</span>
+        </div>
+    </section>
+
+<main class="content" role="main">
+
+    
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../../../mongohq-teammates-participate-in-the-mercedes-marathon/">MongoHQ Teammates Participate in the Mercedes Marathon</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2013-02-21">February 21, 2013</time>
+           in <span class="tags"><a href="../../../../tag/fun/">fun</a> &amp;bullet; <a href="../../../../tag/mercedes-marathon/">Mercedes Marathon</a> &amp;bullet; <a href="../../../../tag/mongohq/">mongohq</a> &amp;bullet; <a href="../../../../tag/team/">team</a></span>
+        </small>
+    
+    
+        <p class="excerpt">This past weekend, Kristine Toone and Dusty Hall competed in the Mercedes MarathonKristine Toone with her husband, Brian, and children, Analise and Josiah. Dusty with daughters Mary Margo and Dottie…</p>
+    
+        <p><a class="read-more" href="../../../../mongohq-teammates-participate-in-the-mercedes-marathon/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../../../explore-mongodb-2-3-on-mongohq/">Explore MongoDB 2.3 on MongoHQ</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2013-01-17">January 17, 2013</time>
+           in <span class="tags"><a href="../../../../tag/10gen/">10gen</a> &amp;bullet; <a href="../../../../tag/conference/">conference</a> &amp;bullet; <a href="../../../../tag/mongo-hosting/">mongo hosting</a> &amp;bullet; <a href="../../../../tag/mongoconf/">mongoconf</a> &amp;bullet; <a href="../../../../tag/mongodb/">mongodb</a> &amp;bullet; <a href="../../../../tag/mongodb-hosting/">mongodb hosting</a> &amp;bullet; <a href="../../../../tag/mongohq/">mongohq</a> &amp;bullet; <a href="../../../../tag/mongosv/">mongosv</a></span>
+        </small>
+    
+    
+        <p class="excerpt">There are some interesting and exciting changes coming to MongoDB in the 2.4 production release, including: Full-text search Change in the internal Javascript engine Hashed indexes We’ll talk a bit more about these changes in just a moment,…</p>
+    
+        <p><a class="read-more" href="../../../../explore-mongodb-2-3-on-mongohq/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="http://127.0.0.1:2368/mongohq-in-silicon-valley-for-mongosv-2012/">MongoHQ in Silicon Valley for MongoSV 2012!</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2012-12-03">December 03, 2012</time>
+           in <span class="tags"><a href="../../../../tag/10gen/">10gen</a> &amp;bullet; <a href="../../../../tag/conference/">conference</a> &amp;bullet; <a href="../../../../tag/mongo-hosting/">mongo hosting</a> &amp;bullet; <a href="../../../../tag/mongoconf/">mongoconf</a> &amp;bullet; <a href="../../../../tag/mongodb/">mongodb</a> &amp;bullet; <a href="../../../../tag/mongodb-hosting/">mongodb hosting</a> &amp;bullet; <a href="../../../../tag/mongohq/">mongohq</a> &amp;bullet; <a href="../../../../tag/mongosv/">mongosv</a></span>
+        </small>
+    
+    
+        <p class="excerpt">Once again this year, the team at MongoHQ is excited to sponsor and be a part of 10gen’s 2012 MongoSV Conference. It’s a great time for us to meet with you, give away some shirts, and learn how…</p>
+    
+        <p><a class="read-more" href="http://127.0.0.1:2368/mongohq-in-silicon-valley-for-mongosv-2012/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../../../mongohq-is-excited-to-sponsor-node-knockout-2012/">MongoHQ Is Excited to Sponsor Node Knockout 2012</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2012-11-08">November 08, 2012</time>
+           in <span class="tags"><a href="../../../../tag/mongodb/">mongodb</a> &amp;bullet; <a href="../../../../tag/mongodb-hosting/">mongodb hosting</a> &amp;bullet; <a href="../../../../tag/node/">node</a> &amp;bullet; <a href="../../../../tag/node-knockout/">node knockout</a> &amp;bullet; <a href="../../../../tag/partners/">partners</a> &amp;bullet; <a href="../../../../tag/sponsorship/">sponsorship</a></span>
+        </small>
+    
+    
+        <p class="excerpt">We’re excited to announce that we are sponsoring Node Knockout for its third year! This has really become the event for showcasing the amazing teams and exciting ideas that currently exist in the Node.js community. Along with helping…</p>
+    
+        <p><a class="read-more" href="../../../../mongohq-is-excited-to-sponsor-node-knockout-2012/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../../../monitoring-the-weather-situation-with-hurricane-sandy/">Monitoring the Weather Situation With Hurricane Sandy</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2012-10-29">October 29, 2012</time>
+           in <span class="tags"><a href="../../../../tag/announcement-2/">announcement</a> &amp;bullet; <a href="../../../../tag/hurricane-sandy/">Hurricane Sandy</a> &amp;bullet; <a href="../../../../tag/status/">status</a></span>
+        </small>
+    
+    
+        <p class="excerpt">We want to provide a brief update on status as Hurricane Sandy impacts the eastern coast of the United States, where a large portion of our data infrastructure is located. Heavy winds and rain are affecting power in the region…</p>
+    
+        <p><a class="read-more" href="../../../../monitoring-the-weather-situation-with-hurricane-sandy/">Read More »</a></p>
+    
+      </article>
+    
+    <nav class="pagination big-push">
+        <a class="btn mini newer" href="../2/">« Newer Articles</a>
+      <small class="page-number">Page 3 of 8</small>
+        <a class="btn mini older" href="http://127.0.0.1:2368/author/jasonmongohq-com/page/4/">Older Articles »</a>
+    </nav>
+</main>
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../../../../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../../../../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

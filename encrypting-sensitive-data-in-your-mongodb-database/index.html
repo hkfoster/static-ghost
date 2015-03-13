@@ -1,0 +1,322 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Encrypting Sensitive Data in Your MongoDB Database</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/encrypting-sensitive-data-in-your-mongodb-database/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Encrypting Sensitive Data in Your MongoDB Database">
+    <meta property="og:description" content="With MongoDB making its way into different, and sometime sensitive, applications, we are helping customers with a number of questions about data encryption.  The question and answer cycle usually starts with us asking “what do you need?”, and the customer...">
+    <meta property="og:url" content="http://localhost:2368/encrypting-sensitive-data-in-your-mongodb-database/">
+    <meta property="article:published_time" content="2013-08-20T07:48:20.000Z">
+    <meta property="article:modified_time" content="2014-09-01T08:03:18.000Z">
+    <meta property="article:tag" content="Security">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Encrypting Sensitive Data in Your MongoDB Database">
+    <meta name="twitter:description" content="With MongoDB making its way into different, and sometime sensitive, applications, we are helping customers with a number of questions about data encryption.  The question and answer cycle usually starts with us asking “what do you need?”, and the customer...">
+    <meta name="twitter:url" content="http://localhost:2368/encrypting-sensitive-data-in-your-mongodb-database/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "paul",
+        "url": "http://localhost:2368/author/paul",
+        "sameAs": ""
+    },
+    "headline": "Encrypting Sensitive Data in Your MongoDB Database",
+    "url": "http://localhost:2368/encrypting-sensitive-data-in-your-mongodb-database/",
+    "datePublished": "2013-08-20T07:48:20.000Z",
+    "dateModified": "2014-09-01T08:03:18.000Z",
+    "keywords": "Security",
+    "description": "With MongoDB making its way into different, and sometime sensitive, applications, we are helping customers with a number of questions about data encryption.  The question and answer cycle usually starts with us asking “what do you need?”, and the customer..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-security blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-security container">
+  <header>
+    <h1 class="post-title">Encrypting Sensitive Data in Your MongoDB Database</h1>
+    <small class="post-meta"><time class="post-date" datetime="2013-08-20">August 20th, 2013</time></small>
+  </header>
+
+<p>With MongoDB making its way into different, and sometime sensitive, applications, we are helping customers with a number of questions about data encryption.  The question and answer cycle usually starts with us asking “what do you need?”, and the customer answers “what do you have?”  This response to “what do you need?” is because regulatory encryption requirements often leave the precise implementation to the customer.  Ultimately, encryption can and should happen at multiple levels.  The two primary levels for encryption are:</p>
+
+<ul>
+<li>“Data-in-motion” is protected by encrypting the data in transit; solved with SSL/TLS.  We’ll have more to say about this in a future post.</li>
+<li>“Data-at-rest” is protected by encrypting stored information, the topic of this post.</li>
+</ul>
+
+<p>Data-at-rest encryption can be solved with any/all of the following:</p>
+
+<ul>
+<li>Encrypt the entire drive</li>
+<li>Encrypt individual files or databases on the disk</li>
+<li>Encrypt entire documents (rows in SQL-land) or individual attributes (columns in SQL-land) at the application level</li>
+</ul>
+
+<p>Having been in organizations with regulatory requirements for data-at-rest encryption, we recommend starting with application-level encryption.  Given MongoDB’s flexible schema, data-at-rest encryption is a conceptually straightforward change: replace plaintext data in a document with encrypted data.</p>
+
+<h2 id="whyapplicationlevelencryption">Why application-level encryption?</h2>
+
+<p>Encryption at the application level is independent of the server and network stack.  The application layer is in complete control.  Keys are always in the application layer, and separate from the data layer.  Plaintext information is never stored or transmitted.  No part of the data layer can reveal the plaintext values to potential attackers.</p>
+
+<p>Backups and disaster recovery are just as easy with application-level encryption – all current backup mechanisms will work.  No matter how verbose the logs, they only contain encrypted data.</p>
+
+<p>The attack vector for application-level encryption is through common application vulnerabilities, think XSS or SQL injection (ahem, you mean noSQL injection).  So, application level encryption is only one of the many facets of solid security.</p>
+
+<p>By comparison, drive encryption decrypts data after reading from disk.  <code>mongodump</code> exports contain unencrypted information.  Logs contain plaintext values.  Backups and log systems must implement their own encryption to maintain system integrity.  With software drive encryption, the key must be accessible to make the drive usable.  Usually, the key is in RAM, creating an issue loading the key onto the system in an unattended reboot.  Handling of such issues complicates the overall picture, and introduces potential leaks.</p>
+
+<h2 id="quickstartwithrubymongoidandencryption">Quick Start with Ruby, Mongoid, and Encryption</h2>
+
+<p>When researching encryption, we found a useful Ruby gem.  The gem doubles as a plugin for Mongoid: <a href="http://rubydoc.info/gems/symmetric-encryption/2.2.0/file/README.md">http://rubydoc.info/gems/symmetric-encryption/2.2.0/file/README.md</a></p>
+
+<p>Big ups to <a href="http://www.clarityservices.com/">Clarity Services</a> for building an amazing tool.  We wrote <a href="https://github.com/MongoHQ/test-symmetric-crypto">a simple Rails example</a> and added <code>symmetric-encryption</code> to our Gemfile.  We ran <code>rails generate symmetric_encryption:new_keys production</code> and created the following <code>user.rb</code> model:</p>
+
+<pre><code>class User.rb  
+ include Mongoid::Document
+
+ field :name, type: String
+ field :encrypted_favorite_candy, type: String, encrypted: true
+ field :encrypted_favorite_activity, type: String, encrypted: {random_iv: true}
+end```
+
+From Rails console, we tested the following commands:
+
+`irb&gt; User.create!(name: "Chris", favorite_candy: "chocolate", favorite_activity: "long walks on the beach")`
+</code></pre>
+
+<p>irb&gt; User.where(name: "Chris").first <br>
+=&gt; #<user>", encrypted_favorite_activity: "QEVuQwFAEABv5a9gzy7Nv4Qq/Xsb48+0Ath2tDvZhCAcB8QkaJnPWiE9HWQKze1W6n7RFUgpAEg="&gt;```</user></p>
+
+<p>Output for <code>find</code> contains encrypted values for favorite<em>candy and favorite</em>activity.  When calling the fields explicitly, the plugin decrypts the values.</p>
+
+<pre><code>irb&gt; User.where(name: "Chris").first.favorite_activity  
+=&gt; "long walks on the beach"```
+
+
+## Side effects
+
+By default, this gem encrypts fields deterministically.  Every time the same value is encrypted, it yields the same ciphertext. Being deterministic, the default encryption enables query filters on encrypted fields, like:
+</code></pre>
+
+<p>irb&gt; User.where(favorite_candy: "chocolate").first <br>
+=&gt; #<user>", encrypted_favorite_activity: "QEVuQwFAEABv5a9gzy7Nv4Qq/Xsb48+0Ath2tDvZhCAcB8QkaJnPWiE9HWQKze1W6n7RFUgpAEg=", favorite_candy: "chocolate"&gt;```</user></p>
+
+<p>Deterministic encryption is not ideal in terms of security.  It leaks the knowledge that cipertext values originate from the same plaintext.  For example: imagine John and Jane are both being treated for the same illness, which encrypts as “jx03svxz0″ in the database. If Jane is a celebrity and goes on a book tour about her successful treatment of the illness, the the meaning of “jx03svxz0″ can be inferred.  Private information is revealed about John and all patients with the same diagnosis.  Additionally, if two long strings have a common prefix, that fact also leaks into the ciphertext.</p>
+
+<p>To use non-deterministic encryption, set “:random_iv =&gt; true”.  Of course, this prevents queries against those fields, like:</p>
+
+<p><code>
+irb&gt; User.where(favorite_activity: "long walks on the beach").first <br>
+=&gt; nil</code></p>
+
+<p>Some ciphertext bloat is another side effect.  All ciphertext will be larger than the plaintext by a small factor plus a dozen bytes or so.  Some applications (typically involving SQL databases) can’t accept this expansion.  Some methods for so-called “format-preserving encryption” (FPE) allow encrypting (say) a 10-digit number, in a way that results in a different 10-digit number that will fit in the space allocated for the original number. These methods are not universally applicable, and we won’t go into them further here.  If you have to pursue this, you now know where to look.</p>
+
+<p>The gem has the specific goal of protecting the plaintext’s confidentiality: it does not also validate the encrypted fields against tampering.  The application could be fooled by swapping or changing encrypted fields values.</p>
+
+<h2 id="gotryit">Go try it!</h2>
+
+<p>Clarify Services made this process super simple.  As noted in their guide, be careful with your keys.   Carelessly exposing a key allows potential attackers to decrypt your data.  And if you lose a key, you can’t recover the plaintext!  The Clarity documentation page has more detailed advice about protecting keys in a way that can be backed up safely.</p>
+
+<p>Try it today with any MongoHQ database.  You will be amazed at the simplicity – 8 minutes tops for the knowledgeable Rails developer.</p>
+
+
+<footer class="post-footer big-push">
+
+
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Encrypting%20Sensitive%20Data%20in%20Your%20MongoDB%20Database&amp;url=http://localhost:2368/encrypting-sensitive-data-in-your-mongodb-database/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/encrypting-sensitive-data-in-your-mongodb-database/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/encrypting-sensitive-data-in-your-mongodb-database/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

@@ -1,0 +1,280 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>The Coming of the MongoDB Document Locks</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/the-coming-of-the-mongodb-document-locks/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="The Coming of the MongoDB Document Locks">
+    <meta property="og:description" content="We recently looked at the plans to include pluggable storage engines in MongoDB 2.8. That’s not the only major feature planned for MongoDB 2.8 – another is improved concurrency through the introduction of document level locking. To understand...">
+    <meta property="og:url" content="http://localhost:2368/the-coming-of-the-mongodb-document-locks/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/5693287749_c5252432e7_b_hf3ooy_jbsdzi.jpg">
+    <meta property="article:published_time" content="2014-09-25T09:06:06.000Z">
+    <meta property="article:modified_time" content="2014-12-17T09:32:17.000Z">
+    <meta property="article:tag" content="contention">
+    <meta property="article:tag" content="database">
+    <meta property="article:tag" content="locking">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="performance">
+    <meta property="article:tag" content="write">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Coming of the MongoDB Document Locks">
+    <meta name="twitter:description" content="We recently looked at the plans to include pluggable storage engines in MongoDB 2.8. That’s not the only major feature planned for MongoDB 2.8 – another is improved concurrency through the introduction of document level locking. To understand...">
+    <meta name="twitter:url" content="http://localhost:2368/the-coming-of-the-mongodb-document-locks/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/5693287749_c5252432e7_b_hf3ooy_jbsdzi.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "The Coming of the MongoDB Document Locks",
+    "url": "http://localhost:2368/the-coming-of-the-mongodb-document-locks/",
+    "datePublished": "2014-09-25T09:06:06.000Z",
+    "dateModified": "2014-12-17T09:32:17.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/5693287749_c5252432e7_b_hf3ooy_jbsdzi.jpg",
+    "keywords": "contention, database, locking, mongodb, performance, write",
+    "description": "We recently looked at the plans to include pluggable storage engines in MongoDB 2.8. That’s not the only major feature planned for MongoDB 2.8 – another is improved concurrency through the introduction of document level locking. To understand..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-contention tag-database tag-locking tag-mongodb tag-performance tag-write blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-contention tag-database tag-locking tag-mongodb tag-performance tag-write container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/5693287749_c5252432e7_b_hf3ooy_jbsdzi.jpg)">
+    <h1 class="post-title">The Coming of the MongoDB Document Locks</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-09-25">September 25th, 2014</time></small>
+  </header>
+
+<p>We recently looked at the plans to include <a href="../the-coming-of-the-mongodb-storage-engines/">pluggable storage engines in MongoDB 2.8</a>. That’s not the only major feature planned for MongoDB 2.8 – another is improved concurrency through the introduction of document level locking. To understand what that means, it’s worth looking at locking and MongoDB’s history.</p>
+
+<p><img src="../content/images/2014/12/documentlocks_ry7jqj_skgpsx.png" alt="Document Locks" title=""><aside class="right-gutter"><a href="https://www.flickr.com/photos/adam_jones/5693287749/">Antique Padlocks</a> image by Adam Jones CC-BY-2.0</aside>Contention for resources is the predominant limiter of performance for any database system. Whether it be CPU, networking or disk, if the resource is scarce then any operation that consumes that resource will have to work with that scarcity. One of the most scarce things in MongoDB, and other databases, is the ability to read and write to the database. That scarcity is, though, a deliberate artificial scarcity.</p>
+
+<p>Concurrent access to the MongoDB database is managed by each operation getting hold of the lock. When an operation starts, it asks for the lock. If it’s not available, it waits and asks later. Reading operations can ask for the lock and share it with other reading operations. But when a request to write to the database comes along, the write operation gets exclusive control of that lock – only it can read or write while it holds then lock.</p>
+
+<p>The lock means that no reading operation gets to see partially updated data and things stay consistent. The presence of a lock is not where the performance problem is though. The performance problem comes from the scope of the lock – how much gets locked when the lock is engaged.</p>
+
+<p>Before version 2.2 of MongoDB, the lock’s scope was huge, as in the entire MongoDB process – every database and every collection being handled by the process would be locked for the write to take place. This meant that one database could be locked despite no operations taking place on it while another database was being written to.</p>
+
+<p>Version 2.2 saw the introduction of database level locking which specifically improved that situation. Now the scope of a lock would be restricted to just the database the read or write operation was working with (with the reasonable exception of operations which affected multiple databases which still took a global lock). Now this improves things for a lot of use cases. Where a database is dominated by read operations, the issue isn’t visible. Where there are occasional writes, the lock isn’t an issue.</p>
+
+<p>But where there’s a lot of simultaneous writes or a large volume of writes, then the lock issue comes back into play. Examples of this could include time series data or logging from a number of different clients. The lock is, by design, greedy so if there are a lot of writes queued up, then the readers will be starved of attention. People have tried to work around this in various ways – sharding databases so they all take the load of the various writes, using one server as a write database and then using replication to stream out the updates to other servers or trading write commitment for faster lock release. But the root cause of the problem is that the database is being locked.</p>
+
+<p>That’s where the promise of 2.8 comes in with document level locking. The scope of the lock is pulled in further than ever before. Now, when a write is occurring, only the documents involved in the write operation will be locked. There will, of course, be times when a write operation affects the whole collection, and there should be collection locking to handle that, and there will still be times when multiple database operations will invoke a global lock.</p>
+
+<p>Document locking will improve performance under write loads, so where you have a good mix of inserts, updates and deletes, there will be less contention. But, the arrival of document locking may also reveal some design patterns which won’t benefit from the improvements. For example, if you have a document with details about a device and an array as a time series of samples from that device, then you’ll still have contention updating that document.</p>
+
+<p>We can’t, unfortunately, say much more about MongoDB’s document level locking. With just over 3 months of the year left, the <a href="https://jira.mongodb.org/browse/SERVER-1241">feature ticket</a> has more open than closed sub-tasks. That said, a prototype lock manager arrived in 2.7.3 and the work down to pull the existing global and database locks into the lock manager has been completed. The current schedule sees many of the outstanding tasks due to be completed by the development release of 2.7.7, the next development release which should be soon given that 2.7.8 is pencilled in for mid-October. Around then, we’ll be coming back to see if we can benchmark the new document level locking.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=The%20Coming%20of%20the%20MongoDB%20Document%20Locks&amp;url=http://localhost:2368/the-coming-of-the-mongodb-document-locks/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/the-coming-of-the-mongodb-document-locks/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/the-coming-of-the-mongodb-document-locks/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

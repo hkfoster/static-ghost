@@ -1,0 +1,34 @@
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>shaun - Compose Articles</title><description>News, tips, and tricks from the team at Compose</description><link>http://localhost:2368/</link><generator>Ghost 0.5</generator><lastBuildDate>Fri, 13 Mar 2015 15:33:57 GMT</lastBuildDate><atom:link href="http://localhost:2368/author/shaun/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>New: Elastic Deployments Now Available!</title><description>&lt;p&gt;We are excited to announce today the release of Elastic Deployments which give you a new, seamless way to provision, scale and manage your Mongo databases. Elastic Deployments are now available at a metered price of $18/GB for customers in Amazon’s “us-east” region and SoftLayer’s Dallas datacenter.&lt;/p&gt;
+
+&lt;figure class="embed"&gt;&lt;iframe allowfullscreen frameborder="0" mozallowfullscreen="" src="http://player.vimeo.com/video/88688991" webkitallowfullscreen=""&gt;&lt;/iframe&gt;&lt;/figure&gt;  
+
+&lt;h2 id="whatareelasticdeployments"&gt;What are Elastic Deployments?&lt;/h2&gt;
+
+&lt;p&gt;Elastic Deployments allow developers to focus on what they do best (developing useful applications) and avoid the guesswork of capacity planning. These deployments are deployed on fast SSDs, fully replicated, and have access to huge amounts of RAM. As an application’s data size increases, the database resources scale fluidly to maintain consistent performance, and are billed based on actual usage.&lt;/p&gt;
+
+&lt;p&gt;MongoDB works best with a reasonable ratio of RAM to data size and fast IO. Increasing database server capacity traditionally requires a change in server size, replacement of IO subsystems, and a coordinated operations process. Developers typically perform a precarious balancing act, trying to avoid unnecessary cost, while hoping that their data growth won’t take them by surprise and lead to poor performance, or even worse, database outages.&lt;/p&gt;
+
+&lt;p&gt;In addition to elastic provisioning, Elastic Deployments includes built-in daily backups for every database, so you can be confident that your data will never be lost. Backups run against a hidden third member in your replica set to ensure consistent performance on “active” replica set members.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;*With Elastic Deployments you get: *&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Replica sets on SSDs &lt;br&gt;
+ Guaranteed resources per database &lt;br&gt;
+ No-cost backups &lt;br&gt;
+ Pay only for what you use, $18/GB&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Plus you’ll have access to:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Security monitoring tools &lt;br&gt;
+ Optional two-factor authentication &lt;br&gt;
+ Real-time monitoring and data metrics &lt;br&gt;
+ Customizable alerts &lt;br&gt;
+ The MongoHQ Smart Slow Query tracker&lt;/p&gt;
+
+&lt;p&gt;Find out more &lt;a href="https://www.mongohq.com/pricing/"&gt;here&lt;/a&gt; or &lt;a href="https://www.mongohq.com/signup"&gt;sign up&lt;/a&gt; now.&lt;/p&gt;
+
+&lt;h2 id="whatdoesthismeanformyexistingdbs"&gt;What does this mean for my existing DBs?&lt;/h2&gt;
+
+&lt;p&gt;You have the choice of staying on your existing plan, or changing to Elastic Deployments. It’s up to you! To make the move to Elastic Deployments &lt;a href="https://www.mongohq.com/signup"&gt;sign up now&lt;/a&gt; at $18/GB or contact &lt;a href="mailto:sales@mongohq.com"&gt;sales@mongohq.com&lt;/a&gt;. If you have any questions, please contact &lt;a href="mailto:support@mongohq.com"&gt;support@mongohq.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;We’re all really excited about what this mean for the future of MongoDB. We are certain our Elastic Deployments will give you more freedom to focus on building extraordinary applications.&lt;/p&gt;</description><link>http://localhost:2368/new-elastic-deployments-now-available/</link><guid isPermaLink="false">fd98a5d5-65d7-48c8-9063-605771255671</guid><dc:creator>shaun</dc:creator><pubDate>Tue, 11 Mar 2014 19:54:54 GMT</pubDate></item></channel></rss>

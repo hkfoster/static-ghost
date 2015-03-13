@@ -1,0 +1,275 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>You don’t have Big Data…</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/you-dont-have-big-data/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="You don’t have Big Data…">
+    <meta property="og:description" content="“Big Data”, to paraphrase Douglas Adams, “is Big. You won’t believe how vastly, hugely, mind-bogglingly big it is. I mean you may think there’s a lot of data in Wikipedia but that’s just peanuts to Big Data....">
+    <meta property="og:url" content="http://localhost:2368/you-dont-have-big-data/">
+    <meta property="article:published_time" content="2014-02-06T19:29:40.000Z">
+    <meta property="article:modified_time" content="2014-12-17T11:44:02.000Z">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="You don’t have Big Data…">
+    <meta name="twitter:description" content="“Big Data”, to paraphrase Douglas Adams, “is Big. You won’t believe how vastly, hugely, mind-bogglingly big it is. I mean you may think there’s a lot of data in Wikipedia but that’s just peanuts to Big Data....">
+    <meta name="twitter:url" content="http://localhost:2368/you-dont-have-big-data/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "You don’t have Big Data…",
+    "url": "http://localhost:2368/you-dont-have-big-data/",
+    "datePublished": "2014-02-06T19:29:40.000Z",
+    "dateModified": "2014-12-17T11:44:02.000Z",
+    "description": "“Big Data”, to paraphrase Douglas Adams, “is Big. You won’t believe how vastly, hugely, mind-bogglingly big it is. I mean you may think there’s a lot of data in Wikipedia but that’s just peanuts to Big Data...."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post container">
+  <header>
+    <h1 class="post-title">You don’t have Big Data…</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-02-06">February 6th, 2014</time></small>
+  </header>
+
+<p>“Big Data”, to paraphrase Douglas Adams, “is Big. You won’t believe how vastly, hugely, mind-bogglingly big it is. I mean you may think there’s a lot of data in Wikipedia but that’s just peanuts to Big Data.” And that’s where a lot of people tend to make a mistake when it comes to Big Data; they assume that “a lot” of data is “big” therefore they must be dealing with Big Data. But we had a lot of data long before we ever had Big Data… so where did Big Data come from?</p>
+
+<h2 id="whydowekeepbigdataanyway">Why Do We Keep Big Data, Anyway?</h2>
+
+<p><img src="../content/images/2014/12/Doge-Big-Data-Meme_vb8hxi_n8oxuq.jpg" alt="Doge Big Data Meme" title="">Back in the 1990s, people began realizing that it had become feasibly quite cheap to digitally store every little bit of data – cheaper than it had ever been to store it on paper. When something becomes cheap enough, it can become practically mandatory to do. There seems to be a human instinct to store up every last piece of information “just incase” we needed it in future, and when it became so cheap to do, people thought “why not”?</p>
+
+<p>Scientists had already had to face up to their desire to save every bit of data from experiments: in a 1990 <em>American Scientist</em> article, “<a href="../content/images/2014/12/bigdata_uymytd_z7aorx.png">Saving All The Bits</a>But storage is cheap and the more sets of data you have, the more value you can get from comparing the sets for trends. The switching between TV channels data isn’t worth much per record, but pull that information together with scheduling and advertising data and look at it as an aggregate data set and suddenly you are able to understand how an audience behaves and that data then begins to yield useful and valuable insights for advertisers and program makers.</p>
+
+<p>As for Internet of Things light switch and door data, the kind of data generated by home automation systems… well, they have no identity associated with them, the best you might get from them is a time and a new status. You’d never think of retaining any of that information because there’s little to no value in each record and there is, potentially, a lot of data to be gathered. In fact the only way you can find any value in this data is by gathering massive amounts of it and sifting, filtering and digging through it for patterns.</p>
+
+<p>A rule of thumb, when dealing with large quantities of records the smaller an individual record is, in terms of size and connectedness, the more likely it is to be “Big Data” rather than “Data”.  The challenge for “Big Data Analytics” is about deriving meaning from the mass of small elements of information, possibly mixing in other richer data to provide context, and identifying patterns that are buried within it. It isn’t looking for a needle in a haystack; it’s more determining the nature of needles from a needle stack.</p>
+
+<h2 id="recognizingotherdataofvaluebigdatavshotdata">Recognizing Other Data of Value: Big Data vs Hot Data</h2>
+
+<p>A common mistake is to assume that because you not only have a lot of data, but also have a lot of access requests for that data, Big Data thinking should apply. <br>
+ What they actually have though is “Hot Data” which is exactly where you shouldn’t be applying that thinking. “Hot Data” is a pure scalability issue where you want to build up your performance, reduce your latency and ensure that the data is visible to everyone who needs it.</p>
+
+<p>“Big Data” data tends to be cold data, that is, data that you aren’t actively accessing and, apart from analyzing it, probably never will. In fact, apart from analysis, it could be regarded as frozen. It may be fed with fresh rapidly cooling records and the cooling records analyzed for up-to-date analysis, but the “Big Data” pool should be at least conceptually separated from the live data; mingling the two’s requirements can easily end up in an unsatisfactory lowest-common-capability situation where neither is optimal. Isolating hot and cold data is a good practice anyway; they have completely different economics of storage and application. However, there are folks who miss this and try and end up applying the “Big Data” hammer to the various sizes and shapes of data nails.</p>
+
+<h2 id="dontdevalueyourotherdataforthesakeofbigdata">Don’t Devalue Your Other Data for the Sake of Big Data</h2>
+
+<p>Now, step back from your data and your applications and the chances are that the data that you currently have and care about, is warm or hot data, rather than “Big Data”. You may have sources within your systems which could become “Big Data” by setting out to “save all the bits”,  you may have your eye on a future source of “Big Data”, or you may already have pools of cold data waiting to be turned into “Big Data” most likely on archival storage.</p>
+
+<p>While you plan how to mine those potential “Big Data” resources, remember what you already have. You have your business’s data and all your existing demands to deliver that data quickly, efficiently and consistently, plus all the scaling issues that involves; “Big Data” practices are a poor fit for that data. Although you may have an awful lot of important, valuable data,  you don’t have “Big Data”.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=You%20don%E2%80%99t%20have%20Big%20Data%E2%80%A6&amp;url=http://localhost:2368/you-dont-have-big-data/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/you-dont-have-big-data/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/you-dont-have-big-data/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

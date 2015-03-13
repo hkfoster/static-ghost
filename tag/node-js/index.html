@@ -1,0 +1,247 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>node.js - Compose Articles</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/tag/node-js/">
+    <link rel="next" href="http://localhost:2368/page/2/">
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="tag-template tag-node-js blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+<header class="main-header tag-head no-cover">
+    <nav class="main-nav overlay clearfix">
+        <a class="back-button icon-arrow-left" href="http://localhost:2368">Home</a>
+        <a class="subscribe-button icon-feed" href="http://localhost:2368/tag/node-js/rss/">node.js</a>
+    </nav>
+    <div class="vertical">
+        <div class="main-header-content inner">
+            <h1 class="page-title">node.js</h1>
+            <h2 class="page-description">A 9-post collection</h2>
+        </div>
+    </div>
+</header>
+
+<main class="content" role="main">
+
+    
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../how-to-automatically-compose-your-backups/">How to: Automatically Compose your backups</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-08-19">August 19, 2014</time>
+           in <span class="tags"><a href="../backup/">backup</a> &amp;bullet; <a href="../compose-api/">compose api</a> &amp;bullet; <a href="../database/">database</a> &amp;bullet; <a href="../mongodb/">mongodb</a> &amp;bullet; <a href="index.html">node.js</a></span>
+        </small>
+    
+    
+        <p class="excerpt">We showed how you could use Compose’s user interface to easily make manual backups of your databases on demand in the previous article. Of course, you can’t really include that sort of manual download in your daily processes…</p>
+    
+        <p><a class="read-more" href="../../how-to-automatically-compose-your-backups/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../porting-a-mongodb-full-text-search-app-to-elasticsearch/">Porting a MongoDB full text search app to Elasticsearch</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-08-13">August 13, 2014</time>
+           in <span class="tags"><a href="../compose-2/">compose</a> &amp;bullet; <a href="../elasticsearch-2/">elasticsearch</a> &amp;bullet; <a href="../express/">express</a> &amp;bullet; <a href="index.html">node.js</a> &amp;bullet; <a href="../port/">port</a> &amp;bullet; <a href="../tutorial/">tutorial</a></span>
+        </small>
+    
+    
+        <p class="excerpt">MongoHQ is now Compose – Learn MoreA few weeks ago we showed how you could use MongoDB’s full text search facility to index and search a field with scored results. As we’ve just launched Elasticsearch, we thought porting the…</p>
+    
+        <p><a class="read-more" href="../../porting-a-mongodb-full-text-search-app-to-elasticsearch/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../working-with-the-new-api-part-2-node-js/">Working with the new API - Part 2: Node.js</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-07-10">July 10, 2014</time>
+           in <span class="tags"><a href="../backups/">backups</a> &amp;bullet; <a href="index.html">node.js</a> &amp;bullet; <a href="../rest-api/">REST API</a> &amp;bullet; <a href="../statistics/">statistics</a></span>
+        </small>
+    
+    
+        <p class="excerpt">In the last part, we used Go to create a command line utility that reported on your database versions and upgrade options. In this part, we’ll switch to Node.js and show how you can create customized web-based front…</p>
+    
+        <p><a class="read-more" href="../../working-with-the-new-api-part-2-node-js/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../full-text-search-with-mongodb-and-node-js/">Full Text Search with MongoDB and Node.js</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-06-26">June 26, 2014</time>
+           in <span class="tags"><a href="../development/">Development</a> &amp;bullet; <a href="../express/">express</a> &amp;bullet; <a href="../full-text-search/">Full Text Search</a> &amp;bullet; <a href="../mongodb/">mongodb</a> &amp;bullet; <a href="../mongodb-2-6/">mongodb 2.6</a> &amp;bullet; <a href="index.html">node.js</a> &amp;bullet; <a href="../service/">service</a> &amp;bullet; <a href="../web/">web</a></span>
+        </small>
+    
+    
+        <p class="excerpt">Today we are going to look at a full text search in MongoDB and how you can use it from Node.js. Before we go any further, you’ll need a MongoDB 2.6 system. MongoHQ users will also need…</p>
+    
+        <p><a class="read-more" href="../../full-text-search-with-mongodb-and-node-js/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../mongoose-reintroduced/">Mongoose reintroduced</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-06-12">June 12, 2014</time>
+           in <span class="tags"><a href="../mongoose/">mongoose</a> &amp;bullet; <a href="index.html">node.js</a> &amp;bullet; <a href="../repl/">repl</a> &amp;bullet; <a href="../tutorial/">tutorial</a></span>
+        </small>
+    
+    
+        <p class="excerpt">*TL;DR: An interactive introduction to Mongoose, the ODM for Node.js and MongoDB.   Image: Vinc3PaulS/&gt;CC-BY-SA 3.0In the recent months, regular readers will have noticed that we have had a lot of Node.js based examples. One reader…</p>
+    
+        <p><a class="read-more" href="../../mongoose-reintroduced/">Read More »</a></p>
+    
+      </article>
+    
+    <nav class="pagination big-push">
+      <small class="page-number">Page 1 of 2</small>
+        <a class="btn mini older" href="page/2/">Older Articles »</a>
+    </nav>
+</main>
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

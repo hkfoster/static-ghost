@@ -1,0 +1,269 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Guest Post: MongoHQ + DigitalOcean: A Perfect Match</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/guest-post-mongohq-digitalocean-a-perfect-match/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Guest Post: MongoHQ + DigitalOcean: A Perfect Match">
+    <meta property="og:description" content="We’re handing the blog over to DigitalOcean for this blog post. We have teamed up with MongoHQ to offer autoscaling MongoDB for your app through their Elastic Deployments platform running in our NY2 data center. This gives you a...">
+    <meta property="og:url" content="http://localhost:2368/guest-post-mongohq-digitalocean-a-perfect-match/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/DOFeature_yuykay_ifahnt.jpg">
+    <meta property="article:published_time" content="2014-06-25T08:12:34.000Z">
+    <meta property="article:modified_time" content="2014-06-25T08:33:18.000Z">
+    <meta property="article:tag" content="database hosting">
+    <meta property="article:tag" content="digitalocean">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Guest Post: MongoHQ + DigitalOcean: A Perfect Match">
+    <meta name="twitter:description" content="We’re handing the blog over to DigitalOcean for this blog post. We have teamed up with MongoHQ to offer autoscaling MongoDB for your app through their Elastic Deployments platform running in our NY2 data center. This gives you a...">
+    <meta name="twitter:url" content="http://localhost:2368/guest-post-mongohq-digitalocean-a-perfect-match/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/DOFeature_yuykay_ifahnt.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Guest Post: MongoHQ + DigitalOcean: A Perfect Match",
+    "url": "http://localhost:2368/guest-post-mongohq-digitalocean-a-perfect-match/",
+    "datePublished": "2014-06-25T08:12:34.000Z",
+    "dateModified": "2014-06-25T08:33:18.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/DOFeature_yuykay_ifahnt.jpg",
+    "keywords": "database hosting, digitalocean",
+    "description": "We’re handing the blog over to DigitalOcean for this blog post. We have teamed up with MongoHQ to offer autoscaling MongoDB for your app through their Elastic Deployments platform running in our NY2 data center. This gives you a..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-database-hosting-2 tag-digitalocean blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-database-hosting-2 tag-digitalocean container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/DOFeature_yuykay_ifahnt.jpg)">
+    <h1 class="post-title">Guest Post: MongoHQ + DigitalOcean: A Perfect Match</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-06-25">June 25th, 2014</time></small>
+  </header>
+
+<p><em>We’re handing the blog over to <a href="https://www.digitalocean.com/">DigitalOcean</a> for this blog post.</em></p>
+
+<p>We have teamed up with MongoHQ to offer autoscaling MongoDB for your app through their Elastic Deployments platform running in our NY2 data center. This gives you a sweet suite from both services: fully replicated databases running on fast SSDs with access to huge amounts of RAM.</p>
+
+<p>When MongoHQ reached out to let us know their Beta Period on DigitalOcean went extremely well, it was great news to kick off our summer. Not to overstate the obvious, but MongoHQ’s mission statement has a lot of overlap with ours – at the core, we all want to enable developers and make things easier for them. The synthesis of both platforms will give developers more freedom to focus on creating applications, rather than managing infrastructure, and ultimately help get their word to production faster.</p>
+
+<p>We’re excited about this partnership and what it means for DO customers. If you wish to keep all of the layers of your application on DO infrastructure, this is another step in making this simple for you. If you’re new to MongoHQ, they have a <a href="https://www.mongohq.com/signup/?utm_source=Digital%20Ocean&amp;utm_medium=lp&amp;utm_campaign=digital%20ocean">special signup link</a> for DigitalOcean users — create an account and get a database in NYC2 in 55 seconds. And please, don’t hesitate to let MongoHQ know how great they’re doing <img src="https://blog.compose.io/wp-includes/images/smilies/icon_smile.gif" alt=":)" title=""></p>
+
+<p>Sincerely, <br>
+ The DO Team</p>
+
+<p><em>Meanwhile, the MongoHQ team have been blogging over at <a href="https://www.digitalocean.com/company/blog/mongoHQ-guest-post/">DigitalOcean’s blog</a></em></p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Guest%20Post%3A%20MongoHQ%20%2B%20DigitalOcean%3A%20A%20Perfect%20Match&amp;url=http://localhost:2368/guest-post-mongohq-digitalocean-a-perfect-match/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/guest-post-mongohq-digitalocean-a-perfect-match/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/guest-post-mongohq-digitalocean-a-perfect-match/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

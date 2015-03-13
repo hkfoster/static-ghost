@@ -1,0 +1,278 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>MongoHQ Announces Partnership With 10gen</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/mongohq-announces-partnership-with-10gen/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="MongoHQ Announces Partnership With 10gen">
+    <meta property="og:description" content="The team at MongoHQ is proud to announce a partnership with 10gen, the creators of MongoDB. This partnership will help expand MongoHQ’s professional support and expertise by providing critical access to 10gen’s 24/7 support and engineering teams....">
+    <meta property="og:url" content="http://localhost:2368/mongohq-announces-partnership-with-10gen/">
+    <meta property="article:published_time" content="2012-02-21T18:21:15.000Z">
+    <meta property="article:modified_time" content="2014-12-17T12:19:14.000Z">
+    <meta property="article:tag" content="data hosting">
+    <meta property="article:tag" content="database as a service">
+    <meta property="article:tag" content="database hosting">
+    <meta property="article:tag" content="database solution">
+    <meta property="article:tag" content="dbaas">
+    <meta property="article:tag" content="hosted database">
+    <meta property="article:tag" content="launch">
+    <meta property="article:tag" content="mongo hosting">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="mongodb hosting">
+    <meta property="article:tag" content="mongohq">
+    <meta property="article:tag" content="partners">
+    <meta property="article:tag" content="partnerships">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="MongoHQ Announces Partnership With 10gen">
+    <meta name="twitter:description" content="The team at MongoHQ is proud to announce a partnership with 10gen, the creators of MongoDB. This partnership will help expand MongoHQ’s professional support and expertise by providing critical access to 10gen’s 24/7 support and engineering teams....">
+    <meta name="twitter:url" content="http://localhost:2368/mongohq-announces-partnership-with-10gen/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "jasonmongohq-com",
+        "image": "//www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&s=250",
+        "url": "http://localhost:2368/author/jasonmongohq-com",
+        "sameAs": "http://www.mongohq.com"
+    },
+    "headline": "MongoHQ Announces Partnership With 10gen",
+    "url": "http://localhost:2368/mongohq-announces-partnership-with-10gen/",
+    "datePublished": "2012-02-21T18:21:15.000Z",
+    "dateModified": "2014-12-17T12:19:14.000Z",
+    "keywords": "data hosting, database as a service, database hosting, database solution, dbaas, hosted database, launch, mongo hosting, mongodb, mongodb hosting, mongohq, partners, partnerships",
+    "description": "The team at MongoHQ is proud to announce a partnership with 10gen, the creators of MongoDB. This partnership will help expand MongoHQ’s professional support and expertise by providing critical access to 10gen’s 24/7 support and engineering teams...."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-data-hosting tag-database-as-a-service tag-database-hosting-2 tag-database-solution tag-dbaas tag-hosted-database tag-launch tag-mongo-hosting tag-mongodb tag-mongodb-hosting tag-mongohq tag-partners tag-partnerships blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-data-hosting tag-database-as-a-service tag-database-hosting-2 tag-database-solution tag-dbaas tag-hosted-database tag-launch tag-mongo-hosting tag-mongodb tag-mongodb-hosting tag-mongohq tag-partners tag-partnerships container">
+  <header>
+    <h1 class="post-title">MongoHQ Announces Partnership With 10gen</h1>
+    <small class="post-meta"><time class="post-date" datetime="2012-02-21">February 21st, 2012</time></small>
+  </header>
+
+<p><img src="../content/images/2014/12/mongohq-10gen-partnership_rlcpra_sjjxsx.png" alt="MongoHQ and 10gen Partnership" title=""> <br>
+ The team at MongoHQ is proud to announce a partnership with <a href="http://www.10gen.com/">10gen</a>, the creators of <strong>MongoDB</strong>. This partnership will help expand MongoHQ’s professional support and expertise by providing critical access to 10gen’s 24/7 support and engineering teams. This will also allow us to provide deeper support offerings, and handle even larger and more complex MongoDB setups.</p>
+
+<p><strong>What this means for you</strong> as a user of MongoHQ, is even more peace-of-mind. You are not only working with the best MongoDB hosting team available, but you will have the experts that created MongoDB backing them up as a third tier. Whether you have huge custom installations, or smaller shared databases, you will benefit from even greater uptime and reliability.</p>
+
+<p>Our focus is offering the best customer experience possible and by expanding the capacity of our relationship with 10gen, this is a big win for our customers. We have come a long way since the pre-1.0 days of MongoDB and the product and community that now exists has made it all worthwhile.</p>
+
+<ul>
+<li><a href="http://www.10gen.com/partners/cloudhosting/mongohq">More About MongoHQ / 10gen Cloud Hosting</a></li>
+<li><a href="http://blog.10gen.com/post/18067595934/three-new-cloud-providers-join-the-mongodb-ecosystem">10gen’s Partnership Announcement</a></li>
+</ul>
+
+<p>More details on this new arrangement will be announced soon.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/jasonmongohq-com/">
+        <img src="http://www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&amp;s=250" alt="jasonmongohq-com">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/jasonmongohq-com/">jasonmongohq-com</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=MongoHQ%20Announces%20Partnership%20With%2010gen&amp;url=http://localhost:2368/mongohq-announces-partnership-with-10gen/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/mongohq-announces-partnership-with-10gen/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/mongohq-announces-partnership-with-10gen/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

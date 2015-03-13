@@ -1,0 +1,299 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Meteor and Compose: A beginner's guide to using them together</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/meteor-and-compose-a-beginners-guide-to-using-them-together/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Meteor and Compose: A beginner's guide to using them together">
+    <meta property="og:description" content="For International MeteorThen click “Add Deployment” in the bottom right of the form and the Compose system will go and deploy a multi-node, autoscaling MongoDB database for you. Once that’s created, you should see the database’s Collections view....">
+    <meta property="og:url" content="http://localhost:2368/meteor-and-compose-a-beginners-guide-to-using-them-together/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/meteorrainexp_xvaf2z_u5mugz.jpg">
+    <meta property="article:published_time" content="2014-11-06T12:33:34.000Z">
+    <meta property="article:modified_time" content="2014-12-17T08:43:45.000Z">
+    <meta property="article:tag" content="meteor">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Meteor and Compose: A beginner's guide to using them together">
+    <meta name="twitter:description" content="For International MeteorThen click “Add Deployment” in the bottom right of the form and the Compose system will go and deploy a multi-node, autoscaling MongoDB database for you. Once that’s created, you should see the database’s Collections view....">
+    <meta name="twitter:url" content="http://localhost:2368/meteor-and-compose-a-beginners-guide-to-using-them-together/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/meteorrainexp_xvaf2z_u5mugz.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Meteor and Compose: A beginner&#x27;s guide to using them together",
+    "url": "http://localhost:2368/meteor-and-compose-a-beginners-guide-to-using-them-together/",
+    "datePublished": "2014-11-06T12:33:34.000Z",
+    "dateModified": "2014-12-17T08:43:45.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/meteorrainexp_xvaf2z_u5mugz.jpg",
+    "keywords": "meteor",
+    "description": "For International MeteorThen click “Add Deployment” in the bottom right of the form and the Compose system will go and deploy a multi-node, autoscaling MongoDB database for you. Once that’s created, you should see the database’s Collections view...."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-meteor blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-meteor container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/meteorrainexp_xvaf2z_u5mugz.jpg)">
+    <h1 class="post-title">Meteor and Compose: A beginner's guide to using them together</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-11-06">November 6th, 2014</time></small>
+  </header>
+
+<p><img src="../content/images/2014/12/meteor-logo_g06f7l_apsn4c.png" alt="Meteor logo" title="">For International <a href="../content/images/2014/12/Screenshot-2014-11-05-11_45_46_jx0uih_bkze9b.png">Meteor</a>Then click “Add Deployment” in the bottom right of the form and the Compose system will go and deploy a multi-node, autoscaling MongoDB database for you. Once that’s created, you should see the database’s Collections view.</p>
+
+<p><img src="../content/images/2014/12/Screenshot-2014-11-05-11_53_28_xatma7_byzqhk.png" alt="Screenshot 2014-11-05 11.53.28" title="">Click on the <code>Admin</code> tab to see the various administration tools. The first thing you’ll see is the overview which includes information about how to connect to your database.</p>
+
+<p><img src="../content/images/2014/12/Screenshot-2014-11-05-12_32_52_gxehfz_bkbeek.png" alt="Screenshot 2014-11-05 12.32.52" title="">In our example that is:</p>
+
+<pre><code>Replica Set URI  
+mongodb://&lt;user&gt;:&lt;password&gt;@candidate.43.mongolayer.com:10279,candidate.42.mongolayer.com:10195/meteordb
+
+Mongo Console  
+mongo candidate.42.mongolayer.com:10195/meteordb -u &lt;user&gt; -p&lt;password&gt;  
+</code></pre>
+
+<p>Both of these settings need a user and password configured for them to work. Click on the <code>Users</code> and then the <code>Add user</code> button. We’ll add a user called ‘meteoruser’ with a password ‘meteorpass’ – do try and pick a less obvious password when you do this. Next, this user will need access to the Oplog because Meteor’s MongoDB driver uses that to rapidly work out changes. Click on ‘oplogAccess’ and your display should look like this:</p>
+
+<p><img src="../content/images/2014/12/Screenshot-2014-11-05-12_36_46_vmsagq_irbatk.png" alt="Screenshot 2014-11-05 12.36.46" title="">Click the lower ‘Add user’ button and Compose will add that user for you. We now have everything we need to move onto the next step in the tutorial.</p>
+
+<p><a href="https://www.meteor.com/try">Step 1: Creating an app</a> – The first part of this, running <code>meteor create simple-todos</code> you can do. Meteor will create your application. But, before you go and run the meteor application itself, you need to set some environment variables to tell it how to connect to MongoDB, <code>MONGO_URL</code> and <code>MONGO_OPLOG_URL</code>. The first of these is simple enough. Recall the Replica Set URI we go from admin page. All we need to do with it is substitute in the user and password from the user we created and set that as <code>MONGO_URL</code>:</p>
+
+<pre><code>export MONGO_URL=mongodb://meteoruser:meteorpass@candidate.43.mongolayer.com:10279,candidate.42.mongolayer.com:10195/meteordb  
+</code></pre>
+
+<p>The second environment variable needs to be mostly the same as that, with one change. At the end where it gives the database name – meteordb – we need to insert <code>local?authSource=</code> followed by the database name. Some shells may try and expand the <code>?</code> in there so best wrap the value in double quotes. This gives us the following:</p>
+
+<pre><code>export MONGO_OPLOG_URL="mongodb://meteoruser:meteorpass@candidate.43.mongolayer.com:10279,candidate.42.mongolayer.com:10195/local?authSource=meteordb"  
+</code></pre>
+
+<p>You’ll probably want to add those two items to a shell script or copy them into your profile if you are only working on one project. Once you’ve done that, you can continue through the rest of step 1, and <a href="https://www.meteor.com/try/2">step 2</a> and onwards…</p>
+
+<p><a href="https://www.meteor.com/try/3">Step 3: Storing tasks in a collection</a> – You will be able to complete the first part of this step with no problem, but for the second part, “Inserting tasks from the console”, you’ll have to deviate from the tutorial slightly. This is because the tutorial suggests you use the <code>meteor mongo</code> command to connect to your MongoDB. The problem is that that command only works with local or Meteor-deployed instances of MongoDB. It’s a bit of an oversight, and it means you’ll have to install the Mongo shell on your system to connect up and to do that, you’ll need to usually need the rest of MongoDB with it.</p>
+
+<p>The quickest ways are covered in the <a href="http://docs.mongodb.org/manual/installation/">Install MongoDB</a> manual pages. If you are on Mac OS X and have <a href="http://brew.sh">Homebrew</a> installed, it’s simply a matter of running <code>brew update; brew install mongodb</code> while on most Linux distributions you just need to select the distro’s MongoDB package. Whichever route you choose, by the end you should have the <code>mongo</code> command available, and thats the shell. Back at step 0, you may recall that there was also the “Mongo Console” entry in the connection setup. That’s the command we need now, with the meteor username and password we are using substituted in. For our example, it looks like this:</p>
+
+<pre><code>mongo candidate.42.mongolayer.com:10195/meteordb -u meteoruser -pmeteorpass  
+</code></pre>
+
+<p>You’ll get a Mongo shell prompt and you can now continue the tutorial and insert some tasks using the command line (and be impressed by how quickly the web browser updates when you insert a records into the database).</p>
+
+<p>You can now work through <a href="https://www.meteor.com/try/4">step 4</a> (Adding tasks with a form) and <a href="https://www.meteor.com/try/5">step 5</a> (Checking off and deleting tasks).</p>
+
+<p><a href="https://www.meteor.com/try/6">Step 6: Deploying your app</a> – The good news is that what is in this step works. Your application will be deployed up to a meteor.com sub-domain for testing. The bad news is that it won’t connect to your Compose database because the testing system doesn’t support external databases. You’ll be able to deploy and enjoy, but you’ll have to select some other deployment route, be it your own server or a hosted cloud instance, to run your app on the Internet. The instructions for <a href="https://www.meteor.com/try/7">step 7</a>, running your app on Android or iOS, will also work apart from where it suggests you point the mobile app to the server you haven’t deployed.</p>
+
+<p>The final four steps, <a href="https://www.meteor.com/try/8">8</a>, <a href="https://www.meteor.com/try/9">9</a>, <a href="https://www.meteor.com/try/10">10</a> and <a href="https://www.meteor.com/try/11">11</a>, need no intervention and you can work through them without changes. That’ll bring you to the closing <a href="https://www.meteor.com/try/12">step 12</a> which directs you onto some of the other examples available and onwards to creating your own applications using Meteor. The additional steps that we have introduced here won’t make any meaningful difference to how well the examples run until you start running a second Meteor server and get that talking to the MongoDB database too. By applying those changes from the start though you’ll be ready to scale up from day one, just like Compose’s Elastic Deployments of MongoDB already do.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Meteor%20and%20Compose%3A%20A%20beginner's%20guide%20to%20using%20them%20together&amp;url=http://localhost:2368/meteor-and-compose-a-beginners-guide-to-using-them-together/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/meteor-and-compose-a-beginners-guide-to-using-them-together/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/meteor-and-compose-a-beginners-guide-to-using-them-together/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

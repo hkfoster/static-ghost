@@ -1,0 +1,316 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Going Slow for Performance - MongoDB Shell Power</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/going-slow-for-performance-mongodb-shell-power/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Going Slow for Performance - MongoDB Shell Power">
+    <meta property="og:description" content="Just recently we were asked by a customer if we could help him not lock his MongoDB database. The problem seemed simple on the face of it. All he needed to do was remove one field that had been accidentally...">
+    <meta property="og:url" content="http://localhost:2368/going-slow-for-performance-mongodb-shell-power/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/snail-shells-65358_1920_oiqsbd_ujvjpj.jpg">
+    <meta property="article:published_time" content="2014-10-07T09:00:25.000Z">
+    <meta property="article:modified_time" content="2014-12-17T09:31:55.000Z">
+    <meta property="article:tag" content="locking">
+    <meta property="article:tag" content="mongodb shell">
+    <meta property="article:tag" content="performance">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Going Slow for Performance - MongoDB Shell Power">
+    <meta name="twitter:description" content="Just recently we were asked by a customer if we could help him not lock his MongoDB database. The problem seemed simple on the face of it. All he needed to do was remove one field that had been accidentally...">
+    <meta name="twitter:url" content="http://localhost:2368/going-slow-for-performance-mongodb-shell-power/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/snail-shells-65358_1920_oiqsbd_ujvjpj.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Going Slow for Performance - MongoDB Shell Power",
+    "url": "http://localhost:2368/going-slow-for-performance-mongodb-shell-power/",
+    "datePublished": "2014-10-07T09:00:25.000Z",
+    "dateModified": "2014-12-17T09:31:55.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/snail-shells-65358_1920_oiqsbd_ujvjpj.jpg",
+    "keywords": "locking, mongodb shell, performance",
+    "description": "Just recently we were asked by a customer if we could help him not lock his MongoDB database. The problem seemed simple on the face of it. All he needed to do was remove one field that had been accidentally..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-locking tag-mongodb-shell tag-performance blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-locking tag-mongodb-shell tag-performance container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/snail-shells-65358_1920_oiqsbd_ujvjpj.jpg)">
+    <h1 class="post-title">Going Slow for Performance - MongoDB Shell Power</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-10-07">October 7th, 2014</time></small>
+  </header>
+
+<p>Just recently we were asked by a customer if we could help him not lock his MongoDB database. The problem seemed simple on the face of it. All he needed to do was remove one field that had been accidentally added to every document. Of course, things weren’t quite that simple – with nearly 25 million records to update the database would be locked for quite a while and done as one operation there was a good chance that replication could lose track.</p>
+
+<h2 id="thelockingproblem">The Locking Problem</h2>
+
+<p>It’s all to do with the database level locks we talked about recently when we looked at what is coming in MongoDB 2.8. In MongoDB 2.6 a write operation locks the database while it is taking place. Although many concurrent reads can happen at the same time, all reads are locked out for any writing operation and only one of them can have control of the lock. Now, update is a write operation and if you have to go through all 25 million records to update them then that operation is going to take some time. And while thats happening, no one can read the database.</p>
+
+<p>There’s worse in store though. Even though the command to do the update to every is compact, it’ll unroll in the oplog, the capped collection used for replication, so that there’s a record for every single document updated or at least there would be if the collection wasn’t capped. If it’s capped there’s a finite limit on how many records can queue up before records are lost to the replication process and the system has to fall back on to being manually resynchronised and that will involves quite a lot of locking too.</p>
+
+<p>This all makes for a tricky problem – especially as it is expected to be a one-off change so any changes to the architecture of the servers would not be an option. The solution, in this case was to take it slowly. The unwanted field wasn’t causing any issues so we could pace ourselves in removing the field.</p>
+
+<h2 id="theshellsolution">The Shell Solution</h2>
+
+<p><img src="../content/images/2014/12/shellicon_ongkrj_qq0hhw.png" alt="Shell Icon" title="">The solution to the problem can be found in the MongoDB shell. We’ve talked about the shell in the past (and covered shell <a href="../how-i-stopped-worrying-and-learned-to-love-the-mongo-shell/">data reorganisation</a>, <a href="../saving-private-functions/">functions</a>, <a href="../customising-mongodbs-shell-with-compact-prompts/">customisation</a> and other <a href="../mongodb-2-6-shell-and-tools-things-worth-knowing/">tips</a>) and shown how you can use its JavaScript base to orchestrate some quite complex operations. Usually though we try to achieve our results as quickly as possible but in this case we want to take it slowly. The strategy we’re going to adopt is to do a little work every five seconds – say update a 1000 records and then go to sleep. While our script sleeps, replication can catch up and the database will be unlocked so work can continue as normal. That’s the plan, and here’s where we implement it… Here’s the whole function we’ll call set up to remove <code>unwantedfield</code> from a collection called <code>writenow</code>:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;function slowremove() {  
+  var run=true;
+
+  while(run) {
+    var arr=db.writenow.find({ unwantedfield: { $exists:true } }, { _id:1 } ).limit(1000).map( function(doc) { return doc._id; } );
+    db.writenow.update( { _id: { $in:arr } }, { $unset: { unwantedfield:"" } }, { multi:true } );
+    run=arr.length&gt;0;
+    sleep(5000);
+  }
+}
+</code></pre>
+
+<p>Let’s take this function apart – it’s basically a loop which keeps going till it’s out of data. Each pass through the loop first sets out to find the documents where the <code>unwantedfield</code> exists:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;  db.writenow.find({ unwantedfield: { $exists:true } } )  
+</code></pre>
+
+<p>But we don’t only want the <code>_id</code> field, so we add in a projection to select only that field:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;    db.writenow.find({ unwantedfield: { $exists:true } }, { _id:1 } )  
+</code></pre>
+
+<p>And we don’t want all the documents, just the first thousand that match so we add a limit statement.</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;              .limit(1000)  
+</code></pre>
+
+<p>We want these results as an array of ids so we can find them quickly using the <code>$in</code> operator. If we used the <code>.toArray()</code> function though it would give us an array of documents that contained the <code>_id</code> field so we don’t want to use that. Instead we can use the <code>.map()</code> function – this passes every result of the find to a function specified as a parameter to <code>.map()</code>. What comes back from the function is added to an array and it’s that array that’s finally returned. In our case, we just want the <code>_id</code> so we add give <code>.map()</code> a function that just returns that:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;              .map( function(doc) { return doc._id; } )  
+</code></pre>
+
+<p>We store the result of that in an array, novelly named <code>arr</code>. Now we can go tidy up just those records with an update. This is fairly conventional:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;  db.writenow.update( { _id: { $in:arr } }, { $unset: { unwantedfield:"" } }, { multi:true } );  
+</code></pre>
+
+<p>We just check for the <code>_id</code> of the documents is in the array of ids we just created and where it is, we remove the <code>unwantedfield</code>. We make sure the <code>multi</code> option is true to ensure all the array is processed.</p>
+
+<p>That’s our update, but before we loop back around to do it again, we can check to see if there’s more to process. In this case we just see if there were any results in our last query, if there was, we’ll keep processing. This does mean that there’s a redundant update at the end of the processing, but it matches and processes nothing which is an inexpensive as you can get. The last step in the loop is a sleep(5000) which makes the shell sleep for five seconds. That five seconds lets everyone else in to work, let replication to happen and basically keeps everything flowing nicely.</p>
+
+<p>To use this function yourself, you’ll need to take the code and save it in a file, say <code>slowremove.js</code> – edit it to handle your collection and field and perform whatever operation you actually want to do, then run the mongo shell and connect to your MongoDB. Load the script in the shell with <code>load("slowremove.js")</code> and start it off by invoking the function with <code>slowremove()</code>… and wait.</p>
+
+<p>And wait. This isn’t a quick operation. With 25 million records at a 1000 processed every 5 seconds it’ll take around one and a half days to complete. But at the end of it, <code>unwantedfield</code> will no longer be present in the collection and no users should have noticed the changed being performed.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Going%20Slow%20for%20Performance%20-%20MongoDB%20Shell%20Power&amp;url=http://localhost:2368/going-slow-for-performance-mongodb-shell-power/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/going-slow-for-performance-mongodb-shell-power/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/going-slow-for-performance-mongodb-shell-power/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

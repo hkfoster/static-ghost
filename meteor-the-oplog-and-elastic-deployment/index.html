@@ -1,0 +1,282 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Meteor, the Oplog and Elastic Deployments</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/meteor-the-oplog-and-elastic-deployment/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Meteor, the Oplog and Elastic Deployments">
+    <meta property="og:description" content="In the previous two posts in this series we looked at what the oplog is and how you can access it elegantly. However, to get a complete idea of what is possible with the oplog, we are going to look...">
+    <meta property="og:url" content="http://localhost:2368/meteor-the-oplog-and-elastic-deployment/">
+    <meta property="article:published_time" content="2014-04-01T20:48:48.000Z">
+    <meta property="article:modified_time" content="2014-09-01T07:19:48.000Z">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Meteor, the Oplog and Elastic Deployments">
+    <meta name="twitter:description" content="In the previous two posts in this series we looked at what the oplog is and how you can access it elegantly. However, to get a complete idea of what is possible with the oplog, we are going to look...">
+    <meta name="twitter:url" content="http://localhost:2368/meteor-the-oplog-and-elastic-deployment/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Meteor, the Oplog and Elastic Deployments",
+    "url": "http://localhost:2368/meteor-the-oplog-and-elastic-deployment/",
+    "datePublished": "2014-04-01T20:48:48.000Z",
+    "dateModified": "2014-09-01T07:19:48.000Z",
+    "description": "In the previous two posts in this series we looked at what the oplog is and how you can access it elegantly. However, to get a complete idea of what is possible with the oplog, we are going to look..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post container">
+  <header>
+    <h1 class="post-title">Meteor, the Oplog and Elastic Deployments</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-04-01">April 1st, 2014</time></small>
+  </header>
+
+<p>In the previous <a href="http://blog.mongohq.com/the-mongodb-oplog-and-node-js/" title="The MongoDB Oplog and Node.js">two</a> <a href="http://blog.mongohq.com/node-js-and-mongo-oplog-elegant-oplog-consumption/" title="Node.js and Mongo-Oplog: Elegant Oplog Consumption">posts</a> in this series we looked at what the oplog is and how you can access it elegantly. However, to get a complete idea of what is possible with the oplog, we are going to look at the <a href="https://www.meteor.com">Meteor</a> framework and how they’ve used the oplog to address their scaling and performance issues.</p>
+
+<p>Meteor, if you haven’t come across it, is a framework and platform for developing responsive, and collaborative applications in JavaScript. Built on Node.js and pulling together many well regarded components to create its stack, Meteor has been showing developers a compelling route to interactive web applications – a <a href="https://www.meteor.com/screencast">screencast</a> gives a quick introduction to the platform. At the heart of Meteor are algorithms to quickly and efficiently get changes from one client screen to the server and to the other clients’ screens. Applications in Meteor publish the results of queries to the clients and then continue to send updates to those clients when the results of these queries changed. Behind the scenes, a MongoDB database keeps track of these query result changes by using a “poll-and-diff” algorithm to calculate the changes in results. With a single Meteor server and MongoDB database, the response time on this is fast.</p>
+
+<h1 id="moremeteors">More Meteors</h1>
+
+<p>But there comes a point when its necessary to add another Meteor server to the equation to handle more clients. That server connects to the same MongoDB database but now it becomes more reliant on the poll frequency and on which server the change was written to the database from. The server that did write a change would see the change immediately, but the other servers could be waiting up to ten seconds to see the change as they would be polling the server. It worked, but it could be a bit confusing for users. More crucial though was that queries with large result sets could be quite expensive and that expense went up as you added Meteor servers.</p>
+
+<p>The Meteor developers looked for a new approach and found it with Mongo’s oplog. Meteor 0.7.0 saw the introduction of the OplogObserver driver which sits alongside the PollAndDiff driver. This new driver uses the stream of changes that come from tailing the oplog and updates an in-memory database in the Meteor server based on ‘<a href="https://github.com/meteor/meteor/tree/master/packages/minimongo">minimongo</a>‘, a Mongo-like system originally developed to give Meteor browser clients a database to consult.</p>
+
+<p>At first, the developers used the oplog to update only queries that tested for equivalence between the scalars types of data (strings, numbers, ObjectIDs, booleans and null). Where a query was based on one of these tests, it would be directed to the OplogObserver. In version 0.7.1, the developers added support in the OplogObserver for many of the common queries including all the $ operators in MongoDB (apart from the geolocating ones like <code>$near</code> and the JavaScript evaluating <code>$where</code>) and excluding the trickier <code>limit</code> and <code>skip</code> parameters.</p>
+
+<p>By version 0.7.2, the OplogObserver got support for “limit” queries (where they came with a non-natural “sort”) added. The iterated introduction of an oplog-assisted local data cache has allowed the Meteor developers to focus on the big performance gains to be had while leaving other cases to the older, mature polling driver. The details of which queries are and aren’t supported are in the first part of the <a href="https://github.com/meteor/meteor/wiki/Oplog-Observe-Driver">OplogObserveDriver wiki</a> page.</p>
+
+<h1 id="activatingtheoplog">Activating the oplog</h1>
+
+<p>Turning Meteor’s oplog support on is simple. In development, Meteor will configure and automatically enable the OplogObserverDriver. In production with MongoHQ you need to set an environment variable <code>MONGO_OPLOG_URL</code> to what we <a href="http://blog.mongohq.com/the-mongodb-oplog-and-node-js/" title="The MongoDB Oplog and Node.js">previously discussed</a>: the Replica Set URI, with a user and password of a user with oplog access, a database set to local, and the authSource parameter set to the name of the database to which the user belongs. So if your Replica Set URI looks like this:</p>
+
+<pre><code>mongodb://&lt;user&gt;:&lt;password&gt;@candidate.11.mongolayer.com:10240,candidate.0.mongolayer.com:10240/wiktory  
+</code></pre>
+
+<p>Then your <code>MONGO_OPLOG_URL</code> should look something like this:</p>
+
+<pre><code>mongodb://&lt;user&gt;:&lt;password&gt;@candidate.11.mongolayer.com:10240,candidate.0.mongolayer.com:10240/local?authSource=wiktory  
+</code></pre>
+
+<p>Also it is surprisingly easy to turn off the oplog support on a per-query database. Adding a parameter of <code>{ _disableOplog: true }</code> to a find ensures that particular query doesn’t use the oplog driver. This is used during development when confirmation is needed that Meteor’s oplog processing isn’t causing problems with the results. It is also possible to get some information on which queries are using the oplog using the Meteor <code>facts</code> module.</p>
+
+<h1 id="meteorandmongohq">Meteor and MongoHQ</h1>
+
+<p>With the optimization of Meteor for the oplog, MongoHQ’s new <a href="http://blog.mongohq.com/new-elastic-deployments-now-available/" title="New: Elastic Deployments Now Available!">Elastic Deployments</a> come into their own. Previously, access to the oplog would have required a configuration that cost hundreds of dollars a month. With Elastic Deployments, oplog access is available to small scale users at $18/GB/month. As a Meteor application’s use grows, Elastic Deployments scale resources up appropriately for the task at hand. This is done while maintaining oplog access, which is key to Meteor’s ability to scale while maintaining near-realtime responsiveness.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Meteor%2C%20the%20Oplog%20and%20Elastic%20Deployments&amp;url=http://localhost:2368/meteor-the-oplog-and-elastic-deployment/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/meteor-the-oplog-and-elastic-deployment/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/meteor-the-oplog-and-elastic-deployment/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

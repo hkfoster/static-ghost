@@ -1,0 +1,301 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Converting Data to Metrics - MongoDB Analytics Part 2</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/converting-data-to-metrics-mongodb-analytics-part-2/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Converting Data to Metrics - MongoDB Analytics Part 2">
+    <meta property="og:description" content="In part one of ”First Steps of an Analytics Platform with MongoDB”, we discussed how to build an efficient logging portion of an analytics system using time buckets or time dimension cubes. The next logical step is summating the data...">
+    <meta property="og:url" content="http://localhost:2368/converting-data-to-metrics-mongodb-analytics-part-2/">
+    <meta property="article:published_time" content="2013-04-05T22:53:20.000Z">
+    <meta property="article:modified_time" content="2013-05-03T03:56:48.000Z">
+    <meta property="article:tag" content="analytics">
+    <meta property="article:tag" content="mongodb">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Converting Data to Metrics - MongoDB Analytics Part 2">
+    <meta name="twitter:description" content="In part one of ”First Steps of an Analytics Platform with MongoDB”, we discussed how to build an efficient logging portion of an analytics system using time buckets or time dimension cubes. The next logical step is summating the data...">
+    <meta name="twitter:url" content="http://localhost:2368/converting-data-to-metrics-mongodb-analytics-part-2/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "jasonmongohq-com",
+        "image": "//www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&s=250",
+        "url": "http://localhost:2368/author/jasonmongohq-com",
+        "sameAs": "http://www.mongohq.com"
+    },
+    "headline": "Converting Data to Metrics - MongoDB Analytics Part 2",
+    "url": "http://localhost:2368/converting-data-to-metrics-mongodb-analytics-part-2/",
+    "datePublished": "2013-04-05T22:53:20.000Z",
+    "dateModified": "2013-05-03T03:56:48.000Z",
+    "keywords": "analytics, mongodb",
+    "description": "In part one of ”First Steps of an Analytics Platform with MongoDB”, we discussed how to build an efficient logging portion of an analytics system using time buckets or time dimension cubes. The next logical step is summating the data..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-analytics tag-mongodb blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-analytics tag-mongodb container">
+  <header>
+    <h1 class="post-title">Converting Data to Metrics - MongoDB Analytics Part 2</h1>
+    <small class="post-meta"><time class="post-date" datetime="2013-04-05">April 5th, 2013</time></small>
+  </header>
+
+<p>In part one of ”<a href="http://blog.mongohq.com/blog/2013/01/29/constructing-analytics-with-mongohq/">First Steps of an Analytics Platform with MongoDB</a>”, we discussed how to build an efficient logging portion of an analytics system using time buckets or time dimension cubes. The next logical step is summating the data from the logs into cacheable values. Toward the end, we showed a simple common example:</p>
+
+<pre><code>&lt;code data-language="javascript"&gt;db.events.aggregate(  
+  {$match: {time_bucket: "2013-01-month"}},
+  {$unwind: "$time_bucket"},
+  {$project: {time_bucket_event: {$concat: ["$time_bucket", "/", "$event"]}}},
+  {$group: {_id: "$time_bucket_event", event_count: {"$sum": 1}}}
+)
+</code></pre>
+
+<p>Let’s take a step back and look at the different options: Aggregation Framework or Map Reduce?</p>
+
+<h2 id="aggregationframeworkormapreduce">Aggregation Framework or Map Reduce?</h2>
+
+<p>Since 2.2.x release, the aggregation framework has been the de facto MongoDB number cruncher. If you are familiar with a SQL db’s <code>group by</code> functions, you will be at home with the functions. Performance wise, Aggregation Framework smokes MapReduce, <a href="http://stackoverflow.com/questions/13908438/is-mongodb-aggregation-framework-faster-that-map-reduce">like not even close</a>.</p>
+
+<p>Unless your required data manipulation functions are not present in the current versions, chose Aggregation Framework. For instance, different types of statistical analysis may be difficult with the Aggregation Framework. Averages are easy. Any type of deviation calculations will require aggregation process calls: one for averaging and the other for deviation calculations.</p>
+
+<p>In sharded MongoDB environments with aggregation framework, you will get the benefit of distributed processing at the data node level as you did with map reduces. Thus, each data node will return the summated results, and the <code>mongos</code> will concatenate and process the results returned from data nodes.</p>
+
+<h2 id="gettingstartedwithaggregationframework">Getting started with Aggregation Framework</h2>
+
+<p>Aggregation framework is a series of actions, also known as a “pipeline”. This pipeline is processed in order and each action can filter or manipulate data. For instance, if you wanted to filter data and concat a variable called <code>name</code>:</p>
+
+<pre><code>&lt;code data-language="javascript"&gt;db.my_collection.aggregate([  
+  {$match: {first_name: "Clark"}},
+  {$project: {_id: "$id", full_name: {$concat: [$first_name, " ", $last_name]}}}
+])
+</code></pre>
+
+<p>The above will return a full name for all individuals with first_name “Clark”. For a complete list of the functions with the aggregation framework, see the <a href="http://docs.mongodb.org/manual/reference/aggregation/">10gen Aggregation Framework Reference</a>.</p>
+
+<h2 id="processingandcaching">Processing and Caching</h2>
+
+<p>Repeat after me: cache aggregation queries. While running aggregation queries is fast, it is best not to run these commands for every application action. As with most activities, running this command once is fast. Running this command 1000s of times per second will deteriorate performance in the rest of the stack. Also, these analytics systems form the backbone of big data; it is small now, but it production these systems grow quickly.</p>
+
+<p>So, we will run these aggregation commands once, and cache the results. For best results on application performance, try running these actions asynchronously. Trigger the Aggregation Framework through background worker that will run and save the updated values to your aggregation collection.</p>
+
+<p>You will need to run two commands to save the output: 1) the aggregation command and 2) the upsert command. Upsert is a good use case here to update, or insert if does not exist.</p>
+
+<h2 id="measurementandsummary">Measurement and Summary</h2>
+
+<p>After storing data in a best practice way, summating and caching data is the next step for any analytics platform. There is a right way and many wrong ways, and simple algorithm changes can yield good performance gains. While you are measuring your ability to run these analytics systems, you should also measure the performance of these summation queries. Build the measurement of the queries while you are building the query – perhaps in the same background job.</p>
+
+<p>I can guarantee your summation jobs will behave differently with 50 GB of data versus 200 MB of data in a development environment. If you do not measure these summation jobs, you will wake up with performance that you have no historical record. Knowing how you got to that point is unknownable without metrics from the beginning. Furthermore, knowing what is “good” is also a shot in the dark. Measure. Measure. Measure.</p>
+
+<p>Go forth, take your data, and summate.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/jasonmongohq-com/">
+        <img src="http://www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&amp;s=250" alt="jasonmongohq-com">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/jasonmongohq-com/">jasonmongohq-com</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Converting%20Data%20to%20Metrics%20-%20MongoDB%20Analytics%20Part%202&amp;url=http://localhost:2368/converting-data-to-metrics-mongodb-analytics-part-2/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/converting-data-to-metrics-mongodb-analytics-part-2/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/converting-data-to-metrics-mongodb-analytics-part-2/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

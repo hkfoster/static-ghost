@@ -1,0 +1,330 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Experience With CircleCI</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/experience-with-circleci/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Experience With CircleCI">
+    <meta property="og:description" content="We are now using CircleCI to automatically test and deploy our NodeJS services. The business-marketing term for this is “Continuous Integration”. With simple tools like CircleCI, Heroku, and our own managed database services, continuous integration is the norm for us,...">
+    <meta property="og:url" content="http://localhost:2368/experience-with-circleci/">
+    <meta property="article:published_time" content="2013-03-08T22:31:30.000Z">
+    <meta property="article:modified_time" content="2013-05-03T03:55:22.000Z">
+    <meta property="article:tag" content="CI">
+    <meta property="article:tag" content="CircleCI">
+    <meta property="article:tag" content="Development">
+    <meta property="article:tag" content="nodejs">
+    <meta property="article:tag" content="Process">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Experience With CircleCI">
+    <meta name="twitter:description" content="We are now using CircleCI to automatically test and deploy our NodeJS services. The business-marketing term for this is “Continuous Integration”. With simple tools like CircleCI, Heroku, and our own managed database services, continuous integration is the norm for us,...">
+    <meta name="twitter:url" content="http://localhost:2368/experience-with-circleci/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "jasonmongohq-com",
+        "image": "//www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&s=250",
+        "url": "http://localhost:2368/author/jasonmongohq-com",
+        "sameAs": "http://www.mongohq.com"
+    },
+    "headline": "Experience With CircleCI",
+    "url": "http://localhost:2368/experience-with-circleci/",
+    "datePublished": "2013-03-08T22:31:30.000Z",
+    "dateModified": "2013-05-03T03:55:22.000Z",
+    "keywords": "CI, CircleCI, Development, nodejs, Process",
+    "description": "We are now using CircleCI to automatically test and deploy our NodeJS services. The business-marketing term for this is “Continuous Integration”. With simple tools like CircleCI, Heroku, and our own managed database services, continuous integration is the norm for us,..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-ci tag-circleci tag-development tag-nodejs tag-process blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-ci tag-circleci tag-development tag-nodejs tag-process container">
+  <header>
+    <h1 class="post-title">Experience With CircleCI</h1>
+    <small class="post-meta"><time class="post-date" datetime="2013-03-08">March 8th, 2013</time></small>
+  </header>
+
+<p>We are now using <a href="http://circleci.com/">CircleCI</a> to automatically test and deploy our NodeJS services. The business-marketing term for this is “Continuous Integration”. With simple tools like CircleCI, Heroku, and our own managed database services, continuous integration is the norm for us, not the exception. The lynchpin of the process is CircleCi, and it is simple to set up, but there are a few tricks to be aware of.</p>
+
+<h2 id="whatwehad">What we had</h2>
+
+<p>Before CircleCI, we used a self-hosted Jenkins instance. Jenkins works well. Organizing jenkins to deploy were running two independent projects: one for testing code, and one for packaging and publishing the resulting asset.</p>
+
+<p>This system only built assets for the master branch. All commands for testing, packaging, publishing were stored directly in Jenkins instead of being under version control.</p>
+
+<p>Our setup was ok, but life can be easier. But, we found the time spent nursing our Jenkins environment to be painful.</p>
+
+<h2 id="goals">Goals</h2>
+
+<ul>
+<li>Testing, packaging, publishing steps <em>should</em> be stored in code</li>
+<li>Sensitive credentials should <em>not</em> be stored in code</li>
+<li>Ci should simply call test, package, publish steps</li>
+<li>Ci should publish assets for master, stage, and dev branches</li>
+</ul>
+
+<h2 id="testingpackagingandpublishingsteps">Testing, packaging, and publishing steps</h2>
+
+<p>Being fans of <strong>#badassrockstartech</strong>, we are using <a href="http://gruntjs.com/">Grunt</a>, which is a modular Make system. We use Grunt to run our testing, packaging, and publishing steps.</p>
+
+<p>Powered by npm, we can utilize 3rd-party code to accomplish common tasks (e.g. transpiling coffeescript into javascript) and can define our own tasks (e.g. packaging and publishing to s3).</p>
+
+<p>By moving the logic of testing, packaging, and publishing out of Jenkins and into Grunt, configuring CircleCI becomes very simple and intuitive.</p>
+
+<h2 id="dontcommitcredentials">Don’t commit credentials</h2>
+
+<p>We moved our commands to publish to S3 into Grunt, but did not want to commmit our credentials. This is one thing we want to remain hard-coded in our CI settings separate from our code.</p>
+
+<p>To accomplish this, I decided a simple <code>export AWS_SECRET_KEY=1234</code> as a command hard-coded into CircleCI’s web interface would do the trick, but due to the <a href="https://circleci.com/docs/environment-variables">way CircleCI executes your commands</a> you cannot alter the environmental variables in this way.</p>
+
+<p>I reached out to Circle for help, and David Lowe at Circle responded within a few hours with a solution.</p>
+
+<blockquote>
+  <p>We should be adding a secure credential storage mechanism soon, but for now, you will need to work around it.</p>
+  
+  <p>You’ve got the right idea, but unfortunately, ‘export AWS<em>SECRET</em>KEY’ won’t quite work because each command runs in a separate shell. Instead, if you want to do this from the UI, you need to do something like:</p>
+  
+  <p><code>echo 'export AWS_SECRET_KEY=1234' &gt;&gt; ~/.circlerc</code></p>
+  
+  <p>The .circlerc file is sourced before each test and deploy command.</p>
+</blockquote>
+
+<p>This works perfectly for our process. We hard-code our sensitive data bits into the pre-dependency section of the web UI.</p>
+
+<h2 id="simplycalltestpackageandpublishsteps">Simply call test, package, and publish steps</h2>
+
+<p>Now that our tasks are defined and our build server configured with credentials, the only thing left is to do all the CI work.</p>
+
+<p>The web UI is an easy way to specify commands to run, but you get more options and flexibility in defining a circle.yml file to tell CircleCI what to do.</p>
+
+<p>This is our circle.yml file.</p>
+
+<pre><code>&lt;code data-language="javascript"&gt;## Tests  
+test:  
+  override:
+    - grunt test
+
+## Deployment options
+deployment:  
+  default:
+    branch: [master, stage, dev]
+    commands:
+      - grunt clean coffee package publish:"$CIRCLE_BRANCH"
+</code></pre>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Being a service company ourselves, we value offloading tasks to others so we can focus more on what we’re good at. CircleCI integrates seamlessly with GitHub, allows us to customize what we need, and gives us a very pretty an intuitive UI with very little effort.</p>
+
+<p>I’m happy to hear they just <a href="http://blog.circleci.com/so-we-raised-a-bunch-of-money/">raised a bunch of money</a>, and I’m excited to see how they continue to make the world of continuous integration easier.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/jasonmongohq-com/">
+        <img src="http://www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&amp;s=250" alt="jasonmongohq-com">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/jasonmongohq-com/">jasonmongohq-com</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Experience%20With%20CircleCI&amp;url=http://localhost:2368/experience-with-circleci/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/experience-with-circleci/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/experience-with-circleci/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

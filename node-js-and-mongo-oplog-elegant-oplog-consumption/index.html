@@ -1,0 +1,304 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Node.js and Mongo-Oplog: Elegant Oplog Consumption</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/node-js-and-mongo-oplog-elegant-oplog-consumption/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Node.js and Mongo-Oplog: Elegant Oplog Consumption">
+    <meta property="og:description" content="In the first part of this series, we showed you what was in the oplog and some raw code that you could use to access it. That raw code was not the prettiest of things though, and starting in this...">
+    <meta property="og:url" content="http://localhost:2368/node-js-and-mongo-oplog-elegant-oplog-consumption/">
+    <meta property="article:published_time" content="2014-03-27T17:52:20.000Z">
+    <meta property="article:modified_time" content="2014-09-02T08:56:37.000Z">
+    <meta property="article:tag" content="javascript">
+    <meta property="article:tag" content="node.js">
+    <meta property="article:tag" content="oplog">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Node.js and Mongo-Oplog: Elegant Oplog Consumption">
+    <meta name="twitter:description" content="In the first part of this series, we showed you what was in the oplog and some raw code that you could use to access it. That raw code was not the prettiest of things though, and starting in this...">
+    <meta name="twitter:url" content="http://localhost:2368/node-js-and-mongo-oplog-elegant-oplog-consumption/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Node.js and Mongo-Oplog: Elegant Oplog Consumption",
+    "url": "http://localhost:2368/node-js-and-mongo-oplog-elegant-oplog-consumption/",
+    "datePublished": "2014-03-27T17:52:20.000Z",
+    "dateModified": "2014-09-02T08:56:37.000Z",
+    "keywords": "javascript, node.js, oplog",
+    "description": "In the first part of this series, we showed you what was in the oplog and some raw code that you could use to access it. That raw code was not the prettiest of things though, and starting in this..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-javascript tag-node-js tag-oplog blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-javascript tag-node-js tag-oplog container">
+  <header>
+    <h1 class="post-title">Node.js and Mongo-Oplog: Elegant Oplog Consumption</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-03-27">March 27th, 2014</time></small>
+  </header>
+
+<p>In the first part of this series, we showed you what was in the oplog and some raw code that you could use to access it. That raw code was not the prettiest of things though, and starting in this post we’ll look at the Mongo-Oplog library for Node.js and how you can put it to work for your application. We’ll also look at the limitations of using the oplog.</p>
+
+<p>A quick look on npmjs.org shows quite a few packages for reading the oplog, so we’ve selected some of the more useful ones. The first library we’ll look at is the elegant <a href="https://www.npmjs.org/package/mongo-oplog">Mongo-Oplog</a> for Node.js. The simplest oplog watcher using this library looks like this:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;var MongoOplog = require('mongo-oplog');  
+var oplog = MongoOplog(process.env.MONGOHQ_URL, 'wiktory.userinfo').tail();
+
+oplog.on('op', function (data) {  
+  console.log(data);
+});
+</code></pre>
+
+<p>After requiring the library, the program creates a new Mongo-oplog instance. Here it’s using the the environment variable <code>MONGOHQ_URL</code> which is composed as we described in the <a href="http://blog.mongohq.com/the-mongodb-oplog-and-node-js/">first post</a> in this short series, of the Replica Set URI with an “authSource” set to the database. The next parameter is a filter which sets the namespaces operations for which we are interested. This parameter can also include wildcards if we are interested in events from a number of similarly named collections. That is followed by a command to start tailing the newly created oplog monitor. For clarity, that one line can also be expressed as:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;var oplog = MongoOplog(process.env.MONGOHQ_URL);  
+oplog.filter("wiktory.userinfo");  
+oplog.tail();  
+</code></pre>
+
+<p>Now, the next part sets up a callback whenever there’s an operation, “op”, in the oplog stream. That callback is passed the document we covered in the previous part, complete with timestamp, unique id, operation type, and other details of the changes. It’s similar, but a lot shorter than the example code in the previous article.</p>
+
+<p>The plus side with Mongo-Oplog is that it actually generates a range of events for the oplog contents. Primarily, there’s “insert”, “update”, and “delete” which fire when the op field is “i”, “u” or “d”. There’s also “end” and “error” events for, respectively, when the cursor stream ends or there is an error.</p>
+
+<p>Say we had a name and address collection and we want to trigger a process when customers from Alaska are added or a customer’s records are updated to place them in Alaska. In a case like this, we could do something like:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;oplog.on('insert', function (doc) {  
+  if(doc.o.state=="Alaska") {
+    console.log("New Alaska customer");
+    console.log(doc);
+  }
+});
+
+oplog.on('update', function (doc) {  
+  if(doc.o.$set.state=="Alaska") {
+    console.log("Customer moved to Alaska");
+    console.log(doc);
+  }
+});
+</code></pre>
+
+<p>This seems a good point to note the limitations of oplog tailing. For example, say the requirement was to trigger an event when someone’s state was changed from “Alaska” to something else. Because you can only see what has been written in the oplog document you can’t see what the preceding state of the now-updated record was, unless the update operation also saved the previous address in the document. A rule of thumb with the oplog is, don’t assume you’ll have any copy of the previous state to work with when you are filtering through the oplog’s entries. This applies doubly so to deletions where you only get the “_id” of the deleted document.</p>
+
+<p>Another useful rule of thumb is to avoid going back to the server when analyzing whether you should trigger an event. A single query back to the server for every oplog operation means every update or insert could generate one or more queries because of the way MongoDB decomposes updates that modify multiple documents into multiple oplog operations. Bear that in mind when considering whether oplog tailing is appropriate for your task.</p>
+
+<p>Back to Mongo-Oplog’s stream events. All operations generate an “op” event. Make sure you aren’t duplicating effort if you have an “op” event handler and an “Insert/Delete/Update” handler as any of these three will trigger both event handlers.</p>
+
+<p>A good application should be able to handle the unexpected and for Mongo-Oplog, there are three unexpected events: “error” for errors coming from the underlying cursor or the database itself, “end” for the oplog stream coming to an end, and “stop” for the server itself stopping. The application can call the stop method of the oplog watcher to stop tailing and disconnect from the server gracefully while leaving the option open to re-establish the connection.</p>
+
+<p>And that’s a tour of Mongo-Oplog – a simple, clean, JavaScript-based library for handling oplogs. In forthcoming posts in this series, we’ll look at how the Meteor framework uses the oplog as part of its scaling proposition and follow that up with a review of other oplog libraries, for Node.js and other languages, as well as other oplog consuming tools.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Node.js%20and%20Mongo-Oplog%3A%20Elegant%20Oplog%20Consumption&amp;url=http://localhost:2368/node-js-and-mongo-oplog-elegant-oplog-consumption/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/node-js-and-mongo-oplog-elegant-oplog-consumption/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/node-js-and-mongo-oplog-elegant-oplog-consumption/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

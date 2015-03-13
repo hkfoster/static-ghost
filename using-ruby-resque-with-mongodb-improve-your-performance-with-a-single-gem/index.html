@@ -1,0 +1,362 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Using Ruby &amp; Resque With MongoDB? Improve Your Performance With a Single Gem.</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/using-ruby-resque-with-mongodb-improve-your-performance-with-a-single-gem/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Using Ruby &amp; Resque With MongoDB? Improve Your Performance With a Single Gem.">
+    <meta property="og:description" content="Who should win: your web visitors or your background workers? Hopefully, you will not have to answer this question … or if you are planning for exponential growth, hopefully you will. We have seen a pattern recently with MongoDB, Ruby, and...">
+    <meta property="og:url" content="http://localhost:2368/using-ruby-resque-with-mongodb-improve-your-performance-with-a-single-gem/">
+    <meta property="article:published_time" content="2013-02-13T22:23:23.000Z">
+    <meta property="article:modified_time" content="2013-05-07T21:48:38.000Z">
+    <meta property="article:tag" content="10gen">
+    <meta property="article:tag" content="driver">
+    <meta property="article:tag" content="hosted mongodb">
+    <meta property="article:tag" content="mongo hosting">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="mongodb hosting">
+    <meta property="article:tag" content="mongohq">
+    <meta property="article:tag" content="optimization">
+    <meta property="article:tag" content="performance">
+    <meta property="article:tag" content="resque">
+    <meta property="article:tag" content="ruby">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Using Ruby &amp; Resque With MongoDB? Improve Your Performance With a Single Gem.">
+    <meta name="twitter:description" content="Who should win: your web visitors or your background workers? Hopefully, you will not have to answer this question … or if you are planning for exponential growth, hopefully you will. We have seen a pattern recently with MongoDB, Ruby, and...">
+    <meta name="twitter:url" content="http://localhost:2368/using-ruby-resque-with-mongodb-improve-your-performance-with-a-single-gem/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "chris",
+        "image": "//www.gravatar.com/avatar/862ad981103f3b95d88e265d980ca2c5?d=404&s=250",
+        "url": "http://localhost:2368/author/chris",
+        "sameAs": ""
+    },
+    "headline": "Using Ruby &amp; Resque With MongoDB? Improve Your Performance With a Single Gem.",
+    "url": "http://localhost:2368/using-ruby-resque-with-mongodb-improve-your-performance-with-a-single-gem/",
+    "datePublished": "2013-02-13T22:23:23.000Z",
+    "dateModified": "2013-05-07T21:48:38.000Z",
+    "keywords": "10gen, driver, hosted mongodb, mongo hosting, mongodb, mongodb hosting, mongohq, optimization, performance, resque, ruby",
+    "description": "Who should win: your web visitors or your background workers? Hopefully, you will not have to answer this question … or if you are planning for exponential growth, hopefully you will. We have seen a pattern recently with MongoDB, Ruby, and..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-10gen tag-driver tag-hosted-mongodb tag-mongo-hosting tag-mongodb tag-mongodb-hosting tag-mongohq tag-optimization tag-performance tag-resque tag-ruby blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-10gen tag-driver tag-hosted-mongodb tag-mongo-hosting tag-mongodb tag-mongodb-hosting tag-mongohq tag-optimization tag-performance tag-resque tag-ruby container">
+  <header>
+    <h1 class="post-title">Using Ruby &amp; Resque With MongoDB? Improve Your Performance With a Single Gem.</h1>
+    <small class="post-meta"><time class="post-date" datetime="2013-02-13">February 13th, 2013</time></small>
+  </header>
+
+<p>Who should win: your web visitors or your background workers? Hopefully, you will not have to answer this question … or if you are planning for exponential growth, hopefully you will.</p>
+
+<p>We have seen a pattern recently with MongoDB, Ruby, and Resque (the background processor). Resque behavior combined with the Ruby driver behavior prevents background worker performance from scaling linearly. When Resque forks, the Ruby driver creates a new connection to the database. This translates into one new connection per processed job. If you are running 1000s of jobs / second, it will cause MongoDB to run less than optimal.</p>
+
+<p>The quickest solution is the ‘resque-jobs-per-fork’ gem. As the name implies, Resque will run multiple jobs per fork. Instead of a 1-to-1 job to connection pattern, you will have 500-to-1 or 1000-to-1 job to connection pattern.</p>
+
+<h2 id="thecause">The Cause</h2>
+
+<p>As simple as it sounds, your connection pattern to your MongoDB affects your customer’s experience with your product. Good connection patterns consist of long running, persistent connections. When looking at the logs, you should only see a “connection accepted from” every 10 – 15 seconds, even on large scale deployments. Most of the time, poor connection patterns exist from the beginning of an application’s development, but they only become evident due to performance issues. These performance issues arise as databases grow in size and the application grows in usage.</p>
+
+<p>With MongoDB, poor connection behavior of an application is exposed due to the following constraints: 1) per connection memory overhead and 2) read lock causing slow authentication.</p>
+
+<h2 id="perconnectmemoryoverhead">Per Connect Memory Overhead</h2>
+
+<p>As of the 2.0 branch, each connection in MongoDB, allocates 1MB of RAM. Before 2.0, it was dependent on system ‘stack size’ settings. The following code in MongoDB shows the per connection memory usage algorithm:</p>
+
+<pre><code>&lt;code data-language="ruby"&gt;static const size_t STACK_SIZE = 1024*1024; // if we change this we need  
+to update the warning
+
+struct rlimit limits;  
+verify(getrlimit(RLIMIT_STACK, &amp;limits) == 0);  
+if (limits.rlim_cur &gt; STACK_SIZE) {  
+  pthread_attr_setstacksize(&amp;attrs, (DEBUG_BUILD
+    ? (STACK_SIZE / 2)
+    : STACK_SIZE));
+} else if (limits.rlim_cur &lt; 1024*1024) {
+  warning() &lt;&lt; "Stack size set to " &lt;&lt; (limits.rlim_cur/1024) &lt;&lt; "KB. We
+suggest 1MB" &lt;&lt; endl;  
+}
+</code></pre>
+
+<p><a href="https://github.com/mongodb/mongo/blob/master/src/mongo/util/net/message_server_port.cpp#L78">mongo/util/net/message<em>server</em>port.cpp#L78</a></p>
+
+<p>As with most everything in life, one of anything is practically nothing (think cars in traffic). 1 MB is a rounding error of modern RAM sizes. However, a modern large scale application consists of many components with many requests. These 1000s of operations per second could turn into major RAM usage if implemented incorrectly.</p>
+
+<p>Given MongoDBs reliance on good RAM usage, deficient RAM usage can quickly ruin performance.</p>
+
+<h2 id="writelockslowauthentication">Write Lock &amp; Slow Authentication</h2>
+
+<p>When using authentication, each connection and authentication action is a database query. If a database is under heavy write load, the authentication will be as slow as the rest of your queries. Thus, rapidly connecting to a database in a high-write environment authentication will have to navigate other locks for your database.</p>
+
+<p>As with Memory Overhead, these deficiencies are not typically noticed until the application grows in data and usage.</p>
+
+<h2 id="resquesforkingcoderubydriversreconnect">Resque’s Forking Code &amp; Ruby Driver’s Reconnect</h2>
+
+<p>Resque uses process forking to spawn new workers for each job <a href="https://github.com/resque/resque/blob/master/lib/resque/worker.rb#L137">resque/blob/master/lib/resque/worker.rb#L137</a>.</p>
+
+<pre><code>&lt;code data-language="ruby"&gt;if Kernel.respond_to?(:fork)  
+  Kernel.fork &amp;block if will_fork?
+else  
+</code></pre>
+
+<p>Ruby driver reconnects <a href="https://github.com/mongodb/mongo-ruby-driver/blob/master/lib/mongo/util/pool.rb#L240">mongo-ruby-driver/blob/master/lib/mongo/util/pool.rb#L240</a>.</p>
+
+<pre><code>&lt;code data-language="ruby"&gt;if socket.pid != Process.pid  
+  @sockets.delete(socket)
+  if socket
+    socket.close unless socket.closed?
+  end
+  checkout_new_socket
+else  
+</code></pre>
+
+<p>The Ruby Mongo Driver does this because managing connections between parent and child processes in Ruby is a beast. The fool-proof method is to re-initialize connections on each fork.</p>
+
+<h2 id="resquerubytheeffect">Resque &amp; Ruby : The Effect</h2>
+
+<pre><code>&lt;code data-language="ruby"&gt;require 'rubygems'  
+require 'mongo'
+
+@conn = Mongo::Connection.new("localhost", 27017, :pool_size =&gt; 10,
+:pool_timeout =&gt; 5)
+@db   = @conn['resque_connection_test']
+@coll = @db['users']
+
+puts @db.command({getLastError: 1})
+
+1.upto(10) do  
+  client = fork do
+    puts @db.command({getLastError: 1})
+  end
+
+  Process.wait(client)
+end  
+</code></pre>
+
+<p>The code above mimics the effects of a standard Resque worker. Each “puts” prints a different “connectionId”, thus each fork establishes a new MongoDB connection. If you are watching the MongoDB logs, you will see 11 lines containing “connection accepted from.”</p>
+
+<h2 id="debugginginmongohq">Debugging In MongoHQ</h2>
+
+<p>Mongostat hides most performance issues due to poor connection patterns. With the example above, mongostat would show the same number of connections as your have Resque workers. By looking at the logs, you will see a new line containing “connection accepted from” for each time that Ruby forks the process.</p>
+
+<p>Debugging decreased performance due to connectivity issues requires access to the Mongo logs. If you see more than a few connection attempts every few seconds, please consider a method to use longer persistent connections. You will achieve better resource usage, and better product delivery for your clients.</p>
+
+<p>MongoHQ shared plans have access to real time logs from the Mongo server. Using these real time logs, you can see your connection patterns. For assistance, please E-mail support@mongohq.com.</p>
+
+<ul>
+<li><em>Resque &amp; Ruby are not the only offenders with poor connection patterns. The stock Node.js driver tests for Replica Set status every second for each process – issuing reconnections. PHP and Apache is evil when not configured properly – the continuous building up and tearing down of workers triggers new connections.</em></li>
+</ul>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/chris/">
+        <img src="http://www.gravatar.com/avatar/862ad981103f3b95d88e265d980ca2c5?d=404&amp;s=250" alt="chris">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/chris/">chris</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Using%20Ruby%20%26%20Resque%20With%20MongoDB%3F%20Improve%20Your%20Performance%20With%20a%20Single%20Gem.&amp;url=http://localhost:2368/using-ruby-resque-with-mongodb-improve-your-performance-with-a-single-gem/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/using-ruby-resque-with-mongodb-improve-your-performance-with-a-single-gem/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/using-ruby-resque-with-mongodb-improve-your-performance-with-a-single-gem/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

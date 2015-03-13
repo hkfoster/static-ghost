@@ -1,0 +1,397 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Aggregation in MongoDB 2.6: Things Worth Knowing</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/aggregation-in-mongodb-2-6-things-worth-knowing/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Aggregation in MongoDB 2.6: Things Worth Knowing">
+    <meta property="og:description" content="TL;DR The powerful aggregation framework in MongoDB is even more powerful in MongoDB 2.6 The MongoDB 2.6 release improved aggregation framework (one of MongoDB’s best features) considerably. We often hear from customers who are unaware of...">
+    <meta property="og:url" content="http://localhost:2368/aggregation-in-mongodb-2-6-things-worth-knowing/">
+    <meta property="article:published_time" content="2014-05-15T10:12:42.000Z">
+    <meta property="article:modified_time" content="2014-09-02T09:30:55.000Z">
+    <meta property="article:tag" content="bulk">
+    <meta property="article:tag" content="example">
+    <meta property="article:tag" content="mongodb 2.6">
+    <meta property="article:tag" content="mongodb aggregation">
+    <meta property="article:tag" content="node.js">
+    <meta property="article:tag" content="performance">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Aggregation in MongoDB 2.6: Things Worth Knowing">
+    <meta name="twitter:description" content="TL;DR The powerful aggregation framework in MongoDB is even more powerful in MongoDB 2.6 The MongoDB 2.6 release improved aggregation framework (one of MongoDB’s best features) considerably. We often hear from customers who are unaware of...">
+    <meta name="twitter:url" content="http://localhost:2368/aggregation-in-mongodb-2-6-things-worth-knowing/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Aggregation in MongoDB 2.6: Things Worth Knowing",
+    "url": "http://localhost:2368/aggregation-in-mongodb-2-6-things-worth-knowing/",
+    "datePublished": "2014-05-15T10:12:42.000Z",
+    "dateModified": "2014-09-02T09:30:55.000Z",
+    "keywords": "bulk, example, mongodb 2.6, mongodb aggregation, node.js, performance",
+    "description": "TL;DR The powerful aggregation framework in MongoDB is even more powerful in MongoDB 2.6 The MongoDB 2.6 release improved aggregation framework (one of MongoDB’s best features) considerably. We often hear from customers who are unaware of..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-bulk tag-example tag-mongodb-2-6 tag-mongodb-aggregation tag-node-js tag-performance blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-bulk tag-example tag-mongodb-2-6 tag-mongodb-aggregation tag-node-js tag-performance container">
+  <header>
+    <h1 class="post-title">Aggregation in MongoDB 2.6: Things Worth Knowing</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-05-15">May 15th, 2014</time></small>
+  </header>
+
+<p><strong><em>TL;DR The powerful aggregation framework in MongoDB is even more powerful in MongoDB 2.6</em></strong></p>
+
+<p>The MongoDB 2.6 release improved aggregation framework (one of MongoDB’s best features) considerably. We often hear from customers who are unaware of the aggregation framework, or unsure exactly why they should be using it. We frequently find them wrestling with unnecessarily complex and slow methods of solving problems that the aggregation framework is purpose built to solve. With this in mind, we’ll take a moment to introduce aggregation before diving into the 2.6 changes. If you already understand the framework, feel free skip ahead; otherwise read on…</p>
+
+<h1 id="introducingaggregation">Introducing aggregation</h1>
+
+<p>The aggregation framework in MongoDB has become the go-to tool for a range of problems which would traditionally have been solved with the map-reduce engine. Introduced back in MongoDB 2.2, the framework distills collections down to essential information by using a multi-stage pipeline of filters, groupers, sorters, transformations and other operators. The distilled set of results is produced far more efficiently than other techniques. The set of operations is fixed, though, and does have the flexibility of map-reduce scripts. Before investing development time in map-reduce, it is best to check whether you can achieve the same results with the aggregation framework.</p>
+
+<h1 id="stepbystep">Step by step</h1>
+
+<p>We prefer to show rather than tell, so lets look at a worked example. Consider we have a simple collection of documents – first name, last name and zip code…</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;{  
+    _id: ObjectId,
+    userid: 1,
+    firstName: "first",
+    lastName: "last",
+    zip: "12345"
+}
+</code></pre>
+
+<p>If you don’t have a collection like that try this Node.js program which will make you a million documents:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;var MongoClient = require('mongodb');  
+var Faker = require('Faker');  
+var MongoHQURL = "&lt;Your MongoHQ URL&gt;";
+
+MongoClient.connect(MongoHQURL, function(err, db) {  
+    if (err) throw err;
+    db.collection('zips', function(err, collection) {
+        collection.remove(function(err) {
+            var bulkop = collection.initializeOrderedBulkOp();
+            for (var i = 0; i &lt; 1000000; i++) {
+                bulkop.insert({
+                    userid: i,
+                    firstName: Faker.Name.firstName(),
+                    lastName: Faker.Name.lastName(),
+                    zip: Faker.Address.zipCode()
+                });
+            };
+            bulkop.execute(function(err, results) {
+                console.log(JSON.stringify(results));
+                process.exit();
+            });
+        });
+    });
+});
+</code></pre>
+
+<p>(The program uses the <a href="https://github.com/marak/Faker.js/">Faker.js</a> library to mock up records. Install it with <code>npm -g install Faker</code> … and the uppercase F in Faker is important). After running that you will have some data to work with.</p>
+
+<p>What we want to know is how many of those records belong to the same zip code. We start the process by calling <code>aggregate</code> on our collection and then pass it an array that represents the pipeline…</p>
+
+<pre><code>db.zips.aggregate( [  
+</code></pre>
+
+<p>Now we want to use the aggregate’s <code>$group</code> operator as the first element of the pipeline. This is the core operators of the aggregation framework as it groups documents so that the aggregate values can be calculated.</p>
+
+<pre><code>    {  $group: {
+</code></pre>
+
+<p>For our needs, we want to group on the zip code so we want to create new documents with an <code>_id</code> field mapped to the zip field.</p>
+
+<pre><code>        _id: "$zip",
+</code></pre>
+
+<p>Now we want a count of how many times each zip code appears which we want to put in a field called <code>usersInZip</code>. There’s a whole set of group accumulators – <code>$max</code>, <code>$min</code>, <code>$avg</code>, <code>$first</code>, <code>$last</code>, <code>$addToSet</code>, <code>$push</code> and the one we’re interested in, <code>$sum</code> which, for each document matched, adds a value to the field. This value can be derived from the document so you can create totals or it can be an absolute value like 1, which effectively counts the number of documents…</p>
+
+<pre><code>        usersInZip: { $sum: 1 }
+    } } 
+] );
+</code></pre>
+
+<p>If we put that together and call it from Mongo shell we quickly get the first selection of aggregated values.</p>
+
+<pre><code>&gt; db.zips.aggregate( [ { $group: { _id: "$zip", usersInZip: { $sum: 1 } } } ] );
+{ "_id" : "36305-8896", "usersInZip" : 1 }
+{ "_id" : "47786-1882", "usersInZip" : 1 }
+{ "_id" : "37395-6928", "usersInZip" : 1 }
+{ "_id" : "63261-8198", "usersInZip" : 1 }
+{ "_id" : "22501-2147", "usersInZip" : 1 }
+{ "_id" : "55996-0238", "usersInZip" : 1 }
+...
+</code></pre>
+
+<p>But we’re only really interested in places where more than 10 people cite the same zip code. For this, we use the <code>$match</code> operator which can take as its parameters MongoDB query syntax. For our needs, we just want usersInZip to be over ten…</p>
+
+<pre><code>  { $match: { usersInZip: { $gt: 10 } } }
+</code></pre>
+
+<p>We add this as the next element in the pipeline array and we put that into the shell…</p>
+
+<pre><code>&gt; db.zips.aggregate( [ 
+... { $group: { _id: "$zip", usersInZip: { $sum: 1 } } }, 
+... { $match: { usersInZip: { $gt: 10 } } } 
+... ] );
+{ "_id" : "53082", "usersInZip" : 11 }
+{ "_id" : "49904", "usersInZip" : 12 }
+{ "_id" : "24846", "usersInZip" : 11 }
+{ "_id" : "49848", "usersInZip" : 11 }
+{ "_id" : "74083", "usersInZip" : 11 }
+...
+</code></pre>
+
+<p>But ideally we’d like these in descending order so we can add another element, <code>$sort</code>, to the pipeline array…</p>
+
+<pre><code>&gt;db.zips.aggregate( [ 
+... { $group: { _id: "$zip", usersInZip: { $sum: 1 } } }, 
+... { $match: { usersInZip: { $gt: 10 } } }, 
+... { $sort: { usersInZip: -1 } } 
+... ] );
+{ "_id" : "31057", "usersInZip" : 17 }
+{ "_id" : "70191", "usersInZip" : 17 }
+{ "_id" : "91939", "usersInZip" : 16 }
+{ "_id" : "16431", "usersInZip" : 16 }
+...
+</code></pre>
+
+<p>Other operators that can be added to the pipeline include <code>$project</code> which allows fields to be added, renamed, computed from values or removed as they pass through the pipeline, <code>$skip</code> to hop over a number of pipelined documents and <code>$limit</code> to limit the pipeline. More advanced operations include <code>$unwind</code> to expand arrays into the pipeline and <code>$geoNear</code> for filling the pipeline with documents based on geographical proximity to a location. It’s a powerful tool which is easy to access.</p>
+
+<h1 id="26powersupthepipeline">2.6 powers up the pipeline</h1>
+
+<p>In MongoDB 2.6, the first major change is almost invisible; the aggregate method now returns cursors rather than an array of documents, which means it can return any number of results.</p>
+
+<p><code>$out</code> and <code>$redact</code> are two new types of stage added in 2.6’s aggregation pipeline. <a href="http://docs.mongodb.org/manual/reference/operator/aggregation/out/"><code>$out</code></a> allows the results of an aggregation pipeline to be written to a new collection. It has to be the last stage in the pipeline and takes a collection name as a parameter. If there’s no collection of that name, the collection will be created. If there is an existing collection, the new results will completely replace it. The new collection only becomes available when the aggregation has successfully completed and the results don’t violate any index constraints, including the <code>_id</code> field. This also means there’s no need to worry about the new collection having an incomplete result set.</p>
+
+<p><a href="http://docs.mongodb.org/manual/reference/operator/aggregation/redact/"><code>$redact</code></a> strips the document stream of content based on values within the document and its sub-documents. Depending on the result of a boolean expression, a document can be pruned from the stream, be included in the stream after its sub-documents have also been checked, or just passed complete into the stream. The idea behind <code>$redact</code> is to make the removal of sensitive information from the stream easy.</p>
+
+<p>Many of the other changes made have been in enhancing the operators for the stages. For example, there are now <a href="http://docs.mongodb.org/manual/reference/operator/aggregation-set/">set operators</a> for equality, creating sets from two sets by intersection, difference or union, testing whether a set is a subset of another and if any or all of a set’s elements evaluate to true.</p>
+
+<h1 id="variablesandexplaining">Variables and Explaining</h1>
+
+<p><a href="http://docs.mongodb.org/manual/reference/aggregation-variables/">Variables</a> are now supported in aggregation pipelines and can be assigned values using <code>$let</code> or take a value from one of the system variables available. There’s also a <code>$map</code> operator which can apply a function to all the elements of an array or set. There’s also a fix to stop things that include a “$” being evaluated as an expression (<code>$literal</code>) and a way to get the size of arrays (<code>$size</code>).</p>
+
+<p>Keeping the best till last, you can now get an aggregation explained by passing the option “explain: true” to the <code>aggregate()</code> call which then <a href="http://docs.mongodb.org/manual/reference/method/db.collection.aggregate/#example-aggregate-method-explain-option">returns information</a>. This addition stops aggregation being a black box and opens the door to pipeline analysis for better performance.</p>
+
+<h1 id="conclusionandresources">Conclusion and resources</h1>
+
+<p>If you aren’t using (or haven’t looked at) aggregation in MongoDB, hopefully we’ve whetted your appetite and set you on a path to exploit the framework’s potential. You’ll find MongoDB’s documentation has a <a href="http://docs.mongodb.org/manual/core/aggregation-introduction/">section</a> which introduces the features and a <a href="http://docs.mongodb.org/manual/meta/aggregation-quick-reference/">quick reference</a> page for the pipeline stages and operators. If you are coming from an SQL background, check out the <a href="http://docs.mongodb.org/manual/reference/sql-aggregation-comparison/">SQL to aggregation chart</a> too.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Aggregation%20in%20MongoDB%202.6%3A%20Things%20Worth%20Knowing&amp;url=http://localhost:2368/aggregation-in-mongodb-2-6-things-worth-knowing/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/aggregation-in-mongodb-2-6-things-worth-knowing/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/aggregation-in-mongodb-2-6-things-worth-knowing/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

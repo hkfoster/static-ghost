@@ -1,0 +1,275 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Are you still playing in the MongoHQ Sandbox?</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/are-you-still-playing-in-the-mongohq-sandbox/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Are you still playing in the MongoHQ Sandbox?">
+    <meta property="og:description" content="As many of you know, MongoHQ runs free MongoDB sandboxes, mainly for experimenting and getting to know hosted MongoDB. We want you to understand what the sandboxes are designed for, what their limitations are and why you may want to...">
+    <meta property="og:url" content="http://localhost:2368/are-you-still-playing-in-the-mongohq-sandbox/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/mongohqrocketwallpaper_kjxbr3_chpkma.png">
+    <meta property="article:published_time" content="2014-07-29T10:34:22.000Z">
+    <meta property="article:modified_time" content="2014-09-02T08:59:27.000Z">
+    <meta property="article:tag" content="elastic deployments">
+    <meta property="article:tag" content="mongohq">
+    <meta property="article:tag" content="sandbox">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Are you still playing in the MongoHQ Sandbox?">
+    <meta name="twitter:description" content="As many of you know, MongoHQ runs free MongoDB sandboxes, mainly for experimenting and getting to know hosted MongoDB. We want you to understand what the sandboxes are designed for, what their limitations are and why you may want to...">
+    <meta name="twitter:url" content="http://localhost:2368/are-you-still-playing-in-the-mongohq-sandbox/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/mongohqrocketwallpaper_kjxbr3_chpkma.png">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Are you still playing in the MongoHQ Sandbox?",
+    "url": "http://localhost:2368/are-you-still-playing-in-the-mongohq-sandbox/",
+    "datePublished": "2014-07-29T10:34:22.000Z",
+    "dateModified": "2014-09-02T08:59:27.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/mongohqrocketwallpaper_kjxbr3_chpkma.png",
+    "keywords": "elastic deployments, mongohq, sandbox",
+    "description": "As many of you know, MongoHQ runs free MongoDB sandboxes, mainly for experimenting and getting to know hosted MongoDB. We want you to understand what the sandboxes are designed for, what their limitations are and why you may want to..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-elastic-deployments tag-mongohq tag-sandbox blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-elastic-deployments tag-mongohq tag-sandbox container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/mongohqrocketwallpaper_kjxbr3_chpkma.png)">
+    <h1 class="post-title">Are you still playing in the MongoHQ Sandbox?</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-07-29">July 29th, 2014</time></small>
+  </header>
+
+<p>As many of you know, MongoHQ runs free MongoDB sandboxes, mainly for experimenting and getting to know hosted MongoDB. We want you to understand what the sandboxes are designed for, what their limitations are and why you may want to start with or migrate to an Elastic Deployment.</p>
+
+<p>Sandboxes are all about letting people get hands on with a remotely hosted instance of MongoDB. People can easily run up a local MongoDB instance on the most basic of servers, but a local database isn’t affected by internet latency and constricted bandwidth. By having an easy way to access a MongoDB database which is influenced by these factors, developers are able to consider their implementation and avoid things like retrieving entire documents when they only need a few fields. The free sandboxes are also great for getting that first proof-of-concept up and running on an application hosting platform without having to configure the database.</p>
+
+<p>The thing is though, the Sandboxes aren’t what we’d recommend to anyone beyond the learning and testing stage. Apart from the obvious limitation that they top out at 512MB of storage, theres more important and subtle issues. They are run in a shared MongoDB database instance for reasons of economy. That means, despite various mitigation, you will be exposed to others workloads in their sandboxes on your sandboxes.</p>
+
+<p>Among those mitigations, you’ll find we don’t enable the MongoDB full text search option as this has the potential to be resource consuming with little effort. Because sandboxes shared an instance, and for security and privacy, we also do have to stop you from peering into the statistics for sandboxed databases. This means you miss out on our monitoring and profiling options on a sandbox too.</p>
+
+<p>More visibly, you can’t get at the oplog for the database. Oplogs can help power a whole range of epic application efficiently, by letting you stream an entire database instances activity. In the case of sandboxes, that would mean streaming everyone’s activity to everyone and anyone which, even on a sandbox, is unacceptable. So there’s no oplog access available and that, for example, affects Meteor users as its how that framework gets high consistency in scaled up scenarios.</p>
+
+<p>A sandbox database is also running a standalone instance. There is no replica set for redundancy or performance balancing between multiple database instances and there’s no backups. Those are signature features of our Elastic Deployments infrastructure – that means they are built differently and we are not going to be bringing those features to sandboxes, ever.</p>
+
+<p>The thing is that access to those features on Elastic Deployments is very cost effective; for $18 a month you get 1GB of storage, twice that of a sandbox, replicas, backups, oplog access, monitoring and profiling and MongoHQ’s support. “Ah”, you may think, “I can stage my development database on a sandbox and move it across to an Elastic Deployment when I need to”. Well, you could but as we’ve pointed out, you’d be developing on a database with a different infrastructure and complicating your operations when it came to deployment. Take Tablelist, who we mentioned yesterday – they run both their production and development databases on Elastic Deployments because it makes it easy to clone and switch between the systems as needed.</p>
+
+<p>You may be wondering what are sandboxes for if they don’t have the same capabilities as the paid for databases at MongoHQ. As we said, they are about getting your first taste of hosted MongoDB so you can put together that proof of concept for your next great startup or solidify a strategy for your current company for no cost. But they aren’t designed for you to run your business on – for that, we have the flexible autoscaling power that are MongoHQ Elastic Deployments. Why not sign up for one today?</p>
+
+<p>If you have any questions about sandboxes and what they can, and can’t do, or how you can migrate to and use Elastic Deployments effectively and efficiently, post a comment here or drop a mail to <a href="mailto:support@mongohq.com">support@mongohq.com</a>.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Are%20you%20still%20playing%20in%20the%20MongoHQ%20Sandbox%3F&amp;url=http://localhost:2368/are-you-still-playing-in-the-mongohq-sandbox/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/are-you-still-playing-in-the-mongohq-sandbox/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/are-you-still-playing-in-the-mongohq-sandbox/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

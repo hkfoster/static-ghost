@@ -1,0 +1,300 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Back up for performance</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/back-up-for-performance/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Back up for performance">
+    <meta property="og:description" content="The best data to test an idea on is real production data with all its quirks but it can be a chore to work with it without interrupting day to day operations. No one runs untested queries against their production...">
+    <meta property="og:url" content="http://localhost:2368/back-up-for-performance/">
+    <meta property="article:published_time" content="2014-05-06T12:56:58.000Z">
+    <meta property="article:modified_time" content="2014-12-17T11:27:16.000Z">
+    <meta property="article:tag" content="performance">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Back up for performance">
+    <meta name="twitter:description" content="The best data to test an idea on is real production data with all its quirks but it can be a chore to work with it without interrupting day to day operations. No one runs untested queries against their production...">
+    <meta name="twitter:url" content="http://localhost:2368/back-up-for-performance/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Back up for performance",
+    "url": "http://localhost:2368/back-up-for-performance/",
+    "datePublished": "2014-05-06T12:56:58.000Z",
+    "dateModified": "2014-12-17T11:27:16.000Z",
+    "keywords": "performance",
+    "description": "The best data to test an idea on is real production data with all its quirks but it can be a chore to work with it without interrupting day to day operations. No one runs untested queries against their production..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-performance blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-performance container">
+  <header>
+    <h1 class="post-title">Back up for performance</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-05-06">May 6th, 2014</time></small>
+  </header>
+
+<p>The best data to test an idea on is real production data with all its quirks but it can be a chore to work with it without interrupting day to day operations. No one runs untested queries against their production databases without running the risk of running interference on their customers experience.</p>
+
+<p>One solution would be to use a complete backup of your database to load up a local database and perform the new queries or complex analytics on that. But sampling from normal backups can only provide you with data that is some hours or days old, depending on your archiving schedule. If you want the freshest data then you really need to be able to take a snapshot of the database at anytime. Workarounds like using an application to sync up an older backup with the current production data aren’t simple and could also be a hit on your production systems performance.</p>
+
+<p>With MongoHQ Elastic Deployments you can make the entire process a lot simpler. That’s because Elastic Deployments have an option to create a backup on-demand that can easily and safely be downloaded to give you the latest version of your database locally. Here’s how to do it…</p>
+
+<h2 id="howtogolocal">How to go local</h2>
+
+<p>Log into the admin console of your MongoHQ account and select the Elastic Deployment database you want to work with. Then select the Admin tab in the vertical list, followed by the Backups tab in horizontal tabs.</p>
+
+<p><img src="../content/images/2014/12/Screenshot-2014-05-05-16_25_27_cceg4d_uilgjx.png" alt="Screenshot 2014-05-05 16.25.27" title="">Then click the <em>Back up now</em> button. This will start creating an On-Demand backup. You can have one on-demand backup at a time and they will be kept for seven days – if you ask the MongoHQ system to do another on-demand backup, any current on-demand backup will be overwritten. Once the backup is complete, you can download it. Click on the “arrow down” icon and the filename and size will be displayed along with a download button. Click that button to begin the download of the backup archive.</p>
+
+<p>The downloaded file will be a gzipped tar archive with multiple files within it. Once downloaded, open a terminal and, make a directory for where you want to unpack the backup to…</p>
+
+<pre><code>$ mkdir backupexemplum
+</code></pre>
+
+<p>Then use tar to extract the contents (in this case the database is called exemplum)…</p>
+
+<pre><code>$ tar xvZfC ~/Downloads/2014-05-05_15-25-56_UTC_exemplum.gz backupexemplum
+x exemplum.0  
+x exemplum.1  
+x exemplum.2  
+x exemplum.ns  
+x raw_parse.txt  
+$
+</code></pre>
+
+<p>If you are unfamiliar with tar, the parameters are x (extract), v (verbosely), Z (to uncompress the archive), f (from a named file) and C (change directory to a named directory before extracting).</p>
+
+<p>You are now ready to start a local mongod instance, assuming of course that you’ve got MongoDB installed locally. The mongod command has an option –dbpath to set the directory where it should find its database files and another, –port, to set it listening on a particular port. The latter is worth setting to something other than default, just in case you already have a MongoDB instance installed. Combining these options gives us a command line…</p>
+
+<pre><code>$ mongod --dbpath backupexemplum -port 10240
+</code></pre>
+
+<p>which will emit a number of informational messages ending with an announcement that it is listening on the specified port. We can now log into the local instance of the database in another terminal session like so…</p>
+
+<pre><code>$ mongo localhost:10240/exemplum
+</code></pre>
+
+<p>Or use whatever tools we want to work with the safe snapshot of the MongoDB database, whether it be testing out new queries, trying out BI tools, experimenting with data transformations or auditing the data.</p>
+
+<h2 id="howitworks">How it works</h2>
+
+<p>Behind the scenes of Elastic Deployment’s on-demand backup, there is a hidden backup member added to the set of Mongo instances in a deployment. To take a backup, this member is stopped from writing (using <a href="http://docs.mongodb.org/manual/reference/method/db.fsyncLock/"><code>db.fsyncLock()</code></a>) while the underlying files are snapshotted and then unlocked (using <code>db.fsyncUnlock()</code>). The files in the snapshot are then tarred, gzipped and transferred to Amazon S3 ready for downloading.</p>
+
+<p>If you are not using Elastic Deployments, you can implement a similar scheme for your own MongoDB installation. You can also use tools such as <a href="http://docs.mongodb.org/manual/tutorial/backup-with-mongodump/">mongodump</a> to dump the contents of your database, then tar and gzip the resulting files for downloading and mongorestore them into your local instance. This will give something like the on-demand backup system. Other backup options, like MongoDB’s MMS backup, tend to be scheduled so although you can create a local database copy by restoring from a backup image, it won’t be as up to date as an on-demand version.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Back%20up%20for%20performance&amp;url=http://localhost:2368/back-up-for-performance/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/back-up-for-performance/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/back-up-for-performance/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

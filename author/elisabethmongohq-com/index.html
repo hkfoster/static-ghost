@@ -1,0 +1,255 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>elisabethmongohq-com - Compose Articles</title>
+  <meta name="description" content="0">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/author/elisabethmongohq-com/">
+    <link rel="next" href="http://localhost:2368/page/2/">
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="author-template author-elisabethmongohq-com blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+    <header class="main-header author-head no-cover">
+        <nav class="main-nav overlay clearfix">
+            <a class="back-button icon-arrow-left" href="http://localhost:2368">Home</a>
+            <a class="subscribe-button icon-feed" href="rss/index.rss">elisabethmongohq-com</a>
+        </nav>
+    </header>
+
+    <section class="author-profile inner">
+        <figure class="author-image">
+            <div class="img" style="background-image: url(http://www.gravatar.com/avatar/dcd09e7356d3e170dfe73641098d2442?d=404&amp;s=250)"><span class="hidden">elisabethmongohq-com's Picture</span></div>
+        </figure>
+        <h1 class="author-title">elisabethmongohq-com</h1>
+        <h2 class="author-bio">0</h2>
+        <div class="author-meta">
+            
+            
+            <span class="author-stats"><i class="icon-stats"></i> 9 posts</span>
+        </div>
+    </section>
+
+<main class="content" role="main">
+
+    
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../guest-post-how-mongohq-are-discovering-data-using-mongodb-and-chartio/">Guest Post: How MongoHQ is discovering data using MongoDB and Chartio.</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-02-27">February 27, 2014</time>
+          
+        </small>
+    
+    
+        <p class="excerpt">About the interview Melissa Smolensky from Chartio conducted this interview with Chris Winslett, Sales and Revenue Engineer at MongoHQ. Tell us a little about MongoHQ and your role there. MongoHQ is a cloud-based database platform used by startups, enterprises, and…</p>
+    
+        <p><a class="read-more" href="../../guest-post-how-mongohq-are-discovering-data-using-mongodb-and-chartio/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../changing-the-growth-formula/">Changing the Growth Formula</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-02-25">February 25, 2014</time>
+          
+        </small>
+    
+    
+        <p class="excerpt">There is a simple formula that many apply to their Software-as-a-Service business models – as customers increase, economies of scale should push the cost of servicing those customers down – all you have to do is build a system that scales. There’…</p>
+    
+        <p><a class="read-more" href="../../changing-the-growth-formula/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../two-factor-authentication-and-security-auditing-now-available-for-all-mongohq-accounts/">Two-Factor Authentication and Security Auditing Now Available for all MongoHQ Accounts</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-01-28">January 28, 2014</time>
+           in <span class="tags"><a href="../../tag/security/">Security</a></span>
+        </small>
+    
+    
+        <p class="excerpt">Today, we’re rolling out two new security features to help all MongoHQ users to take control of their account security: two-factor authentication and a security auditing tool. We’ve put a lot of thought into developing the best tools…</p>
+    
+        <p><a class="read-more" href="../../two-factor-authentication-and-security-auditing-now-available-for-all-mongohq-accounts/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../welc2adcomc2ading-george-shank-to-the-monc2adgohq-team/">Wel­com­ing George Shank to the Mon­goHQ Team</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-01-20">January 20, 2014</time>
+           in <span class="tags"><a href="../../tag/new-people/">new people</a></span>
+        </small>
+    
+    
+        <p class="excerpt">George &amp; JavaScript. A match made in heaven.We’re pleased to welcome another member to our trusty team – Welcome George Shank! George is primarily a Node.js developer and we’re looking forward to having him working with us.…</p>
+    
+        <p><a class="read-more" href="../../welc2adcomc2ading-george-shank-to-the-monc2adgohq-team/">Read More »</a></p>
+    
+      </article>
+      <article class="excerpt big-push">
+    
+        <h2 class="post-title"><a href="../../welcoming-addison-higham-to-the-mongohq-team/">Welcoming Addison Higham to the MongoHQ Team!</a></h2>
+    
+        <small class="post-meta">
+          Published <time class="post-date" datetime="2014-01-13">January 13, 2014</time>
+          
+        </small>
+    
+    
+        <p class="excerpt">We’re very pleased to welcome Addison Higham as the latest member of the MongoHQ team. We’ve been working with Addison for a few weeks now and can vouch that he’s an all round great guy. Here’s…</p>
+    
+        <p><a class="read-more" href="../../welcoming-addison-higham-to-the-mongohq-team/">Read More »</a></p>
+    
+      </article>
+    
+    <nav class="pagination big-push">
+      <small class="page-number">Page 1 of 2</small>
+        <a class="btn mini older" href="page/2/">Older Articles »</a>
+    </nav>
+</main>
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

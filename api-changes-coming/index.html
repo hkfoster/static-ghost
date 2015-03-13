@@ -1,0 +1,269 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>API Changes Coming</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/api-changes-coming/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="API Changes Coming">
+    <meta property="og:description" content="If you are one of MongoHQ’s customers who has used the old API, you should have received an email about this already. In case you missed it though and, in the spirit of transparency, for everyone else, we’re...">
+    <meta property="og:url" content="http://localhost:2368/api-changes-coming/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/rocketpersdim_dlfqi9_luxdbd.png">
+    <meta property="article:published_time" content="2014-07-14T11:55:35.000Z">
+    <meta property="article:modified_time" content="2014-07-14T11:55:35.000Z">
+    <meta property="article:tag" content="API">
+    <meta property="article:tag" content="beta">
+    <meta property="article:tag" content="legacy">
+    <meta property="article:tag" content="mongohq">
+    <meta property="article:tag" content="update">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="API Changes Coming">
+    <meta name="twitter:description" content="If you are one of MongoHQ’s customers who has used the old API, you should have received an email about this already. In case you missed it though and, in the spirit of transparency, for everyone else, we’re...">
+    <meta name="twitter:url" content="http://localhost:2368/api-changes-coming/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/rocketpersdim_dlfqi9_luxdbd.png">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "API Changes Coming",
+    "url": "http://localhost:2368/api-changes-coming/",
+    "datePublished": "2014-07-14T11:55:35.000Z",
+    "dateModified": "2014-07-14T11:55:35.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/rocketpersdim_dlfqi9_luxdbd.png",
+    "keywords": "API, beta, legacy, mongohq, update",
+    "description": "If you are one of MongoHQ’s customers who has used the old API, you should have received an email about this already. In case you missed it though and, in the spirit of transparency, for everyone else, we’re..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-api tag-beta tag-legacy tag-mongohq tag-update blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-api tag-beta tag-legacy tag-mongohq tag-update container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/rocketpersdim_dlfqi9_luxdbd.png)">
+    <h1 class="post-title">API Changes Coming</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-07-14">July 14th, 2014</time></small>
+  </header>
+
+<p>If you are one of MongoHQ’s customers who has used the old API, you should have received an email about this already. In case you missed it though and, in the spirit of transparency, for everyone else, we’re letting all our customers and readers know that we are making an important change to our APIs. The change will enable our <a href="http://blog.mongohq.com/mongohq-api-welcome-to-the-new-beta/">new (currently Beta) API</a> to leave beta and go into production.</p>
+
+<p>If you use the older API, you’ll need to change the API endpoint you use to <code>https://api.mongohq.com/2011-09</code>. You will need to make that change before July 18th, 2014. If you don’t then after that date, it is very likely you’ll find API calls failing to work correctly. There’s <a href="http://docs.mongohq.com/rest-api/2011-09/introduction.html">updated documentation for the old API</a> which reflects these changes.</p>
+
+<p>This should be the only time we’ll ever need you to change the main API endpoint. One of the features of our new API is a versioning mechanism which allows us to route you to the right edition of the API transparently. The new API is packed full of features which let you manage your MongoHQ deployments from the highest level of creating elastic MongoDB systems with a single call right down to examining the statistics on a collection.</p>
+
+<p>We think thats really neat and if you think so too, you’ll want to check out the <a href="https://docs.mongohq.com/rest-api/2014-06/introduction.html">new API documentation</a>. Do be aware though that only our latest deployment technology (Elastic and Dedicated MongoDB) are supported by the new API and that our legacy, small, large and sandbox databases are not supported.</p>
+
+<p>If you’ve got any questions or concerns about this change, remember you can reach us at <a href="mailto:support@mongohq.com">support@mongohq.com</a> where we’ll be more than happy to help.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=API%20Changes%20Coming&amp;url=http://localhost:2368/api-changes-coming/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/api-changes-coming/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/api-changes-coming/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

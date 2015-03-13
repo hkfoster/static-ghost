@@ -1,0 +1,264 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Continuously synchronize your MongoDB data to Elasticsearch</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/continuously-synchronize-your-mongodb-data-to-elasticsearch/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Continuously synchronize your MongoDB data to Elasticsearch">
+    <meta property="og:description" content="Transporter, Compose’s service for moving data from MongoDB to Elasticsearch, has already proven to be popular with our Elasticsearch and MongoDB users as it allows them to use both databases on the same dataset. But we can always make...">
+    <meta property="og:url" content="http://localhost:2368/continuously-synchronize-your-mongodb-data-to-elasticsearch/">
+    <meta property="article:published_time" content="2014-09-15T12:53:31.000Z">
+    <meta property="article:modified_time" content="2014-12-17T09:38:00.000Z">
+    <meta property="article:tag" content="oplog">
+    <meta property="article:tag" content="synchronization">
+    <meta property="article:tag" content="transporter">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Continuously synchronize your MongoDB data to Elasticsearch">
+    <meta name="twitter:description" content="Transporter, Compose’s service for moving data from MongoDB to Elasticsearch, has already proven to be popular with our Elasticsearch and MongoDB users as it allows them to use both databases on the same dataset. But we can always make...">
+    <meta name="twitter:url" content="http://localhost:2368/continuously-synchronize-your-mongodb-data-to-elasticsearch/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Continuously synchronize your MongoDB data to Elasticsearch",
+    "url": "http://localhost:2368/continuously-synchronize-your-mongodb-data-to-elasticsearch/",
+    "datePublished": "2014-09-15T12:53:31.000Z",
+    "dateModified": "2014-12-17T09:38:00.000Z",
+    "keywords": "oplog, synchronization, transporter",
+    "description": "Transporter, Compose’s service for moving data from MongoDB to Elasticsearch, has already proven to be popular with our Elasticsearch and MongoDB users as it allows them to use both databases on the same dataset. But we can always make..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-oplog tag-synchronization tag-transporter blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-oplog tag-synchronization tag-transporter container">
+  <header>
+    <h1 class="post-title">Continuously synchronize your MongoDB data to Elasticsearch</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-09-15">September 15th, 2014</time></small>
+  </header>
+
+<p><img src="../content/images/2014/12/transporter-rounded_rcfgnn_wjjgip.png" alt="transporter-rounded" title="">Transporter, Compose’s service for moving data from MongoDB to Elasticsearch, has already proven to be popular with our Elasticsearch and MongoDB users as it allows them to use both databases on the same dataset. But we can always make it better, and we just have with the new Continuous mode for Transporter.</p>
+
+<p>With this new mode, a Transporter job attaches to the MongoDB database and, using the oplog, continuously updates the Elasticsearch destination database with any changes in MongoDB. This means that instead of snapshotting your data for analysis in Elasticsearch as you could do with the previous One-Time mode, you can now work with an always up-to-date copy of the data.</p>
+
+<p>Up-to-date means that updating documents in Elasticsearch as they are updated in MongoDB and deleting them from Elasticsearch when they are deleted. The Transporter is unidirectional so any document changes you make in Elasticsearch will not push back into MongoDB making it safe to use aggressive analytics techniques.</p>
+
+<p><img src="../content/images/2014/12/Screenshot-2014-09-15-19_39_27_yex3dp_fszryj.png" alt="Transporter Table" title="">We’ve upgraded the user interface to support the new Continuous mode. The update now shows you a complete listing of recently run, or running, Transporter jobs, both One-Time and Continuous. You can see how many records have been processed and how many written to the destination database by each Transporter. You can also delete Transporters to remove completed One-Time jobs and to stop and removed running Continuous jobs. And of course, you can create new Transporters; the one change to the new Transporter page is you get to select Continuous or On-Time at the top; it defaults to Continuous.</p>
+
+<p>In Continuous mode the Transporter remains running all the time so the cost of a continuous update stream is $9 a month during the beta. Beta One-Time Transporters remain billed by use at $0.0125/hr. The Transporter’s ability to manipulate data in transit using its Transformer system is also retained in Continuous mode. Read about <a href="../transporter-transformers-powering-up-your-data-transfer/">the Transformer system</a> and how you can use it to control what passes through the Transporter.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Continuously%20synchronize%20your%20MongoDB%20data%20to%20Elasticsearch&amp;url=http://localhost:2368/continuously-synchronize-your-mongodb-data-to-elasticsearch/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/continuously-synchronize-your-mongodb-data-to-elasticsearch/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/continuously-synchronize-your-mongodb-data-to-elasticsearch/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

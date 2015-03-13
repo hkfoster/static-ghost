@@ -1,0 +1,308 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Explore MongoDB 2.3 on MongoHQ</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/explore-mongodb-2-3-on-mongohq/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Explore MongoDB 2.3 on MongoHQ">
+    <meta property="og:description" content="There are some interesting and exciting changes coming to MongoDB in the 2.4 production release, including: Full-text search Change in the internal Javascript engine Hashed indexes We’ll talk a bit more about these changes in just a moment,...">
+    <meta property="og:url" content="http://localhost:2368/explore-mongodb-2-3-on-mongohq/">
+    <meta property="article:published_time" content="2013-01-17T21:44:04.000Z">
+    <meta property="article:modified_time" content="2013-05-03T03:47:16.000Z">
+    <meta property="article:tag" content="10gen">
+    <meta property="article:tag" content="conference">
+    <meta property="article:tag" content="mongo hosting">
+    <meta property="article:tag" content="mongoconf">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="mongodb hosting">
+    <meta property="article:tag" content="mongohq">
+    <meta property="article:tag" content="mongosv">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Explore MongoDB 2.3 on MongoHQ">
+    <meta name="twitter:description" content="There are some interesting and exciting changes coming to MongoDB in the 2.4 production release, including: Full-text search Change in the internal Javascript engine Hashed indexes We’ll talk a bit more about these changes in just a moment,...">
+    <meta name="twitter:url" content="http://localhost:2368/explore-mongodb-2-3-on-mongohq/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "jasonmongohq-com",
+        "image": "//www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&s=250",
+        "url": "http://localhost:2368/author/jasonmongohq-com",
+        "sameAs": "http://www.mongohq.com"
+    },
+    "headline": "Explore MongoDB 2.3 on MongoHQ",
+    "url": "http://localhost:2368/explore-mongodb-2-3-on-mongohq/",
+    "datePublished": "2013-01-17T21:44:04.000Z",
+    "dateModified": "2013-05-03T03:47:16.000Z",
+    "keywords": "10gen, conference, mongo hosting, mongoconf, mongodb, mongodb hosting, mongohq, mongosv",
+    "description": "There are some interesting and exciting changes coming to MongoDB in the 2.4 production release, including: Full-text search Change in the internal Javascript engine Hashed indexes We’ll talk a bit more about these changes in just a moment,..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-10gen tag-conference tag-mongo-hosting tag-mongoconf tag-mongodb tag-mongodb-hosting tag-mongohq tag-mongosv blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-10gen tag-conference tag-mongo-hosting tag-mongoconf tag-mongodb tag-mongodb-hosting tag-mongohq tag-mongosv container">
+  <header>
+    <h1 class="post-title">Explore MongoDB 2.3 on MongoHQ</h1>
+    <small class="post-meta"><time class="post-date" datetime="2013-01-17">January 17th, 2013</time></small>
+  </header>
+
+<p>There are some interesting and exciting changes coming to MongoDB in the 2.4 production release, including:</p>
+
+<ul>
+<li>Full-text search</li>
+<li>Change in the internal Javascript engine</li>
+<li>Hashed indexes</li>
+</ul>
+
+<p>We’ll talk a bit more about these changes in just a moment, but first, we wanted to give our customers <strong>a way to try out the new features</strong>, even though they are in the 2.3 development release. You can do this by doing the following:</p>
+
+<ol>
+<li><a href="https://new.mongohq.com/">Log into MongoHQ</a>  </li>
+<li>Create a new sandbox databases with the “Dharma 2.3 Experimental” option.  </li>
+<li>Insert data  </li>
+<li>Make profit.</li>
+</ol>
+
+<p>Now that you are all set and have your experimental database provisioned and ready to go, let’s talk about a couple of the new features.</p>
+
+<h2 id="fulltextsearch">Full-text Search</h2>
+
+<p>10gen has pointed out on numerous occasions that this has been one of the most-requested features on the MongoDB roadmap, so the engineers are pretty stoked to finally offer it.</p>
+
+<p>However, it is still highly experimental. Good to explore, but do not use it on production environments.</p>
+
+<p>If you had a collection of emails with a field called <code>email_body</code>, you can add the following index:</p>
+
+<pre><code>&lt;code data-language="javascript"&gt;db.emails.ensureIndex({email_body:text}, {name:"email_body_text_index")  
+</code></pre>
+
+<p>Allow the index to build and from there, you should be good to start testing queries against it. A query may look like:</p>
+
+<pre><code>&lt;code data-language="javascript"&gt;db.emails.runCommand( "text", {search: "Pho"} )  
+</code></pre>
+
+<p>This will return a BSON document … not a cursor. So, a bit of a change there.</p>
+
+<p>This should get you started … there are a number of additional features and options that you can use when querying. For more information about doing text queries with this new functionality, check out the <a href="http://docs.mongodb.org/manual/release-notes/2.4/#text-queries">release notes for MongoDB 2.3</a>.</p>
+
+<h2 id="changestothejavascriptengine">Changes to the Javascript Engine</h2>
+
+<p>With the 2.3/2.4 release of MongoDB, 10gen is replacing Mozilla’s Spidermonkey javascript engine with Google’s open-source V8 engine. While there are some speed improvements in various cases, the details of this change are probably a bit out of the realm of the interest of most people using MongoDB as a database.</p>
+
+<p>Nevertheless, it is a worthwhile endeavor to benchmark some of your map reduce functionality against this new version of MongoDB as compared to 2.2 versions of the code.</p>
+
+<h2 id="thatsit">That’s It</h2>
+
+<p>We hope you have fun testing this developmental release of MongoDB. <strong>Please do not use this environment for anything production-related</strong>. If you have any questions, we’re happy to help!</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/jasonmongohq-com/">
+        <img src="http://www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&amp;s=250" alt="jasonmongohq-com">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/jasonmongohq-com/">jasonmongohq-com</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Explore%20MongoDB%202.3%20on%20MongoHQ&amp;url=http://localhost:2368/explore-mongodb-2-3-on-mongohq/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/explore-mongodb-2-3-on-mongohq/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/explore-mongodb-2-3-on-mongohq/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

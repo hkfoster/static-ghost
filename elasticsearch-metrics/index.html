@@ -1,0 +1,270 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Elasticsearch metrics</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/elasticsearch-metrics/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Elasticsearch metrics">
+    <meta property="og:description" content="Measuring is important – you need insight on how your Elasticsearch database is performing. With that in mind, we’ve added new metrics charts to Compose’s Elasticsearch dashboard. These new charts show memory consumpution and how regularly the Elasticsearch node...">
+    <meta property="og:url" content="http://localhost:2368/elasticsearch-metrics/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/colourbargrey_y65jdn_cppqju.jpg">
+    <meta property="article:published_time" content="2014-09-16T08:48:41.000Z">
+    <meta property="article:modified_time" content="2014-12-17T09:32:48.000Z">
+    <meta property="article:tag" content="elastic search">
+    <meta property="article:tag" content="java">
+    <meta property="article:tag" content="memory">
+    <meta property="article:tag" content="metrics">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Elasticsearch metrics">
+    <meta name="twitter:description" content="Measuring is important – you need insight on how your Elasticsearch database is performing. With that in mind, we’ve added new metrics charts to Compose’s Elasticsearch dashboard. These new charts show memory consumpution and how regularly the Elasticsearch node...">
+    <meta name="twitter:url" content="http://localhost:2368/elasticsearch-metrics/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/colourbargrey_y65jdn_cppqju.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Elasticsearch metrics",
+    "url": "http://localhost:2368/elasticsearch-metrics/",
+    "datePublished": "2014-09-16T08:48:41.000Z",
+    "dateModified": "2014-12-17T09:32:48.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/colourbargrey_y65jdn_cppqju.jpg",
+    "keywords": "elastic search, java, memory, metrics",
+    "description": "Measuring is important – you need insight on how your Elasticsearch database is performing. With that in mind, we’ve added new metrics charts to Compose’s Elasticsearch dashboard. These new charts show memory consumpution and how regularly the Elasticsearch node..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-elastic-search tag-java tag-memory tag-metrics blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-elastic-search tag-java tag-memory tag-metrics container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/colourbargrey_y65jdn_cppqju.jpg)">
+    <h1 class="post-title">Elasticsearch metrics</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-09-16">September 16th, 2014</time></small>
+  </header>
+
+<p>Measuring is important – you need insight on how your Elasticsearch database is performing. With that in mind, we’ve added new metrics charts to Compose’s Elasticsearch dashboard. These new charts show memory consumpution and how regularly the Elasticsearch node finds itself looking for more memory that isn’t available.</p>
+
+<p><img src="../content/images/2014/12/Elasticsearchmetrics_itjrpn_rs0rm6.png" alt="Elastic search metrics" title="">The scale on the left hand side and the blue “memory usage” line shows the total memory consumption on the capsule – a capsule is the container that is holding the running node. That includes all memory usage in the capsule, not just the heap space used by the Java based Elasticsearch but also memory mapped files and other resources.</p>
+
+<p>The scale on the right hand side and the orange line shows how often the node is looking for more memory using a metric called the “Memory fail count per second”. This count doesn’t mean memory has actually failed, it just means memory has not been given to the process requesting it because the capsule it is running in has hit its hard limit for memory use. It’s this graph which provides the most useful information about the state of the node.</p>
+
+<p><img src="../content/images/2014/12/spiking_siuk7j_tld741.png" alt="Spiking up" title="">If the line is spiking or rising it means that your database is asking for more memory and not getting it. Take the graph above and let’s look at the start of it. You’ll notice it spiking early on. It’s at this point you may need to check your current workload. If you are running a transient, heavy load such as a large import which requires much indexing, then this situation should pass when the work is complete and isn’t something to worry about. If, on the other hand, you aren’t placing a particular load on your system, you should be concerned – you may need more RAM on your nodes for your workload and should drop a mail to <a href="mailto:support@compose.io">support@compose.io</a>.</p>
+
+<p>A more normal state of affairs, and more typical to see in the metrics will be a steady memory allocation and a low to zero rate of memory fail counts. This indicates that the memory is being consistently used by the underlying Java platform and it is being returned to availability so that steady rate is maintained. With a virtual machine such as Java, you want to be sure it makes best use of all memory while not spiralling into a state where its spending more time managing memory than running.</p>
+
+<p><em>A previous version of this article referred to an absolute memory fail count which we decided to change to an easier-to-read rate of change display after initial user feedback.</em></p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Elasticsearch%20metrics&amp;url=http://localhost:2368/elasticsearch-metrics/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/elasticsearch-metrics/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/elasticsearch-metrics/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

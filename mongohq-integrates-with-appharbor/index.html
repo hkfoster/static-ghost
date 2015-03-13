@@ -1,0 +1,294 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>MongoHQ Integrates With AppHarbor</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/mongohq-integrates-with-appharbor/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="MongoHQ Integrates With AppHarbor">
+    <meta property="og:description" content="This summer continues to be quite busy for us at MongoHQ, as we have been hard at work on a lot of great new features for our growing developer community. However, this announcement is especially exciting for us: we integrate...">
+    <meta property="og:url" content="http://localhost:2368/mongohq-integrates-with-appharbor/">
+    <meta property="article:published_time" content="2011-06-28T03:23:24.000Z">
+    <meta property="article:modified_time" content="2013-06-06T23:09:56.000Z">
+    <meta property="article:tag" content=".NET">
+    <meta property="article:tag" content=".NET addon">
+    <meta property="article:tag" content="addon">
+    <meta property="article:tag" content="appharbor">
+    <meta property="article:tag" content="ASP.NET">
+    <meta property="article:tag" content="c sharp">
+    <meta property="article:tag" content="csharp">
+    <meta property="article:tag" content="cloud">
+    <meta property="article:tag" content="database hosting">
+    <meta property="article:tag" content="framework">
+    <meta property="article:tag" content="microsoft">
+    <meta property="article:tag" content="mongo hosting">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="mongodb hosting">
+    <meta property="article:tag" content="platform">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="MongoHQ Integrates With AppHarbor">
+    <meta name="twitter:description" content="This summer continues to be quite busy for us at MongoHQ, as we have been hard at work on a lot of great new features for our growing developer community. However, this announcement is especially exciting for us: we integrate...">
+    <meta name="twitter:url" content="http://localhost:2368/mongohq-integrates-with-appharbor/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "jasonmongohq-com",
+        "image": "//www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&s=250",
+        "url": "http://localhost:2368/author/jasonmongohq-com",
+        "sameAs": "http://www.mongohq.com"
+    },
+    "headline": "MongoHQ Integrates With AppHarbor",
+    "url": "http://localhost:2368/mongohq-integrates-with-appharbor/",
+    "datePublished": "2011-06-28T03:23:24.000Z",
+    "dateModified": "2013-06-06T23:09:56.000Z",
+    "keywords": ".NET, .NET addon, addon, appharbor, ASP.NET, c sharp, csharp, cloud, database hosting, framework, microsoft, mongo hosting, mongodb, mongodb hosting, platform",
+    "description": "This summer continues to be quite busy for us at MongoHQ, as we have been hard at work on a lot of great new features for our growing developer community. However, this announcement is especially exciting for us: we integrate..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-net tag-net-addon tag-addon tag-appharbor tag-asp-net tag-c-sharp tag-csharp tag-cloud tag-database-hosting-2 tag-framework tag-microsoft tag-mongo-hosting tag-mongodb tag-mongodb-hosting tag-platform blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-net tag-net-addon tag-addon tag-appharbor tag-asp-net tag-c-sharp tag-csharp tag-cloud tag-database-hosting-2 tag-framework tag-microsoft tag-mongo-hosting tag-mongodb tag-mongodb-hosting tag-platform container">
+  <header>
+    <h1 class="post-title">MongoHQ Integrates With AppHarbor</h1>
+    <small class="post-meta"><time class="post-date" datetime="2011-06-27">June 27th, 2011</time></small>
+  </header>
+
+<p>This summer continues to be quite busy for us at MongoHQ, as we have been hard at work on a lot of great new features for our growing developer community. However, this announcement is especially exciting for us: <strong>we integrate with AppHarbor and are an inaugural member of their Add-On platform</strong>.</p>
+
+<p>There is no question that developers utilizing the .NET framework have been a big part of MongoHQ’s story so far, so being able to offer our services on this powerful application platform is not only a major step forward for developers, but an excellent way for us to continue our commitment to this community.</p>
+
+<p>AppHarbor founder Michael Friis said,</p>
+
+<blockquote>
+  <p>“We’re really excited to have MongoHQ as a launch partner for our add-on program. Since launching AppHarbor, MongoDB has been one of the most-requested features for the platform. We can think of no better way to offer solid MongoDB hosting than by partnering with MongoHQ.”</p>
+</blockquote>
+
+<p>MongoHQ founder Jason McCay agreed,</p>
+
+<blockquote>
+  <p>“At MongoHQ, our primary goal is to provide tools and resources that allow developers to grow and manage their data layer quickly and efficiently, giving them more time to focus on what’s important, building a great product. With the amazing growth of MongoDB in the .NET community, we are excited to be a part of AppHarbor’s new Add-On Platform, which makes it even easier for .NET developers to integrate MongoDB into their applications.”</p>
+</blockquote>
+
+<p>If you have not already, we invite you to visit <a href="http://www.appharbor.com/">AppHarbor.com</a> and learn about this great new platform. While you are there, check out the <a href="https://appharbor.com/addons">AppHarbor Add-ons</a> area and check out our offering. Michael, Rune and Troels are an amazing team and it has been a pleasure working with them to make this integration happen.</p>
+
+<p>Be on the lookout for updated documentation, including guides for getting started. In the meantime, if you have questions, send us an email at: support@mongohq.com and we would be happy to assist you.</p>
+
+<p><strong>About AppHarbor</strong></p>
+
+<p><a href="https://appharbor.com/">AppHarbor</a> is a .NET Platform-as-a-Service. Developers push code to AppHarbor using either Git or Mercurial. AppHarbor then builds the code and runs any unit tests. If everything checks out, the code is deployed to AppHarbor’s scalable cloud platform.</p>
+
+<p><strong>About MongoHQ</strong></p>
+
+<p><a href="http://www.mongohq.com/">MongoHQ</a> is the hosted database solution for quickly and easily connecting <a href="http://www.mongodb.org/">MongoDB</a> to your applications. Backed by the power, reliability and speed of Amazon EC2 as well as providing a easy-to-use web interface to visually manage your database instances, MongoHQ can handle both small and large data needs with ease. MongoHQ handles all the heavy-lifting, like backups and replication, so you can focus your time and energy on creating amazing solutions. Discover the joy and amazing capabilities of document databases on arguably the world’s best cloud-computing platform.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/jasonmongohq-com/">
+        <img src="http://www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&amp;s=250" alt="jasonmongohq-com">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/jasonmongohq-com/">jasonmongohq-com</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=MongoHQ%20Integrates%20With%20AppHarbor&amp;url=http://localhost:2368/mongohq-integrates-with-appharbor/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/mongohq-integrates-with-appharbor/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/mongohq-integrates-with-appharbor/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

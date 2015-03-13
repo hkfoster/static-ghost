@@ -1,0 +1,280 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>MongoDB 2.6 Indexing Improvements: Things worth knowing</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/mongodb-2-6-indexing-improvements-things-worth-knowing/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="MongoDB 2.6 Indexing Improvements: Things worth knowing">
+    <meta property="og:description" content="TL;DR: Background indexing now works with replica set secondaries. MongoDB has, over recent versions, improved its ability to index stored data on the primary server, bringing in background indexing for a single index in 2.2 and multiple background...">
+    <meta property="og:url" content="http://localhost:2368/mongodb-2-6-indexing-improvements-things-worth-knowing/">
+    <meta property="article:published_time" content="2014-05-08T12:22:04.000Z">
+    <meta property="article:modified_time" content="2014-09-02T09:03:52.000Z">
+    <meta property="article:tag" content="mongodb 2.6">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="MongoDB 2.6 Indexing Improvements: Things worth knowing">
+    <meta name="twitter:description" content="TL;DR: Background indexing now works with replica set secondaries. MongoDB has, over recent versions, improved its ability to index stored data on the primary server, bringing in background indexing for a single index in 2.2 and multiple background...">
+    <meta name="twitter:url" content="http://localhost:2368/mongodb-2-6-indexing-improvements-things-worth-knowing/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "MongoDB 2.6 Indexing Improvements: Things worth knowing",
+    "url": "http://localhost:2368/mongodb-2-6-indexing-improvements-things-worth-knowing/",
+    "datePublished": "2014-05-08T12:22:04.000Z",
+    "dateModified": "2014-09-02T09:03:52.000Z",
+    "keywords": "mongodb 2.6",
+    "description": "TL;DR: Background indexing now works with replica set secondaries. MongoDB has, over recent versions, improved its ability to index stored data on the primary server, bringing in background indexing for a single index in 2.2 and multiple background..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-mongodb-2-6 blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-mongodb-2-6 container">
+  <header>
+    <h1 class="post-title">MongoDB 2.6 Indexing Improvements: Things worth knowing</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-05-08">May 8th, 2014</time></small>
+  </header>
+
+<p><strong><em>TL;DR: Background indexing now works with replica set secondaries.</em></strong></p>
+
+<p>MongoDB has, over recent versions, improved its ability to index stored data on the primary server, bringing in background indexing for a single index in 2.2 and multiple background indexes in 2.4. Building an index in the background keeps the database available (meaning, operations are not blocked) while the index is being created.</p>
+
+<h3 id="creatingabackgroundindex">Creating a background index</h3>
+
+<p>An index can be made to go in the background by adding <code>{ background: true }</code> to the options list for <a href="http://docs.mongodb.org/manual/reference/method/db.collection.ensureIndex/"><code>ensureIndex()</code></a>. By default, indexes are built in the foreground. Therefore, it is good to double-check before sending off the index creation command, otherwise your database could stop responding to other requests.</p>
+
+<p>But, back on topic – support for this indexing feature on secondary members of MongoDB replica sets lagged behind. Background indexes, on a replica set primary, were translated into foreground index tasks on replica set secondaries. This meant that any reads and other replication activities were blocked on secondaries while the index built. While background indexing was very useful in the case of a single server, its usage was somewhat limited for replica sets.</p>
+
+<p>As of MongoDB 2.6 though, that situation has improved with support for <strong>background indexing on secondaries</strong>. Once the primary has finished its background indexing, the secondaries can begin their background indexing. There’s still a number of things to take into account when building an index on a replica set though; these are covered in the <a href="http://docs.mongodb.org/master/tutorial/build-indexes-on-replica-sets/">MongoDB documentation</a>.</p>
+
+<h3 id="indexbuildswillcontinueafterbeingstopped">Index builds will continue after being stopped</h3>
+
+<p>Also worth knowing is that MongoDB 2.6 will now automatically restart index rebuilding when a mongod primary or standalone instance is started up but only if that instance hasn’t been cleanly shutdown or a user had specifically stopped/killed the index build.</p>
+
+<p>Normal termination doesn’t trigger the behavior and it can be disabled with the command line option <a href="http://docs.mongodb.org/master/reference/program/mongod/#cmdoption--noIndexBuildRetry">–noIndexBuildRetry</a>.</p>
+
+<h3 id="dropdupsdeprecated">DropDups deprecated</h3>
+
+<p>And finally, if you use <a href="http://docs.mongodb.org/manual/reference/method/db.collection.ensureIndex/"><code>ensureIndex()</code></a>‘s dropDups option, you may want to consider ways to engineer it out of your system. MongoDB 2.6 has deprecated the dropDups option as a precursor to future removal. DropDups allows indexes to be created on fields which may have duplicates. However, its technique for resolving duplicates leaves much to be desired and, due to the fact that it keeps the first instance it finds and deletes any remaining ones, it can lead to unintended consequences.</p>
+
+<h3 id="readytodiveintomongodb26">Ready to dive into MongoDB 2.6?</h3>
+
+<p>Excited about all the improvements that MongoDB 2.6 offers and ready to give it a go? If so, the MongoHQ Elastic Deployments are the best way to get started. If you don’t have a MongoHQ account already, <a href="http://www.mongohq.com/signup/">it’s quick and easy to sign up</a>. If you’re already a MongoHQ user, you can provision a new Elastic Deployment with the <strong>Create Database</strong> button.</p>
+
+<p>Happy database’ing!</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=MongoDB%202.6%20Indexing%20Improvements%3A%20Things%20worth%20knowing&amp;url=http://localhost:2368/mongodb-2-6-indexing-improvements-things-worth-knowing/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/mongodb-2-6-indexing-improvements-things-worth-knowing/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/mongodb-2-6-indexing-improvements-things-worth-knowing/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

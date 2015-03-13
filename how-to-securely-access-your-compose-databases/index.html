@@ -1,0 +1,286 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>How to securely access your Compose databases</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/how-to-securely-access-your-compose-databases/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How to securely access your Compose databases">
+    <meta property="og:description" content="Our new access portals, available on Elasticsearch, RethinkDB and Redis have had people asking us which one should they use, so we thought we’d explain the differences and show where they fit. First a refresher on what the Compose...">
+    <meta property="og:url" content="http://localhost:2368/how-to-securely-access-your-compose-databases/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/door-lock-407427_1500_coqt33_mpldol.jpg">
+    <meta property="article:published_time" content="2014-11-14T08:15:50.000Z">
+    <meta property="article:modified_time" content="2014-12-17T08:43:07.000Z">
+    <meta property="article:tag" content="access">
+    <meta property="article:tag" content="portals">
+    <meta property="article:tag" content="proxy">
+    <meta property="article:tag" content="Security">
+    <meta property="article:tag" content="ssh">
+    <meta property="article:tag" content="tcp/http">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to securely access your Compose databases">
+    <meta name="twitter:description" content="Our new access portals, available on Elasticsearch, RethinkDB and Redis have had people asking us which one should they use, so we thought we’d explain the differences and show where they fit. First a refresher on what the Compose...">
+    <meta name="twitter:url" content="http://localhost:2368/how-to-securely-access-your-compose-databases/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/door-lock-407427_1500_coqt33_mpldol.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "How to securely access your Compose databases",
+    "url": "http://localhost:2368/how-to-securely-access-your-compose-databases/",
+    "datePublished": "2014-11-14T08:15:50.000Z",
+    "dateModified": "2014-12-17T08:43:07.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/door-lock-407427_1500_coqt33_mpldol.jpg",
+    "keywords": "access, portals, proxy, Security, ssh, tcp/http",
+    "description": "Our new access portals, available on Elasticsearch, RethinkDB and Redis have had people asking us which one should they use, so we thought we’d explain the differences and show where they fit. First a refresher on what the Compose..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-access tag-portals tag-proxy tag-security tag-ssh tag-tcphttp blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-access tag-portals tag-proxy tag-security tag-ssh tag-tcphttp container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/door-lock-407427_1500_coqt33_mpldol.jpg)">
+    <h1 class="post-title">How to securely access your Compose databases</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-11-14">November 14th, 2014</time></small>
+  </header>
+
+<p>Our new access portals, available on Elasticsearch, RethinkDB and Redis have had people asking us which one should they use, so we thought we’d explain the differences and show where they fit.</p>
+
+<p><img src="../content/images/2014/12/lock320_oc4lf7_g4q1vv.png" alt="lock320" title="">First a refresher on what the Compose access portals do. Databases like Elasticsearch, RethinkDB and Redis have historically tended to run on private networks, assuming a friendly network and not having user authentication or minimal security. If you just put these databases onto the internet raw, you’d find them full of archived cat images pretty quickly. At Compose, each database deployment gets its own virtual private network to keep it, and its contents, safe. But that brings up the problem of how to get to the databases from the internet, and thats where the access portals come in.</p>
+
+<p>Access portals are specialised nodes on the private network with an external IP address. We’ve isolated the security responsibility into these access portals, so there’s no other processes running on them but the processes needed to manage and control the transit of traffic from the outside world into the private network. We have got two types of access portals currently available, the TCP/HTTP portal and the SSH portal.</p>
+
+<h2 id="thetcphttpportal">The TCP/HTTP Portal</h2>
+
+<p>The TCP/HTTP portal runs a web proxy, haproxy to be exact, which only accepts HTTPS connections from the outside and requires that the connection is authenticated with a username and password. It then forwards the request into the private network and returns the response.</p>
+
+<p>The proxy automatically follows which system is the current primary node in the database’s cluster of nodes and sends the traffic to that node. This is great for giving users web and REST access to your database without requiring them to have a lot of information to configure their connection.</p>
+
+<p>By default, the TCP/HTTP portal accepts connections from anywhere on the internet but will still need a valid username and password to let traffic through. There’s an <a href="../elasticsearch-ip-whitelisting-and-phonetic-plugins/">IP whitelist facility</a> which lets you block all traffic unless it’s coming from an IP address in the whitelist too. Again, you’ll still need valid credentials to get a connection. We have been asked if we could drop the requirement for authentication when the whitelist is in operation but a source IP address is relatively easy to fake so we won’t be allowing that.</p>
+
+<h2 id="thesshportal">The SSH Portal</h2>
+
+<p>The SSH portal runs an SSH daemon configured to allow tunnels to be created from the outside into the private network. To configure tunnels like this, connecting systems must be in possession of the private part of a key and have registered to public key with the SSH portal. Then the remote system can run SSH and authenticate itself with the access portal securely – even if the public key falls into the hands of black hats, thats not enough to get access to the system. The connection process is also automatic so can be seamlessly integrated into your application architecture.</p>
+
+<p>The added bonus to this more complex authentication is that you can configure any port on your local system to be mapped to any host/node and port in your database cluster using the SSH tunnelling command options. For an example of how to configure this, see “<em><a href="../connecting-to-composes-rethinkdb-deployments-with-ssh/">Connecting to Compose’s RethinkDB Deployments with SSH</a></em>” where we work through the process for RethinkDB. There, each one of the hosts in the RethinkDB cluster gets it’s own local IP address and then port 8080 and 28015 are tunnelled across to each, connecting the web interface and the application client driver to the database. You can configure the SSH portal with a one to one mapping or configure so that all your nodes are visible to your application. We’ll look at some more complex configurations in a future article.</p>
+
+<h2 id="bestofboth">Best of both</h2>
+
+<p>You can, if you want, run both access portals side by side, giving you the convenience of the TCP/HTTP portal with it’s name/password authentication along with the added security and powerful configuration options of the SSH portal. Do remember that our database plans include only one access portal and an extra access portal will cost $9/month extra – for most users, one or other of the current access portals will fit your needs.</p>
+
+<p>These are also only the first of our access portals. We have more in development which will offer further ways to access your databases with new security and connectivity features. With Compose’s platform for database-as-a-service you can be assured that these future features will, like the current options of TCP/HTTP and SSH, be just a click away.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=How%20to%20securely%20access%20your%20Compose%20databases&amp;url=http://localhost:2368/how-to-securely-access-your-compose-databases/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/how-to-securely-access-your-compose-databases/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/how-to-securely-access-your-compose-databases/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

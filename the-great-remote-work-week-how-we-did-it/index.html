@@ -1,0 +1,279 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>The Great Remote Work Week - How We Did It</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/the-great-remote-work-week-how-we-did-it/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="The Great Remote Work Week - How We Did It">
+    <meta property="og:description" content="“Hey, everyone, we’re all going home next week” – With this announcement from Compose CEO Kurt, so began an intriguing and insight filled week at the company. Remote working can be effective, but where you have a mix of remote...">
+    <meta property="og:url" content="http://localhost:2368/the-great-remote-work-week-how-we-did-it/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/lightstock_132881_medium_thom_crowe_nsmhsb_vcuqiw.jpg">
+    <meta property="article:published_time" content="2014-09-22T12:19:59.000Z">
+    <meta property="article:modified_time" content="2014-12-17T09:32:29.000Z">
+    <meta property="article:tag" content="how we do it">
+    <meta property="article:tag" content="remote working">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Great Remote Work Week - How We Did It">
+    <meta name="twitter:description" content="“Hey, everyone, we’re all going home next week” – With this announcement from Compose CEO Kurt, so began an intriguing and insight filled week at the company. Remote working can be effective, but where you have a mix of remote...">
+    <meta name="twitter:url" content="http://localhost:2368/the-great-remote-work-week-how-we-did-it/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/lightstock_132881_medium_thom_crowe_nsmhsb_vcuqiw.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "thom",
+        "image": "//www.gravatar.com/avatar/a450ef8575e5305c65e7a1b6f7e5c204?d=404&s=250",
+        "url": "http://localhost:2368/author/thom",
+        "sameAs": ""
+    },
+    "headline": "The Great Remote Work Week - How We Did It",
+    "url": "http://localhost:2368/the-great-remote-work-week-how-we-did-it/",
+    "datePublished": "2014-09-22T12:19:59.000Z",
+    "dateModified": "2014-12-17T09:32:29.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/lightstock_132881_medium_thom_crowe_nsmhsb_vcuqiw.jpg",
+    "keywords": "how we do it, remote working",
+    "description": "“Hey, everyone, we’re all going home next week” – With this announcement from Compose CEO Kurt, so began an intriguing and insight filled week at the company. Remote working can be effective, but where you have a mix of remote..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-how-we-do-it-2 tag-remote-working blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-how-we-do-it-2 tag-remote-working container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/lightstock_132881_medium_thom_crowe_nsmhsb_vcuqiw.jpg)">
+    <h1 class="post-title">The Great Remote Work Week - How We Did It</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-09-22">September 22nd, 2014</time></small>
+  </header>
+
+<p>“Hey, everyone, we’re all going home next week” – With this announcement from Compose CEO Kurt, so began an intriguing and insight filled week at the company. Remote working can be effective, but where you have a mix of remote workers and office based people it can be difficult for latter to understand the challenges that come from working remotely, let alone nomadically.</p>
+
+<p>I live in the middle of the country and was hired as a remote employee, so this wasn’t a big change for me. Over the last 3 months, I’ve worked out of our San Mateo and Birmingham office – remote employees are encouraged to meet up in our offices and work together. That “come into the office” time is the inverse of remote work week, allowing remote workers to understand the office dynamics. It is great to set up shop and work with team mates, not just those who are usually in the office but also those who travel out to meet up. Most folks know or have lived the office experience, but the opposite is rarely true.</p>
+
+<p>That means that, if we look at the numbers, just over half the employees don’t know what it’s like to work remotely. They may well use all the tools that the remote folk use, but the experience is different…</p>
+
+<p><img src="../content/images/2014/12/chart-e1411417749421_tust4j_tjucbl.jpg" alt="Compose Remote Working Breakdown" title="">Those 48% of remote employees are spread across five states, four countries and three continents, which is interesting in itself but an article for another time.</p>
+
+<p>Sharing is caring and the first thing to share with the soon to be de-office employees was how to cope. We put one of our favorite remote working tools – <a href="http://127.0.0.1:2368/content/images/2014/12/sqwiggle_opt_dozgba_wbwh8m.jpg">Hackpad</a> <br>
+ Everyone took to Sqwiggle over the week and it helped recreate some of the office interaction feel for remote working and it proved its worth over the week. But video conferencing brings us to another subject.</p>
+
+<h2 id="beingonline">Being online</h2>
+
+<p>Bandwidth. Internet bandwidth is a resource more precious than a comfy chair and more valuable than a sound proofed room. If you don’t have reliable internet bandwidth then you will find yourself unable to effectively remote work. In an age of Wi-Fi everywhere (except that coffee-shop that makes it a feature not to have Wi-Fi) you would think it would be simple for the nomad to find a wireless home.</p>
+
+<p>A Mifi or a data plan that lets you tether your laptop to your phone is useful to have in a bind, but you’ll still need to find that stable, solid internet connection somewhere that you can call a temporary home. And talking about home, even the stay at home workers will experience this problem – remote working tools can put unexpected strains on domestic internet connections. The rule of thumb is, before you settle in with your latte, test and verify your connection.</p>
+
+<h2 id="getcomfortable">Get Comfortable</h2>
+
+<p>Once you’ve got your stable connection and you are chatting to the rest of the company, you need to get comfortable. Ergonomics is important to the nomad and the home-alone worker. Make sure wherever you are working isn’t putting too much strain on your back, make sure surfaces can be aligned for comfort and be aware of any early aches. Also, ensure that, as you should in the office, you are getting up to stretch your legs.</p>
+
+<p>And it’s not just your physical environment you should look out for. TV and music in the background can help some people, but they can also prove to be a distraction which will keep you out of the zone. <a href="../content/images/2014/12/compose-logo-stacked-black_htgbqp_peyzzf.png">Spotify</a>There’s no one size fits all for remote working, but you can ensure that everyone understands what it involves. The great remote work week doesn’t just build empathy for remote working though – it also makes sure that everyone has a personal backup plan for their working space, it gets people using your remote working tools better and it is a bonding experience for all. We recommend it for any company that is serious about remote working.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="http://127.0.0.1:2368/author/thom/">
+        <img src="http://www.gravatar.com/avatar/a450ef8575e5305c65e7a1b6f7e5c204?d=404&amp;s=250" alt="thom">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="http://127.0.0.1:2368/author/thom/">thom</a>
+          <p>Growth Guy at Compose, Thom likes running A/B tests, looking at metrics and playing on social media.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=The%20Great%20Remote%20Work%20Week%20-%20How%20We%20Did%20It&amp;url=http://localhost:2368/the-great-remote-work-week-how-we-did-it/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/the-great-remote-work-week-how-we-did-it/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/the-great-remote-work-week-how-we-did-it/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

@@ -1,0 +1,256 @@
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>kurt - Compose Articles</title><description>News, tips, and tricks from the team at Compose</description><link>http://localhost:2368/</link><generator>Ghost 0.5</generator><lastBuildDate>Fri, 13 Mar 2015 15:33:57 GMT</lastBuildDate><atom:link href="http://localhost:2368/author/kurt/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>MongoHQ is now Compose, and launching Elasticsearch</title><description>&lt;p&gt;As you can probably tell, we’ve made a big change — our company is now called &lt;strong&gt;Compose&lt;/strong&gt;. We’ve spent the last 5 years helping customers solve complex data problems, and it’s become increasingly common for applications to need multiple database technologies to get the most out of what they “know” (data). &lt;img src="http://localhost:2368/content/images/2014/12/composesocialicon_lat46l_ccj6i4.png" alt="composesocialicon" title=""&gt;We want to make it easy for developers to run these technologies. While we have had this vision for a long time, changing our name is the first big step to embrace this world.&lt;/p&gt;
+
+&lt;p&gt;Our second step: Launching Elasticsearch. We are now offering a public beta of our Elasticsearch database service, with features to make launching a production application as comfortable as possible. If you haven’t yet used Elasticsearch, give it a try. It’s a phenomenal tool for indexing large volumes of data and giving users very flexible, expressive query capabilities. If you want something like Google’s advanced search for your application, Elasticsearch is what you need. We’ll be producing a great deal of content to help our customers get the most out of Elasticsearch along the way. Elasticsearch and MongoDB are a powerful combination of tools for application developers.&lt;/p&gt;
+
+&lt;p&gt;As you would expect, this is just the beginning of how we see this vision playing out. We are committed to providing developers with powerful and useful ways to interact with their data no matter the underlying database engine. Data should not be bound to a specific technology, but instead easily transformed for various uses across teams and companies.&lt;/p&gt;
+
+&lt;p&gt;So, why Compose? Functional programming languages offer developers function composition, combining single purpose functions into new, specialized units that solve a unique problem. Databases can, and should, be combined to solve application problems. Thus, Compose. We’re so excited about the future and it’s great to have you coming along with us.&lt;/p&gt;
+
+&lt;p&gt;Have any questions? Let us know at &lt;a href="mailto:hello@compose.io"&gt;hello@compose.io&lt;/a&gt;.&lt;/p&gt;</description><link>http://localhost:2368/mongohq-is-now-compose-and-launching-elasticsearch/</link><guid isPermaLink="false">1e9f4350-9e99-4fea-a81c-925117bc4056</guid><category>announcement</category><category>compose</category><category>mongohq</category><dc:creator>kurt</dc:creator><pubDate>Wed, 06 Aug 2014 11:48:27 GMT</pubDate></item><item><title>MongoDB Elastic Deployments now available in Oregon</title><description>&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/oregon_trail_zdpzce_ddd1tl.png" alt="oregon" title=""&gt;We have finally completed Oregon Trail (been trying since 5th grade). We’re celebrating by launching Elastic Deployments optimized for use in the AWS us-west-2 datacenter. If you have a production, MongoDB backed application you want to run on the west coast, we’ll now handle the database for you.&lt;/p&gt;
+
+&lt;p&gt;Elastic Deployments give you the best of MongoDB hosting — fully replicated databases running on fast SSDs with access to huge amounts of RAM. You only pay for what you use, at a flat monthly fee of $18/GB. You also get:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Automatic daily backups, or &lt;a href="http://localhost:2368/content/images/2014/12/oregon_deployment_rnkom9_zosve5.png"&gt;run them On Demand&lt;/a&gt;If you are already a MongoHQ customer, you can provision a new Elastic Deployment with the &lt;a href="https://app.mongohq.com/databases/new/elastic"&gt;database creation form&lt;/a&gt;. Make sure you choose “AWS us-west-2 (Oregon)” in the region selector.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;New to MongoHQ? We have a special signup link for Elastic Deployments in Oregon — &lt;a href="https://www.mongohq.com/signup?region=us-west-2"&gt;create an account&lt;/a&gt; and get a database in us-west-2. It takes less than a minute to be off and running!&lt;/p&gt;</description><link>http://localhost:2368/mongodb-elastic-deployments-now-available-in-oregon/</link><guid isPermaLink="false">15f7e5fe-b804-40a9-b0e9-9a7654fc7fda</guid><dc:creator>kurt</dc:creator><pubDate>Fri, 16 May 2014 10:14:39 GMT</pubDate></item><item><title>MongoDB Elastic Deployments now in beta on DigitalOcean</title><description>&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/docean.svg" alt="Digital Ocean Logo" title=""&gt;Running your application on DigitalOcean? Now you can take advantage of the blazing fast SSDs and autoscaling that you get with MongoHQ’s Elastic Deployments.&lt;/p&gt;
+
+&lt;p&gt;DigitalOcean is by far our most requested datacenter provider, and we are happy to announce that our customers now have the option to host their Elastic Deployments in DigitalOcean’s New York 2 data center. This service is currently a public beta, and we plan to add more DigitalOcean regions soon.&lt;/p&gt;
+
+&lt;p&gt;Elastic Deployments give you the best of MongoDB hosting — fully replicated databases running on fast SSDs with access to huge amounts of RAM. You only pay for what you use, at a flat monthly fee of $18/GB. You also get:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Automatic daily backups, or &lt;a href="http://localhost:2368/content/images/2014/12/digitalocean-selector.png"&gt;run them On Demand&lt;/a&gt;If you are already a MongoHQ customer, you can provision a new Elastic Deployment with the &lt;a href="https://app.mongohq.com/databases/new/elastic"&gt;database creation form&lt;/a&gt;. Make sure you choose “Digital Ocean (Beta)” in the region selector.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;New to MongoHQ? We have a special signup link for DigitalOcean — &lt;a href="https://www.mongohq.com/signup?region=nyc2"&gt;create an account&lt;/a&gt; and get a database in NYC2. It takes less than a minute to be off and running!&lt;/p&gt;</description><link>http://localhost:2368/mongodb-elastic-deployments-now-in-beta-on-digitalocean/</link><guid isPermaLink="false">1e3a899f-5f49-43c0-8f3b-ab45ba128c88</guid><dc:creator>kurt</dc:creator><pubDate>Wed, 30 Apr 2014 12:18:48 GMT</pubDate></item><item><title>Elastic Deployments Now Available in Australia</title><description>&lt;p&gt;G’day Australia! We would like to let you all know that our Elastic Deployments are now available in Sydney. These represent the best in hosted MongoDB – SSD-backed replica sets that autoscale as your data grows, for a flat price of $18USD/GB/mo. We thought offering them in Australia would be a nice way of saying, “thanks for giving us an epic on-screen Wolverine”.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/shrimponthebarbie_ytyae1_f1xx2a.png" alt="shrimponthebarbie" title=""&gt;Have a look at the original &lt;a href="http://blog.mongohq.com/new-elastic-deployments-now-available/"&gt;Elastic Deployments announcement&lt;/a&gt; for more details on the product, or check out our documentation for details on how we &lt;a href="http://docs.mongohq.com/common-questions/elastic-deployments.html"&gt;scale MongoDB&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you’re already a MongoHQ customer, you can provision a new Elastic Deployment with the “Create Database” button. Make sure you choose “AP Southeast 2″ in the region selector.&lt;/p&gt;
+
+&lt;p&gt;Not yet a MongoHQ customer? &lt;a href="https://www.mongohq.com/signup?region=ap-southeast-2&amp;amp;utm_campaign=feature-announce&amp;amp;utm_medium=content&amp;amp;utm_source=blog.mongohq.com"&gt;Sign up&lt;/a&gt; now and get an Elastic Deployment in Australia all in one go.&lt;/p&gt;</description><link>http://localhost:2368/elastic-deployments-now-available-in-australia/</link><guid isPermaLink="false">99891234-163e-46af-9cc3-5b274c6fb63d</guid><dc:creator>kurt</dc:creator><pubDate>Thu, 27 Mar 2014 00:21:47 GMT</pubDate></item><item><title>How We Scale MongoDB</title><description>&lt;p&gt;We recently launched &lt;a href="http://blog.mongohq.com/new-elastic-deployments-now-available/"&gt;Elastic Deployments for MongoDB&lt;/a&gt;, which represent the best method we’ve found for scaling customers’ MongoDB datasets appropriately. The word “appropriate” is, well, appropriate when considering scaling. A 10GB MongoDB dataset has different requirements than a 10TB dataset which has different requirements than a 10PB dataset. There aren’t hard rules for the best time to scale these data sets using more complex methods.&lt;/p&gt;
+
+&lt;aside class="right-gutter"&gt;&lt;dl&gt;&lt;dt&gt;Redundancy&lt;/dt&gt;&lt;dd&gt;Discussions about horizontal scale frequently conflate redundancy and performance, but they are two separate concepts, particularly in MongoDB. Horizontal scale in MongoDB is primarily used for performance gain. &lt;/dd&gt;&lt;/dl&gt;&lt;/aside&gt;It can be damaging (and technically and emotionally painful) to build for the wrong scale — planning too big is most common, and means a developer having to give up nice features of the database that can help simplify or speed up development. It can often be related to the same “premature optimization” arguments that are made on the application side.
+
+&lt;aside class="left-gutter"&gt;&lt;dl&gt;&lt;dt&gt;Replication&lt;/dt&gt;&lt;dd&gt;MongoDB achieves redundancy through primary/secondaries [replication](http://docs.mongodb.org/manual/replication/). MongoHQ Elastic Deployments are three-member, high-availability, journaled replica sets. &lt;/dd&gt;&lt;/dl&gt;&lt;/aside&gt;  
+
+&lt;h2 id="firstwescalevertically"&gt;First, we scale vertically&lt;/h2&gt;
+
+&lt;p&gt;MongoDB, like most databases, craves RAM and IO capacity. It sometimes likes CPU. The simplest conceptual way of scaling performance for a MongoDB dataset is to give it more system resources without worrying about spreading the load across servers. Normally, this is painful for cost or operational reasons. Doubling the capacity of a production MongoDB replica set means swapping larger servers in, figuring out what to do with the old ones, and hoping the new ones are just the right size to keep things healthy for a long period of time.&lt;/p&gt;
+
+&lt;p&gt;We tackled this problem by buying the biggest reasonable commodity servers around, run customer databases in isolated containers, and allocate system resources on the fly. When an Elastic Deployment data set grows, we give it more RAM and IO capacity in proportions that work well for the bulk of the production databases we’ve managed. This is an incredibly effective way to scale most MongoDB datasets that are less than 250GB in size.&lt;/p&gt;
+
+&lt;aside class="left-gutter"&gt;&lt;dl&gt;&lt;dt&gt;Big iron, 2014&lt;/dt&gt;&lt;dd&gt;- 256GB of RAM is normal  
+- SSDs mean incredible random IO perf
+
+&lt;/dd&gt;&lt;/dl&gt;&lt;/aside&gt;  
+
+&lt;h2 id="thenwescaleverticallyagain"&gt;Then, we scale vertically again&lt;/h2&gt;
+
+&lt;p&gt;Sadly, MongoDB itself will usually become a bottleneck before the capacity of a server is exhausted. Write lock is almost always the biggest problem (though there are practical limits to how much IO capacity a single MongoDB process can take advantage of). When it is clear that write lock could become a factor, we gracefully convert databases to a setup we call “core sharding” — running multiple MongoDB shards on the same physical (high-availability replica set) servers, up to one shard per CPU core. This allows MongoDB to better utilize IO, for instance, when otherwise it would be bounded by write lock.&lt;/p&gt;
+
+&lt;p&gt;&lt;aside class="right-gutter"&gt;&lt;dl&gt;&lt;dt&gt;“Cloud” networking&lt;/dt&gt;&lt;dd&gt;Consistent network performance is something that, as you scale on popular cloud providers (like ones that rhyme with, um, kabamamazon), you can’t expect to be “always” reliable. &lt;/dd&gt;&lt;/dl&gt;&lt;/aside&gt;Fortunately, we can handle most datasets up to 2.5TB on the same group of physical servers. I say fortunately because keeping a MongoDB setup operationally compact limits the potential failure modes of a production cluster. In particular, networking over the loopback adapter is fast and reliable. Layer 2 networking (even in the same local network) is a bit slower and a bit more susceptible to chaos. Degraded network performance can manifest itself as a heisenbug in a freshly-sharded MongoDB application, so we just avoid the network when it’s easy and give customer applications and datasets time to mature before they need to take the next step.&lt;/p&gt;
+
+&lt;p&gt;Quite a bit of what we do is try to limit chaos on behalf of our customers, so when we do core shard, we spend as much time as necessary to make sure a customer’s shard key decisions are the right ones for a given dataset. (As an aside, we will continue to be skeptical that good shard key decisions can be made when you are just starting out with a data set.)&lt;/p&gt;
+
+&lt;p&gt;Choosing the wrong shard keys for a MongoDB cluster is a nicely embossed invitation for chaos to bring a guest to a database party. Core sharding is our best opportunity to intervene and apply our experience in a way that minimizes party fouls and allows our customers to gracefully implement intelligent strategies. Each one is different … there is no “one way” to do it and the more you take time to understand your data, the better your decisions will be.&lt;/p&gt;
+
+&lt;h2 id="thenwescaleout"&gt;Then, we scale out&lt;/h2&gt;
+
+&lt;p&gt;At this point, scaling out MongoDB is easy. A well-built, sharded MongoDB dataset is easy to reason about and will scale linearly across other servers. For the most part, our customers don’t know or care when physical horizontal scale comes into play. When a customer dataset is “mature” and growing, we migrate core shards to other servers behind the scenes as needed to provide the right amount of scale.&lt;/p&gt;
+
+&lt;h2 id="thenelasticdeploymentsmakeshardingawesometoo"&gt;Then, Elastic Deployments make Sharding Awesome, too.&lt;/h2&gt;
+
+&lt;p&gt;The nice thing about having a way to scale a logical MongoDB process vertically is that we can apply it to the shards in a big cluster. Under extreme load, increasing horizontal capacity in a MongoDB cluster can be difficult. Migrating data adds write load and, through &lt;a href="http://blog.mongohq.com/new-elastic-deployments-now-available/"&gt;Elastic Deployments&lt;/a&gt;, ramping up the resources on each shard is a really nice way to buy time to get past load spikes (or buy capacity to let MongoDB shard balancing do its thing).&lt;/p&gt;
+
+&lt;p&gt;We actually use this ability proactively, when possible. It’s common for customers to hear that they’re going to get a massive increase in activity ahead of time (an upcoming Google or Apple App Store promotion, for instance) and let us know. Our team simply adjusts resources behind the scenes. Once we’ve thrown hardware at the problem, we can either use the extra power to migrate data to new shards quicker, or just use it to absorb the load directly.&lt;/p&gt;
+
+&lt;h2 id="flexibilityisarequirementofanevolvingdataset"&gt;Flexibility is a requirement of an evolving data set&lt;/h2&gt;
+
+&lt;p&gt;MongoDB offers numerous features that make developers lives easier. It also offers features for scale. Using the scaling features at the wrong time means compromising on developer-friendly features (unique constraints, oplog usefulness, capped collections). There is a great deal of pressure on developers to use the MongoDB sharding features even when they’re &lt;strong&gt;not&lt;/strong&gt; necessary, which makes their lives worse in aggregate. The most healthy MongoDB setups started with developers using features that helped them move faster, and evolved as understanding of the problem scope and appropriate scale increased.&lt;/p&gt;
+
+&lt;p&gt;For developers that use MongoDB, we help them make smart decisions and don’t force them down a path before they even have a map. This, we have found, always leads to the best likelihood for success.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;This post was previously a badly thought out attempt to generically talk about scaling databases vertically. Based on feedback from customers and smart people on Twitter, we felt it was best to tackle this subject in a much narrower scope rather than presenting badly communicated opinions without much substantiation.&lt;/em&gt;&lt;/p&gt;</description><link>http://localhost:2368/how-we-scale-mongodb/</link><guid isPermaLink="false">ccb24ea0-b118-4f6a-bddc-8e9cfb6ab982</guid><category>elastic deployments</category><category>mongodb</category><category>performance</category><category>scaling</category><category>Sharding</category><dc:creator>kurt</dc:creator><pubDate>Sun, 16 Mar 2014 20:15:30 GMT</pubDate></item><item><title>Making Remote Work Work: an Adventure in Time and Space</title><description>&lt;p&gt;MongoHQ is a distributed company, with 21 employees scattered across California, Alabama, Utah, Windsor Ontario, Quebec, and London. This isn’t rare, by any means, and is becoming more common as technology corporations evolve … particularly when they realize that the intersection of the entire population of good hackers and the area that’s reasonably accessible to their office looks something like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/good-hacker-sf-venn-diagram.png" alt="Good Hacker intersection with office area" title=""&gt;Most posts like this talk a lot about the tools, which is understandable because they’re so much fun to futz around with. At their best, though, tools that help with distributed teams are an extension of a remote friendly workplace, and getting to that is &lt;em&gt;hard&lt;/em&gt;. We’re probably 80% of the way there, and with enough diligence will be 82% of the way there by the end of this year.&lt;/p&gt;
+
+&lt;h2 id="workingwellremotelytakespractice"&gt;Working well remotely takes practice&lt;/h2&gt;
+
+&lt;p&gt;We’ve started asking about remote work experience and skills very early in a promising interview cycle. We expect a lot from people, and the “remote requirement” just adds another dimension of difficulty to their jobs. The normal response, particularly from people who’ve been physically present at offices all their lives, is a bit nonchalant. They assume that “remote work” means “I can spend a lot of time skiing and work from the lodge”.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/steve-telecommuting_wo2c4l_zp8wes.jpg" alt="Steve somewhere exotic, and snowy" title=""&gt;So that’s true, kind of, as evidenced by Steve up there. He does go skiing a lot and has been known to work from the lodge. He also, when not skiing, starts his days roughly 6 hours later than a normal Londoner to make sure he’s around to talk to people on the superior American time zones (except Pacific time, Pacific time is awful).&lt;/p&gt;
+
+&lt;p&gt;What they don’t always think about, though, is the inherent firewall a commute creates between “work” and “personal life”. Working out of a home office opens up an entire world of surprisingly difficult-to-handle distractions, particularly for those of us with families. It’s easy to avoid a guitar wielding toddler when the office is 5 miles away and he has no driver’s license. It’s harder when the wall between the living room and the office makes a delightful banging noise when struck with a guitar.&lt;/p&gt;
+
+&lt;h2 id="everyoneworksremotelyevenfromanoffice"&gt;Everyone works remotely, even from an office&lt;/h2&gt;
+
+&lt;p&gt;If you did the math, you noticed we have about four times as many people as we do locations. MongoHQ has offices in both San Mateo, CA (about 15 miles south of San Francisco) and Birmingham, AL. Having centralized offices can wreck a budding remote friendly culture. Working in a way that’s inclusive of people who aren’t physically (or even temporally) present is not entirely natural, and excluding remote employees from important interactions is a quick path to agony.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/4798856225_497f8a1566_b-700x468.jpg" alt="Watercooler gossip" title=""&gt;We’ve experienced some variant of this problem every time a new hire has joined in one of our offices, and are now very explicit about the “work as if you’re not here” standard. We expect everyone to work with the remote collaboration tools, be available via the same channels, and produce written artifacts of interactions that are important to share. This is a tough requirement to stick to. We’ve encountered people who function very well in an office environment, but can’t seem to function remotely.&lt;/p&gt;
+
+&lt;h2 id="hypersensitivitytothefeels"&gt;Hypersensitivity to “the feels”&lt;/h2&gt;
+
+&lt;p&gt;Like most deceptively simple ideas, remote work is easy and amazing when everything is going well. If your company is killing it, all the hockey sticks point up, and everyone gets along amazingly well, the remote work culture is probably good. There is danger, however, when things go south. We’ve experienced the emotional troughs as a company, and had individuals fight their own personal battles.&lt;/p&gt;
+
+&lt;p&gt;The reality of a remote workplace is that the connections are largely artificial constructs. People can be very, very isolated. A person’s default behavior when they go into a funk is to avoid seeking out interactions, which is effectively the same as actively withdrawing in a remote work environment. It takes a tremendous effort to get on video chats, use our text based communication tools, or even call someone during a dark time.&lt;/p&gt;
+
+&lt;p&gt;We’re learning how to interpret the emotional state of people we only rarely see, and started working to deliberately draw people out of isolation with company wide video events. We’ve even tried recording bits of these events (a recent one had a series of lightning talks) and sharing them around afterward in an effort to get face time, even if just one way. This is a hard problem, though, and there’s really very little we can do about it other than notice that it’s happening.&lt;/p&gt;
+
+&lt;h2 id="thepracticalandthetools"&gt;The practical (and the tools!)&lt;/h2&gt;
+
+&lt;p&gt;In general, a distributed team is a series of communication problems. We tackle this in two general ways. First, we favor async communication when possible:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;We have a central “work tool” (it’s home grown, we call it Compose) we use to record what we’re producing each day. Anyone who wants to know what someone is up to, or what’s been accomplished on project X, can find out here … assuming everyone’s doing their job.&lt;/li&gt;
+&lt;li&gt;Most day to day communication happens in &lt;a href="http://localhost:2368/content/images/2014/12/sqwiggle-shenanigans.png"&gt;Hipchat&lt;/a&gt;- Google Hangouts come in handy for scheduled events. We used to have a perpetual Hangout on wall mounted televisions in both offices, but that created a sort of audience / presenter vibe that was a little odd.&lt;/li&gt;
+&lt;li&gt;We have a &lt;a href="http://doublerobotics.com/"&gt;Double Robotics&lt;/a&gt; robot in each office. Remote employees can “drop in”, drive around, and even pull off low level pranks.&lt;/li&gt;
+&lt;li&gt;Does real estate count as a tool? We have an apartment near our San Mateo office that anyone can use when they’re in town. People tend to travel to San Mateo about once every 6 weeks on average.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="itsaprocess"&gt;It’s a process&lt;/h2&gt;
+
+&lt;p&gt;If you are trying to build a remote friendly culture, the best advice we have for you is “just keep iterating”. It’s not an easy thing to do, but it’s an amazing capability for a company to have. Our continued attempts to do it well have resulted in some phenomenal people joining we never would have met otherwise. We’ve mostly been able to get this far by powering through the tough stuff, committing to un-natural but valuable habits, and &lt;a href="http://joel.is/post/59525266381/the-joys-and-benefits-of-working-as-a-distributed-team"&gt;learning&lt;/a&gt; from other &lt;a href="https://zapier.com/blog/how-manage-remote-team/"&gt;companies&lt;/a&gt; who are &lt;a href="http://zachholman.com/posts/how-github-works-asynchronous/"&gt;trying&lt;/a&gt; to do similar.&lt;/p&gt;</description><link>http://localhost:2368/making-remote-work-work-an-adventure-in-time-and-space/</link><guid isPermaLink="false">903648c9-9437-4812-ba25-e76bf58348f9</guid><dc:creator>kurt</dc:creator><pubDate>Wed, 15 Jan 2014 18:08:31 GMT</pubDate></item><item><title>There's Always Money in the &lt;strike&gt;Banana Stand&lt;/strike&gt; MongoDB Oplog</title><description>&lt;p&gt;&lt;em&gt;… make sure you don’t burn it down.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Anyone who’s ever done much work with databases has experienced the “oh shit” moment where data goes missing, or appears corrupt, and there’s really no obvious reason why. We, as a company, are morally opposed to vanishing data and have gotten quite good at finding out where it’s gone to.&lt;/p&gt;
+
+&lt;p&gt;Usually it’s easy to figure out what happened, since Mongo logs &lt;code&gt;drop&lt;/code&gt; commands for databases and collections. If you have a Rails app backed by Mongo, and wake up to an empty database one morning, it’s worth asking who ran &lt;code&gt;rake db:seed&lt;/code&gt; against a live database.&lt;/p&gt;
+
+&lt;p&gt;There are more insidious cases, though, where data is only partially missing, or a document you swear you looked at a few weeks ago has a few less fields than it used to. To MongoDB’s credit, this is almost never the fault of the DB engine — more common is a developer error, a bug in a data library, or a race condition.&lt;/p&gt;
+
+&lt;p&gt;MongoDB’s oplog is one of the best tools for well aimed finger pointing. The oplog is a write ahead log that’s primarily used for replication. Inserts, updates, and deletes (and some commands) on the primary are logged into a capped collection, and used to “play forward” data files on secondaries.&lt;/p&gt;
+
+&lt;h2 id="figuringoutwhatyouvegot"&gt;Figuring out what you’ve got&lt;/h2&gt;
+
+&lt;p&gt;Since oplogs are capped collections, they tend to forget what’s happened after a certain amount of time. We try and keep as big of oplog as possible, and for most databases there should be a minimum of several days worth of logged write operations. You can check your oplog length from the MongoDB shell:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;PRIMARY&amp;gt; db.printReplicationInfo()  
+configured oplog size:   2048MB  
+log length start to end: 8896166secs (2471.16hrs)  
+oplog first event time:  Sat Sep 28 2013 05:28:52 GMT+0000 (UTC)  
+oplog last event time:   Thu Jan 09 2014 04:38:18 GMT+0000 (UTC)  
+now:                     Thu Jan 09 2014 07:08:59 GMT+0000 (UTC)  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is the oplog for one of our internal databases, and stores 100 days worth of operations. It’s actually a log of the entire history of writes to the DB, which we can tell by looking at the first entry:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;PRIMARY&amp;gt; db.oplog.rs.find().sort({$natural: 1}).limit(1)[0]  
+{
+  "ts" : Timestamp(1380346132, 1),
+  "h" : NumberLong("-6895578725396474892"),
+  "v" : 2,
+  "op" : "n",
+  "ns" : "",
+  "o" : {
+    "msg" : "Reconfig set",
+    "version" : 2
+  }
+}```
+
+
+## Changes for a specific document
+
+The oplog is just a collection, with a well defined schema, so you can run queries against it like any other collection. If we know the `_id` of a document that’s suspiciously missing data, we can get a summary of write operations that affected it with a simple aggregation command:
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;PRIMARY&gt; db.oplog.rs.aggregate([{$match: {ns: "compose.projects", $or: [{"o.&lt;em&gt;id": ObjectId("527da1f73664650015000000")},{"o2.&lt;/em&gt;id": ObjectId("527da1f73664650015000000")}]}}, {$group: {&lt;em&gt;id: "$op", count: {$sum: 1}}}]) &lt;br&gt;
+{
+  "result" : [
+    {
+      "&lt;/em&gt;id" : "u",
+      "count" : 557
+    },
+    {
+      "_id" : "i",
+      "count" : 1
+    }
+  ],
+  "ok" : 1
+}```&lt;/p&gt;
+
+&lt;p&gt;Write operations are converted to idempotent operations for oplog purposes. This means that the &lt;code&gt;o2._id&lt;/code&gt; field of an update will always exist, even if the update conditions used entirely different fields. It’s a useful feature for this kind of digging.&lt;/p&gt;
+
+&lt;h2 id="recognizingwhatwentwonky"&gt;Recognizing what went wonky&lt;/h2&gt;
+
+&lt;p&gt;We’ve seen a few types of write patterns result in unexpected data for developers. Most are pretty simple to identify, there’s almost always a remove op (or a sequence of remove ops). Applications will also send whole document updates (&lt;code&gt;db.update({_id: 12345}, {hi: true})&lt;/code&gt;) when they should be using the atomic operators (&lt;code&gt;$set&lt;/code&gt;, &lt;code&gt;$inc&lt;/code&gt;, etc). MongoMapper did this for a long time, leading to many cross eyed moments for first time users.&lt;/p&gt;
+
+&lt;p&gt;More nefarious, though, is the race condition, which will frequently happen with a set of concurrent web or worker processes that manipulate the same document. In a typical race condition, writes that happen in a quick succession can leave the document in an unexpected state.&lt;/p&gt;
+
+&lt;p&gt;Here’s a contrived command sequence from a pretend financial app you should never use for anything ever (it seems like many Bitcoin apps are built with this level of care):&lt;/p&gt;
+
+&lt;p&gt;```
+// worker 1 loads an account doc
+account = db.accounts.findOne({&lt;em&gt;id: 12345}) &lt;br&gt;
+{&lt;/em&gt;id: 12345, balance: 100, status: "college"} // retrieves account with a $100 balance&lt;/p&gt;
+
+&lt;p&gt;// worker 2 finds same id because the value hasn't changed yet
+account = db.accounts.findOne({&lt;em&gt;id: 12345, balance: {$gte: 100}}) &lt;br&gt;
+{&lt;/em&gt;id: 12345, balance: 100} // retrieves same doc&lt;/p&gt;
+
+&lt;p&gt;// worker 1 deposits $1mm, updates balance and status
+db.accounts.update({&lt;em&gt;id: account.&lt;/em&gt;id}, {$set: {status: "yolo", balance: 1000100}})&lt;/p&gt;
+
+&lt;p&gt;// worker 2 withdraws $100, unsets balance and status
+db.accounts.update({&lt;em&gt;id: account.&lt;/em&gt;id}, {$unset: {$status: 1, balance: 1}})```&lt;/p&gt;
+
+&lt;p&gt;Suddenly, the account document is inconsistent, and we’ve just caused a big pile of money to vanish (not to mention the short lived status label). This is really difficult to debug, in most cases, but is pretty obvious in the oplog.&lt;/p&gt;
+
+&lt;p&gt;Don’t burn it down&lt;/p&gt;
+
+&lt;p&gt;The oplog is only useful for this kind of analysis if it spans “the right” amount of time. This is something we monitor closely on our DBs (for a variety of reasons), and you should too. Keep as much around as you can.&lt;/p&gt;</description><link>http://localhost:2368/theres-always-money-in-the-mongodb-oplog/</link><guid isPermaLink="false">9f845133-9646-4c8a-9bf9-3181b3d9dde4</guid><dc:creator>kurt</dc:creator><pubDate>Thu, 09 Jan 2014 21:26:48 GMT</pubDate></item><item><title>Schema-Less Is (Usually) a Lie</title><description>&lt;p&gt;&lt;strong&gt;People are fond of categorizing trendy database engines by what they’re not … “schema-less” is just one example.&lt;/strong&gt; Overly broad, negative definitions are not the most helpful thing in the world (my whiteboard is technically schema-less and NoSQL). “Schema less” goes the extra mile — not only is it overly broad, but it’s normally not even true. MongoDB users deal with schemas and our customers frequently run into problems that need to be fixed with schema changes. As a result, we tend to think about schema in two parts, the “data-schema” and the “query-schema”.&lt;/p&gt;
+
+&lt;p&gt;![Graciously borrowed from /content/images/2014/12/schema-design2&lt;em&gt;jjyeiw&lt;/em&gt;jfd90s.jpg)### The Query Schema&lt;/p&gt;
+
+&lt;p&gt;MongoDB-based applications have another flavor of schema, we tend to call it the “query schema”. The query schema exists in both the application code and the DB engine. Indexes on collections in MongoDB are very much “schema” and are one of the most important concepts to master for an application running at scale. While a fungible data schema can work well, a query schema should be mostly static and ensure that queries match up to indexes as precisely as possible. Getting this portion of a schema wrong can result in all kinds of pain down the road since indexes are intensive to build on large data sets and successful sharding needs a solid base to build on top of.&lt;/p&gt;
+
+&lt;p&gt;This is, incidentally, one of the reasons 10gen recommends scaling MongoDB vertically as much as practical. The need to shard early (less than 100GB of data) is normally an indication of a screwed-up query schema, and a sign that sharding will probably be incredibly painful.&lt;/p&gt;
+
+&lt;h3 id="ismongodbreallyschemaless"&gt;Is MongoDB really schema-less?&lt;/h3&gt;
+
+&lt;p&gt;There are very few databases that are actually schema-less. The term arguably works for Solr/Lucene since fields to be indexed can be defined at the “document” level, but nearly every other data store has a schema defined somewhere. The differentiator between databases is almost always which bits of the schema live in application code vs the database engine. Quality SQL databases have very strong schema support in the database engine. Dynamo type DBs (Cassandra, Riak, etc) mostly push data/query schema to the application level. MongoDB sits between the two and seems to have struck a balance that give developers a lot of power.&lt;/p&gt;</description><link>http://localhost:2368/schema-less-is-usually-a-lie/</link><guid isPermaLink="false">92110f56-ed1b-4da1-b228-0a45bf578418</guid><dc:creator>kurt</dc:creator><pubDate>Tue, 02 Jul 2013 22:04:18 GMT</pubDate></item><item><title>Speaking "MongoDB Replica Set"</title><description>&lt;p&gt;Replica sets are cool. They add data redundancy in a mostly transparent way, requiring only a little extra developer knowledge. That knowledge is important, though, and we regularly help our customers troubleshoot applications running into preventable problems.&lt;/p&gt;
+
+&lt;h2 id="replicasetsinonetweetorless"&gt;Replica sets in one tweet or less&lt;/h2&gt;
+
+&lt;p&gt;Replica sets are master/slave clusters that automatically “promote” a slave if the master DB becomes inaccessible.&lt;/p&gt;
+
+&lt;p&gt;Or read a &lt;a href="http://www.mongodb.org/display/DOCS/Connecting+to+Replica+Sets+from+Clients"&gt;longer description&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id="whatadeveloperneedstounderstand"&gt;What a developer needs to understand&lt;/h2&gt;
+
+&lt;p&gt;MongoDB handles the intricacies of syncing data, managing which member is primary, and recovering secondaries for you. It doesn’t, however, make your client code any smarter about which member to talk to (well, unless you’re running &lt;code&gt;mongos&lt;/code&gt;, but that’s less common). Applications themselves should know about as many replica set members as possible and be able to switch between them on the fly.&lt;/p&gt;
+
+&lt;p&gt;The most basic requirement for a replica set is that all writes must go to the primary set member. Secondaries can handle reads, but will complain if they encounter a write command. Most drivers will figure out which member to write to, though… assuming they can connect to any member. This brings us to our first rule of speaking replica set:&lt;/p&gt;
+
+&lt;h3 id="rule1alwaysprovideyourdriverwithasmanyreplicasetmembersaspossible"&gt;Rule #1: Always provide your driver with as many replica set members as possible&lt;/h3&gt;
+
+&lt;p&gt;Many applications only connect to a single host on startup. This is bad, and not for any good reason. if that one host isn’t available at connection time, the application will behave as if the entire replica set is down. Drivers options differ slightly, but they all have options for connecting to multiple replica set members. If you tell them everything you can about your setup, they will usually do the right thing when connecting.&lt;/p&gt;
+
+&lt;h3 id="rule2handleconnectionfailureexceptions"&gt;Rule #2: Handle connection failure exceptions&lt;/h3&gt;
+
+&lt;p&gt;Secondaries are most commonly promoted when the primary becomes completely inaccessible. This can happen for a number of reasons, anything from a routine &lt;code&gt;mongod&lt;/code&gt; restart to a helicopter “landing” in the middle of your datacenter. Drivers will generally raise a failed connection exception when they send an op to a missing replica set member, then leave the rest up to you. You can choose to either retry the operation (a good idea for critical writes) or just give up and wish your users better luck next time (a good idea if you don’t like your users).&lt;/p&gt;
+
+&lt;h3 id="rule3bereadyfornotmasterexceptions"&gt;Rule #3: Be ready for “not master” exceptions&lt;/h3&gt;
+
+&lt;p&gt;Drivers won’t always raise connection exceptions when a primary “steps down” to secondary. We usually see this happen when we demote the primary member of a replica set for maintenance purposes and an application keeps on sending writes along. MongoDB will send errors back indicating that it’s “not master”, but applications may not know what’s going on.&lt;/p&gt;
+
+&lt;p&gt;This is a little more tricky to deal with, unfortunately. If an application is writing in safe mode, drivers will usually raise an exception with “not master” in the message string. If an application isn’t using safe mode, and never checks the &lt;code&gt;getLastError&lt;/code&gt; command it will happily keep on sending data into oblivion. In a complete coincidence, rule #4 takes care of this problem:&lt;/p&gt;
+
+&lt;h3 id="rule4practicesafewritesunlessyoucanaffordtolosethem"&gt;Rule #4: Practice safe writes (unless you can afford to lose them)&lt;/h3&gt;
+
+&lt;p&gt;Simply using safe mode will help you catch failing updates, but there’s a bit more safety to be had in a replica set setup.&lt;/p&gt;
+
+&lt;p&gt;In single server MongoDB setups, safe mode ensures that the write “succeeded”, either in memory, on disk, or to the journal (depending on the options). Replica sets get to use another flag that tells the command to hang out and wait until the write has been replicated to other replica set members. If your data is important, you probably want to verify that writes are committed to a majority of replica set members (the “majority” flag).&lt;/p&gt;
+
+&lt;p&gt;There’s no flag for “chisel this into granite and store it in a converted underground missile silo for future generations to unearth after the inevitable llama uprising”, unfortunately. 10gen does take feature requests.&lt;/p&gt;
+
+&lt;h3 id="rule5goaheadandreadfromsecondaries"&gt;Rule #5: Go ahead and read from secondaries&lt;/h3&gt;
+
+&lt;p&gt;You may as well spread queries across your secondaries. They’re basically just sitting there with nothing to do but keep up with writes. You could even be extra clever and have a multi-datacenter replica set (&lt;a href="mailto:sales@mongohq.com"&gt;we’ll set it up!&lt;/a&gt;) for disaster recovery purposes, host your app in multiple places, and read from the closest replica set member.&lt;/p&gt;
+
+&lt;p&gt;As an aside, secondary replica set members are a great way to get around the one-at-a-time map/reduce limitation in MongoDB. We have a number of customers who run “map/reduce secondaries” that will never take over as master, but run map/reduce jobs all day.&lt;/p&gt;
+
+&lt;h2 id="dontwasteyourreplicaset"&gt;Don’t waste your replica set&lt;/h2&gt;
+
+&lt;p&gt;It’s sad to have a nice, shiny replica set setup and an application that doesn’t understand how the data store works. In the worst cases, you’ll lose data despite a fully functional database. On normal days, your app may benefit from spreading reads around to otherwise bored servers. Make sure you teach your applications to speak “replica set”.&lt;/p&gt;</description><link>http://localhost:2368/speaking-mongodb-replica-set/</link><guid isPermaLink="false">3f829deb-ad3f-49da-bd1b-73611e000e6f</guid><category>mongodb</category><category>replica sets</category><dc:creator>kurt</dc:creator><pubDate>Tue, 10 Jan 2012 15:10:45 GMT</pubDate></item></channel></rss>

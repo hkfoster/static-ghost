@@ -1,0 +1,276 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Redis, MongoDB and the power of incremency</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/redis-mongodb-and-the-power-of-incremency/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Redis, MongoDB and the power of incremency">
+    <meta property="og:description" content="When a database installation hits a performance rough patch, when the system is choking and yet far from full of data, it is then that people can make decisions which can either enable or encumber their entire application for the...">
+    <meta property="og:url" content="http://localhost:2368/redis-mongodb-and-the-power-of-incremency/">
+    <meta property="article:published_time" content="2014-01-30T18:57:48.000Z">
+    <meta property="article:modified_time" content="2014-12-17T11:44:36.000Z">
+    <meta property="article:tag" content="performance">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Redis, MongoDB and the power of incremency">
+    <meta name="twitter:description" content="When a database installation hits a performance rough patch, when the system is choking and yet far from full of data, it is then that people can make decisions which can either enable or encumber their entire application for the...">
+    <meta name="twitter:url" content="http://localhost:2368/redis-mongodb-and-the-power-of-incremency/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Redis, MongoDB and the power of incremency",
+    "url": "http://localhost:2368/redis-mongodb-and-the-power-of-incremency/",
+    "datePublished": "2014-01-30T18:57:48.000Z",
+    "dateModified": "2014-12-17T11:44:36.000Z",
+    "keywords": "performance",
+    "description": "When a database installation hits a performance rough patch, when the system is choking and yet far from full of data, it is then that people can make decisions which can either enable or encumber their entire application for the..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-performance blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-performance container">
+  <header>
+    <h1 class="post-title">Redis, MongoDB and the power of incremency</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-01-30">January 30th, 2014</time></small>
+  </header>
+
+<p><img src="../content/images/2014/12/merlin_i2wxjn_fcg7fj.png" alt="merlin" title="">When a database installation hits a performance rough patch, when the system is choking and yet far from full of data, it is then that people can make decisions which can either enable or encumber their entire application for the rest of its working life. For your consideration, take this tale of one customer who hit an unexpected performance bottleneck doing something as simple as adding one. This customer had arrived with a question – should they shard their dataset.</p>
+
+<h2 id="thebottleneck">The Bottleneck</h2>
+
+<p>The customer had actually identified what their bottleneck was. Their application was running tasks for their own clients and as each task ran and various MongoDB documents were being updated using <code>$inc</code> to add one to the relevant counters in those documents, these incrementing documents were then used to provide aggregated analytic data. There was only one problem. Each increment operation translated into a database write and, with MongoDB being effectively single threaded when it comes to writes, that combination was maxing out at around 1500 updates a second.</p>
+
+<h2 id="thedilemma">The Dilemma</h2>
+
+<p>Staying with an all MongoDB solution would mean sharding the data across multiple MongoDB instances, and adding each added MongoDB instances would add capacity for 1500 more updates each time. On a quad core CPU, that would mean around another 4500 updates per second and then it would be time to look at more hardware and the costs of running each new MongoDB instance. Sharding is often the hammer used to push in all sizes of performance nails and capacity screws in many MongoDB installations. In this case though, staying with just MongoDB is opting for an unoptimised solution.</p>
+
+<h2 id="thesolution">The Solution</h2>
+
+<p>The optimal solution is to look at something that is a master of incremency – the science of incrementing rapidly – and in this case, that was <a href="http://redis.io">Redis</a>. Redis is an in-memory key/value store and it’s ideal for the high-transaction rate and small data storage that comes with rapidly incrementing fields. The thing to know about Redis is, although it can persist to disk, Redis’s all-data-in-memory nature means it is usually treated as a disposable and transient buffer. Developers write code with that in mind so that if the Redis store is reset, the reset is detected and the transient dataset can be rebuilt.</p>
+
+<p>This change isn’t without initial engineering cost – in the customer’s case, the application needed to change to send the increment requests to Redis, mapped to an appropriate key and field, using Redis’s <a href="http://redis.io/commands/hincrby">hincrby</a> command. Also, background workers needed to be created to harvest the Redis store, aggregate it and save it in a MongoDB document. Locally, the performance shoots up as Redis handles the job of buffering the increments in-memory and regularly answering requests for the results from those buffers. The re-engineering is, though, far less expensive and far more effective that the ongoing costs of shard-driven expansion and it opens up the application to even more efficient architectures. For example, this customer was able to deploy Redis at all of their locations and let the background workers remotely aggregate the data from the Redis stores on a global basis.</p>
+
+<h2 id="usingredisforbuffering">Using Redis for Buffering</h2>
+
+<p>Redis can also be used as a buffer for queueing. It’s in the nature of queues to be a bottleneck, especially with many producers filling the queue, and using Redis as an intermediate buffer means that the application consuming the queue doesn’t have to be responsible for accepting requests and storing them itself. Redis can take over that task and queue up as many things as memory will allow. Just remember to have a way to mark queued work as done or not done so that if the Redis queue is restarted, the queue can be reloaded using that information.</p>
+
+<h2 id="thewrapup">The Wrap-up</h2>
+
+<p>Anywhere where you need a high performance buffer between the major components of your application, Redis is a great option that we recommend. By rearchitecting and using the right database technology in the right positions within the architecture, you can optimise your applications architecture. With an optimised application, scaling of all kinds becomes easier and much more cost effective and shouldn’t be compromised by anyone’s loyalty to any one particular technology.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Redis%2C%20MongoDB%20and%20the%20power%20of%20incremency&amp;url=http://localhost:2368/redis-mongodb-and-the-power-of-incremency/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/redis-mongodb-and-the-power-of-incremency/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/redis-mongodb-and-the-power-of-incremency/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

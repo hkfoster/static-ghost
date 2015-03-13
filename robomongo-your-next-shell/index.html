@@ -1,0 +1,266 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Robomongo: your next shell</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/robomongo-your-next-shell/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Robomongo: your next shell">
+    <meta property="og:description" content="Although powerful, the Mongo shell does suffer from being a strictly console centric experience – multiple sessions require multiple terminals, results scroll away, repetitive commands or honing a function require command line history traversal and so on. That’s why the...">
+    <meta property="og:url" content="http://localhost:2368/robomongo-your-next-shell/">
+    <meta property="article:published_time" content="2014-03-06T20:10:39.000Z">
+    <meta property="article:modified_time" content="2014-12-17T11:27:41.000Z">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Robomongo: your next shell">
+    <meta name="twitter:description" content="Although powerful, the Mongo shell does suffer from being a strictly console centric experience – multiple sessions require multiple terminals, results scroll away, repetitive commands or honing a function require command line history traversal and so on. That’s why the...">
+    <meta name="twitter:url" content="http://localhost:2368/robomongo-your-next-shell/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Robomongo: your next shell",
+    "url": "http://localhost:2368/robomongo-your-next-shell/",
+    "datePublished": "2014-03-06T20:10:39.000Z",
+    "dateModified": "2014-12-17T11:27:41.000Z",
+    "description": "Although powerful, the Mongo shell does suffer from being a strictly console centric experience – multiple sessions require multiple terminals, results scroll away, repetitive commands or honing a function require command line history traversal and so on. That’s why the..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post container">
+  <header>
+    <h1 class="post-title">Robomongo: your next shell</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-03-06">March 6th, 2014</time></small>
+  </header>
+
+<p><img src="../content/images/2014/12/Robomongo-e1394134223811_txyiql_ghu2ia.png" alt="Robomongo" title="">Although powerful, the Mongo shell does suffer from being a strictly console centric experience – multiple sessions require multiple terminals, results scroll away, repetitive commands or honing a function require command line history traversal and so on. That’s why the open source <a href="../content/images/2014/12/RobomongoShot1_hkaac6_olaqvs.png">Robomongo</a>This is just browsing though; to get to the power controls of Robomongo, double click on one of the collections. Robomongo will open the collections into a tab in the main part of the window and do a db.collection.find() for the first 50 documents in the collection, displaying the results. By default, the results are rendered in a tree-view but above and to the right of the results are controls to also view as a spreadsheet-style table or as a JSON/text document.</p>
+
+<p>Next to the controls, a pair of text fields allow setting the offset and number of documents to display at a time and arrow buttons which makes it easy to page through the results. Unwieldy scrolling results in a terminal are not a problem with Robomongo. The result window also displays how long that result took to get so you can get a feel for performance.</p>
+
+<p>The query itself is shown above the results in an editable multiline text area – that’s where we can expand and refine our queries. This isn’t just a query window; anything you can do in the shell you can do here, including defining JavaScript functions and running them. The query is run only when you want it run, by clicking the “play” arrow in the toolbar, typing Command/Control-Enter in the text box or pressing F5. Note that if you have not placed parentheses after a function name and hit Command/Control-Enter, Robomongo shows you the JavaScript behind that function.</p>
+
+<p>One big advantage over the raw Mongo shell is that Robomongo also allows you to save and load this text area so you can save raw scripts without wrapping them in a function and using the <a href="../content/images/2014/12/RobomongoShot2_o9ofap_t2zzzz.png">database as a store</a>One of the newest features in Robomongo is the support for SSH and SSL connections which we mentioned earlier. The SSL connection feature is experimental and limited, in part because MongoDB doesn’t come with SSL by default. The SSH tunneling feature is more interesting as it doesn’t rely on the database having any particular features. When setting up the MongoDB server connection, you specify a host name to SSH into, a user to connect as and either a password or private key file and passphrase to connect with. A warning is in order here as the password or passphrase are both, currently, visible in the user interface and stored as plain text in the <code>.config/robomongo/robomongo.conf</code> file so appropriate security measures should be applied to your local host.</p>
+
+<p>Anyway, with this SSH configuration, when Robomongo is asked to connect, it creates an SSH tunnel using the login credentials and then connects to the MongoDB instance through that tunnel. A typical configuration would have the MongoDB running on the same host as the SSH tunnel instance. That said, MongoHQ doesn’t have SSH logins – the feature can still be useful though to protect traffic from the open internet by acquiring oneself an Amazon EC2 micro instance to act as the end of the tunnel for you. This tunnel then comes out within Amazon’s infrastructure and in a position to open a less snoopable connection to MongoHQ servers.</p>
+
+<h1 id="indevelopment">In development</h1>
+
+<p>It’s a substantial new feature in the GPLv3 licensed Robomongo which, at version 0.8.4, is still in “early beta”. As such it still has stability and performance issues, but in our experience, far fewer than would be expected. Robomongo’s <a href="https://github.com/paralect/robomongo">source</a> has been built in C++ with the Qt framework which has allowed it to be developed for Windows, Mac OS X and Linux at the same time yet still deliver a native application on each.</p>
+
+<p>Probably the biggest current omission is that it doesn’t sort out replica sets so users have to change master every now and then to get around that. Development of Robomongo is driven, as usual, by the issue tracker but also by donations through a <a href="http://robomongo.org/backlog">Magic Backlog</a> which allows users to donate and prioritize which features are added and when particular bugs get fixed. Robomongo makes life on MongoDB so much easier; it’s a credit to the developers behind it.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Robomongo%3A%20your%20next%20shell&amp;url=http://localhost:2368/robomongo-your-next-shell/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/robomongo-your-next-shell/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/robomongo-your-next-shell/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

@@ -1,0 +1,381 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>MongoDB 2.4 Fixed Length Arrays &amp; Release Candidate 2</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/mongodb-2-4-fixed-length-arrays-release-candidate-2/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="MongoDB 2.4 Fixed Length Arrays &amp; Release Candidate 2">
+    <meta property="og:description" content="The MongoDB Experimental Plans are updated and running MongoDB 2.4 Release Candidate 2. One of the new features in MongoDB 2.4 is fixed length arrays. It will make schema design a little easier. Fixed Length Array in MongoDB...">
+    <meta property="og:url" content="http://localhost:2368/mongodb-2-4-fixed-length-arrays-release-candidate-2/">
+    <meta property="article:published_time" content="2013-03-10T22:39:22.000Z">
+    <meta property="article:modified_time" content="2013-05-03T03:56:07.000Z">
+    <meta property="article:tag" content="Full Text Search">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="MongoDB 2.4">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="MongoDB 2.4 Fixed Length Arrays &amp; Release Candidate 2">
+    <meta name="twitter:description" content="The MongoDB Experimental Plans are updated and running MongoDB 2.4 Release Candidate 2. One of the new features in MongoDB 2.4 is fixed length arrays. It will make schema design a little easier. Fixed Length Array in MongoDB...">
+    <meta name="twitter:url" content="http://localhost:2368/mongodb-2-4-fixed-length-arrays-release-candidate-2/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "chris",
+        "image": "//www.gravatar.com/avatar/862ad981103f3b95d88e265d980ca2c5?d=404&s=250",
+        "url": "http://localhost:2368/author/chris",
+        "sameAs": ""
+    },
+    "headline": "MongoDB 2.4 Fixed Length Arrays &amp; Release Candidate 2",
+    "url": "http://localhost:2368/mongodb-2-4-fixed-length-arrays-release-candidate-2/",
+    "datePublished": "2013-03-10T22:39:22.000Z",
+    "dateModified": "2013-05-03T03:56:07.000Z",
+    "keywords": "Full Text Search, mongodb, MongoDB 2.4",
+    "description": "The MongoDB Experimental Plans are updated and running MongoDB 2.4 Release Candidate 2. One of the new features in MongoDB 2.4 is fixed length arrays. It will make schema design a little easier. Fixed Length Array in MongoDB..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-full-text-search tag-mongodb tag-mongodb-2-4 blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-full-text-search tag-mongodb tag-mongodb-2-4 container">
+  <header>
+    <h1 class="post-title">MongoDB 2.4 Fixed Length Arrays &amp; Release Candidate 2</h1>
+    <small class="post-meta"><time class="post-date" datetime="2013-03-10">March 10th, 2013</time></small>
+  </header>
+
+<p>The MongoDB Experimental Plans are updated and running MongoDB 2.4 Release Candidate 2. One of the new features in MongoDB 2.4 is fixed length arrays. It will make schema design a little easier.</p>
+
+<h2 id="fixedlengtharrayinmongodb">Fixed Length Array in MongoDB</h2>
+
+<p>With MongoDB 2.4, one of the cool features is atomic fixed length arrays. To use, combine the <code>$push</code> and <code>$slice</code> functionality. Previously, to have fixed length arrays, you would need to run two separate commands: <code>$find</code> and inplace <code>$set</code> of the entire array.</p>
+
+<p>Now, you can create fixed length arrays with the <code>{$push: {"field_name": {$each: ["array_of_elements"], $slice: -4}}}</code>where field_name is the attribute on the document, and slice is the length of the document (always negative or 0). Essentially, the example above will:</p>
+
+<ul>
+<li>Push to the right side of the array</li>
+<li>Keep the 4 elements on the right side of the array</li>
+</ul>
+
+<p><strong>An Example</strong></p>
+
+<p>We are going to record the last 5 readings for a river gauge:</p>
+
+<pre><code>&lt;code data-language="javascript"&gt;&gt; doc = db.gauges.insert({_id: ObjectId("513cc4c663c0a2303e1ec093"), name: "Niagra River"})  
+&gt; db.gauges.update({ _id: ObjectId("513cc4c663c0a2303e1ec093")}, {$push: {lastest_gauge_readings: {$each: [{cubic_meter_second: 5796, at: new Date()}], $slice: -5}}})
+&gt; db.gauges.find()[0]
+{
+  "_id" : ObjectId("513cc4c663c0a2303e1ec093"),
+  "lastest_gauge_readings" : [
+    {
+      "cubic_meter_second" : 5796,
+      "at" : ISODate("2013-03-10T17:46:00.810Z")
+    }
+  ],
+  "name" : "Niagra River"
+}
+</code></pre>
+
+<p>As you can see the <code>$push</code> syntax has changed. It is using a more verbose, more functional syntax. In the example above, with <code>$push</code>, we are adding each element in the <code>$each</code> array to the right side of the index. Then, with <code>$slice</code>, we are keeping the 5 right most elements. Below, we will run the following 5 more times with random values:</p>
+
+<pre><code>&lt;code data-language="javascript"&gt;&gt; db.gauges.update({ _id: ObjectId("513cc4c663c0a2303e1ec093")}, {$push: {lastest_gauge_readings: {$each: [{cubic_meter_second: 5800, at: new Date()}], $slice: -5}}})  
+&gt; db.gauges.update({ _id: ObjectId("513cc4c663c0a2303e1ec093")}, {$push: {lastest_gauge_readings: {$each: [{cubic_meter_second: 5960, at: new Date()}], $slice: -5}}})
+&gt; db.gauges.update({ _id: ObjectId("513cc4c663c0a2303e1ec093")}, {$push: {lastest_gauge_readings: {$each: [{cubic_meter_second: 6000, at: new Date()}], $slice: -5}}})
+&gt; db.gauges.update({ _id: ObjectId("513cc4c663c0a2303e1ec093")}, {$push: {lastest_gauge_readings: {$each: [{cubic_meter_second: 6200, at: new Date()}], $slice: -5}}})
+&gt; db.gauges.update({ _id: ObjectId("513cc4c663c0a2303e1ec093")}, {$push: {lastest_gauge_readings: {$each: [{cubic_meter_second: 6300, at: new Date()}], $slice: -5}}})
+&gt; db.gauges.find()[0]
+{
+  "_id" : ObjectId("513cc4c663c0a2303e1ec093"),
+  "lastest_gauge_readings" : [
+    {
+      "cubic_meter_second" : 5800,
+      "at" : ISODate("2013-03-10T17:48:31.508Z")
+    },
+    {
+      "cubic_meter_second" : 5960,
+      "at" : ISODate("2013-03-10T17:48:37.268Z")
+    },
+    {
+      "cubic_meter_second" : 6000,
+      "at" : ISODate("2013-03-10T17:48:42.308Z")
+    },
+    {
+      "cubic_meter_second" : 6200,
+      "at" : ISODate("2013-03-10T17:48:45.917Z")
+    },
+    {
+      "cubic_meter_second" : 6300,
+      "at" : ISODate("2013-03-10T17:48:49.247Z")
+    }
+  ],
+  "name" : "Niagra River"
+}
+</code></pre>
+
+<p>The <code>$slice</code> operator keeps <em>n</em>-right most elements of the array.</p>
+
+<h3 id="sortedfixedlengtharraysinmongodb">Sorted Fixed Length Arrays in MongoDB</h3>
+
+<p>If you like Redis’s <code>zscore</code> functionality, and want to bring it into MongoDB. The latest MongoDB 2.4 is bringing the sorted arrays functionality to MongoDB with the added <code>$push</code> features.</p>
+
+<p><strong>Common scenarios for this are like:</strong></p>
+
+<ul>
+<li>Content management system – related posts, top <em>n</em> refererring products</li>
+<li>E-commerce storefront – top <em>n</em> referring products</li>
+<li>Social Aggregation – top <em>n</em> retweeted status updates</li>
+</ul>
+
+<p>Sorted arrays are a nice way to cache values instead of using a sort on another query. Try to use these instead of sort queries against entire collections. We will continue to use our river gauge example on the Niagra River:</p>
+
+<pre><code>&lt;code data-language="javascript"&gt;&gt; db.gauges.update({ _id: ObjectId("513cc4c663c0a2303e1ec093")}, {$push: {highest_gauge_readings: {$each: [{cubic_meter_second: 5796, at: new Date()}], $sort: {cubic_meter_second: 1}, $slice: -5}}})  
+</code></pre>
+
+<p>Above, we are using <code>$sort</code> to specify a key(s) to sort from, then using <code>$slice</code>to keep the last 5. We will run 5 more pushes to the document:</p>
+
+<pre><code>&lt;code data-language="javascript"&gt;&gt; db.gauges.update({ _id: ObjectId("513cc4c663c0a2303e1ec093")}, {$push: {highest_gauge_readings: {$each: [{cubic_meter_second: 5796, at: new Date()}], $sort: {cubic_meter_second: 1}, $slice: -5}}})  
+&gt; db.gauges.update({ _id: ObjectId("513cc4c663c0a2303e1ec093")}, {$push: {highest_gauge_readings: {$each: [{cubic_meter_second: 5900, at: new Date()}], $sort: {cubic_meter_second: 1}, $slice: -5}}})
+&gt; db.gauges.update({ _id: ObjectId("513cc4c663c0a2303e1ec093")}, {$push: {highest_gauge_readings: {$each: [{cubic_meter_second: 5600, at: new Date()}], $sort: {cubic_meter_second: 1}, $slice: -5}}})
+&gt; db.gauges.update({ _id: ObjectId("513cc4c663c0a2303e1ec093")}, {$push: {highest_gauge_readings: {$each: [{cubic_meter_second: 2500, at: new Date()}], $sort: {cubic_meter_second: 1}, $slice: -5}}})
+&gt; db.gauges.update({ _id: ObjectId("513cc4c663c0a2303e1ec093")}, {$push: {highest_gauge_readings: {$each: [{cubic_meter_second: 7500, at: new Date()}], $sort: {cubic_meter_second: 1}, $slice: -5}}})
+&gt; db.gauges.find()[0]
+{
+  "_id" : ObjectId("513cc4c663c0a2303e1ec093"),
+  "highest_gauge_readings" : [
+    {
+      "cubic_meter_second" : 2500,
+      "at" : ISODate("2013-03-10T17:59:59.315Z")
+    },
+    {
+      "cubic_meter_second" : 5600,
+      "at" : ISODate("2013-03-10T17:59:51.695Z")
+    },
+    {
+      "cubic_meter_second" : 5796,
+      "at" : ISODate("2013-03-10T17:59:11.096Z")
+    },
+    {
+      "cubic_meter_second" : 5900,
+      "at" : ISODate("2013-03-10T17:59:46.215Z")
+    },
+    {
+      "cubic_meter_second" : 7500,
+      "at" : ISODate("2013-03-10T18:00:05.345Z")
+    }
+  ],
+  "name" : "Niagra River"
+}
+</code></pre>
+
+<h2 id="otherfeatures">Other Features</h2>
+
+<p>If you are looking for a comprehensive list of MongoDB features, take a look at <a href="https://jira.mongodb.org/secure/ReleaseNote.jspa?projectId=10380&amp;version=11892">MongoDB 2.4 Release Notes</a>. To begin using a Sandbox database with MongoHQ, <a href="https://www.mongohq.com/signup">Sign Up</a> and create a Sandbox database. To upgrade any paid databases to 2.4.0-rc2, please send an email to support@mongohq.com with your database name.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/chris/">
+        <img src="http://www.gravatar.com/avatar/862ad981103f3b95d88e265d980ca2c5?d=404&amp;s=250" alt="chris">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/chris/">chris</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=MongoDB%202.4%20Fixed%20Length%20Arrays%20%26%20Release%20Candidate%202&amp;url=http://localhost:2368/mongodb-2-4-fixed-length-arrays-release-candidate-2/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/mongodb-2-4-fixed-length-arrays-release-candidate-2/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/mongodb-2-4-fixed-length-arrays-release-candidate-2/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

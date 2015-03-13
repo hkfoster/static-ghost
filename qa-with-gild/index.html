@@ -1,0 +1,304 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Q&amp;A with Gild</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/qa-with-gild/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Q&amp;A with Gild">
+    <meta property="og:description" content="Ever wondered how other people are making the most of MongoDB and MongoHQ? Every application is different, and has its own unique challenges. So, it’s interesting to see how other people manage their MongoDBs, the difficulties they’ve had...">
+    <meta property="og:url" content="http://localhost:2368/qa-with-gild/">
+    <meta property="article:published_time" content="2013-12-13T18:59:11.000Z">
+    <meta property="article:modified_time" content="2014-09-01T07:46:07.000Z">
+    <meta property="article:tag" content="customers">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Q&amp;A with Gild">
+    <meta name="twitter:description" content="Ever wondered how other people are making the most of MongoDB and MongoHQ? Every application is different, and has its own unique challenges. So, it’s interesting to see how other people manage their MongoDBs, the difficulties they’ve had...">
+    <meta name="twitter:url" content="http://localhost:2368/qa-with-gild/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "elisabethmongohq-com",
+        "image": "//www.gravatar.com/avatar/dcd09e7356d3e170dfe73641098d2442?d=404&s=250",
+        "url": "http://localhost:2368/author/elisabethmongohq-com",
+        "sameAs": ""
+    },
+    "headline": "Q&amp;A with Gild",
+    "url": "http://localhost:2368/qa-with-gild/",
+    "datePublished": "2013-12-13T18:59:11.000Z",
+    "dateModified": "2014-09-01T07:46:07.000Z",
+    "keywords": "customers",
+    "description": "Ever wondered how other people are making the most of MongoDB and MongoHQ? Every application is different, and has its own unique challenges. So, it’s interesting to see how other people manage their MongoDBs, the difficulties they’ve had..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-customers blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-customers container">
+  <header>
+    <h1 class="post-title">Q&amp;A with Gild</h1>
+    <small class="post-meta"><time class="post-date" datetime="2013-12-13">December 13th, 2013</time></small>
+  </header>
+
+<p>Ever wondered how other people are making the most of MongoDB and MongoHQ?</p>
+
+<p>Every application is different, and has its own unique challenges. So, it’s interesting to see how other people manage their MongoDBs, the difficulties they’ve had to overcome, how they came to the decision to use a managed DB hosting provider like MongoHQ, and how they’re using MongoHQ to their advantage.</p>
+
+<p>Over the coming months we’re going to hash it out with some of our esteemed users, both big and small, giving you the inside story on why and how they are using MongoDB on MongoHQ to make both their applications and businesses better.</p>
+
+<p>This week, we asked Luca Bonmassar, co-founder of <a href="http://www.gild.com/">Gild</a>, about Gild’s experiences using MongoDB on MongoHQ. Gild makes innovative hiring software to help companies hire skilled developers, and have been MongoHQ faithfuls since early 2012.</p>
+
+<p><strong>Please tell us about your product and customers</strong></p>
+
+<p>Gild helps companies hire skilled developers by ensuring that candidates stand out on their proven abilities, not just their resumes. Backed by proprietary data analysis that examines developers’ actual work, Gild’s tech hiring software is used by growing companies like Eventbrite, Red Hat, and Rackspace to find the developers they need to innovate. Founded in 2011, Gild is headquartered in San Francisco and has offices in Salt Lake City and Milan.</p>
+
+<p><strong>How many folks work at your company?</strong></p>
+
+<p>We have about 50 employees, and about 14 of those people are on my team (the product development team).</p>
+
+<p><strong>How large is your development team?</strong></p>
+
+<p>14 people total, including 8 developers, 2 product managers, 3 data scientists, and 1 designer.</p>
+
+<p><strong>What infrastructure or platform services do you use?</strong></p>
+
+<p>Our software stack is entirely hosted on Amazon, and we use MongoHQ in conjunction with a variety of technologies and languages, such as Ruby and RoR for our front-end, and Java, C++ and python for on our backend and data analysis platform.</p>
+
+<p><strong>Why did you choose MongoDB?</strong></p>
+
+<p>We were very early adopters of Mongo. We were immediately impressed by how easy it is to use and the consistently high levels of performance it delivers. Our data is changing constantly, and it’s almost impossible to describe in a standard SQL fashion, so being able to represent it as a document has been hugely helpful.</p>
+
+<p><strong>What do you know now that you wish you knew at the beginning?</strong></p>
+
+<p>That’s tough to answer, but I wish we’d known how easy it is to work with MongoHQ and spent less time deliberating.</p>
+
+<p><strong>How does MongoHQ help you leverage MongoDB?</strong></p>
+
+<p>We thought a lot before moving such a core component of our business to a third party, and with MongoHQ we found a great team that was able to help us migrate our existing data from scratch. It’s turned out to be not just an endpoint and a ticketing system, but an important partnership for us.</p>
+
+<p><strong>How does MongoHQ help you leverage your business?</strong></p>
+
+<p>We can now focus 100% on our business goals, knowing that an expert team is taking care of our data.</p>
+
+<p><strong>How has MongoHQ helped you scale your team or your operations size?</strong></p>
+
+<p>It was easy to migrate our data from scratch, and we didn’t have to spend a ton of developer time doing so. And since we’re a small company, efficiency in this respect was hugely important.</p>
+
+<p><strong>Are you hiring?</strong></p>
+
+<p>Yes, we’re always looking for great people! Here’s a link to our jobs page: <a href="http://www.gild.com/work-at-gild/">http://www.gild.com/work-at-gild/</a></p>
+
+<p>Thanks to Luca and the Gild team for taking the time to speak with us.</p>
+
+<p>Become one of our blog post stars! We’d love to share your story. If anyone is interested in taking part in a Q&amp;A session with us, please contact <a href="mailto:liz@mongohq.com">liz@mongohq.com</a> and let us know!</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/elisabethmongohq-com/">
+        <img src="http://www.gravatar.com/avatar/dcd09e7356d3e170dfe73641098d2442?d=404&amp;s=250" alt="elisabethmongohq-com">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/elisabethmongohq-com/">elisabethmongohq-com</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Q%26A%20with%20Gild&amp;url=http://localhost:2368/qa-with-gild/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/qa-with-gild/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/qa-with-gild/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

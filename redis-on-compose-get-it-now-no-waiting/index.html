@@ -1,0 +1,286 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Compose launches autoscaling Redis-as-a-service</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/redis-on-compose-get-it-now-no-waiting/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Compose launches autoscaling Redis-as-a-service">
+    <meta property="og:description" content="TL;DR: Redis is now available in beta on the Compose platform. The worst part of most databases is the waiting. That interminable wait between querying the database and waiting for the data to be pulled off the hard disk....">
+    <meta property="og:url" content="http://localhost:2368/redis-on-compose-get-it-now-no-waiting/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/RedisBackdrop_vqgsgz_igeayz.png">
+    <meta property="article:published_time" content="2014-11-11T12:13:00.000Z">
+    <meta property="article:modified_time" content="2014-12-17T08:43:19.000Z">
+    <meta property="article:tag" content="key/value">
+    <meta property="article:tag" content="launch">
+    <meta property="article:tag" content="redis">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Compose launches autoscaling Redis-as-a-service">
+    <meta name="twitter:description" content="TL;DR: Redis is now available in beta on the Compose platform. The worst part of most databases is the waiting. That interminable wait between querying the database and waiting for the data to be pulled off the hard disk....">
+    <meta name="twitter:url" content="http://localhost:2368/redis-on-compose-get-it-now-no-waiting/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/RedisBackdrop_vqgsgz_igeayz.png">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Compose launches autoscaling Redis-as-a-service",
+    "url": "http://localhost:2368/redis-on-compose-get-it-now-no-waiting/",
+    "datePublished": "2014-11-11T12:13:00.000Z",
+    "dateModified": "2014-12-17T08:43:19.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/RedisBackdrop_vqgsgz_igeayz.png",
+    "keywords": "key/value, launch, redis",
+    "description": "TL;DR: Redis is now available in beta on the Compose platform. The worst part of most databases is the waiting. That interminable wait between querying the database and waiting for the data to be pulled off the hard disk...."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-keyvalue tag-launch tag-redis-2 blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-keyvalue tag-launch tag-redis-2 container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/RedisBackdrop_vqgsgz_igeayz.png)">
+    <h1 class="post-title">Compose launches autoscaling Redis-as-a-service</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-11-11">November 11th, 2014</time></small>
+  </header>
+
+<p><img src="../content/images/2014/12/RedisCompose_sp6cjb_uxblql.png" alt="RedisCompose" title=""><strong><em>TL;DR:</em></strong> Redis is now available in beta on the Compose platform.</p>
+
+<p>The worst part of most databases is the waiting. That interminable wait between querying the database and waiting for the data to be pulled off the hard disk. Then there’s the wait when you are doing an update, no matter how small, and writing that update to the disk. Even with super fast SSD disks, there’s still always a non-negligible wait. Those waiting times build up and when you are handling thousands upon millions of updates, they bite into your performance.</p>
+
+<h2 id="redistotherescue">Redis to the rescue</h2>
+
+<p>We know all about that at Compose as we’ve helped our customers tune the best performance out of their databases. One option we’ve used with customers and in-house is to use an in-memory database such as Redis which keeps the entire dataset in RAM for super fast reads and updates while keeping persistent disk copies of that data for recovery. Redis is addressed as a high performance key/value store, rather than storing large complex data structures with indexes for id and other fields.</p>
+
+<p>In Redis, the key is any binary sequence, from a number to a string even an image, while the value can be a single number or string or a list, set, sorted set or hash of number or string values. You don’t query the values, just use the keys to access and manipulate the values through a powerful set of operators. The simplicity of the architecture belies its usefulness in building data aggregators, task queues and intermediate stores.</p>
+
+<h2 id="redisatcompose">Redis at Compose</h2>
+
+<p>This memory-centric approach really comes into play when, as we talk about in “<a href="../redis-mongodb-and-the-power-of-incremency/">Redis, MongoDB and the Power of Incremency</a>” you need to do large numbers of increment updates to numeric fields. These tiny operations turn into much bigger write operations with the associated waiting with disk-centric databases, but with Redis the update is as fast as the main memory of the system. It’s a great solution to those scenarios, and they are surprisingly more common than you think.</p>
+
+<p>We use Redis in-house at Compose as part of our infrastructure and we know a lot of you would like to use it as part of your database stack. You could use Redis as your main storage database, but the chances are you’d end up making many compromises to adapt your data model to it. It’s best to use Redis as a precise weapon against the woes of waiting, a laser for latency if you might. We couldn’t leave Compose users without a weapon that powerful.</p>
+
+<h2 id="redisforyou">Redis for you</h2>
+
+<p>That’s why we’ve just launched a beta of Redis on Compose. Now, you can deploy Redis as easily as you’ve been able to deploy MongoDB, Elasticsearch and RethinkDB. And, like those other databases, Redis on Compose is auto-scaling and automatically backed up, with two nodes and a sentinel for high availability. Where we normally focus on disk use for pricing our disk-centric databases, for Redis as its memory-centric we focus on the RAM use. Redis deployments make use of one of the most precious and constrained assets in the cloud, RAM.</p>
+
+<ul>
+<li>$25 per month gives a Redis cluster with 256MB of RAM per node and one access portal</li>
+<li>$13 per month gives an extra 256MB of RAM per node</li>
+<li>$52 per month gives an extra 1GB of RAM per node</li>
+<li>$9 per month gives an extra access portal</li>
+</ul>
+
+<p>You can add a Redis deployment to your Compose portfolio by simply clicking on <code>Add Deployment</code> in your Compose dashboard. If you don’t have a Compose account <a href="https://www.compose.io/sign_up.html?utm_source=111114&amp;utm_medium=blog&amp;utm_campaign=redislaunch">sign up here</a> and and to get going with the latest database on Compose – and remember you can add MongoDB, Elasticsearch and RethinkDB to your solutions too, all in the same simple, effective user interface.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Compose%20launches%20autoscaling%20Redis-as-a-service&amp;url=http://localhost:2368/redis-on-compose-get-it-now-no-waiting/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/redis-on-compose-get-it-now-no-waiting/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/redis-on-compose-get-it-now-no-waiting/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

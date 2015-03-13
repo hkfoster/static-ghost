@@ -1,0 +1,310 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>ComposeCast Beta #1: Kurt and Slava talk queries</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/composecast-beta-1-kurt-and-slava-talk-queries/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="ComposeCast Beta #1: Kurt and Slava talk queries">
+    <meta property="og:description" content="Recently, Compose co-founder Kurt Mackey and RethinkDB co-founder Slava Akhmechet sat down with an audio recorder and talked databases and queries. You can listen to the full chat here in the first episode of ComposeCast Beta, an occasional podcast from...">
+    <meta property="og:url" content="http://localhost:2368/composecast-beta-1-kurt-and-slava-talk-queries/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/composecastfeatured_b8n1vr_ufymnn.jpg">
+    <meta property="article:published_time" content="2014-11-26T09:38:48.000Z">
+    <meta property="article:modified_time" content="2014-11-26T09:38:48.000Z">
+    <meta property="article:tag" content="composecast">
+    <meta property="article:tag" content="podcast">
+    <meta property="article:tag" content="rethinkdb">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ComposeCast Beta #1: Kurt and Slava talk queries">
+    <meta name="twitter:description" content="Recently, Compose co-founder Kurt Mackey and RethinkDB co-founder Slava Akhmechet sat down with an audio recorder and talked databases and queries. You can listen to the full chat here in the first episode of ComposeCast Beta, an occasional podcast from...">
+    <meta name="twitter:url" content="http://localhost:2368/composecast-beta-1-kurt-and-slava-talk-queries/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/composecastfeatured_b8n1vr_ufymnn.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "ComposeCast Beta #1: Kurt and Slava talk queries",
+    "url": "http://localhost:2368/composecast-beta-1-kurt-and-slava-talk-queries/",
+    "datePublished": "2014-11-26T09:38:48.000Z",
+    "dateModified": "2014-11-26T09:38:48.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/composecastfeatured_b8n1vr_ufymnn.jpg",
+    "keywords": "composecast, podcast, rethinkdb",
+    "description": "Recently, Compose co-founder Kurt Mackey and RethinkDB co-founder Slava Akhmechet sat down with an audio recorder and talked databases and queries. You can listen to the full chat here in the first episode of ComposeCast Beta, an occasional podcast from..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-composecast tag-podcast tag-rethinkdb-2 blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-composecast tag-podcast tag-rethinkdb-2 container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/composecastfeatured_b8n1vr_ufymnn.jpg)">
+    <h1 class="post-title">ComposeCast Beta #1: Kurt and Slava talk queries</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-11-26">November 26th, 2014</time></small>
+  </header>
+
+<p>Recently, Compose co-founder Kurt Mackey and RethinkDB co-founder Slava Akhmechet sat down with an audio recorder and talked databases and queries. You can listen to the full chat here in the first episode of ComposeCast Beta, an occasional podcast from Compose, or you can read on for a run-through of everything that was discussed.</p>
+
+<p><figure class="embed"><iframe allowfullscreen="" mozallowfullscreen="" msallowfullscreen="" oallowfullscreen="" scrolling="no" src="http://html5-player.libsyn.com/embed/episode/id/3204924/height/360/width/640/theme/standard/direction/no/autoplay/no/autonext/no/thumbnail/yes/preload/no/no_addthis/no/" style="border: none" webkitallowfullscreen=""></iframe></figure>- Podcast Beta #1 – <a href="http://traffic.libsyn.com/composecast/ComposeCastep01.mp3">Direct Download</a> <br>
+- ComposeCast Podcast – <a href="http://composecast.libsyn.com/rss">RSS/Podcast feed</a></p>
+
+<h2 id="composecastbeta1notes">ComposeCast Beta #1 Notes</h2>
+
+<h3 id="itsallaboutthechains">It’s all about the chains</h3>
+
+<p>The discussion began with talk about the foundational goals of RethinkDB and how the query language developed. Slava talked about how jQuery’s function chaining inspired the RethinkDB’s ReQL. In queries this meant creating chains of selectors creates an intuitive data flow. He also discussed how the protocol beneath has made writing drivers harder and where they’ve simplified it to make it easier for community driver developers. This led into a look at the <a href="http://rethinkdb.com/blog/lambda-functions/">lambda functionality</a> of RethinkDB which pushes query functions into the database.</p>
+
+<p>Kurt moved the discussion onto the problem of abstraction in frameworks like ActiveRecord and how such frameworks can make developers feel comfortable writing queries which cause problems when they hit the actual database. That’s not a problem for RethinkDB so much said Slava, because it does make people think more and be more explicit over their queries. “You get an intuitive sense of how things get executed” he said, so you can see how the data flows through the query rather than allowing a library to obscure how many joins the database is going to need to do. Noting that “In realtime systems you almost always want some degree of explicitness” to get predictability in queries and the ReQL query language is all about intuitive explicitness.</p>
+
+<h3 id="queryorupdateor">Query or update or?</h3>
+
+<p>This led into a discussion about how query and update operations in databases are unified within RethinkDB, rather than, as some databases do, treating each as similar but different operations. Slava explained how query operations return sets of results as selection-typed data and those are inherently updatable. When an operation creates an aggregation, projection or join, these are called streams and these aren’t updatable.</p>
+
+<p>The conversation moved on to the idea of treating database query languages as set theory and Slava revealed that this is a guiding principle of the ReQL design process. One complication though is sharding and Slava outlined how a RethinkDB handles a cross-shard query and update operation using analysis and routing of the parts of the query.</p>
+
+<p>Kurt compared the focus on ensuring data locality in <a href="https://spark.apache.org">Spark</a> and how RethinkDB does its query/update handling and asks whether aggregations can be executed locally on the shards. All the built-in aggregators are able to execute locally except for average, where it has to be more carefully done, calculating a sum and count on each shard and passing the results back to the original node where the results from the shards are used to calculate the final average.</p>
+
+<h3 id="doitherethereoreverywhere">Do it here, there or everywhere?</h3>
+
+<p>The subject of spreading load over the shards leads on to talking about how RethinkDB’s map/reduce has evolved from a single method, <code>GroupMapReduce</code>, which took three functions, and how it became a chained set of methods which can be run independently or combined to get a powerful solution. Slava detailed the limits on this process, namely ensuring that the operations are safe.</p>
+
+<p>The map/reduce functionality is often used behind the scenes responded Slava, after Kurt asked about how many people use the functionality. This makes it hard to work out how many users actually use map/reduce, whether explicitly or not, though Slava is fairly confident that most common tasks which need map/reduce are already handled and that Rethink’s goal is that people should never need to explicitly call on map/reduce functionality by making sure there’s a higher level tool to handle that. Map/reduce is a “wonderful piece of infrastructure” but that “you don’t want to be writing for it” as it’s “not a great way to express your queries” said Slava.</p>
+
+<p>Recalling the Phil Karlton quote “There are only two hard things in Computer Science: cache invalidation and naming things”, Kurt and Slava considered how people are rediscovering and reinventing older ideas like abstracting complexity away into higher level tools and relearning that understanding the underlying system helps you use the first iterations of high level tools.</p>
+
+<h3 id="timeseriestunnels">Time series tunnels</h3>
+
+<p>Consideration is then given to the question of whether RethinkDB could be as good a time-series database as any of the dedicated time-series databases out there. Slava thinks that dedicated databases tend to be better, but that in most cases, people don’t use a dedicated database and instead push their business data alongside say a time series of apache logs within the same database. He is confident that they can usually get RethinkDB to cover 90% of these use cases.</p>
+
+<p>He used the example of binary blobs as a feature in RethinkDB and how customers are “super happy” with it – it doesn’t store massive video files, but for most users it’s enough. Initially though, the RethinkDB developers resisted implementing it because of the potential negative impact it could have. The same, he says, goes for the geospatial functions and covers 95% of cases for mobile. If you want something more than that, you are probably going to want to go dedicated. Kurt notes a parallel issue for Compose: working out when customers are going to need to need to switch to a dedicated solution.</p>
+
+<p>For his example, Kurt picked at graph problems and said that, deep down, many systems have a graph problem at their core. Many people, though, end up writing odd code to map the graph in a general purpose database without realising what kind of problem they have.</p>
+
+<p>Slava concurred, noting that RethinkDB boundaries are pushed by graph problems and pushing map/reduce to do machine learning or classifiers. You can do both, but it’s not as good as a system built with these tasks in mind. “People tend to push things surprisingly far in directions where it doesn’t make sense” he added. Kurt pointed out that these boundary pushing solutions often move from working to failing very quickly at an arbitrary point of the data growth.</p>
+
+<h3 id="featuritisandfinefeatures">Featuritis and Fine Features</h3>
+
+<p>Slava and Kurt moved on from there to discuss how features get added to a database. Noting that the RethinkDB development has seen them learn and then solve the vast array of customer needs, Slava is more aware than ever of how careful one has to be adding features. He picks out the MongoDB model of feature expansion as an example of bad practice in that the developers often add features which work well on a single node but don’t scale out well – “We try not to do that”.</p>
+
+<p>An example of a problematic feature given by Kurt was MongoDB’s unique indexes which are difficult to shard whatever. Features that work on one node are very convenient, but for RethinkDB, if it works on one node, it’ll work on many nodes. One example of this is <a href="http://rethinkdb.com/docs/changefeeds/ruby/">changefeeds</a> which allows a client to subscribe to changes on a table – simple to implement on a single node, very difficult on multiple nodes – which, says Slava, was a real challenge but worth doing properly even if it took “way longer”. “Following changes in data is something everyone wants from their databases now” notes Kurt, picking out Elasticsearch and Redis as databases it is hard to do on. Slava says among the changes coming to changefeeds on RethinkDB are updates based on changes in aggregation results – that feature should land before Thanksgiving.</p>
+
+<p>Change tracking is important for Compose as it develops Transporter. The interesting issue is that import/export applications tend, says Kurt, to be built by either one database vendor or the other. A neutrally created tool is rare, but that’s what Transporter is. It approaches the problem as an ETL task and puts JavaScript into the core but also uses best techniques, avoiding deprecated elements (like Elasticsearch rivers) for solid reliable mechanisms.</p>
+
+<p>Kurt and Slava finished the chat discussing where Hadoop fits into either company’s plans and how Compose hopes to have Transporter talking to other people’s databases in the future.</p>
+
+<h3 id="inconclusion">In conclusion</h3>
+
+<p>And that’s the first ComposeCast Beta release. Remember you can <a href="http://traffic.libsyn.com/composecast/ComposeCastep01.mp3">directly download this episode</a> or <a href="http://composecast.libsyn.com/rss">subscribe</a> in your preferred Podcast player to get future episodes.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=ComposeCast%20Beta%20%231%3A%20Kurt%20and%20Slava%20talk%20queries&amp;url=http://localhost:2368/composecast-beta-1-kurt-and-slava-talk-queries/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/composecast-beta-1-kurt-and-slava-talk-queries/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/composecast-beta-1-kurt-and-slava-talk-queries/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

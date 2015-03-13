@@ -1,0 +1,350 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Sizing and Trimming your MongoDB</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/sizing-and-trimming-your-mongodb/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Sizing and Trimming your MongoDB">
+    <meta property="og:description" content="TL;DR – Space is big and your database will fill it happily so here are commands and techniques to tame that space filling. How big is your MongoDB database? There’s the number and size of the records in the...">
+    <meta property="og:url" content="http://localhost:2368/sizing-and-trimming-your-mongodb/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/ruler_kftla5_dhedzv.jpg">
+    <meta property="article:published_time" content="2014-06-17T10:42:52.000Z">
+    <meta property="article:modified_time" content="2014-09-02T09:30:27.000Z">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="performance">
+    <meta property="article:tag" content="size">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sizing and Trimming your MongoDB">
+    <meta name="twitter:description" content="TL;DR – Space is big and your database will fill it happily so here are commands and techniques to tame that space filling. How big is your MongoDB database? There’s the number and size of the records in the...">
+    <meta name="twitter:url" content="http://localhost:2368/sizing-and-trimming-your-mongodb/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/ruler_kftla5_dhedzv.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Sizing and Trimming your MongoDB",
+    "url": "http://localhost:2368/sizing-and-trimming-your-mongodb/",
+    "datePublished": "2014-06-17T10:42:52.000Z",
+    "dateModified": "2014-09-02T09:30:27.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/ruler_kftla5_dhedzv.jpg",
+    "keywords": "mongodb, performance, size",
+    "description": "TL;DR – Space is big and your database will fill it happily so here are commands and techniques to tame that space filling. How big is your MongoDB database? There’s the number and size of the records in the..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-mongodb tag-performance tag-size blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-mongodb tag-performance tag-size container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/ruler_kftla5_dhedzv.jpg)">
+    <h1 class="post-title">Sizing and Trimming your MongoDB</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-06-17">June 17th, 2014</time></small>
+  </header>
+
+<p><strong><em>TL;DR</em></strong> – Space is big and your database will fill it happily so here are commands and techniques to tame that space filling.</p>
+
+<p>How big is your MongoDB database? There’s the number and size of the records in the database itself and that’s what a lot of people consider the main measure of database size. But that’s only part of the measurable size. If it’s on your own disk drive you may not be bothered about overly large databases, but in the cloud where you are billed on the amount of resources consumed, we’re talking about real money and how to save it.</p>
+
+<p>Being practical, let’s look into one the example databases here and see what we can do with it. Our first stop in measuring the database is the <code>db.stats()</code> command which offers a selection of statistics. If we log in to the database with the Mongo shell and run that…</p>
+
+<p><aside class="right-gutter">There are more details about the db.stats() statistics on the <a href="http://docs.mongodb.org/manual/reference/command/dbStats/">dbStats manual page</a></aside>``` <br>
+exemplum/19:11:33&gt;db.stats() <br>
+{
+    "db" : "exemplum",
+    "collections" : 10,
+    "objects" : 110857,
+    "avgObjSize" : 239.9243349540399,
+    "dataSize" : 26597292,
+    "storageSize" : 43438080,
+    "numExtents" : 25,
+    "indexes" : 10,
+    "indexSize" : 4210640,
+    "fileSize" : 2666528768,
+    "nsSizeMB" : 16,
+    "dataFileVersion" : {
+        "major" : 4,
+        "minor" : 5
+    },
+    "extentFreeList" : {
+        "num" : 47,
+        "totalSize" : 2457366528
+    },
+    "ok" : 1
+}</p>
+
+<pre><code>Let’s start with the headline statistic – the `filesize` value is how big all the data files used to store this database are and it’s that number which is typically used for billing purposes.
+
+&lt;aside class="left-gutter"&gt;MiB and GiB not MB and GB? Here’s [why](http://en.wikipedia.org/wiki/Megabyte)&lt;/aside&gt;The numbers here are in bytes and that 2666528768 bytes means 2.48GiB of file space being used. But, the other numbers will tell a different tale. Let’s look at the `storageSize` – this is the amount of storage that’s been allocated to hold the documents – which comes in at 43438080 bytes, 41MiB. That’s quite a difference. There aren’t even some large indexes as `indexSize` is only 4210640 bytes, 4MiB.
+
+
+## Crunch Time
+
+What is going on? Remember we said this was one of our example databases. One of the things we do with this database is test things like bulk writing and removal. Sometimes we create collections, fill them, query them, delete the records then delete the collection. But MongoDB doesn’t give back that file space immediately, or at all; once it has allocated space the database wisely retains it once freed up, ready to be used again when it needs it. It’s thinking “If someone’s put a million records into me, there’s a good chance they’ll do it again”. That free space is recorded in the `extentFreeList` and if we look in there we find the `totalSize` is 2457366528 bytes, 2.28GiB. This is where the majority of our `fileSize` is coming from.
+
+So what can we do about it? Well, running `db.repairDatabase()` is the best way to recover disk space. The operation will block access to the database, so its running is not to be taken lightly. While running it will effectively run a `compact` command on every collection, taking the collection and rewriting it in a new collection, reindexing it and then swapping it back into place. The repair also reclaims other space from around the database. Let’s do that on our example database and see how it looks afterwards…
+</code></pre>
+
+<p>exemplum/19:13:10&gt;db.stats() <br>
+{
+    "db" : "exemplum",
+    "collections" : 10,
+    "objects" : 110857,
+    "avgObjSize" : 239.9301442398766,
+    "dataSize" : 26597936,
+    "storageSize" : 41345024,
+    "numExtents" : 24,
+    "indexes" : 10,
+    "indexSize" : 3589264,
+    "fileSize" : 117440512,
+    "nsSizeMB" : 16,
+    "dataFileVersion" : {
+        "major" : 4,
+        "minor" : 5
+    },
+    "extentFreeList" : {
+        "num" : 0,
+        "totalSize" : 0
+    },
+    "ok" : 1
+}</p>
+
+<pre><code>This is a huge improvement. The `fileSize` is now down to 117440512 bytes, 0.1GiB, or more usefully 112MiB. The `extentFreeList` now shows no bytes being retained for future allocation. The `storageSize` has decreased too, only by a few MiB, but that amount could well be much more in most databases. Like the `fileSize`, the `storageSize` also increases and doesn’t decrease unless action is taken. The only size value that changes naturally with the addition or removal of records in the `db.stats()` list is `dataSize` because that reflects the number of bytes of data held in the collections. If you make the content of the records stored smaller though, `dataSize` doesn’t shrink either.
+
+
+## Padding Power
+
+That’s because the `dataSize` also includes the padding used to make expanding and contracting records on disk easier. Before MongoDB 2.6, the default for creating this padding was based on a paddingFactor; the first record inserted into a collection would set the paddingFactor to 0, but updates and record expansion could push the factor up to 2. When a new record is created, the size of the document multiplied by the padding factor gave how much space needed to be allocated. Things changed in MongoDB 2.6 where a “Power of 2 Sized Allocations” became the default. With this, a record of say 76 bytes is allocated 128 bytes of space because that’s the nearest power of 2. Using powers of 2 makes it less likely that re-allocations will occur under typical workloads, but if you rarely update the records in a collection, you can [always turn off usePowerOf2Sizes](http://docs.mongodb.org/manual/reference/command/collMod/#usePowerOf2Sizes) and use the older “exact fit” method and get better use of storage space.
+
+If you want to get information about a specific collection, use `db.&lt;collection name&gt;.stats()` which will give you information about that collection including the paddingFactor (which exists even if “exact fit” isn’t in use) – if you want to confirm usePowerOf2Sizes is being used, the `userFlags` field will be set to 1. The [collstats](http://docs.mongodb.org/manual/reference/command/collStats/) manual page has more on the collection stats.
+
+A quick note about both the `.stats()` methods. They can take a scale value as a parameter and many of the size values will be divided by that number and then rounded to make whole numbers. Now, the scale for KiB values is easy, 1024, but you may or may not remember 1048576 as the scale factor for MiB or 1073741824 for GiB. If you are in the shell, let it calculate it for you and enter `1024*1024` for MiB and `1024*1024*1024` for GiB. Or, if you find yourself using the values in the shell a lot, add
+</code></pre>
+
+<p>MiB=1024<em>1024 <br>
+GiB=1024</em>1024*1024 <br>
+```</p>
+
+<p>to your <code>.mongorc.js</code> file and have the values always available.</p>
+
+<h2 id="puttingacaponit">Putting a Cap On It</h2>
+
+<p>There are ways to stop an ever-expanding database though, at least for certain use cases. Say you are only interested in the last 100,000 records in your database, you can create your collection as a <a href="http://docs.mongodb.org/manual/core/capped-collections/">capped collection</a> and set it to only hold 100,000 records. When there’s 100,000 records in the collection and another is inserted, the first record that had been inserted is discarded. The limit on the collection size also means that insertion and query speed stay relatively high too.</p>
+
+<p>If capping the collection is too much of a blunt instrument, another automated pruning option is setting an expiry TTL (time to live) on a collection. There are a lot of <a href="http://docs.mongodb.org/manual/tutorial/expire-data/">caveats</a> on creating such a collection, but it does allow you to, for example, retain records in a collection for an hour, making it ideal for web session data.</p>
+
+<p>The hints above should help you keep a handle on your space consumption, but they aren’t the whole story. Users of MongoHQ’s elastic deployments should consult their administration dashboard for the current amount of space consumed. If you have any concerns about how your MongoHQ database is consuming space, just <a href="https://app.mongohq.com/support">drop us a note</a> and we will be happy to help.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Sizing%20and%20Trimming%20your%20MongoDB&amp;url=http://localhost:2368/sizing-and-trimming-your-mongodb/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/sizing-and-trimming-your-mongodb/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/sizing-and-trimming-your-mongodb/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

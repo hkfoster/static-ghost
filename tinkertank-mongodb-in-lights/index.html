@@ -1,0 +1,270 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Tinkertank: MongoDB in Lights</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/tinkertank-mongodb-in-lights/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Tinkertank: MongoDB in Lights">
+    <meta property="og:description" content="*TL;DR How to put MongoDB statistics up in lights for ambient status displays.  *   In the previous MongoHQ Tinkertank articleThe Adafruit Neopixel shield in a moment of unblinkingness.You will want to have the Arduino IDE already set up as...">
+    <meta property="og:url" content="http://localhost:2368/tinkertank-mongodb-in-lights/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/featurearduino-crop2_eh4wlv_imqo02.jpg">
+    <meta property="article:published_time" content="2014-06-03T10:06:36.000Z">
+    <meta property="article:modified_time" content="2014-12-17T11:27:05.000Z">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="node.js. arduino">
+    <meta property="article:tag" content="oplog">
+    <meta property="article:tag" content="status">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tinkertank: MongoDB in Lights">
+    <meta name="twitter:description" content="*TL;DR How to put MongoDB statistics up in lights for ambient status displays.  *   In the previous MongoHQ Tinkertank articleThe Adafruit Neopixel shield in a moment of unblinkingness.You will want to have the Arduino IDE already set up as...">
+    <meta name="twitter:url" content="http://localhost:2368/tinkertank-mongodb-in-lights/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/featurearduino-crop2_eh4wlv_imqo02.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Tinkertank: MongoDB in Lights",
+    "url": "http://localhost:2368/tinkertank-mongodb-in-lights/",
+    "datePublished": "2014-06-03T10:06:36.000Z",
+    "dateModified": "2014-12-17T11:27:05.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/featurearduino-crop2_eh4wlv_imqo02.jpg",
+    "keywords": "mongodb, node.js. arduino, oplog, status",
+    "description": "*TL;DR How to put MongoDB statistics up in lights for ambient status displays.  *   In the previous MongoHQ Tinkertank articleThe Adafruit Neopixel shield in a moment of unblinkingness.You will want to have the Arduino IDE already set up as..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-mongodb tag-node-js-arduino tag-oplog tag-status blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-mongodb tag-node-js-arduino tag-oplog tag-status container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/featurearduino-crop2_eh4wlv_imqo02.jpg)">
+    <h1 class="post-title">Tinkertank: MongoDB in Lights</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-06-03">June 3rd, 2014</time></small>
+  </header>
+
+<p><strong>*TL;DR</strong> How to put MongoDB statistics up in lights for ambient status displays. <br>
+* <br>
+ In the <a href="../content/images/2014/12/DSC01784_ifocmi_hdpfyj.jpg">previous MongoHQ Tinkertank article</a><figcaption class="wp-caption-text">The Adafruit Neopixel shield in a moment of unblinkingness.</figcaption>You will want to have the Arduino IDE already set up as we will have a program to load onto the device. Consult the Arduino <a href="../content/images/2014/12/lights.mp4?_=3" type="video/mp4">[/content/images/2014/12/lights.mp4](/content/images/2014/12/lights.mp4"&gt;Getting Started</a></p>
+
+<h2 id="beyondthebars">Beyond the bars</h2>
+
+<p>This is a simple visualisation – partly to make it easy to understand and partly to keep the cost down – but there’s so much more to explore. With appropriate power supplies to the LEDs, you could chain numerous strips together to give you an ambient status display in your office. You could attach a screen shield to the Arduino instead to give an LCD panel with graphs and detailed status content.</p>
+
+<p>You could break the USB chain between the Arduino and the Node.js system with a low-cost wireless connection allowing you to site the device anywhere you can get power to it – or make it battery powered (though batteries do get consumed quickly with lit LEDs). With wireless though you could strip down to a simple OLED display and beeper and create a MongoDB aware office pager. And you could even lose the PC or Mac from the equation and gather your MongoDB data on a Raspberry Pi or BeagleBone Black which will happily run Node.js.</p>
+
+<p>All you need is some imagination and a MongoDB configuration which gives you oplog access… like MongoHQ’s Elastic Deployments.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Tinkertank%3A%20MongoDB%20in%20Lights&amp;url=http://localhost:2368/tinkertank-mongodb-in-lights/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/tinkertank-mongodb-in-lights/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/tinkertank-mongodb-in-lights/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

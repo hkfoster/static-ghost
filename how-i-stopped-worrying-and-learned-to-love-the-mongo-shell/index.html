@@ -1,0 +1,355 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>How I Stopped Worrying and Learned to Love the Mongo Shell</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/how-i-stopped-worrying-and-learned-to-love-the-mongo-shell/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How I Stopped Worrying and Learned to Love the Mongo Shell">
+    <meta property="og:description" content="Although it is built around a JavaScript engine, many people approach the Mongo Shell as simply a way of entering queries, updates and administration commands. But that JavaScript engine opens up a world of possibilities for making a MongoDB user’...">
+    <meta property="og:url" content="http://localhost:2368/how-i-stopped-worrying-and-learned-to-love-the-mongo-shell/">
+    <meta property="article:published_time" content="2014-01-21T18:12:32.000Z">
+    <meta property="article:modified_time" content="2014-12-17T11:44:36.000Z">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="How I Stopped Worrying and Learned to Love the Mongo Shell">
+    <meta name="twitter:description" content="Although it is built around a JavaScript engine, many people approach the Mongo Shell as simply a way of entering queries, updates and administration commands. But that JavaScript engine opens up a world of possibilities for making a MongoDB user’...">
+    <meta name="twitter:url" content="http://localhost:2368/how-i-stopped-worrying-and-learned-to-love-the-mongo-shell/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "nickmongohq-com",
+        "url": "http://localhost:2368/author/nickmongohq-com",
+        "sameAs": "http://www.mongohq.com"
+    },
+    "headline": "How I Stopped Worrying and Learned to Love the Mongo Shell",
+    "url": "http://localhost:2368/how-i-stopped-worrying-and-learned-to-love-the-mongo-shell/",
+    "datePublished": "2014-01-21T18:12:32.000Z",
+    "dateModified": "2014-12-17T11:44:36.000Z",
+    "description": "Although it is built around a JavaScript engine, many people approach the Mongo Shell as simply a way of entering queries, updates and administration commands. But that JavaScript engine opens up a world of possibilities for making a MongoDB user’..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post container">
+  <header>
+    <h1 class="post-title">How I Stopped Worrying and Learned to Love the Mongo Shell</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-01-21">January 21st, 2014</time></small>
+  </header>
+
+<p>Although it is built around a JavaScript engine, many people approach the Mongo Shell as simply a way of entering queries, updates and administration commands. But that JavaScript engine opens up a world of possibilities for making a MongoDB user’s life easier and more efficient when it comes to herding the data.</p>
+
+<p>The critical part of the process is understanding that you are working with a JavaScript session within the shell. Each line you enter into the shell’s REPL (Read-Evaluate-Print Loop) is evaluated as a JavaScript expression and the results of that evaluation are persisted for the session with the shell. Without realising that, you can end up typing and retyping large chunks of boiler plate code into the Shell, which, even though it has simple inline editing and command completion, is still a chore.</p>
+
+<p>Let’s look at a practical example of handing a migration. Imagine we have a collection of machines called “webscale”, with each machine’s kind being either “production”,”test” or “dev”, running an app in either “javascript”,”scala”,”go”,”ruby” or “java”, and with an active flag set to true or false.</p>
+
+<p>Now, we should all be generally aware that you can do basic querying …</p>
+
+<p><code>db.webscale.find({kind: "production"})</code></p>
+
+<p>… and updates …</p>
+
+<p><code>db.webscale.update({kind: "production"}, {$set: {active: true}})</code></p>
+
+<p>Consider now if we wanted to take some subset of that data and copy it to another collection. The job at hand may be to copy the “test” machines in their own “test” collection. Using the built-in <code>forEach</code> function and JavaScript’s anonymous functions gives us the power we need to do this.</p>
+
+<p><code>db.webscale.find({kind:"test"}).forEach(function(doc) {db.test.insert(doc)})</code></p>
+
+<p>That’s fine for a quick one-liner but as soon as you need to do some real work, or want to reuse them, anonymous functions become tough to read and difficult to debug.</p>
+
+<p>For example, say the requirement just changed so we need to remove the test machines from the webscale collection. Here’s where named functions are easier to wield. We can define named functions directly in the shell so that we can reuse them. Let’s define one for the “moveit” task:</p>
+
+<pre><code>function moveit(doc) {  
+  db.test.insert(doc)
+  db.webscale.remove(doc)
+}```
+
+Now, we can iterate over our collection and apply this function to each document:
+
+`db.webscale.find({kind: "test"}).forEach(moveit)`
+
+Fantastic! Now we’re getting somewhere. But what happens when our migrations get more complicated or the requirements change again? We could cursor up and use the Mongo Shell’s inline editor but normally we’d write a function like this in our favourite text editor.
+
+Mongo has an ‘edit’ helper in the shell which can call up your preferred editor so you can modify an already defined function by saying `edit functionname`. To work out what editor to use, the Mongo shell first tries to use the JavaScript variable `EDITOR`, which you can set within the shell like so:
+
+`EDITOR="/bin/vim"`
+
+If `EDITOR` isn’t set, the Mongo shell checks for the environment variable `$EDITOR`, which is often already set, but if not, can be set at the operating system’s command line, or in your profile like this.
+
+`export EDITOR=/bin/vim # or emacs, no judgements here`
+
+With `EDITOR` set, we can now do the following.
+
+`edit moveit`
+
+![Mongoshell blog image](/content/images/2014/12/Mongoshell-blog-image_uuvaj9_avinqp.png)Using your favorite editor within the shell makes it easier to write and debug more complicated functions.
+
+Now, we don’t have a collection to hand to safely run these experiments on – don’t run this on a production server or collection with live data – but we can create one. When we are creating data, we usually need to select one of a list of possible values. Let’s define a reusable function in the shell to do that:
+</code></pre>
+
+<p>function oneFrom(list) { <br>
+  return list[Math.floor(Math.random()*list.length)];
+}```</p>
+
+<p>We can now say <code>onefrom(['a','b','c'])</code> and get ‘a’, ‘b’ or ‘c’ back. Using this we can make a randomLanguage function:</p>
+
+<pre><code>function randomLanguage() {  
+  return oneFrom(['javascript', 'ruby', 'scala', 'golang', 'java']);
+}```
+
+We can also create a randomKind function too:
+</code></pre>
+
+<p>function randomKind() { <br>
+  return oneFrom(['production','dev','test']);
+}```</p>
+
+<p>Now we could create a ten thousand machines using JavaScript’s for loop:</p>
+
+<pre><code>for (var i = 0; i &lt; 1e5; i++) {  
+  db.webscale.insert({number:i, lang: randomLanguage(), kind:randomKind()})
+}```
+
+But the insert statement is already getting a bit messy to work with in the shell and we haven’t even set the active field yet. Another function to the rescue, this time to create a document for a machine given just a number:
+</code></pre>
+
+<p>function makeMachine(i) { <br>
+  var machine={};
+  machine.number=i;
+  machine.lang=randomLanguage();
+  machine.kind=randomKind();
+  machine.active=oneFrom([ true, false ]);
+  return machine;
+}```</p>
+
+<p>We can edit and reuse this function easily and we can clearly express how we create our test data collection:</p>
+
+<pre><code>for (var i = 0; i &lt; 1e5; i++) {  
+  db.webscale.insert(makeMachine(i));
+}```
+
+We can test our migration script skills a little more easily now! Let’s split the original collection ‘webscale’ into separate collections based on programming language. As a shortcut, we’ll use the fact that the `db` is an associative array to reference our language collections:
+</code></pre>
+
+<p>function movedoc(doc) { <br>
+  db.webscale.remove(doc)
+  doc.moved_at = new Date()
+  // notice that we can reference the collection as an array member
+  db[doc.lang].insert(doc)
+}```</p>
+
+<p><code>db.webscale.find().forEach(movedoc)</code></p>
+
+<p>Now we have five different collections each containing a subset of original data and an empty webscale collection. If we rebuilt the webscale collection and edited movedoc so we used <code>doc.kind</code> instead of <code>doc.lang</code> and reran our command, the collection would be sorted into collections named after the various kinds of system.</p>
+
+<p>Of course you could also make your migration script a function too so you didn’t have to type it out and could go back and edit it too:</p>
+
+<p><code>
+function migrationtest() { <br>
+  db.webscale.find().forEach(movedoc);
+}</code></p>
+
+<p>And you easily use <code>edit</code> to modify it so it could clear out old collections, create new test collections and even run some checks for you at the end. There’s an awful lot you can do in the shell when you embrace its JavaScript-ness. There is only one caveat and that is these functions exist only for the lifetime of the Mongo Shell; exit it and they are gone. There are ways to persistently reuse your shell functions though and we’ll look at that in the future.</p>
+
+<p>But for now, what you need to remember is if you find yourself doing the same thing over and over again in the shell, or if you need to create and test a migration for your data, define some functions, use the power of JavaScript and get more done with less effort.</p>
+
+
+<footer class="post-footer big-push">
+
+
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=How%20I%20Stopped%20Worrying%20and%20Learned%20to%20Love%20the%20Mongo%20Shell&amp;url=http://localhost:2368/how-i-stopped-worrying-and-learned-to-love-the-mongo-shell/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/how-i-stopped-worrying-and-learned-to-love-the-mongo-shell/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/how-i-stopped-worrying-and-learned-to-love-the-mongo-shell/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

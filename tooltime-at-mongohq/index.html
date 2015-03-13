@@ -1,0 +1,281 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Tooltime at MongoHQ</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/tooltime-at-mongohq/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Tooltime at MongoHQ">
+    <meta property="og:description" content="The inverse of the proverb “A poor workman blames his tools” is that a good craftsman credits their tools whenever they can. With that in mind, we decided that it was time to credit some of the tools that we...">
+    <meta property="og:url" content="http://localhost:2368/tooltime-at-mongohq/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/toolbox_c4n1wz_uh92hg.jpg">
+    <meta property="article:published_time" content="2014-05-27T12:25:03.000Z">
+    <meta property="article:modified_time" content="2014-08-11T14:51:30.000Z">
+    <meta property="article:tag" content="tools">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tooltime at MongoHQ">
+    <meta name="twitter:description" content="The inverse of the proverb “A poor workman blames his tools” is that a good craftsman credits their tools whenever they can. With that in mind, we decided that it was time to credit some of the tools that we...">
+    <meta name="twitter:url" content="http://localhost:2368/tooltime-at-mongohq/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/toolbox_c4n1wz_uh92hg.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Tooltime at MongoHQ",
+    "url": "http://localhost:2368/tooltime-at-mongohq/",
+    "datePublished": "2014-05-27T12:25:03.000Z",
+    "dateModified": "2014-08-11T14:51:30.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/toolbox_c4n1wz_uh92hg.jpg",
+    "keywords": "tools",
+    "description": "The inverse of the proverb “A poor workman blames his tools” is that a good craftsman credits their tools whenever they can. With that in mind, we decided that it was time to credit some of the tools that we..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-tools blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-tools container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/toolbox_c4n1wz_uh92hg.jpg)">
+    <h1 class="post-title">Tooltime at MongoHQ</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-05-27">May 27th, 2014</time></small>
+  </header>
+
+<p>The inverse of the proverb “A poor workman blames his tools” is that a good craftsman credits their tools whenever they can. With that in mind, we decided that it was time to credit some of the tools that we at MongoHQ couldn’t live without…</p>
+
+<p><strong>Chris Winslett – MoSQL, PGAdmin, Chartio</strong> – Chris has gone for three tools, Stripe’s <a href="https://github.com/stripe/mosql">MoSQL</a> for exporting data from MongoDB to Postgres, <a href="http://www.pgadmin.org/">PGAdmin</a> for prototyping queries and <a href="https://chartio.com/">Chartio</a> for publishing the resulting Postgres exports. “I use them working with our finance team” says Chris, “The three tools make it easy to get data out of MongoDB for ad hoc data discovery with data collaboration”.</p>
+
+<p><strong>Nick Stott – grep, sed, awk</strong> – “I’m pretty old school” says Nick, going for the three classic Unix tools – <a href="http://en.wikipedia.org/wiki/Grep">grep</a>, the text search tool, <a href="http://en.wikipedia.org/wiki/Sed">sed</a>, the stream editor and <a href="http://en.wikipedia.org/wiki/Awk">awk</a>, the interpreted data extraction and processing language. “I prefer pen and paper over random e-note start-ups and I prefer simple standard unix tools over random distributed muti-paradigm problem solving swiss army knives”.</p>
+
+<p><strong>Jerome Gravel-Niquet – Gulp.js</strong> – Jerome says he “really loves the node.js build tool <a href="http://gulpjs.com/">gulp</a>“. He likes how it brings Unix-like piping to JavaScript-based build tasks. “Using streams, you can arrange various utilities and tasks together to get built files at the end”. Gulp uses core plugins to detect changes, cache files and pass through newer source files and these can be complemented by a <a href="http://gulpjs.com/plugins/">library of plugins</a> to handle everything from Angular to Zip.</p>
+
+<p><strong>Steve Berryman – Awk, tcpdump/wireshark</strong> – <a href="http://en.wikipedia.org/wiki/Awk">Awk</a> is on Steve’s favorites because “there is no tool better to munge data. I’ve seen people write complex ruby scripts to do what awk can do in half the amount of lines”. He also includes <a href="http://www.tcpdump.org/">Tcpdump</a> and <a href="http://www.wireshark.org/">Wireshark</a> as the best things for debugging network problems noting that “the packets don’t lie”. Tcpdump uses the same libpcap library as Wireshark’s GUI front-end to suck up and process network packets for better understanding what’s happening on the wire, but Tcpdump works at a command-line level with lower overheads.</p>
+
+<p><strong>Ben Wyrosdick – vim, postman, the<em>silver</em>searcher</strong> – Ben has gone for three tools in his pick, starting with the vi clone <a href="http://www.vim.org/">vim</a>, now far beyond just a clone with many, many extra features and functions. He also selects <a href="http://www.getpostman.com/">postman</a>, a Chrome application which lets you send HTTP requests and read the results and is “ideal for writing and testing APIs” and <a href="https://github.com/ggreer/the_silver_searcher">the<em>silver</em>searcher</a> – a “badass grep style bash search tool” – designed for searching code, but useful for all sorts of content searching, with high performance memory-mapped file I/O and even a JIT compiler for regexp handling.</p>
+
+<p><strong>Dusty Hall</strong> – top, iotop, xargs – The renowned <a href="http://www.unixtop.org/about.shtml">Top</a> and less well known <a href="http://guichaz.free.fr/iotop/">iotop</a> are Dusty’s favorites. Where top gives you information about CPU and memory usage, iotop lets you look at how processes consume I/O resources. Dusty also includes in <a href="http://en.wikipedia.org/wiki/Xargs">xargs</a> in his selection because who can’t love a Unix utility which turns standard input into arguments for running a command – it is really really useful.</p>
+
+<p><strong>Kurt Mackey – Hackpad</strong> – Favorite tools don’t just come as command line tools. Kurt’s favorite tool is the online, real-time collabarative Wiki platform at <a href="http://hackpad.com">Hackpad.com</a> where the strong set of tools brings Wiki semantics and Markdown style formatting together in one place. Kurt also likes “snooping on what other people are writing as they make comments” thanks to the real-time nature of Hackpad.</p>
+
+<p><strong>Wesley David – dig, grep, vi</strong> – Wesley swears by “dig” as the essential tool for debugging . “Back when I was doing a lot of support work for an anti-spam service, dig was probably literally solving about 50% of all client trouble” he says noting those problems included “You realize that your domain has no MX records?”. Grep and vi also make it to his list – classic Unix commands are timeless favorites of developers and engineers.</p>
+
+<p><strong>Dan Harris – LinkedIn’s InMail</strong> – Dan’s tool of choice is another service, LinkedIn runs a private mailing service called <a href="https://www.linkedin.com/static?key=about_inmail">InMail</a>. Dan says “It’s awesome for direct contact with like minded people without the SPAM issues of email”. Well policed by LinkedIn, Dan hopes it’ll stay that way and won’t be abused otherwise its effectiveness will diminish.</p>
+
+<p><strong>Kristine Toone – Expensify.com</strong> – The best administrators have their tools too and from HR/admin side of things, Kristine says “one of our best tools is <a href="http://expensify.com">Expensify.com</a>“. The service has “made submitting expenses and receiving reimbursement a fairly painless experience for MongoHQ employees” she adds. Anything that takes the pain out of expenses and gives people more time is always welcome.</p>
+
+<p><strong>Michele Baroody – 1Password, Evernote</strong> – Michele’s tools of choice run on all her computers and devices, syncing across the net and letting her take notes whenever and whereever she wants. Her picks are <a href="https://agilebits.com/onepassword">AgileBit’s 1Password</a> and <a href="https://evernote.com/">Evernote</a>. “1Password makes me feel at once all-powerful and dumb” she said, going on to explain “Powerful, because I can have 600 different passwords, making me impervious to the odd web site attack. Dumb because I only actually know about 2 of the passwords without looking them up”. Evernote is her “catch-all for virtually everything I need to remember – receipts, travel info, research (on anything), email drafts, random docs I don’t want to lose track of, recipes, articles I want to read or use for reference later, tech tips/trick” – she’s tried other tools but always comes back to Evernote.</p>
+
+<p><strong>Navam Welihinda – Excel</strong> – Some favorite tools are also the tools of the trade. Navam’s pick is Microsoft’s Excel. He notes “The financial world runs on Excel”. Excel’s come a long way since its Mac only 1.0 debut in 1985.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Tooltime%20at%20MongoHQ&amp;url=http://localhost:2368/tooltime-at-mongohq/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/tooltime-at-mongohq/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/tooltime-at-mongohq/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

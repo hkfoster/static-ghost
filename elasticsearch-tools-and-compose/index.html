@@ -1,0 +1,286 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Elasticsearch tools and Compose</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/elasticsearch-tools-and-compose/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Elasticsearch tools and Compose">
+    <meta property="og:description" content="Outside of the core Elasticsearch toolset, there’s a world of tools that make the search and analytics database even more useful and accessible. In this article we’ll look at some and show what you do to get them...">
+    <meta property="og:url" content="http://localhost:2368/elasticsearch-tools-and-compose/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/BCS2_0277_y43yuh_dbqfm4.jpg">
+    <meta property="article:published_time" content="2014-11-20T11:22:47.000Z">
+    <meta property="article:modified_time" content="2014-12-17T08:42:58.000Z">
+    <meta property="article:tag" content="search">
+    <meta property="article:tag" content="tools">
+    <meta property="article:tag" content="utility">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Elasticsearch tools and Compose">
+    <meta name="twitter:description" content="Outside of the core Elasticsearch toolset, there’s a world of tools that make the search and analytics database even more useful and accessible. In this article we’ll look at some and show what you do to get them...">
+    <meta name="twitter:url" content="http://localhost:2368/elasticsearch-tools-and-compose/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/BCS2_0277_y43yuh_dbqfm4.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Elasticsearch tools and Compose",
+    "url": "http://localhost:2368/elasticsearch-tools-and-compose/",
+    "datePublished": "2014-11-20T11:22:47.000Z",
+    "dateModified": "2014-12-17T08:42:58.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/BCS2_0277_y43yuh_dbqfm4.jpg",
+    "keywords": "search, tools, utility",
+    "description": "Outside of the core Elasticsearch toolset, there’s a world of tools that make the search and analytics database even more useful and accessible. In this article we’ll look at some and show what you do to get them..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-search tag-tools tag-utility blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-search tag-tools tag-utility container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/BCS2_0277_y43yuh_dbqfm4.jpg)">
+    <h1 class="post-title">Elasticsearch tools and Compose</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-11-20">November 20th, 2014</time></small>
+  </header>
+
+<p>Outside of the core Elasticsearch toolset, there’s a world of tools that make the search and analytics database even more useful and accessible. In this article we’ll look at some and show what you do to get them working with Compose’s Elasticsearch deployments. We’ll <img src="../content/images/2014/12/speciesscope_sjoq7v_dy1roz.jpg" alt="speciesscope" title=""> <br>
+ start with a command line tool, move on to a simple search tool and finish with an all purpose client for searching and manipulating your Elasticsearch database…</p>
+
+<h2 id="es2unixcommandlinepower">Es2unix – Command line power</h2>
+
+<p>Let us start the tool tour with Es2unix, from the Elasticsearch developers. Es2unix is a version of the Elasticsearch API that you can use from the command line. It doesn’t just make the API calls though, it also converts the returned results into a line-oriented, tabular format like many other Unix tools output. That makes it ideal for integrating Elasticsearch into your awk, grep and sort using shell scripts.</p>
+
+<p>Es2unix will need Java installed, Java 7 at least, and the binary version can be simply downloaded with a curl command and enabled with chmod as per the installation instructions:</p>
+
+<pre><code>curl -s download.elasticsearch.org/es2unix/es &gt;~/bin/es  
+chmod +x ~/bin/es  
+</code></pre>
+
+<p>Note this assumes you have a bin directory in your $HOME and it’s on your path.</p>
+
+<p>Now, when you run <code>es</code> it’ll assume that Elasticsearch is running locally. When you are using Compose Elasticsearch, that isn’t the case. If you’ve got the /content/images/2014/12/Screenshot-2014-11-20-11<em>44</em>54<em>tfrljj</em>radftf.png)It’s a quick way to get a pretty search query front end up locally without wrestling with forming Curl/JSON requests or deploying a full on server.</p>
+
+<h2 id="esclient">ESClient</h2>
+
+<p>Where Calaca’s great for a super simple search client, you might want something a little more potent for your searching. For that, try <a href="../content/images/2014/12/esclientscreen_ezjxdo_fedq0q.png">ESClient</a>Double clicking on a result will let you edit the documents that make up the result or you can use the results as a guide for a delete operation. If you set to “Raw JSON” switch in the <em>Configuration</em> tab, you’ll also be able to view the complete raw returned results in the <em>JSON Results</em> tab.</p>
+
+<p>It’s all rather usefully functional and there’s only one slight problem. If you look at the top of the ESClient page, you’ll see it’s displaying the username and password as part of the URL for the database you are connecting to. Not really ideal that, but the SSH access portal can help out there too. If you set up and activate the tunnel, then you can return the <code>CLUSTER_URL</code> value in the config.js file to <code>http://localhost:9200</code> and there’ll be no username or password to display on screen.</p>
+
+<h2 id="wrappingup">Wrapping up</h2>
+
+<p><aside class="right-gutter">The dataset used in this article comes from the examples of <a href="http://exploringelasticsearch.com/">Exploring Elasticsearch</a> and can be found on <a href="https://github.com/andrewvc/ee-datasets">GitHub</a></aside>We’ve touched on three tools in this article, but more importantly we’ve shown the practical differences between using the HTTP/TCP and SSH access portals on componse. With HTTP/TCP access, there will be usernames and passwords embedded in the URL you use and this will leave any scripts or tools you configure susceptible to shoulder surfers and the like. That said, for occasionally launched tools it is quick and simple.</p>
+
+<p>With the SSH access portal, the configuration and authentication is done when you set up the tunnel in a separate process and the tunnel means you can use Elasticsearch as if the node was installed locally. The downside is you do need to make sure the SSH tunnel is up before you run any command and it may be easier to go through the HTTP/TCP access portal. But then thats why we give you both options at Compose so you can choose what suits you and your applications best.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Elasticsearch%20tools%20and%20Compose&amp;url=http://localhost:2368/elasticsearch-tools-and-compose/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/elasticsearch-tools-and-compose/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/elasticsearch-tools-and-compose/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

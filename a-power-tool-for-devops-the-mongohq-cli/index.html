@@ -1,0 +1,327 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>A Power Tool for Devops - The MongoHQ CLI</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/a-power-tool-for-devops-the-mongohq-cli/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="A Power Tool for Devops - The MongoHQ CLI">
+    <meta property="og:description" content="When we recently released the new API, we knew that it wouldn’t just be programmers who’d want to tap into its flexibility and power to control and manage MongoHQ database deployments. Thats why we’ve also been working...">
+    <meta property="og:url" content="http://localhost:2368/a-power-tool-for-devops-the-mongohq-cli/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/featuredterm2_vvhnad_gknkfh.jpg">
+    <meta property="article:published_time" content="2014-07-31T10:39:18.000Z">
+    <meta property="article:modified_time" content="2014-09-02T09:16:13.000Z">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="A Power Tool for Devops - The MongoHQ CLI">
+    <meta name="twitter:description" content="When we recently released the new API, we knew that it wouldn’t just be programmers who’d want to tap into its flexibility and power to control and manage MongoHQ database deployments. Thats why we’ve also been working...">
+    <meta name="twitter:url" content="http://localhost:2368/a-power-tool-for-devops-the-mongohq-cli/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/featuredterm2_vvhnad_gknkfh.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "A Power Tool for Devops - The MongoHQ CLI",
+    "url": "http://localhost:2368/a-power-tool-for-devops-the-mongohq-cli/",
+    "datePublished": "2014-07-31T10:39:18.000Z",
+    "dateModified": "2014-09-02T09:16:13.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/featuredterm2_vvhnad_gknkfh.jpg",
+    "description": "When we recently released the new API, we knew that it wouldn’t just be programmers who’d want to tap into its flexibility and power to control and manage MongoHQ database deployments. Thats why we’ve also been working..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/featuredterm2_vvhnad_gknkfh.jpg)">
+    <h1 class="post-title">A Power Tool for Devops - The MongoHQ CLI</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-07-31">July 31st, 2014</time></small>
+  </header>
+
+<p>When we <a href="http://blog.mongohq.com/mongohq-api-welcome-to-the-new-beta/" title="MongoHQ API – Welcome to the new Beta">recently released the new API</a>, we knew that it wouldn’t just be programmers who’d want to tap into its flexibility and power to control and manage MongoHQ database deployments. Thats why we’ve also been working on a command line interface too which brings that same power and flexibility to your terminal’s prompt and we are releasing the beta version of that tool today. <code>mongohq</code> the command, is a swiss army knife of functionality which maps the MongoHQ API into easy to use commands.</p>
+
+<h2 id="cliquickstart">CLI Quickstart</h2>
+
+<p>The <code>mongohq</code> command has help for all its commands built in and running it with no parameters will present a guide to all the available options. There’s sets of commands for accounts, users, backups, databases and deployments along with specific commands for browsing logs, getting database statistics and getting a realtime view of mongostat – a first port of call when analysing performance issues. We prefer to show rather than tell so here’s a brief session with the command. First up, we can list the deployments associated with the account:</p>
+
+<pre><code>$ mongohq deployments 
+== My Deployments
+production  
+development  
+stuntcar  
+</code></pre>
+
+<p>Here we can see three Elastic Deployments, one for production, one for development and one we call the stuntcar. These are user set deployment names. If you have older deployments, they may not be named and will show their hex identifier. You can use <code>mongohq deployments:rename</code> to set a readable name. If you want to find out more about a deployment you can use <code>mongohq deployments:info</code> like so:</p>
+
+<pre><code>$ mongohq deployments:info --deployments stuntcar
+== stuntcar
+ name            : stuntcar
+ plan            : mongohq:elastic
+ status          : running
+ location        : aws:eu-west-1
+ current primary : lamppost.3.mongolayer.com:10089
+ members         : lamppost.3.mongolayer.com:10089,lamppost.2.mongolayer.com:10089
+ version         : 2.6.3
+  == Databases
+    notes
+    documents
+</code></pre>
+
+<p>So here we have two databases in the deployment which is running MongoDB 2.6.3. We can shorten deployments to dep in commands and parameters so <code>mongohq dep:info --dep stuntcar</code> is a shorter equivalent form. Now we know what databases are in the deployment, let’s add one:</p>
+
+<pre><code>$ mongohq databases:create --dep stuntcar --database customers
+== customers
+ status     :running
+ deployment :stuntcar
+</code></pre>
+
+<p>Like “deployments”, databases can also be shortened to <code>db</code> so we could have run <code>mongohq db:create -dep stuntcar --db customers</code>. Once we’ve created a database, we can add a user to it with <code>mongohq users:create</code> and we now have a MongoDB database ready to run. We can also list users and remove users so you can automate your user management.</p>
+
+<h2 id="furtherfeatures">Further features</h2>
+
+<p>If we want to make a new deployment and database in one step, there’s the <code>deployments:create</code> command which takes names for a new deployment and database and a location for where that new deployment should be created. To find available locations, you can run <code>mongohq locations</code>…</p>
+
+<pre><code>$ mongohq locations
+== locations
+  aws:ap-southeast-2
+  aws:eu-west-1
+  aws:us-east-1
+  aws:us-west-2
+  digital-ocean:nyc2
+  gogrid:us-west-1
+  mongohq:us-east-1
+  softlayer:dallas-05
+</code></pre>
+
+<p>This also shows how a location is made up of a cloud provider and geographical location. As well as creating databases and deployments, it logically follows that you can also get information about them (<code>dep:info</code> and <code>db:info</code>) and remove them (<code>dep:remove</code> and <code>db:remove</code>). The CLI also gives you control of your backups so you can create on-demand backups (<code>backups:create</code>), list your available backups (<code>backups</code>), get information on a specific backup (<code>backups:info</code>) and restore a backup (<code>backups:restore</code>).</p>
+
+<p>But there’s more. The <code>logs</code> command gives you not just a way to view the logs but to page through and use regular expressions to filter your logs so you can home in on the information you want. If you want raw statistics then the <code>mongostats</code> command can plug you into a realtime stream of them from any deployment, including insert, query, update and delete rates, memory use, faults, locking and network traffic for all the instances in the replica set.</p>
+
+<p>Now you may not want to be typing <code>mongohq</code> all the time, so we’ve also added a shell mode which give you a dedicated command line with history and tab completion for commands.</p>
+
+<h2 id="gettingthecli">Getting the CLI</h2>
+
+<p>Hopefully, you’re already looking forward to using the <code>mongohq</code> command. You can get the installable binary by running:</p>
+
+<pre><code>curl https://mongohq-cli.s3.amazonaws.com/install.sh | sh  
+</code></pre>
+
+<p>When you run it for the first time, it will take you through an authenticaton process which will store a token in your home directory – if you want to dispose of that token after a session, run <code>mongohq logout</code>.</p>
+
+<p>If you aren’t keen on running scripts from the internet but are happy to download and run the binary, you can download the script and follow its steps to install. As with any Swiss Army knife, you’ll want the opportunity to check all the blades for safety, so we’ve also made mongohq-cli open source so you can assure yourself of its usefulness. If you’re into coding, especially in Go as thats what mongohq-cli is written in, we also encourage you to enhance it – we will happily take pull requests for fixes and features.</p>
+
+<p>You can find all the details of the new CLI on the <a href="http://docs.mongohq.com/getting-started/cli.html">CLI Getting Started page</a>. The current release is a beta version and is subject to change – do contact <a href="mailto:support@mongohq.com">support@mongohq.com</a> if you need to use it in production sooner.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=A%20Power%20Tool%20for%20Devops%20-%20The%20MongoHQ%20CLI&amp;url=http://localhost:2368/a-power-tool-for-devops-the-mongohq-cli/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/a-power-tool-for-devops-the-mongohq-cli/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/a-power-tool-for-devops-the-mongohq-cli/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

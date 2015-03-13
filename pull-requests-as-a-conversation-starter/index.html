@@ -1,0 +1,283 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Pull requests as a conversation starter</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/pull-requests-as-a-conversation-starter/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Pull requests as a conversation starter">
+    <meta property="og:description" content="*Conversation is not normally regarded as a way of measuring quality, but at MongoHQ we’ve realised that it is one of the most accessible and obvious ways of evaluating the quality of pull requests. Chris Winslett explains how that...">
+    <meta property="og:url" content="http://localhost:2368/pull-requests-as-a-conversation-starter/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/conversations_zur8u9_vpwgeg.jpg">
+    <meta property="article:published_time" content="2014-06-19T09:25:05.000Z">
+    <meta property="article:modified_time" content="2014-06-19T09:25:05.000Z">
+    <meta property="article:tag" content="conversation">
+    <meta property="article:tag" content="Development">
+    <meta property="article:tag" content="Process">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pull requests as a conversation starter">
+    <meta name="twitter:description" content="*Conversation is not normally regarded as a way of measuring quality, but at MongoHQ we’ve realised that it is one of the most accessible and obvious ways of evaluating the quality of pull requests. Chris Winslett explains how that...">
+    <meta name="twitter:url" content="http://localhost:2368/pull-requests-as-a-conversation-starter/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/conversations_zur8u9_vpwgeg.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Pull requests as a conversation starter",
+    "url": "http://localhost:2368/pull-requests-as-a-conversation-starter/",
+    "datePublished": "2014-06-19T09:25:05.000Z",
+    "dateModified": "2014-06-19T09:25:05.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/conversations_zur8u9_vpwgeg.jpg",
+    "keywords": "conversation, Development, Process",
+    "description": "*Conversation is not normally regarded as a way of measuring quality, but at MongoHQ we’ve realised that it is one of the most accessible and obvious ways of evaluating the quality of pull requests. Chris Winslett explains how that..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-conversation tag-development tag-process blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-conversation tag-development tag-process container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/conversations_zur8u9_vpwgeg.jpg)">
+    <h1 class="post-title">Pull requests as a conversation starter</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-06-19">June 19th, 2014</time></small>
+  </header>
+
+<p>*Conversation is not normally regarded as a way of measuring quality, but at MongoHQ we’ve realised that it is one of the most accessible and obvious ways of evaluating the quality of pull requests. Chris Winslett explains how that came to be and how it all started with a large pull request: <br>
+* <br>
+ Our API team was looking to introduce a new version for the API. We’d talked about the new version long enough that we basically had the spec in mind driven by security, routing, and user experience changes. There were only a few changes in the interaction with backend systems, so the versioning change would be self-contained within the API.</p>
+
+<h2 id="theshortrun">The short run</h2>
+
+<p>With a well considered specification, the development was amenable to a sprint which is what happened. One person sprinted for about 2 days, and BAM! After the 2 day sprint, the developer had a pull request ready with 1,612 lines to be added and 724 lines to be removed. The Pull Request description was 255 words and contained 32 route changes. It was a good first go of the project. But there was trouble on the horizon.</p>
+
+<p>The first indication that something was wrong was that no one commented on the pull request in the first 24 hours. Then, no one commented in the first 48 hours. It would be four days and much prodding of the team with no movement that the realisation came. We needed to have a heart to heart about the pull request because at this point it wasn’t going to be merged. The problem was the pull request’s size.</p>
+
+<p>When we talked to the team three things came out. First, there was too much code in the request. This meant it required too much effort to keep all the changes in your head and that meant nobody thought they had time to look over the code. We added a bold text warning to the top of the pull request and set about devising a new plan.</p>
+
+<h2 id="thesmallersteps">The smaller steps</h2>
+
+<p>The new plan would break the problem down into much more manageable chunks but before that could happen the essential elements had to be extracted from the big pull request. That meant the mechanism for accessing the new version and the required security changes would be broken up into two blocks of work and then to test them one sample route would be selected to be pulled. The next step was logically grouping the various path changes into releasable portions. We would only start on the next group after the prior group was complete. Having multiple small pull requests open simultaneously would be as detrimental as having one large pull request.</p>
+
+<p>With the breaking up of the pull request planned, the best person to do the work was the original developer as he had already given us a prototype and roadmap for the holistic change and the code already had tests which could be migrated over. It would have been easy to have just cut and pasted the code over into new pull requests but that wasn’t going to benefit the project. With two weeks away from the pull request, we let the original developer return to the code, less the assumptive understanding that they had acquired and ready to take on the task of breaking up their code. Now they could critically and surgically pull out the code, work on it and create the desired smaller pull requests. Each one would then be offered to the team one at a time.</p>
+
+<h2 id="thelittlechanges">The little changes</h2>
+
+<p>The code finally released was significantly different from the original pull request. Both the versioning scheme and security testing were improved due to the team being able to focus on their separate requests. The process went further too, with implementation choices being challenged and changed by the team. The developer noticed the change too. Rather than the silence that greeted the original pull request, the new smaller pull requests were seeing comments appear in minutes, triggering the conversations that we all need to help polish the code. Best of all, the team found the experience of working on the smaller pull requests better and much more in keeping with how they like to work too.</p>
+
+<h2 id="thelessonlearnt">The lesson learnt</h2>
+
+<p>“Don’t sprint into a waterfall” is the lesson we took home from this. Since the big pull request incident, there’s been other code that has needed to be updated and with conversation-based development that process has involved bringing all the team in on reviewing code and ensuring there’s a deep resource of knowledge for the future. If we’d pushed ahead with that big pull request we could have potentially left some team members ostracized from the circle of knowledge. Where that initial pull request was a net change of 888 lines of code, the broken up pull requests never exceeded 115 lines of net change. That 115 line pull request was also deemed in feedback to be too large. Looking at that feedback, future development will see the quality of a pull request judged by the conversations that it creates – those that do not spark conversations will be considered harmful.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Pull%20requests%20as%20a%20conversation%20starter&amp;url=http://localhost:2368/pull-requests-as-a-conversation-starter/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/pull-requests-as-a-conversation-starter/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/pull-requests-as-a-conversation-starter/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

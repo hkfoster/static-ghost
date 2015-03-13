@@ -1,0 +1,295 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>MongoDB 2.4 and the New Version Selector</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/mongodb-2-4-and-the-new-version-selector/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="MongoDB 2.4 and the New Version Selector">
+    <meta property="og:description" content="Today, 10gen announced the final production release of MongoDB 2.4. As we have talked about in previous blog posts, this release includes a number of great new features, including: full-text search (beta), a new javascript engine, better performance on...">
+    <meta property="og:url" content="http://localhost:2368/mongodb-2-4-and-the-new-version-selector/">
+    <meta property="article:published_time" content="2013-03-19T22:44:41.000Z">
+    <meta property="article:modified_time" content="2014-12-17T11:52:14.000Z">
+    <meta property="article:tag" content="Full Text Search">
+    <meta property="article:tag" content="javascript">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="MongoDB 2.4">
+    <meta property="article:tag" content="version">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="MongoDB 2.4 and the New Version Selector">
+    <meta name="twitter:description" content="Today, 10gen announced the final production release of MongoDB 2.4. As we have talked about in previous blog posts, this release includes a number of great new features, including: full-text search (beta), a new javascript engine, better performance on...">
+    <meta name="twitter:url" content="http://localhost:2368/mongodb-2-4-and-the-new-version-selector/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "jasonmongohq-com",
+        "image": "//www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&s=250",
+        "url": "http://localhost:2368/author/jasonmongohq-com",
+        "sameAs": "http://www.mongohq.com"
+    },
+    "headline": "MongoDB 2.4 and the New Version Selector",
+    "url": "http://localhost:2368/mongodb-2-4-and-the-new-version-selector/",
+    "datePublished": "2013-03-19T22:44:41.000Z",
+    "dateModified": "2014-12-17T11:52:14.000Z",
+    "keywords": "Full Text Search, javascript, mongodb, MongoDB 2.4, version",
+    "description": "Today, 10gen announced the final production release of MongoDB 2.4. As we have talked about in previous blog posts, this release includes a number of great new features, including: full-text search (beta), a new javascript engine, better performance on..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-full-text-search tag-javascript tag-mongodb tag-mongodb-2-4 tag-version blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-full-text-search tag-javascript tag-mongodb tag-mongodb-2-4 tag-version container">
+  <header>
+    <h1 class="post-title">MongoDB 2.4 and the New Version Selector</h1>
+    <small class="post-meta"><time class="post-date" datetime="2013-03-19">March 19th, 2013</time></small>
+  </header>
+
+<p>Today, 10gen announced the final production release of MongoDB 2.4. As we have talked about in previous blog posts, this release includes a number of great new features, including: full-text search (beta), a new javascript engine, better performance on counts, hashed shard keys, and atomic fixed-length arrays. There are a number of smaller fixes and improvements as well … a really solid release.</p>
+
+<p>Along with this, at MongoHQ we are rolling out a new feature that allows you to choose the version of MongoDB you use, simply by selecting a dropdown in the MongoHQ web interface.</p>
+
+<p>This is how it works:</p>
+
+<ol>
+<li>Log into <a href="../content/images/2014/12/version_dropdown_vxtfie_wan5r1.png">MongoHQ</a>  </li>
+<li>Click the “Change Version” button.</li>
+</ol>
+
+<p>That’s it. Now, the magic happens. Ok, just kidding … but clicking the “Change Version” button will initiate a job to change the version of your MongoDB database. This is what happens:</p>
+
+<h2 id="upgradingstandalonesingleinstances">Upgrading Standalone/Single instances</h2>
+
+<p>For people using our shared single/standalone MongoDB instances, the update process is simple. Once initiated, we will update the version of MongoDB and perform a brief restart of your database. It should take, at most, 5-10 seconds to complete. From there, you can resume normal database operations.</p>
+
+<p><img src="../content/images/2014/12/single_instance_overview_u0uuis_iyqxct.png" alt="Single Instance Overview"></p>
+
+<h2 id="upgradingreplicasets">Upgrading Replica Sets</h2>
+
+<p>Upgrading replica sets are a bit different, so the system will perform what we call a “rolling upgrade”. This allows you to migrate to a different version of MongoDB with little to no downtime.</p>
+
+<p>The rolling update will first update all the secondary members and arbiters of the cluster one-by-one, changing the version, restarting and safely bringing the secondary processes back online. After all of this has happened and has verified successful, the system will trigger a state change of your primary to secondary and will allow MongoDB to promote a new primary.</p>
+
+<p>Once the new primary has taken over in the cluster, the system will upgrade the old primary (now secondary) to the version of MongoDB you selected. That will complete the upgrade process.</p>
+
+<p><img src="../content/images/2014/12/rs_job_overview_uu38d1_gby14b.png" alt="RS Job Overview" title=""><strong>Please Note:</strong> For replica sets, ensure that your driver is properly configured to handle MongoDB replica set state changes, otherwise you may have to restart your application. If you have questions about this, we can help! Just send us a note at: <strong>support@mongohq.com</strong>.</p>
+
+<h2 id="supportingourproviders">Supporting our Providers</h2>
+
+<p>Of course, if you are running MongoDB with MongoHQ on our providers, like: <a href="http://support.mongohq.com/partners/heroku.html">Heroku</a>, <a href="http://support.mongohq.com/partners/cloudbees.html">CloudBees</a>, <a href="http://support.mongohq.com/partners/appfog.html">AppFog</a>, <a href="http://support.mongohq.com/partners/appharbor.html">AppHarbor</a>, Engine Yard, Nodejitsu and others, you can use this same version selecting functionality to run MongoDB 2.4 as well.</p>
+
+<h2 id="mongodbfulltextsearch">MongoDB Full-Text Search</h2>
+
+<p>Since full-text search is considered beta for the 2.4 release of MongoDB, we do not enable it by default when you upgrade to MongoDB 2.4. If you would like to try it on larger data sets, please contact us at: support@mongohq.com and we will work with you to make this happen.</p>
+
+<p>We hope you enjoy this great new feature and that it gives you the flexibilty and control to manage the versions and features of MongoDB that you need to use.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/jasonmongohq-com/">
+        <img src="http://www.gravatar.com/avatar/3548295c7883a0a9f80434be86939cd4?d=404&amp;s=250" alt="jasonmongohq-com">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/jasonmongohq-com/">jasonmongohq-com</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=MongoDB%202.4%20and%20the%20New%20Version%20Selector&amp;url=http://localhost:2368/mongodb-2-4-and-the-new-version-selector/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/mongodb-2-4-and-the-new-version-selector/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/mongodb-2-4-and-the-new-version-selector/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

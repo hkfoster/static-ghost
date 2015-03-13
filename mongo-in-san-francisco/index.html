@@ -1,0 +1,265 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Mongo in San Francisco</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/mongo-in-san-francisco/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Mongo in San Francisco">
+    <meta property="og:description" content="If you missed us in Seattle, most the MongoHQ team will be in San Francisco for the largest MongoDB conference ever. Seven tracks – one day. Seriously huge. So stop by our booth and say hello, and you’ll get a...">
+    <meta property="og:url" content="http://localhost:2368/mongo-in-san-francisco/">
+    <meta property="article:published_time" content="2011-12-02T04:23:20.000Z">
+    <meta property="article:modified_time" content="2014-09-02T09:22:05.000Z">
+    <meta property="article:tag" content="10gen">
+    <meta property="article:tag" content="conference">
+    <meta property="article:tag" content="mongo hosting">
+    <meta property="article:tag" content="mongoconf">
+    <meta property="article:tag" content="mongodb">
+    <meta property="article:tag" content="mongodb hosting">
+    <meta property="article:tag" content="mongohq">
+    <meta property="article:tag" content="mongosv">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Mongo in San Francisco">
+    <meta name="twitter:description" content="If you missed us in Seattle, most the MongoHQ team will be in San Francisco for the largest MongoDB conference ever. Seven tracks – one day. Seriously huge. So stop by our booth and say hello, and you’ll get a...">
+    <meta name="twitter:url" content="http://localhost:2368/mongo-in-san-francisco/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "eric",
+        "image": "//www.gravatar.com/avatar/1d4549fe1d311b3db0a1647f7e36909a?d=404&s=250",
+        "url": "http://localhost:2368/author/eric",
+        "sameAs": ""
+    },
+    "headline": "Mongo in San Francisco",
+    "url": "http://localhost:2368/mongo-in-san-francisco/",
+    "datePublished": "2011-12-02T04:23:20.000Z",
+    "dateModified": "2014-09-02T09:22:05.000Z",
+    "keywords": "10gen, conference, mongo hosting, mongoconf, mongodb, mongodb hosting, mongohq, mongosv",
+    "description": "If you missed us in Seattle, most the MongoHQ team will be in San Francisco for the largest MongoDB conference ever. Seven tracks – one day. Seriously huge. So stop by our booth and say hello, and you’ll get a..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-10gen tag-conference tag-mongo-hosting tag-mongoconf tag-mongodb tag-mongodb-hosting tag-mongohq tag-mongosv blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-10gen tag-conference tag-mongo-hosting tag-mongoconf tag-mongodb tag-mongodb-hosting tag-mongohq tag-mongosv container">
+  <header>
+    <h1 class="post-title">Mongo in San Francisco</h1>
+    <small class="post-meta"><time class="post-date" datetime="2011-12-01">December 1st, 2011</time></small>
+  </header>
+
+<p>If you missed us in <a href="http://blog.mongohq.com/blog/2011/11/23/hello-seattle/">Seattle</a>, most the MongoHQ team will be in San Francisco for the <a href="http://www.10gen.com/events/mongosv-2011" title="MonogSV">largest MongoDB conference</a> ever. Seven tracks – one day. <em>Seriously</em> huge. So stop by our booth and say hello, and you’ll get a special prize. A <em>seriously</em> special prize.</p>
+
+<p>The <a href="http://github.com/mongohq/" title="MongoHQ github repoository">MongoHQ github repo</a> is getting filled up with lots of brand new code. We recently started a Java driver code-named <a href="http://en.wikipedia.org/wiki/Ast%C3%A9rix_%28satellite%29" title="Astérix French Satellite">Astérix</a>, for the <em>still secret</em> <a href="http://docs.mongohq.com/api" title="MongoHQ API">MongoHQ API</a>. This is not an official announcement, so don’t tell your friends just yet. But if you like Java and love MongoHQ (that’d be us… you know, <em>the <a href="http://mongohq.com/" title="mongodb hosting">MongoDB hosting</a> company</em>) we certainly won’t stop you from spying the source code. It’ll end up in a Maven repository soon enough…</p>
+
+<p><figure class="embed"><iframe allowfullscreen="" frameborder="0" src="http://www.youtube.com/embed/ePg1tbia9Bg?rel=0;3&amp;autohide=1&amp;showinfo=0"></iframe></figure><em>(If Seattle got a video, so should SF. My initial choice–<a href="http://www.youtube.com/watch?v=4HvVYqR1cgU">We Built This City</a>–was vetoed.)</em></p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/eric/">
+        <img src="http://www.gravatar.com/avatar/1d4549fe1d311b3db0a1647f7e36909a?d=404&amp;s=250" alt="eric">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/eric/">eric</a>
+          <p>0</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Mongo%20in%20San%20Francisco&amp;url=http://localhost:2368/mongo-in-san-francisco/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/mongo-in-san-francisco/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/mongo-in-san-francisco/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

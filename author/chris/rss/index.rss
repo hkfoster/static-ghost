@@ -1,0 +1,421 @@
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>chris - Compose Articles</title><description>News, tips, and tricks from the team at Compose</description><link>http://localhost:2368/</link><generator>Ghost 0.5</generator><lastBuildDate>Fri, 13 Mar 2015 15:33:59 GMT</lastBuildDate><atom:link href="http://localhost:2368/author/chris/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>MongoHQ API - Welcome to the new Beta</title><description>&lt;p&gt;Today, we are excited to announce the beta release of our new REST API for the MongoHQ platform. The new API will allow customers to automate MongoHQ functionality using just REST/HTTP requests, going well beyond the current API’s abilities to access databases, collections and documents to rich account management, database and backup control, log access, server status and more.&lt;/p&gt;
+
+&lt;p&gt;&lt;aside class="right-gutter"&gt;Image: Cogs by &lt;a href="http://www.flickr.com/photos/arthurjohnpicton/5364226117/"&gt;SomeDriftwood&lt;/a&gt; (&lt;a href="https://creativecommons.org/licenses/by/2.0/"&gt;CC-BY-2.0&lt;/a&gt;)&lt;/aside&gt;We began building this updated API immediately after launching Elastic Deployments in the Spring. If you read &lt;em&gt;&lt;a href="http://blog.mongohq.com/pull-requests-as-a-conversation-starter/"&gt;Pull Requests as a Conversation Starter&lt;/a&gt;&lt;/em&gt;, we described our development philosophy on this product. During the API creation process, we had many conversations about the purposes of parameters, methods, status codes, and routing.&lt;/p&gt;
+
+&lt;p&gt;The new API has been designed to only work with Elastic Deployments and has been crafted so that it can enable the exciting features of our new platform. Therefore it will not be available to customers who have not upgraded to Elastic Deployments and, because of changes to the MongoHQ platform with Elastic Deployments, we will not support legacy databases with this API.&lt;/p&gt;
+
+&lt;h2 id="newfeaturesintheapi"&gt;New Features in the API&lt;/h2&gt;
+
+&lt;p&gt;While our legacy platform had a heavily used API, we wanted to bring the features of Elastic Deployments to users sooner, rather than later, so the API didn’t make the transition when we launched. That has allowed us the time to create the new API which includes many of the features from the legacy API and also add a range of new features that we are particularly excited about. With the new API you will be able to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Query a database’s &lt;a href="http://docs.mongohq.com/mongohq-api-beta/historical-logs.html"&gt;historical logs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Get real time access to &lt;a href="http://docs.mongohq.com/mongohq-api-beta/mongodb-deployments.html#get-deployment-server-status"&gt;server status&lt;/a&gt;, &lt;a href="http://docs.mongohq.com/mongohq-api-beta/mongodb-deployments.html#get-deployment-replica-set-status"&gt;replica status&lt;/a&gt;, and &lt;a href="http://docs.mongohq.com/mongohq-api-beta/mongodb-deployments.html#get-deployment-mongostat"&gt;database stats&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://docs.mongohq.com/mongohq-api-beta/backups.html#trigger-on-demand-backup"&gt;Create&lt;/a&gt; / &lt;a href="http://docs.mongohq.com/mongohq-api-beta/backups.html#list-all-backups-for-a-deployment"&gt;list&lt;/a&gt; / &lt;a href="http://docs.mongohq.com/mongohq-api-beta/backups.html#get-one-backup"&gt;view&lt;/a&gt; / &lt;a href="http://docs.mongohq.com/mongohq-api-beta/backups.html#download-a-backup"&gt;download&lt;/a&gt; backups for your elastic deployments&lt;/li&gt;
+&lt;li&gt;Use &lt;a href="http://docs.mongohq.com/mongohq-api-beta/authorization.html#personal-access-tokens"&gt;Personal Access Tokens&lt;/a&gt;, that can be created and revoked on demand rather than the old Account apikeys&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You will find more documentation for the new API on &lt;a href="http://docs.mongohq.com/mongohq-api-beta/introduction.html"&gt;docs.mongohq.com&lt;/a&gt; and in the coming days we’ll have a how-to article showing how to access some of the new features and understanding the responses.&lt;/p&gt;
+
+&lt;h2 id="switchingonproperapiversioning"&gt;Switching on proper API Versioning&lt;/h2&gt;
+
+&lt;p&gt;If there’s one regret we have, it’s that our legacy API missed one feature. It didn’t have any API versioning and when developing APIs, one of the first questions to ask is “how will it manage versions” and it’s a question we didn’t ask. So, with the new API, we’re asking and answering that question and will version the current API with an &lt;code&gt;Accept-Version: 2014-06&lt;/code&gt; header. We’re taking inspiration from Twilio’s date-based versioning which allows for more readily understandable version numbers.&lt;/p&gt;
+
+&lt;p&gt;Because we are moving to this stricter, versioned API, applications using the legacy API will require a minor change to continue using it after the new API leaves beta. We’ll be giving details of these changes in the near future to customer who use the API. If you are a legacy API user with concerns, contact us through the support form and we’ll guide you through your options.&lt;/p&gt;
+
+&lt;h2 id="statusoftheapi"&gt;Status of the API&lt;/h2&gt;
+
+&lt;p&gt;Over the next few weeks, we are making final changes to the API. Some endpoints or parameters may be modified and tweaked. Please consider this an early access to the BETA API. With this release, we would love to hear customer API use cases and experience with the API.&lt;/p&gt;
+
+&lt;p&gt;Because this release is an early access BETA, we are using the domain: &lt;code&gt;https://beta-api.mongohq.com&lt;/code&gt;. We are working to remove the beta api as soon as possible, and will change the domain to &lt;code&gt;https://api.mongohq.com&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To explore the REST API endpoints, please see the &lt;a href="http://docs.mongohq.com/mongohq-api-beta/introduction.html"&gt;full documentation&lt;/a&gt;. For any feature requests or questions, email support@mongohq.com and let us know how you want to use the API.&lt;/p&gt;
+
+&lt;p&gt;If you don’t currently have a MongoHQ account, and like the idea of creating and interacting with databases programmatically, &lt;a href="https://www.mongohq.com/signup?utm_campaign=blog&amp;amp;utm_medium=content&amp;amp;utm_source=blog.mongohq.com_6_30_14"&gt;create an account to get started&lt;/a&gt;.&lt;/p&gt;</description><link>http://localhost:2368/mongohq-api-welcome-to-the-new-beta/</link><guid isPermaLink="false">64e5d7dd-1660-4081-99ef-c762a61f3a60</guid><category>announce</category><category>API</category><category>automation</category><category>beta</category><category>deployments</category><category>REST</category><dc:creator>chris</dc:creator><pubDate>Tue, 01 Jul 2014 09:14:16 GMT</pubDate></item><item><title>OpenShift Quickstart for MongoDB and Ruby 1.9 using MongoHQ</title><description>&lt;h2 id="openshiftmongohqintegration"&gt;OpenShift &amp;amp; MongoHQ Integration&lt;/h2&gt;
+
+&lt;p&gt;We’re proud to announce our partnership with OpenShift by Redhat, offering seamless hosted MongoDB integration into the OpenShift Platform.  In collaboration with our friends at OpenShift, we’ve put together a quickstart to show off the ease of use of MongoHQ as well as the integration with OpenShift.&lt;/p&gt;
+
+&lt;h2 id="thequickstart"&gt;The Quickstart&lt;/h2&gt;
+
+&lt;p&gt;Looking for a MongoDB and OpenShift solution?  Have a working knowledge of Ruby?  With our OpenShift tutorial, you can spend 5 minutes, and it will guide you through launching a quick Ruby, OpenShift, MongoDB, and Sinatra application.  Technologist have loved acronyms since the LAMP days, so, we are calling this “SMOR”. I’ve been on the lookout for a suitable technology that starts with an “E”, so the world can test the SMORE stack.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Get started now:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;1.  Create an account on &amp;lt;a href="https://openshift.redhat.com/app/account/new"&amp;gt;OpenShift&amp;lt;/a&amp;gt;  
+2.  Launch the "&amp;lt;a href="https://www.openshift.com/quickstarts/mongohq-on-openshift"&amp;gt;MongoHQ on OpenShift&amp;lt;/a&amp;gt;" cartridge  
+3.  Visit the applications URL to start the guided tutorial  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And that’s it; you’re done! Your MongoHQ database is now connected to your OpenShift App. Enjoy!&lt;/p&gt;
+
+&lt;h2 id="thecodedetails"&gt;The Code Details&lt;/h2&gt;
+
+&lt;p&gt;With this quick start, we are using Sinatra which is programmed in Ruby and uses the Moped driver.  To see the code base for the cartridge, go to: &lt;a href="https://github.com/MongoHQ/mongohq-openshift-quickstart"&gt;https://github.com/MongoHQ/mongohq-openshift-quickstart&lt;/a&gt;.  We are using the low level drivers and Sinatra to avoid hiding too much magic. The code will give you a good foundation for starting a Ruby and MongoDB project on OpenShift.&lt;/p&gt;
+
+&lt;p&gt;For more details about MongoHQ production database offering, take a look at our &lt;a href="https://www.mongohq.com/pricing"&gt; available plans&lt;/a&gt;.  All MongoHQ deployments in us-east-1 are compatible with the OpenShift platform.&lt;/p&gt;</description><link>http://localhost:2368/openshift-quickstart-for-mongodb-and-ruby-1-9-using-mongohq/</link><guid isPermaLink="false">6b128852-818f-4b19-8f8b-b8073ca7b499</guid><dc:creator>chris</dc:creator><pubDate>Mon, 09 Dec 2013 19:16:21 GMT</pubDate></item><item><title>MongoHQ @ AWS re:Invent</title><description>&lt;h2 id="thelineup"&gt;The Line Up&lt;/h2&gt;
+
+&lt;p&gt;AWS re:Invent kicks off tomorrow in Las Vegas. Tuesday starts with &lt;a href="http://reinvent.awsevents.com/hackathon.html"&gt;Hackathon&lt;/a&gt; and &lt;a href="http://reinvent.awsevents.com/hackathon.html"&gt;Gameday&lt;/a&gt; events. Wednesday through Friday is anything but standard conference presentations, with an impressive lineup of world class industry experts that include: Stephan Orban, Global CTO of Dow Jones; Mike Curtis, VP of Engineering at Airbnb; and Dr. Werner Vogels, CTO of Amazon Web Services.&lt;/p&gt;
+
+&lt;p&gt;The talk we anticipate bringing the heat is &lt;a href="https://portal.reinvent.awsevents.com/connect/sessionDetail.ww?SESSION_ID=1434"&gt;PetaMongo: A Petabyte Database for as Little as $200&lt;/a&gt;. Miles Ward from AWS and Christopher Biow from MongoDB will demonstrate the creation and teardown of a petabyte-scale multiregion MongoDB NoSQL database cluster using Amazon EC2 Spot Instances, for as little as $200 in total AWS cost.&lt;/p&gt;
+
+&lt;h2 id="coffeeshophours"&gt;Coffee Shop Hours&lt;/h2&gt;
+
+&lt;p&gt;We are having Coffee Shop &amp;amp; Office hours with partners at re:Invent. Find us at the following locations and times for any questions about MongoDB:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Wednesday 9am – 12pm:&lt;/strong&gt; We will be over at the Engine Yard Booth, answering all your MongoDB questions.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Wednesday 4pm – 5:30pm:&lt;/strong&gt; We team up with MongoDB, Inc at Café Presse for questions and coffee. Get your questions answered about MongoDB use-cases and optimization from MongoDB experts.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Wednesday 11am – 12pm:&lt;/strong&gt; MongoDB, Inc encore session at Café Presse for questions and coffee.&lt;/p&gt;
+
+&lt;p&gt;We’ll be giving away a &lt;a href="http://www.fitbit.com/force?gclid=CLTi7Obu3boCFZFxQgodzQ4Ang"&gt;Fitbit Force&lt;/a&gt;, just bring along your business card (or even just a piece of paper with your name on it!) to enter.&lt;/p&gt;
+
+&lt;p&gt;In between coffee shop hours, we will attend the different sessions at re:Invent. Say “hello” if you see us!&lt;/p&gt;</description><link>http://localhost:2368/mongohq-aws-reinvent/</link><guid isPermaLink="false">f79c026f-6c5f-4176-a145-456371813087</guid><dc:creator>chris</dc:creator><pubDate>Mon, 11 Nov 2013 19:35:49 GMT</pubDate></item><item><title>2013 Realtime Conference for Artificers</title><description>&lt;p&gt;Realtime Conf 2012 sold us on attending Realtime Conf 2013 in Portland. To close Realtime 2012, &lt;a href="http://2012.realtimeconf.com/video/adam-brault"&gt;Adam Brault’s “Lucky Bastard” monologue&lt;/a&gt; pushed the audience to leverage the amazing skills and industry to build the world they wanted.  The end of the monologue had a cellist and violin; then a local children’s choir joined in. Perform your craft, make the world better, go out and build the world you want.  The closing of Realtime 2012 was a resolution to an amazing conference. We awaited 2013.&lt;/p&gt;
+
+&lt;p&gt;Realtime 2013 was a continuation of the previous year. At opening, Adam was on stage with a celloist and violinist. After being marched through the city with accompanying marching band (as is tradition), the theatrics of the conference began. A theatre presentation ran in parallel with the conference. The &lt;a href="http://vimeo.com/77270126#at=80"&gt;opening presentation&lt;/a&gt; was the in-character emcee ; he would narrate, as his character, both the real conference and the parallel story. The ConfBill, customized welcome letter, and personal passport stamp are artifacts demonstrating that Realtime Conference is not your average  conference.&lt;/p&gt;
+
+&lt;p&gt;Realtime Conference is a human representation of the art and craft of being a maker (a’hem you mean “artificer”).&lt;/p&gt;
+
+&lt;h2 id="therealpresentations"&gt;The “Real Presentations”&lt;/h2&gt;
+
+&lt;p&gt;The opening keynote on &lt;a href="http://vimeo.com/77257232"&gt;experience, design, and freedom of technology&lt;/a&gt;  was delivered by &lt;a href="http://aralbalkan.com/"&gt;Aral Balkan&lt;/a&gt;: we are at a crossroads. This talk opened the discussion of data ownership and creating meaningful experiences, and blended greatly with the theme of the ongoing play between the members of the Tech Republic and the invasion of Silos and developers going missing to the likes of Adrian Spencer. Oh, and we’re all cyborgs.&lt;/p&gt;
+
+&lt;p&gt;WebRTC was by far the hot technology topic of the conference (including its accompanying WebRTC camp after the conference). In short, its a technology allowing browsers to connect and communicate directly to other browsers. As a new web technology, it lacks widespread support and has yet to settle some browser-specific quirks, but opens the web world to interesting meshy decentralized ideas.&lt;/p&gt;
+
+&lt;p&gt;Another common topic is the art of self-owned cryptogrophy and enabling the browser to send only encrypted information to the server. Considering the security of server-encrypted data has become quite questionable recently, this drew a good amount of interest.&lt;/p&gt;
+
+&lt;p&gt;As owning your own data was another big topic of the conference, XMPP was given a fair amount of attention on how to own and control the data you put onto the Internet, but yet still enable others to automatically connect and discover what you publish.&lt;/p&gt;
+
+&lt;p&gt;For a list of all presentations, see  &lt;a href="http://2013.realtimeconf.com/video/"&gt;http://2013.realtimeconf.com/video/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id="tipofthehattoculture"&gt;Tip of the Hat to Culture&lt;/h2&gt;
+
+&lt;p&gt;The culture at Realtime Conf is different. Everyone approaches the table as equal and insightful. Eran Hammer used an elaborate lunch/presentation on the second day to demonstrate the human element of creating. He shared his prized experiences as a foodie from great chefs to show how they do more than create food, but rather create a full experience for the guest. He proved that the tech community can (and should) look outside the tech community in learning how to create and share experiences. The culture is inclusive, brings you into the discussion, and lifts the thought collectively.&lt;/p&gt;
+
+&lt;h2 id="themongohqroadtrip"&gt;The MongoHQ Roadtrip&lt;/h2&gt;
+
+&lt;p&gt;Three MongoHQ team members made the trip.  To get from San Francisco to Portland, we opted for a road trip.  On Thursday, we drove up the 101 on the coast.  On Sunday after the close, we drove to Bend, Oregon.  Finally, we visited Crater Lake on Monday, and made our way back to San Francisco.  Conference road trips — the only way to travel; particularly in the Pacific North. It is easy to forget how large the world is and how rare and small our cities are when you travel only from airport to airport.&lt;/p&gt;</description><link>http://localhost:2368/2013-realtime-conference-for-artificers/</link><guid isPermaLink="false">3c912771-cc20-48ec-aed2-b1c74a118a21</guid><dc:creator>chris</dc:creator><pubDate>Mon, 21 Oct 2013 20:06:58 GMT</pubDate></item><item><title>SoftLayer + MongoHQ = Amazing Performance</title><description>&lt;p&gt;Have you ever wanted amazing performance up and down your stack? Of course you have.&lt;/p&gt;
+
+&lt;p&gt;MongoHQ has teamed up with SoftLayer to provide the stack. We bring the managed MongoDB; SoftLayer is bringing their awesome backbone of globally connected data centers.&lt;/p&gt;
+
+&lt;p&gt;We are offering our SSD plans and dedicated managed servers in SoftLayer’s Dallas data center. The MongoDB SSD offerings have plans at 4GB, 25GB, and 150GB.  Each plan scales with zero-downtime with RAM, CPU, and I/O capabilities according to your data size. With these plans, you can get started immediately. It’s the easiest way to get started with MongoDB on SoftLayer.&lt;/p&gt;
+
+&lt;h2 id="togetstarted"&gt;To get started&lt;/h2&gt;
+
+&lt;p&gt;To get started with the SSD plans on SoftLayer, just sign up for an account with MongoHQ and create your database. It only takes 60 seconds and you’re off!  &lt;a href="https://www.mongohq.com/signup"&gt;Create an account with MongoHQ to get started.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;For more information, see our overview of &lt;a href="https://www.mongohq.com/softlayer"&gt;MongoHQ on SoftLayer&lt;/a&gt;.&lt;/p&gt;</description><link>http://localhost:2368/softlayer-mongohq-amazing-performance/</link><guid isPermaLink="false">0a757732-040b-43e4-9424-0eccd0d00d8a</guid><dc:creator>chris</dc:creator><pubDate>Tue, 08 Oct 2013 18:13:41 GMT</pubDate></item><item><title>MongoDB 2.6 Development Branch Available (Free)</title><description>&lt;p&gt;In our weekend hacking project, we experimented with MongoDB 2.5.2 new features. We figured other members of the MongoDB community would also want to test the development branch. Of course, our next step was to build a sandbox environment with MongoDB 2.5.2. Now, it is available for free.&lt;/p&gt;
+
+&lt;p&gt;This upcoming version is said to be what Snow Leopard was to Mac OS X. Internals are reorganized to speed future development. With this feature investigation, we are excited about the release. For a full list of upcoming changes in this development branch, see the &lt;a href="http://docs.mongodb.org/manual/release-notes/2.6-changes/"&gt;MongoDB 2.6 release notes&lt;/a&gt;. The production release is set to hit in Q4 2013.  When release candidates are available, we will allow any database to upgrade via our version changer.&lt;/p&gt;
+
+&lt;h2 id="gettingstartedissimple"&gt;Getting started is simple:&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create an account at &lt;a href="https://www.mongohq.com/signup"&gt;https://www.mongohq.com/signup&lt;/a&gt;  &lt;/li&gt;
+&lt;li&gt;Create a database plan for “MongoDB 2.6 Development Branch”  &lt;/li&gt;
+&lt;li&gt;Create a username / password for the database  &lt;/li&gt;
+&lt;li&gt;Boom! MongoDB 2.6  development branch is available for you.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id="friendlyreminderfeedback"&gt;Friendly reminder &amp;amp; feedback&lt;/h2&gt;
+
+&lt;p&gt;Friendly reminder: this is absolutely &lt;strong&gt;not a production environment&lt;/strong&gt;, and should be used as a testing ground for your ideas and exploration.  We will upgrade these databases aggressively as new releases come available.&lt;/p&gt;
+
+&lt;p&gt;We are always looking for feedback — particularly on the 2.5.x releases. If you find any issues with connecting or performing functions, please put together a sample script that will show the issue you hare having.  Then, please &lt;a href="http://support.mongohq.com/support/new_request.html?referer=mongodb%202.6"&gt;contact us with a support request&lt;/a&gt;.&lt;a href="mailto:support@mongohq.com"&gt; &lt;br&gt;
+&lt;/a&gt;&lt;/p&gt;</description><link>http://localhost:2368/mongodb-2-6-development-branch-available-free/</link><guid isPermaLink="false">3b42aedf-7775-4ab6-8594-e02166de1ae7</guid><dc:creator>chris</dc:creator><pubDate>Mon, 07 Oct 2013 18:16:04 GMT</pubDate></item><item><title>Welcoming Liz to the MongoHQ Team!</title><description>&lt;p&gt;Late last week, we added Liz to our marketing team!  We are excited to have her, and we wanted to introduce her to the MongoHQ community. Liz is spearheading many of our community outreach programs.  We pitched a few questions to her:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/gif_352x500_a82fc9_s6uiuh_v7pfma.gif" alt="gif&lt;em&gt;352x500&lt;/em&gt;a82fc9" title=""&gt;&lt;strong&gt;What is your Github handle?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Since joining MongoHQ, I’ve created a Github account.  It is sparse, but I am at: &lt;a href="https://github.com/lizmorgan"&gt;https://github.com/lizmorgan&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;* If you are allowed to disclose, what is your superpower?&lt;/em&gt;*&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Animal telepathy (just like Dr Dolittle).&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;*Of all the things you’ve worked on, which project(s) are you the most proud? *&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Putting together fabulous consumer competitions and helping to plan a flashmob!&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What do you look forward to doing at MongoHQ?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;I’m looking forward to learning more about the tech industry, becoming an expert on all things MongoDB, and getting the word out about what a great product MongoHQ is – and more importantly what an amazing team of people we have here at MongoHQ!&lt;/em&gt;&lt;/p&gt;</description><link>http://localhost:2368/welcoming-liz-to-the-mongohq-team/</link><guid isPermaLink="false">9b75ce3e-60d8-4d61-ae83-f178b570cad0</guid><category>new people</category><dc:creator>chris</dc:creator><pubDate>Fri, 04 Oct 2013 21:45:08 GMT</pubDate></item><item><title>Optimizing Your MongoDB Dataset</title><description>&lt;p&gt;Yesterday, we co-presented a webinar with MongoDB, Inc, the maker of MongoDB. The topic was how to think about scaling to 100GB and beyond. We’ve worked with many customers as they scale, and wanted to shared some of our knowledge. Below is a link to the slides in the presentation:&lt;/p&gt;
+
+&lt;p&gt;&lt;figure class="embed"&gt;&lt;iframe allowfullscreen frameborder="0" marginmarginscrolling="no" src="http://www.slideshare.net/slideshow/embed_code/26551025"&gt;&lt;/iframe&gt;&lt;/figure&gt;Here is a link to the &lt;a href="http://www.mongodb.com/presentations/partner-webinar-scaling-checklist-mongodb-100gb-and-beyond" title="Partner Webinar: The Scaling Checklist for MongoDB - 100GB and beyond"&gt;full presentation&lt;/a&gt; – 50:15 minutes.&lt;/p&gt;</description><link>http://localhost:2368/mongodb-scaling-to-100gb-and-beyond/</link><guid isPermaLink="false">13900df5-136a-40b3-8ec7-a89569917452</guid><category>performance</category><dc:creator>chris</dc:creator><pubDate>Thu, 26 Sep 2013 20:13:22 GMT</pubDate></item><item><title>Improve Performance Using Separate Collections &amp; Other Rants About Data Lifetimes</title><description>&lt;p&gt;Last week, we proposed using a query schema to match your query requirements. While doing this, we moved query logic to the document by precomputing the fastest query possible. Readers’ responses ranged from “yep, that is how it is done” to “SQL is better, and that is crazy”. &lt;a href="http://localhost:2368/content/images/2014/12/blog-post-data-performance.svg"&gt;Go back and look at the comments.&lt;/a&gt;The blog posts lifetime takes the data through different performance expectations. A simple publishing site with a few thousand posts does not hit the scale required to think about lifetime. On the other hand, when dealing with large publishing datasets, transitioning data through the lifetime is important for matching performance to expectations.&lt;/p&gt;
+
+&lt;p&gt;An unpublished blog post is not the same type of data as a published blog post. So, we can store it in another location.&lt;/p&gt;
+
+&lt;h2 id="separatecollectionsseparatedatabases"&gt;Separate collections &amp;amp; separate databases&lt;/h2&gt;
+
+&lt;p&gt;With MongoDB, and most other NoSQL databases, using separate databases is as easy as using separate collections. MongoDB cannot perform JOINS, so there is little gain from combining collections, other than organizational. Because of the nature of the published versus unpublished data, you could separate them not only by collection, but by database like the following:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;fast&lt;em&gt;blog&lt;/em&gt;posts.published&lt;/strong&gt; – your fast, collection running on an SSD backed database, and replicated on a 3-node replica set.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;slow&lt;em&gt;blog&lt;/em&gt;posts.unpublished&lt;/strong&gt; – your slower, bloated collection with ideas of failed attempts at publishing. As the premier posts rise to a published state, they are moved to the published collection. This can run on a single-server cost-efficient environment.&lt;/p&gt;
+
+&lt;h2 id="howdoesthissolvetheoriginalproblem"&gt;How does this solve the original problem?&lt;/h2&gt;
+
+&lt;p&gt;The original problem was converting the following into a performant MongoDB query:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;gt; db["fast_blog_posts"].published.find({status: {$in: ["draft", "approved", "waiting for proof"]}}).sort({_id: -1})&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Instead of the above query for unpublished posts, you would actually run the following query:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;gt; db["slow_blog_posts"].unpublished.find().sort({_id: -1})&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This works because the separate collections partition data. The only data in the unpublished collection is unpublished blog posts. Previously, we were expecting a “status” key to partition the data.&lt;/p&gt;
+
+&lt;p&gt;MongoHQ has different databases for different needs. We have fast SSD-backed databases for the published blog posts, and we have standard performance databases for the unpublished blog posts. We have plans to match every data requirement.&lt;/p&gt;</description><link>http://localhost:2368/improve-performance-using-separate-collections-other-rants-about-data-lifetimes/</link><guid isPermaLink="false">531ee702-e7f5-4132-a5a1-ba72b0710852</guid><category>performance</category><dc:creator>chris</dc:creator><pubDate>Fri, 13 Sep 2013 13:58:10 GMT</pubDate></item><item><title>SSD-Backed MongoDB Now Available on Heroku's Marketplace</title><description>&lt;p&gt;We’ve added our SSD Replica Sets to the Heroku marketplace &lt;span style="text-decoration: underline;"&gt;and&lt;/span&gt; increased the maximum data capacity. These databases offer smooth scaling up to 150GB with zero downtime.&lt;/p&gt;
+
+&lt;p&gt;All SSD plans have aggressive 1-RAM-to-10-storage ratios. The largest plan, the 150 GB SSD, has 15 GB of RAM. When working with customers, we’ve found this 1-to-10 ratio to be the golden ratio for solid MongoDB performance. Indexes at 1/10th the size of your database is the sign of an optimized platform. We target the optimal ram-to-storage ratio for performance. It ensures your hot data stays fast.&lt;/p&gt;
+
+&lt;p&gt;With these SSD options, we combine top-notch MongoDB performance with Heroku’s platform. To get started with these plans, visit the &lt;a href="https://addons.heroku.com/mongohq"&gt;Heroku Add-on Marketplace&lt;/a&gt;.&lt;/p&gt;</description><link>http://localhost:2368/ssd-backed-mongodb-now-available-on-herokus-marketplace/</link><guid isPermaLink="false">a516079b-1859-4454-8e85-fee636516276</guid><dc:creator>chris</dc:creator><pubDate>Wed, 11 Sep 2013 18:12:56 GMT</pubDate></item><item><title>Improve Performance by Removing Query Logic</title><description>&lt;p&gt;You know what the following is?&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;db.blog_posts.find({status: {$in: ["draft", "waiting on proof", "approved"]}}).sort({_id: -1})&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;aside class="right-gutter"&gt;&lt;strong&gt;What is a MongoDB operator?&lt;/strong&gt; &lt;br&gt;
+ MongoDB operators are commands that compare ranges of values, such as $in, $nin, and $sort. For a full list of operators, see &lt;a href="http://docs.mongodb.org/manual/reference/operator/"&gt;MongoDB Query, Update, and Projection Operators&lt;/a&gt; &lt;br&gt;
+&lt;/aside&gt;If you said “a slow query in MongoDB”, then you are correct. It violates the tenet that MongoDB is most efficient with just one operator per query. In MongoDB, &lt;code&gt;$in&lt;/code&gt; and &lt;code&gt;$sort&lt;/code&gt; are both operators. Only one operator can be used with an indexed query. MongoDB uses simple, single b-tree indexes and cannot find the union of two indexes.  For a quick brush-up on MongoDB performance, see &lt;a href="http://blog.mongohq.com/mongodb-indexing-best-practices/" title="MongoDB Indexing Best Practices"&gt;MongoDB Indexing Best Practices&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s assume the defined problem we are solving is finding the latest unpublished blog posts.  How can we rewrite the query to use just a single operator?&lt;/p&gt;
+
+&lt;h2 id="thefix"&gt;The Fix&lt;/h2&gt;
+
+&lt;p&gt;&lt;aside class="left-gutter"&gt;&lt;strong&gt;What is a sparse index?&lt;/strong&gt; &lt;br&gt;
+ Sparse indexes only include documents when the specified field has a value (i.e. not null). These should only be used with single field indexes, and help you keep your index sizes compact. &lt;br&gt;
+&lt;/aside&gt;The fix here is to move the logic from your query to your documents.  Instead of looking for an array of values in &lt;code&gt;status&lt;/code&gt;, add a new attribute called ‘unpublished&lt;em&gt;created&lt;/em&gt;at’. At the application level, if your document is one of the unpublished statuses, set the value of this new attribute to your &lt;code&gt;created_at&lt;/code&gt;, else set to null if document is published. Then create a sparse index on ‘unpublished&lt;em&gt;created&lt;/em&gt;at.’&lt;/p&gt;
+
+&lt;p&gt;Your new query would look like:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;db.blog_posts.find().sort({unpublished_created_at: -1})&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id="whyadateinsteadofaboolean"&gt;Why a date instead of a boolean?&lt;/h2&gt;
+
+&lt;p&gt;Booleans have low cardinality (they have just two possible values: true and false).  Indexing a low-cardinality field gains us little. Booleans do not make good index-able attributes.  Indexes bring much more benefit when the indexed attribute can take on many values, like dates can.&lt;/p&gt;
+
+&lt;p&gt;We’ve combined the logic of “unpublished” and “_id: -1″ into one simple field. The logic in the query is pre-computed into the field, and the database does not re-compute on each query.  When optimizing for scale, the performance boost will be significant.&lt;/p&gt;</description><link>http://localhost:2368/improve-performance-by-removing-query-logic/</link><guid isPermaLink="false">c3a08a05-6163-4353-97d1-73772529670e</guid><category>performance</category><dc:creator>chris</dc:creator><pubDate>Tue, 03 Sep 2013 18:32:29 GMT</pubDate></item><item><title>Achieving High Availability and the MongoDB PHP driver</title><description>&lt;p&gt;&lt;em&gt;This is a guest blog by Jake Olefsky, founder of Toodledo.com.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;At &lt;a href="http://www.toodledo.com/"&gt;Toodledo.com&lt;/a&gt;, we make tools to help people stay organized and productive. Recently, we released “Outlines”, a tool enabling hierarchical outlines to organize people in their projects. Our main website runs LAMP on dedicated servers. On this new project, we decided to build Outlines entirely in the cloud. We required a high availability service without maintaining our own servers.&lt;/p&gt;
+
+&lt;p&gt;MongoDB is, at the core, a high-availability database. To ensure business availability, the application layer must respond properly. The MongoDB drivers bridge the role of database and application availability. Our language of choice is PHP, so our driver is the 10gen PHP MongoDB driver. We will layout some of the challenges we faced, and how we overcame them with early PHP drivers (1.2 and 1.3 branches). Luckily, going forward, the 1.4 release has solved many of these issues.&lt;/p&gt;
+
+&lt;p&gt;When starting the project in late 2012, PHP MongoDB drivers were fairly immature. During failure testing, the database layer recovered quickly, but PHP drivers did not. Driver connectivity would lag as much as 30 minutes before recognizing any state changes in the MongoDB replica set. This was not acceptable. We designed a wrapper class for the drivers, which reduced transitions to a few seconds. The key concepts of MongoDB availability and driver integration are:&lt;/p&gt;
+
+&lt;h3 id="stepdowntheessenceofhighavailability"&gt;Stepdown, the essence of high availability&lt;/h3&gt;
+
+&lt;p&gt;When the MongoDB replica set has connectivity issues between nodes and a re-vote is triggered, the result may be that the primary host releases the role and becomes a secondary, while another host becomes primary. This event will prevent actions for between 5-10 seconds during the re-vote and role change. These events happen at the database level. The application layer must handle this gracefully.&lt;/p&gt;
+
+&lt;h3 id="reconnectingtomongodb"&gt;Reconnecting to MongoDB&lt;/h3&gt;
+
+&lt;p&gt;Step downs require a reconnection from the MongoDB drivers. When connection parameters contain a named replica set, and a database failover occurs, the stock drivers take too long to catch and resolve the new state of the replica set. Navigating this caching issue requires immediately attempting a new connection to the database, with the replica set parameter removed.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;try { new MongoClient("mongodb://user:pass@host1,host2/db, array("replicaSet"=&amp;gt;"myReplicaSet")); } catch(MongoException $e) { new MongoClient("mongodb://user:pass@host,host2/db); }&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Should this reconnection fail, you can cycle through individual hosts, attempting connections to each until failure. In testing, we always resolved connections using this terse procedure.&lt;/p&gt;
+
+&lt;h3 id="achievingwritecertainty"&gt;Achieving write certainty&lt;/h3&gt;
+
+&lt;p&gt;Good news, we can recover from a failed connection. However, after removing replica set information, we must rediscover the primary and secondary. If connecting to a secondary, reads will work but writes will fail. To handle this gracefully, the application must catch write errors, reconnect to the proper host, and retry the write if possible.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;try { $result = $collection-&amp;gt;insert($object, $flags); } catch(MongoException $e) { if($e-&amp;gt;getCode()==10058 || $e-&amp;gt;getCode()==16) { if($this-&amp;gt;reconnect()) $result = $collection-&amp;gt;insert($object, $flags); } }  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id="driverversions"&gt;Driver versions&lt;/h3&gt;
+
+&lt;p&gt;Version 1.2 of the Mongo PHP drivers are terrible. Don’t use them. The main problem encountered was cached connections in a connection pool. The pool reused connections, even if they were invalid. The database was healthy, but the driver’s attempts to read and write were being sent to to invalid connections in the pool. The application grinds to a halt.  This &lt;a href="https://jira.mongodb.org/browse/PHP-426"&gt;bug&lt;/a&gt; was fixed in version 1.3.0.&lt;/p&gt;
+
+&lt;p&gt;Version 1.3 of the drivers are ok. They still have trouble recognizing when a replica set changes configurations. If using the techniques above, you will be ok. However, one annoying bug causes writes to occasionally fail for no reason. This &lt;a href="https://jira.mongodb.org/browse/PHP-700"&gt;bug&lt;/a&gt; was fixed in version 1.3.7.&lt;/p&gt;
+
+&lt;p&gt;Version 1.4 of the drivers are good. The workarounds needed for the 1.3 branch are not necessary. However, it is still a good idea to have a wrapper on the driver to handle write errors, and perform proper application resolution.&lt;/p&gt;
+
+&lt;p&gt;If using a PAAS provider, ensure support for the 1.3.7 or 1.4.x driver versions, else switch providers.&lt;/p&gt;
+
+&lt;h3 id="ourcode"&gt;Our Code&lt;/h3&gt;
+
+&lt;p&gt;We have made &lt;a href="https://github.com/Toodledo/mymongo"&gt;our MongoDB driver wrapper class available on Github&lt;/a&gt; for anyone to use and improve upon.&lt;/p&gt;
+
+&lt;h3 id="themoralofthestory"&gt;The Moral of the Story&lt;/h3&gt;
+
+&lt;p&gt;Upgrade to &lt;a href="http://pecl.php.net/package/mongo/1.4.2"&gt;PHP Mongo 1.4.x&lt;/a&gt;, and use a wrapper class to  get easier pain free PHP high availability.&lt;/p&gt;</description><link>http://localhost:2368/achieving-high-availability-and-the-mongodb-php-driver/</link><guid isPermaLink="false">1050d366-2144-41c7-b1ac-9e611bdc884c</guid><category>php</category><dc:creator>chris</dc:creator><pubDate>Thu, 15 Aug 2013 18:51:41 GMT</pubDate></item><item><title>Matt Insler Joins Our Team!</title><description>&lt;p&gt;&lt;strong&gt;Quick Specs:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Github:&lt;/strong&gt; &lt;a href="https://github.com/mattinsler"&gt;https://github.com/mattinsler&lt;/a&gt; &lt;br&gt;
+&lt;strong&gt;Rock-climber:&lt;/strong&gt; true &lt;br&gt;
+&lt;strong&gt;Falconer:&lt;/strong&gt; false&lt;/p&gt;
+
+&lt;p&gt;On Thursday, Matt arrived at the MongoHQ office. He will be on the engineer team building our suite of tools and rocking the devops.&lt;/p&gt;
+
+&lt;p&gt;We pitched a few questions to Matt to introduce him to the MongoDB community:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Do you have any hidden talents? Are you a falconer?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;So sorry to disappoint, but I’m not a falconer! =-(&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;I don’t have many hidden talents.  I played soccer and tennis, but have transitioned to rock climbing.  I leap tall buildings in many, many, many bounds (&lt;a href="http://en.wikipedia.org/wiki/Parkour"&gt;parkour&lt;/a&gt;!).  Being from the NYC area, I am particularly adept at rooting for a horrendously bad football team – the NY Jets.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Of all the things you’ve built, which project(s) are you the most proud?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;I’m most proud of PageLever Now (&lt;a href="http://pagelever.com/products/now/"&gt;http://pagelever.com/products/now/&lt;/a&gt;). We managed to bring one of the best Facebook analytics tools to the market in under 3 months. We worked really hard, and it showed. We created and used a lot of great open source packages in the process.  Shoutouts go out to caboose (&lt;a href="http://www.caboosejs.com/docs/overview"&gt;caboosejs.org&lt;/a&gt;) and awesomebox (&lt;a href="https://github.com/awesomebox/awesomebox"&gt;get.awesomebox.es&lt;/a&gt;).&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What is the last programming language that you learned?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Last programming language was actually Coffeescript, which I still use every day. I know it’s controversial, but I came to javascript from ruby, so it reads so much cleaner than traditional javascript for me. Coffeescript isn’t an excuse to not fully understand javascript, just a different syntax.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What new tool do you hope to use at MongoHQ?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;I hope to learn Go and play around with Riemann and other cool tech.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What do you look forward to building at MongoHQ?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;I’m looking forward to contributing to MongoHQ’s awesome tool set and deployment mechanisms. There’s a lot going on, and I’m thrilled to dig in.&lt;/em&gt;&lt;/p&gt;</description><link>http://localhost:2368/matt-insler-joins-our-team/</link><guid isPermaLink="false">0057ba61-9ab4-4e4c-b335-865a05f40de9</guid><category>new people</category><dc:creator>chris</dc:creator><pubDate>Mon, 12 Aug 2013 20:57:01 GMT</pubDate></item><item><title>Debunking Myth of RAID 10 as Best Practice on AWS</title><description>&lt;p&gt;For the most amazing performance on AWS, use RAID 10 with provisioned i/ops (henceforth piops).  A combination of RAID 10 and piops achieved read performance equaling the sum of all provisioned i/ops. Thus, 4 x 1000 piops disks achieved 4000 read i/ops.&lt;/p&gt;
+
+&lt;p&gt;However, we live in a world that optimizes more than one variable. There are always costs.&lt;/p&gt;
+
+&lt;p&gt;On AWS, we find:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;RAID 10 improves performance on non-optimized queries and large write volumes.&lt;/li&gt;
+&lt;li&gt;RAID 10 is prohibitively expensive on a cost-to-performance ratio.&lt;/li&gt;
+&lt;li&gt;Optimizing schema yields exponentially better return on investment than RAID 10.&lt;/li&gt;
+&lt;li&gt;RAID 10 makes EBS snapshots impossible — disabling simple disk backups.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Given time, always optimize database usage, and ditch RAID 10 performance requirement (see &lt;a href="http://blog.mongohq.com/mongodb-performance-schema-design-more-important-than-anything-else/" title="MongoDB Performance &amp;amp; Scalability — Schema design is more important than anything else"&gt;MongoDB Performance &amp;amp; Scalability — Schema design is more important than anything else&lt;/a&gt;).  Every checklist for AWS and MongoDB includes RAID 10.  This inclusion is a relic of the past and oversells the ability of RAID 10’s usefulness on the AWS platform.&lt;/p&gt;
+
+&lt;p&gt;We benchmark RAID 10, table scans, and optimization strategies.  The optimization strategy returns 50x the performance gains.&lt;/p&gt;
+
+&lt;h2 id="driveconfigurations"&gt;Drive Configurations&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;RAID 10 with 4 x 1000 piops drives – $446.80&lt;/li&gt;
+&lt;li&gt;Single drive with 4000 piops – $446.80&lt;/li&gt;
+&lt;li&gt;RAID 10 with 4 x 4000 piops drives – $1,976.48&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="thegnarlytest"&gt;The Gnarly Test&lt;/h2&gt;
+
+&lt;p&gt;We are doing some truly gnarly things to MongoDB – like 66% table scans and 33% updates.  Using YCSB for our benchmarking tool, our configuration looks like:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+readproportion=0.0 &lt;br&gt;
+updateproportion=0.5 &lt;br&gt;
+scanproportion=1.0 &lt;br&gt;
+insertproportion=0&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;With this test, the limiting factor will be drive performance.  To ensure we stretch the disk, we are using a 22GB dataset, which exceeds the RAM capacity on the server of 7.5 GB.  Table scans on this test will churn the disk.&lt;/p&gt;
+
+&lt;h2 id="results"&gt;Results&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;RAID 10 w/ 4 x 1000 piops drives averaged 13.4 ops/sec, with 16.1 ops/sec max&lt;/li&gt;
+&lt;li&gt;Single 4000 piops drive averaged 21.4 ops/sec, with 23.4 ops/sec max&lt;/li&gt;
+&lt;li&gt;RAID 10 w/ 4 x 4000 piops drives averaged 38.3 ops/sec, with 43 ops/sec max&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These results are awful, awful, awful! We are paying $1,976.48 per month for 38.3 ops/sec?  On unrestricted SSD backed physical hardware, we did not achieve better performance.&lt;/p&gt;
+
+&lt;p&gt;To prove our point that optimization trumps RAID 10, we will run 2 more tests.&lt;/p&gt;
+
+&lt;h2 id="areasonablemix"&gt;A Reasonable Mix&lt;/h2&gt;
+
+&lt;p&gt;With the “Gnarly Tests”, we performed 100% table scans. Now, to swing in the other direction and perform 50% inserts, 25% updates, and 24% optimized reads, and 1% table scans.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;RAID 10 w/ 4 x 1000 piops drives averaged 282 ops/sec; maxed at 349 ops/sec&lt;/li&gt;
+&lt;li&gt;Single 4000 piops drive averaged 310 ops/sec; maxed at 398 ops/sec&lt;/li&gt;
+&lt;li&gt;RAID 10 w/ 4×4000 piops drives averaged 290 ops/sec; maxed at 338 ops/sec&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Reducing table scans to 1% table scans yielded between 9x and 21x return on performance.&lt;/p&gt;
+
+&lt;h2 id="anoptimizedmix"&gt;An Optimized Mix&lt;/h2&gt;
+
+&lt;p&gt;What difference is an addition of 1% table scans?&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;RAID 10 w/ 4 x 1000 piops drives averaged 1291 ops/sec; maxed at 2123 ops/sec&lt;/li&gt;
+&lt;li&gt;Single 4000 piops drive averaged 1327 ops/sec; maxed at 2114 ops/sec&lt;/li&gt;
+&lt;li&gt;RAID 10 w/ 4 x 4000 piops drives averaged 1988 ops/sec; maxed 2212 ops/sec&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Removing all table scan yields between 58x and 113x performance over the Gnarly results.  Wow!  We knew table scans were significant, but this is amazing.&lt;/p&gt;
+
+&lt;h2 id="straightoptimizedreads"&gt;Straight Optimized Reads&lt;/h2&gt;
+
+&lt;p&gt;Want to create the headline grabbing benchmarks?  Use 100% optimized reads; or 50% optimized reads and 50% optimized updates.  Below is 100% reads:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;RAID 10 w/ 4 x 1000 piops drives averaged 6741 ops/sec; maxed 6940 ops/sec&lt;/li&gt;
+&lt;li&gt;Single 4000 piops drive averaged 6566 ops/sec; maxed 6816 ops/sec&lt;/li&gt;
+&lt;li&gt;RAID 10 w/ 4 x 4000 piops drives averaged 6471 ops/sec; maxed 6757 ops/sec&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;When performing the straight optimized reads, the limitation was still the disk.  To get to the next level of performance, order more RAM.  By having a dataset fully in RAM, we could hit 15,000 – 25,000 reads per second.&lt;/p&gt;
+
+&lt;h2 id="therecommendations"&gt;The Recommendations&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;span style="line-height: 13px;"&gt;Always use AWS’ provisioned i/ops&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://blog.mongohq.com/mongodb-indexing-best-practices/" title="MongoDB Indexing Best Practices"&gt;Know the MongoDB Indexing Constraints&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;If you need fast table scans on large datasets, use our physical server offering.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;RAID 10 is for table scans.  RAID 10 with provisioned i/ops is expensive. If you are running a database requiring table scans, RAID 10 will be your expensive savior.  If you have very deep pockets, or a small dataset, covering your data size with RAM is a faster alternative.&lt;/p&gt;
+
+&lt;p&gt;Deep pockets are a terrible answer.  Get a better return on investment by running an optimized database.&lt;/p&gt;
+
+&lt;h2 id="moralofthestory"&gt;Moral of the Story&lt;/h2&gt;
+
+&lt;p&gt;Optimize your MongoDB, save money and increase performance. Relying on RAID 10 to save you from unoptimized queries is an expensive path.  It will also provide with less than stellar results.&lt;/p&gt;
+
+&lt;p&gt;MongoHQ has the &lt;a href="http://blog.mongohq.com/mongodb-slow-queries-tracker-profiler/" title="MongoDB Slow Queries Tracker &amp;amp; Profiler"&gt;Slow Query Tracker and Profiler&lt;/a&gt;,  which logs and records all slow queries.  The profiler comes with a 1-click index create to help you optimized and often.  Get started optimizing early and often.&lt;/p&gt;</description><link>http://localhost:2368/debunking-myth-of-raid-10-as-best-practice-on-aws/</link><guid isPermaLink="false">1b50dd01-121c-4794-ba5c-8a457ab0ae3d</guid><category>aws</category><category>hosting</category><category>performance</category><dc:creator>chris</dc:creator><pubDate>Wed, 31 Jul 2013 17:24:56 GMT</pubDate></item><item><title>MongoDB Slow Queries Tracker &amp; Profiler</title><description>&lt;p&gt;&lt;em&gt;“How can I get more performance from my database?” &lt;br&gt;
+ “Is MongoDB web-scale?” [1]&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Typically, when we answer these questions for MongoDB databases, we are looking at a handful of issues that can often be solved with:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Adding RAM&lt;/li&gt;
+&lt;li&gt;Optimizing slow queries&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Our team is excited to announce that we have released a new feature, Slow Query Tracking, making one aspect of improving MongoDB performance very simple for our customers. This new tool tracks all queries on databases taking longer than 100ms. The tool then documents and ranks the queries. Finally, it recommends indexes to add to restore performance.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/slow-queries_bzyizp_kq9tsw.png" alt="MongoHQ Slow Query Tracker and Profiler" title=""&gt;From the tool, you can click to add the recommended index and a job is created in the web interface that adds a background index to your database. Simple and fast, but powerful.&lt;/p&gt;
+
+&lt;p&gt;Now that you know what Slow Query Tracking is, here are some additional details about the features it includes:&lt;/p&gt;
+
+&lt;h2 id="thepainscore"&gt;The Pain Score&lt;/h2&gt;
+
+&lt;p&gt;So, what exactly is a pain score? We created this metric to reflect the fact that poor indexing can present in a number of ways. For example:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Total documents scanned (shown as an “nscanned” value)&lt;/li&gt;
+&lt;li&gt;Number of concurrent queries&lt;/li&gt;
+&lt;li&gt;Number of times, per day, a query is run&lt;/li&gt;
+&lt;li&gt;Total time consumed to run each query&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“My prediction? Pain” – Mr. T in Rocky II&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Any one of these characteristics (or a combination of all of them) can drastically reduce performance on your database and cause your application pain and discomfort. We want to help you quickly identify the worst offenders and resolve your issues. So, this pain index provides you important context on which queries you should take action on first.&lt;/p&gt;
+
+&lt;h2 id="indexrecommendationandadding"&gt;Index Recommendation and Adding&lt;/h2&gt;
+
+&lt;p&gt;Along with rating the most pressing operations to take action on, the Slow Query Tracker offers a Recommended Index based on an evaluation of the operation being performed. Along with the recommendation, it includes a “Create Index” button that allows you to add the index, from the MongoHQ web interface, in the background.&lt;/p&gt;
+
+&lt;p&gt;An important note … as with adding indexes to MongoDB in general, it is best to add indexes to your database one-at-a-time. This is important for two reasons:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;A high number of concurrent indexes being added can really affect database performance.  &lt;/li&gt;
+&lt;li&gt;It is best to add an index, then evaluate your overall database performance. In essence: a measure, change, measure cycle is a best practice.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;As a side note, along with all of our real-time monitoring tools, we include a smooth New Relic Integration (&lt;a href="http://blog.mongohq.com/mongohq-new-relic/"&gt;http://blog.mongohq.com/mongohq-new-relic/&lt;/a&gt;) that you can use to measure performance improvements.&lt;/p&gt;
+
+&lt;h2 id="gettingstartedwithfixingslowqueries"&gt;Getting Started with Fixing Slow Queries&lt;/h2&gt;
+
+&lt;p&gt;All databases (except our Sandbox plans) on our MongoDB hosting platform have “Slow Queries” feature. Simply choose the database that you want to view any slow queries on and click on the “Slow Queries” tab. From there, you are off and going.&lt;/p&gt;
+
+&lt;p&gt;Hooray for optimized databases and fast applications!&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;[1] Yes, MongoDB is web-scale. So is /dev/null. &lt;img src="https://blog.compose.io/wp-includes/images/smilies/icon_smile.gif" alt=":)" title=""&gt;&lt;/em&gt;&lt;/p&gt;</description><link>http://localhost:2368/mongodb-slow-queries-tracker-profiler/</link><guid isPermaLink="false">f445d463-f2d9-4639-95af-d0538a4dae13</guid><category>optimization</category><category>performance</category><dc:creator>chris</dc:creator><pubDate>Tue, 16 Jul 2013 18:49:00 GMT</pubDate></item></channel></rss>

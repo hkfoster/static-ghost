@@ -1,0 +1,265 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Elasticsearch IP Whitelisting and Phonetic Plugins</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/elasticsearch-ip-whitelisting-and-phonetic-plugins/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Elasticsearch IP Whitelisting and Phonetic Plugins">
+    <meta property="og:description" content="IP Whitelists for Elasticsearch Compose users who’ve been trying out the Elasticsearch beta will notice a new Security tab in their Compose dashboard today. It has been added to contain the new portal and ip management features that we...">
+    <meta property="og:url" content="http://localhost:2368/elasticsearch-ip-whitelisting-and-phonetic-plugins/">
+    <meta property="article:published_time" content="2014-11-04T09:53:44.000Z">
+    <meta property="article:modified_time" content="2014-12-17T08:43:36.000Z">
+    <meta property="article:tag" content="IP whitelisting">
+    <meta property="article:tag" content="plugins">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Elasticsearch IP Whitelisting and Phonetic Plugins">
+    <meta name="twitter:description" content="IP Whitelists for Elasticsearch Compose users who’ve been trying out the Elasticsearch beta will notice a new Security tab in their Compose dashboard today. It has been added to contain the new portal and ip management features that we...">
+    <meta name="twitter:url" content="http://localhost:2368/elasticsearch-ip-whitelisting-and-phonetic-plugins/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Elasticsearch IP Whitelisting and Phonetic Plugins",
+    "url": "http://localhost:2368/elasticsearch-ip-whitelisting-and-phonetic-plugins/",
+    "datePublished": "2014-11-04T09:53:44.000Z",
+    "dateModified": "2014-12-17T08:43:36.000Z",
+    "keywords": "IP whitelisting, plugins",
+    "description": "IP Whitelists for Elasticsearch Compose users who’ve been trying out the Elasticsearch beta will notice a new Security tab in their Compose dashboard today. It has been added to contain the new portal and ip management features that we..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-ip-whitelisting tag-plugins blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-ip-whitelisting tag-plugins container">
+  <header>
+    <h1 class="post-title">Elasticsearch IP Whitelisting and Phonetic Plugins</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-11-04">November 4th, 2014</time></small>
+  </header>
+
+<h2 id="ipwhitelistsforelasticsearch">IP Whitelists for Elasticsearch</h2>
+
+<p><img src="../content/images/2014/12/UpgradesIcon_l8kyv5_bstbvp.png" alt="UpgradeIcon" title="">Compose users who’ve been trying out the Elasticsearch beta will notice a new <em>Security</em> tab in their Compose dashboard today. It has been added to contain the new portal and ip management features that we are building up for database access. Clicking on the <em>Security</em> tab will reveal that you can now add SSH access to Elasticsearch, but also, and more importantly for most users, you can now use a whitelist for IP addresses accessing your database through the HTTP portal.</p>
+
+<p>By default any system from any IP address on the internet can connect, and attempt to authenticate itself, with the HTTP portal. Because you still need credentials to get through the portal, your database is still safe, but you may want to further reduce your attack surface. In this case it means cutting down on who can even get to the point of trying to authenticate. Listing the IP address of systems allowed to connect is a good way to start and that’s where the IP Whitelist settings come in. By adding IPs to the whitelist, you are saying this address (and the others on the list) are allowed to connect. Once you start adding IP addresses to the list, all other addresses will be automatically blacklisted and unable to connect.</p>
+
+<h2 id="moreelasticsearchplugins">More Elasticsearch plugins</h2>
+
+<p>We said we’d be adding more plugins when we launched plugin support for Elasticsearch based on customer requests. The first of these additions has now gone online and it’s going to be a boon for anyone wanting to phonetically analyze their indexes. It’s the <a href="https://github.com/elasticsearch/elasticsearch-analysis-phonetic/">analysis-phonetic</a> plugin. Phonetic analysis is, as the <a href="http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/phonetic-matching.html">Elasticsearch documentation</a> explains, “a last, desperate, attempt to match something, anything” by resorting to searching for words that sound similar. This is done by encoding the words in a phonetic representation, such as Soundex, and then comparing the phonetic versions.</p>
+
+<p>If there’s an Elasticsearch plugin you want, email your request to <a href="mailto:support@compose.io">support@compose.io</a> and we’ll see what we can do for you.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Elasticsearch%20IP%20Whitelisting%20and%20Phonetic%20Plugins&amp;url=http://localhost:2368/elasticsearch-ip-whitelisting-and-phonetic-plugins/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/elasticsearch-ip-whitelisting-and-phonetic-plugins/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/elasticsearch-ip-whitelisting-and-phonetic-plugins/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

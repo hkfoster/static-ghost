@@ -1,0 +1,464 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Mongoose reintroduced</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/mongoose-reintroduced/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Mongoose reintroduced">
+    <meta property="og:description" content="*TL;DR: An interactive introduction to Mongoose, the ODM for Node.js and MongoDB.   Image: Vinc3PaulS/&gt;CC-BY-SA 3.0In the recent months, regular readers will have noticed that we have had a lot of Node.js based examples. One reader...">
+    <meta property="og:url" content="http://localhost:2368/mongoose-reintroduced/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/Baby_Mongooses_d7us2a_xosxds.jpg">
+    <meta property="article:published_time" content="2014-06-12T12:00:11.000Z">
+    <meta property="article:modified_time" content="2014-09-02T08:45:36.000Z">
+    <meta property="article:tag" content="mongoose">
+    <meta property="article:tag" content="node.js">
+    <meta property="article:tag" content="repl">
+    <meta property="article:tag" content="tutorial">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mongoose reintroduced">
+    <meta name="twitter:description" content="*TL;DR: An interactive introduction to Mongoose, the ODM for Node.js and MongoDB.   Image: Vinc3PaulS/&gt;CC-BY-SA 3.0In the recent months, regular readers will have noticed that we have had a lot of Node.js based examples. One reader...">
+    <meta name="twitter:url" content="http://localhost:2368/mongoose-reintroduced/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/Baby_Mongooses_d7us2a_xosxds.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Mongoose reintroduced",
+    "url": "http://localhost:2368/mongoose-reintroduced/",
+    "datePublished": "2014-06-12T12:00:11.000Z",
+    "dateModified": "2014-09-02T08:45:36.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/Baby_Mongooses_d7us2a_xosxds.jpg",
+    "keywords": "mongoose, node.js, repl, tutorial",
+    "description": "*TL;DR: An interactive introduction to Mongoose, the ODM for Node.js and MongoDB.   Image: Vinc3PaulS/&gt;CC-BY-SA 3.0In the recent months, regular readers will have noticed that we have had a lot of Node.js based examples. One reader..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-mongoose tag-node-js tag-repl tag-tutorial blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-mongoose tag-node-js tag-repl tag-tutorial container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/Baby_Mongooses_d7us2a_xosxds.jpg)">
+    <h1 class="post-title">Mongoose reintroduced</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-06-12">June 12th, 2014</time></small>
+  </header>
+
+<p><em>*</em>TL;DR: An interactive introduction to Mongoose, the ODM for Node.js and MongoDB.  </p>
+
+<hr>
+
+<p><aside class="right-gutter">Image: <a href="http://commons.wikimedia.org/wiki/File:Baby_Mongooses.jpg">Vinc3PaulS/&gt;CC-BY-SA 3.0</a></aside>In the recent months, regular readers will have noticed that we have had a lot of Node.js based examples. One reader asked why we were only using the MongoDB driver rather than their preferred method of using MongoDB and Node.js, <a href="http://mongoosejs.com/">Mongoose</a>. The answer for them is that we were sticking to the minimum supported APIs but it did remind us that we really should talk about object modelling with Node.js as it can make for easier to read and manage code.</p>
+
+<p>Mongoose brings some schema-like discipline to the dynamic world of JavaScript by allowing a programmer to create schema and models which take care of the grind in creating CRUD and other applications. If you want to follow along, remember to <code>npm install mongoose</code> , start the Node REPL and you can either type in or copy and paste each code block over. With Mongoose, rather than managing your data as an informal map of keys and value it is formalised in a schema. Before we can do that, we should start node (by running <code>node</code>) and get connected to MongoDB:</p>
+
+<pre><code>$ node
+&gt; var mongoose=require("mongoose");
+&gt; mongoose.connect(process.env.MONGOHQ_URL);
+</code></pre>
+
+<p>This simply pulls in the mongoose package and opens a connection to the database URL in the <code>MONGOHQ_URL</code>. If you are following along in the Node REPL, you will notice that that <code>connect</code> method comes back with something like…</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;{ connections:  
+   [ { base: [Circular],
+       collections: {},
+       models: {},
+       replica: true,
+       hosts: [Object],
+       host: null,
+       port: null,
+       user: 'user',
+       pass: 'pass',
+       name: 'database',
+       options: [Object],
+       otherDbs: [],
+       _readyState: 2,
+       _closeCalled: false,
+       _hasOpened: false,
+       _listening: false,
+       _events: {},
+       db: [Object] } ],
+  plugins: [],
+  models: {},
+  modelSchemas: {},
+  options: { pluralization: true } }
+</code></pre>
+
+<p>That’s the value of the mongoose variable and as you move on you will find there’s some quite a lot of input generated by Mongoose methods which you may find distracting. A little general tip for working in the REPL though is that if you know you want to ignore the value returned by a command in the Node REPL is to append <code>;0;</code> to the end which will act like an extra statement and just return 0. So setting up that query you would do <code>mongoose.connect(process.env.MONGOHQ_URL);0;</code>.</p>
+
+<p>Back to Mongoose and the REPL. We said we want to formalise out data in a schema, so we shall do that now. Let’s copy in this block…</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;var Schema=mongoose.Schema;
+
+var robotSchema=new Schema({  
+  name        : { type:String, index: { unique: true } },
+  description : String,
+  occupation  : { type:String, default:"General Purpose" },
+  age         : { type: Number, min:18, max:60 },
+  dangerous   : Boolean,
+  added       : { type: Date, default: Date.now },
+});
+</code></pre>
+
+<p>Looking at the code in this first block, we get Mongoose’s Schema class which can hold a template for how we want the data stored, how we want it treated in terms of types, which fields we want indexed and any validation we want to perform on it. Indexes and defaults can also be incorporated. And thats what we do when we create a robotSchema, with fields which are typed (as String, Number, Boolean and Date), defaults and one uniquely indexed field (name). Thats not all we can add to our schema. We can also add methods to the Schema like this:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;robotSchema.methods.causeHavoc= function() {  
+  if(this.dangerous) {
+    console.log(this.name+" will Crush! Destroy!");
+  } else {
+    console.log("The Three Laws control "+this.name);
+  }
+};
+</code></pre>
+
+<p>Once we have a complete Schema we can turn it into a model which will be able to enact the Schema’s demands and include a method to causeHavoc…</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;var Robot = mongoose.model('Robot',robotSchema);  
+</code></pre>
+
+<p>A quick note here; the code would have to be cut and pasted into the REPL every time you started a session to initialise the connection and the schema. But, if you copied all the commands into a file called, say, <code>setup.js</code> then you can load those commands into the Node REPL by using the .load command, <code>.load setup.js</code>. But it gets better as you don’t even have to create that file. As you have got to this point in the REPL, you can save your current session with <code>.save setup.js</code> and it will create that file for you.</p>
+
+<p>Back with Mongoose, now we can use our newly created model to make some robots.</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;var robbie= new Robot( { name: "Robbie", dangerous:false });  
+var bender= new Robot( { name: "Bender", occupation:"Bending", dangerous:true });  
+</code></pre>
+
+<p>These documents, <code>robbie</code> and <code>bender</code>, have all the needed methods to be saved and modified. Modifications go through any validations defined in the schema. All you need to save them is to call the save method…</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;[robbie, bender].forEach(function(robot) {  
+  robot.causeHavoc();
+  robot.save(function(err) {
+    if (err) {
+      console.log(robot.name + " unsaved "+err);
+      }
+    })
+});
+</code></pre>
+
+<p>If you run this code twice, you’d note that the second time it was run the bots would not be saved and errors would be printed. That is because they were still new instances with the same name as existing bots and hence causing a unique constraint failure.</p>
+
+<p>Lets retrieve one of the robots written to the database. We will get a version of the data which we can safely modify and save:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;Robot.findOne( { name:"Bender"}, function(err,bot) {  
+  bot.description="has shiny metal";
+  bot.save(function(err){
+    if (err) {
+     console.log(bot.name + " unsaved " + err);
+   } else {
+     console.log(bot.name + " updated");
+   }
+  })
+});
+</code></pre>
+
+<p>We just looked for one matching record in this case but Mongoose has a whole query syntax to explore. Let’s make some more robots in the database to work with:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;for(var i=0;i&lt;10000; i++) {  
+  var thxbot=new Robot( {
+    name:"THX-"+i,
+    description: "A generic THX robot",
+    age: Math.floor(Math.random()*42+18),
+    dangerous: Math.random()&lt;.5
+  } );
+  thxbot.save();
+}
+</code></pre>
+
+<p>(Astute readers will notice that there’s no callback in the save. Any errors that occur now will be emitted as error events on the connection and can be captured there. We’ve just dropped the callback code for readability)</p>
+
+<p>When you use a query method (find, findById, count, update) without a callback you get a query object back:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;var query=Robot.find( { dangerous:true });  
+</code></pre>
+
+<p>That query for dangerous robots won’t run till the exec method is called on it and therefore you can have further qualifiers added to it so that you can then say only list ten dangerous robots over the age of thirty and only retrieve their name, age and description:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;  query.where('age').gt(30);  
+  query.limit(10);
+  query.select("name description age");
+</code></pre>
+
+<p>Then you can go execute it and process the results in a callback:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;  query.exec(function(err,results) {  
+    results.forEach(function(bot) {
+      console.log(bot.name+"/"+bot.age+"/"+bot.description);
+    })
+  });
+</code></pre>
+
+<p>There is something we are ignoring in this session within the REPL and it’s that our interaction at the prompt is slowing things down enough that we don’t have to worry (too much) about the asynchronous nature of Node and Mongoose. When running code, rather than typing in the REPL, you will have to remember that, for example, if run an update and then a query, the update may not have finished before the query. Updates in Mongoose are a special case of query so this, which says to increment the age of every dangerous robot:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;Robot.update({ dangerous: true }, { $inc: { age: 1 } }, { multi: true });  
+</code></pre>
+
+<p>would actually do nothing except return a query object as above. You can force it to execute without a callback by running:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;Robot.update({ dangerous: true }, { $inc: { age: 1 } }, { multi: true }).exec();  
+</code></pre>
+
+<p>But if the next thing we run is a query on the age of dangerous robots…</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;Robot.find({ dangerous: true }, function(err, results) {  
+      results.forEach(function(bot) {
+        console.log("Bot " + bot.name + " is " + bot.age);
+      });
+    });
+</code></pre>
+
+<p>Then you may be querying while the robots are still being updated. Better to pop the query in the callback for the update which gets called when the update is complete:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;Robot.update({ dangerous: true }, { $inc: { age: 1 } }, { multi: true },  
+  function(err, num, raw) {
+    Robot.find({ dangerous: true }, function(err, results) {
+      results.forEach(function(bot) {
+        console.log("Bot " + bot.name + " is " + bot.age);
+      });
+    });
+  });
+</code></pre>
+
+<p><aside class="right-gutter">Mongoose also supports the idea of promises, an alternative to callbacks for managing asynchronous actions in code.</aside>Another example – Mongoose does a good job hiding that it establishes its connection in the background, if you want to be sure you have connected before proceeding, you’ll want to register for the <code>connected</code> event on the connection:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;mongoose.connection.on("connected", function() {  
+... the rest of the code...
+});
+</code></pre>
+
+<p>Finally, before you tire of typing in the Node REPL, why not define a general purpose function to print results. Take counting the number of robots we now have. We can do this…</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;Robot.count(function(err,result) { console.log(result); });  
+</code></pre>
+
+<p>Or we can pre-define a function:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;function pr(err,results) { console.log(results); };  
+</code></pre>
+
+<p>and use that when we want to just print result:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;Robot.count(pr);  
+</code></pre>
+
+<p>Thats surprisingly flexible too…</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;Robot.find( ).where('age').gt(30).limit(5).sort('-age name').exec(pr);  
+</code></pre>
+
+<p>Prints us five robots over the age of thirty sorted in descending age and ascending name.</p>
+
+<p>As you can see, there is a lot to Mongoose and a lot more to explore such as middleware and plugins to make your models more potent, a lot more to the query syntax and schema definitions. But now you should be ready to start exploring its capabilities through the Node.JS REPL. You’ll want work through the <a href="http://mongoosejs.com/docs/guide.html">guide</a> and make sure to have the <a href="http://mongoosejs.com/docs/api.html">API documentation</a> to hand and you’ll be well on your way to better managed data in your applications without giving up the power and flexibility of MongoDB. Try it out with a MongoHQ hosted database today.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Mongoose%20reintroduced&amp;url=http://localhost:2368/mongoose-reintroduced/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/mongoose-reintroduced/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/mongoose-reintroduced/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

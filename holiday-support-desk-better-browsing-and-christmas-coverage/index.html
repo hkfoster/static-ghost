@@ -1,0 +1,272 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Holiday Support Desk: Better Browsing &amp; Christmas Coverage</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/holiday-support-desk-better-browsing-and-christmas-coverage/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Holiday Support Desk: Better Browsing &amp; Christmas Coverage">
+    <meta property="og:description" content="For the holiday we’re bringing a refresh to one of Compose’s familiar components – the data browser. The data browser is what you see when you use the Compose dashboard to look into your MongoDB database. Apart from the...">
+    <meta property="og:url" content="http://localhost:2368/holiday-support-desk-better-browsing-and-christmas-coverage/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/baubles-1.jpg">
+    <meta property="article:published_time" content="2014-12-24T09:01:26.000Z">
+    <meta property="article:modified_time" content="2014-12-30T19:06:17.200Z">
+    <meta property="article:tag" content="2014">
+    <meta property="article:tag" content="christmas">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Holiday Support Desk: Better Browsing &amp; Christmas Coverage">
+    <meta name="twitter:description" content="For the holiday we’re bringing a refresh to one of Compose’s familiar components – the data browser. The data browser is what you see when you use the Compose dashboard to look into your MongoDB database. Apart from the...">
+    <meta name="twitter:url" content="http://localhost:2368/holiday-support-desk-better-browsing-and-christmas-coverage/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/baubles-1.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Holiday Support Desk: Better Browsing &amp; Christmas Coverage",
+    "url": "http://localhost:2368/holiday-support-desk-better-browsing-and-christmas-coverage/",
+    "datePublished": "2014-12-24T09:01:26.000Z",
+    "dateModified": "2014-12-30T19:06:17.200Z",
+    "image": "http://localhost:2368/content/images/2014/12/baubles-1.jpg",
+    "keywords": "2014, christmas",
+    "description": "For the holiday we’re bringing a refresh to one of Compose’s familiar components – the data browser. The data browser is what you see when you use the Compose dashboard to look into your MongoDB database. Apart from the..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-2014 tag-christmas blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-2014 tag-christmas container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/baubles-1.jpg)">
+    <h1 class="post-title">Holiday Support Desk: Better Browsing &amp; Christmas Coverage</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-12-24">December 24th, 2014</time></small>
+  </header>
+
+<p>For the holiday we’re bringing a refresh to one of Compose’s familiar components – the data browser. The data browser is what you see when you use the Compose dashboard to look into your MongoDB database. Apart from the obvious administration and monitoring, it also lets you dive into collections and create ad-hoc queries on them.</p>
+
+<p>It’s super useful and we’ve just changed it all. We expect though that the only thing you’ll notice is better, faster, more responsive browsing. We’ve rewritten the entire data browser but made sure it looks, almost, exactly the same because you’ve told us you love the clean and simple lines of our user experience.</p>
+
+<p>That doesn’t mean we can’t make things better though. For example, to administer users used to mean going down into the admin side-tab and then selecting a top tab for users. We’ve promoted it to the side-tab next to admin because you’ve shown us thats one of the more travelled paths.</p>
+
+<h2 id="composecoverageoverchristmas">Compose Coverage Over Christmas</h2>
+
+<p>Although Christmas and the New Year is a time for holiday cheer, it’s also a time when you need to be sure you’ve got all eventualities covered. With Compose, they are – we’ll have people staffing the support contact email address, <a href="http://127.0.0.1:2368/holiday-support-desk-better-browsing-and-christmas-coverage/support@compose.io">support@compose.io</a>. </p>
+
+<p><img src="../content/images/2014/12/santa_rocco.jpg#align-right" alt="" title=""> </p>
+
+<p>And as we do go into the holiday, we at Compose would like to say thanks to <a href="https://watsi.org/">Watsi</a> for coming up with the idea of gift cards. A simple idea which enabled the company to let all of us at Compose help give someone, somewhere better healthcare this Christmas.</p>
+
+<p>So as Christmas Eve begins, everyone at Compose would like to wish you a Merry Christmas and a Happy New Year. We’re really looking forward to 2015 as we have so much to show you… as a tiny foretaste, here’s a glimpse of Rocco the Rhino in his Santa outfit and mug of delicious coffee. You’ll hear more about him on the blog in 2015.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Holiday%20Support%20Desk%3A%20Better%20Browsing%20%26%20Christmas%20Coverage&amp;url=http://localhost:2368/holiday-support-desk-better-browsing-and-christmas-coverage/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/holiday-support-desk-better-browsing-and-christmas-coverage/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/holiday-support-desk-better-browsing-and-christmas-coverage/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

@@ -1,0 +1,256 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Two-Factor Authentication Made Authfully Easy</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/two-factor-authentication-made-authfully-easy/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Two-Factor Authentication Made Authfully Easy">
+    <meta property="og:description" content="We’re excited to announce today that we’re taking Authful — our API for Two Factor Authentication (2FA), which we believe is the easiest way to implement 2FA — open source. Open source announcements can be greeted with a mix of...">
+    <meta property="og:url" content="http://localhost:2368/two-factor-authentication-made-authfully-easy/">
+    <meta property="article:published_time" content="2014-04-03T16:45:29.000Z">
+    <meta property="article:modified_time" content="2014-12-17T11:27:26.000Z">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Two-Factor Authentication Made Authfully Easy">
+    <meta name="twitter:description" content="We’re excited to announce today that we’re taking Authful — our API for Two Factor Authentication (2FA), which we believe is the easiest way to implement 2FA — open source. Open source announcements can be greeted with a mix of...">
+    <meta name="twitter:url" content="http://localhost:2368/two-factor-authentication-made-authfully-easy/">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "lisa",
+        "url": "http://localhost:2368/author/lisa",
+        "sameAs": ""
+    },
+    "headline": "Two-Factor Authentication Made Authfully Easy",
+    "url": "http://localhost:2368/two-factor-authentication-made-authfully-easy/",
+    "datePublished": "2014-04-03T16:45:29.000Z",
+    "dateModified": "2014-12-17T11:27:26.000Z",
+    "description": "We’re excited to announce today that we’re taking Authful — our API for Two Factor Authentication (2FA), which we believe is the easiest way to implement 2FA — open source. Open source announcements can be greeted with a mix of..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post container">
+  <header>
+    <h1 class="post-title">Two-Factor Authentication Made Authfully Easy</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-04-03">April 3rd, 2014</time></small>
+  </header>
+
+<p>We’re excited to announce today that we’re taking Authful — our API for Two Factor Authentication (2FA), which we believe is the easiest way to implement 2FA — open source. Open source announcements can be greeted with a mix of welcome and puzzlement, so we wanted to take a minute to introduce <a href="../content/images/2014/12/padlock_bm9plj_lnbhjb.jpg">Authful</a><strong>How We Did It — the Authful Truth</strong> <br>
+ We originally created Authful as an internal application to provide MongoHQ customers with the option to enable and configure two-factor authentication, increasing the level of security required when accessing your MongoHQ accounts. Recognizing that a large part of the value we offer you is the ability to minimize risk in deploying MongoDB, it’s on us to leverage every security-enhancing feature available.</p>
+
+<p><strong>Why We Created Our Own 2FA App</strong> <br>
+ Why, with several viable 2FA options available, did we create our own implementation? After evaluating some of the pre-built 2FA services, we noticed that they required users to use their specific mobile apps.</p>
+
+<p>Since our goal is to make our customers’ lives easier, we didn’t want to require the use of a proprietary app to get the most out of our 2FA feature. So, we created our own, with the goal of making it as easy to implement as possible. Authful allows you to store a unique user key with an optional SMS number and use a very simple API to: <br>
+ • Create users <br>
+ • Generate QR Code for app use <br>
+ • Validate OTP tokens <br>
+ • Manage recovery codes</p>
+
+<p>Authful offers support for multiple mobile apps, fallback numbers and recovery codes, and SMS integration (we went with <a href="http://twilio.com">Twilio</a> for SMS because of it’s ease to implement and reliability). And, to make sure we offered the most tested product possible, we put Authful through a security audit by <a href="https://www.nccgroup.com/en/">Matasano</a>.</p>
+
+<p><strong>Why Open Source?</strong> <br>
+ In a nutshell, we have open sourced this tool because security features should be simple to implement, and we’re all better off if it’s easy for developers to do the right thing.</p>
+
+
+<footer class="post-footer big-push">
+
+
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Two-Factor%20Authentication%20Made%20Authfully%20Easy&amp;url=http://localhost:2368/two-factor-authentication-made-authfully-easy/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/two-factor-authentication-made-authfully-easy/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/two-factor-authentication-made-authfully-easy/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

@@ -1,0 +1,268 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>How we do it: Backups</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/how-we-do-it-backups/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How we do it: Backups">
+    <meta property="og:description" content="We’ve talked about how you can produce backups on-demand both manuallyFor our MongoDB elastic deployments, the secret is hidden – a hidden replica set member. When we deploy MongoDB for you, it’s set up as a replica set with...">
+    <meta property="og:url" content="http://localhost:2368/how-we-do-it-backups/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/marxbrothers_beybju_gdox7b.jpg">
+    <meta property="article:published_time" content="2014-08-26T10:11:15.000Z">
+    <meta property="article:modified_time" content="2014-12-17T11:15:59.000Z">
+    <meta property="article:tag" content="backups">
+    <meta property="article:tag" content="replica set">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How we do it: Backups">
+    <meta name="twitter:description" content="We’ve talked about how you can produce backups on-demand both manuallyFor our MongoDB elastic deployments, the secret is hidden – a hidden replica set member. When we deploy MongoDB for you, it’s set up as a replica set with...">
+    <meta name="twitter:url" content="http://localhost:2368/how-we-do-it-backups/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/marxbrothers_beybju_gdox7b.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "How we do it: Backups",
+    "url": "http://localhost:2368/how-we-do-it-backups/",
+    "datePublished": "2014-08-26T10:11:15.000Z",
+    "dateModified": "2014-12-17T11:15:59.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/marxbrothers_beybju_gdox7b.jpg",
+    "keywords": "backups, replica set",
+    "description": "We’ve talked about how you can produce backups on-demand both manuallyFor our MongoDB elastic deployments, the secret is hidden – a hidden replica set member. When we deploy MongoDB for you, it’s set up as a replica set with..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-backups tag-replica-set blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-backups tag-replica-set container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/marxbrothers_beybju_gdox7b.jpg)">
+    <h1 class="post-title">How we do it: Backups</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-08-26">August 26th, 2014</time></small>
+  </header>
+
+<p>We’ve talked about how you can produce backups on-demand both <a href="../content/images/2014/12/backup_mijvbw_gtiwgo.png">manually</a>For our MongoDB elastic deployments, the secret is hidden – a hidden replica set member. When we deploy MongoDB for you, it’s set up as a replica set with two visible members, a primary and a secondary database instance. What you can’t see is the third member, the Harpo to the primary Groucho and secondary Chico. Like Harpo, this hidden member is silent – you’ll never access it and you won’t see it report its presence. Like the other members of the replica set, it does have a complete up-to-date duplicate of the data in the database.</p>
+
+<p>When we need to take a backup, we ask Harpo to stop keeping up to date and take a break by sending it a <a href="http://docs.mongodb.org/manual/reference/method/db.fsyncLock/"><code>db.fsyncLock()</code></a> which flushes out all the pending write operations and locks the database. This is just a lock on the silent Harpo so neither Groucho or Chico notice that this has happened and carry on handling your queries, updates and other changes. Once the <code>fsyncLock</code> has engaged, we can now slip in and take a copy of the data files, the ones actually stored on disk not just a MongoDump, and we tar them up and send them to a private S3 bucket on Amazon.</p>
+
+<p>When this copy is completed, we send a <a href="http://docs.mongodb.org/manual/reference/method/db.fsyncUnlock/#db.fsyncUnlock"><code>db.fsyncUnlock()</code></a> and release the Harpo instance. It then catches up with the replication state of the other two members and rapidly returns the replica set to complete consistency. With the backup safely stored, it is also ready for retrieval.</p>
+
+<p><aside class="right-gutter">This article only applies to our MongoDB Elastic deployments. If you have a sandbox database with us, you’ll have to make your own backups. Our other database offerings have backup solutions that are customised for their tasks.</aside>We keep track of the backups through an internal database which holds on to the one on-demand backup and the daily, weekly and monthly backup sets. It’s that database we look to when you ask for a particular backup for download or restore to locate the file in S3 and place it either in a specific secure location for download or into the data directory of a new deployment for restore.</p>
+
+<p>Because we store the data files, rather than a dump, it’s a lot easier to bring up an entire database and all its collections, as we showed in a <a href="http://127.0.0.1:2368/how-we-do-it-backups/back-up-for-performance/">previous article</a> where we use the backup files to quickly make a local copy of a production database, ideal for one-off analytics or testing new ideas or queries.</p>
+
+<p>We don’t simply make backups. At Compose we give you the ability to easily put those backups to work when you need them. Because thats how we do it at Compose.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=How%20we%20do%20it%3A%20Backups&amp;url=http://localhost:2368/how-we-do-it-backups/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/how-we-do-it-backups/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/how-we-do-it-backups/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

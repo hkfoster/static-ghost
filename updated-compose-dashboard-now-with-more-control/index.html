@@ -1,0 +1,270 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Updated Compose Dashboard: Now with more control</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/updated-compose-dashboard-now-with-more-control/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Updated Compose Dashboard: Now with more control">
+    <meta property="og:description" content="We’ve just turned on the latest version of the Compose user interface. We want to bring all the power of Compose to you in as simple a way as possible and the new user interface is a big step...">
+    <meta property="og:url" content="http://localhost:2368/updated-compose-dashboard-now-with-more-control/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/Ferrari_F430_dash_at_2006_Chicago_Auto_Show-copy_wyz0wu_wd6aym.jpg">
+    <meta property="article:published_time" content="2014-10-03T06:08:28.000Z">
+    <meta property="article:modified_time" content="2014-12-17T11:16:05.000Z">
+    <meta property="article:tag" content="dashboard">
+    <meta property="article:tag" content="deployments">
+    <meta property="article:tag" content="enhancements">
+    <meta property="article:tag" content="ui">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Updated Compose Dashboard: Now with more control">
+    <meta name="twitter:description" content="We’ve just turned on the latest version of the Compose user interface. We want to bring all the power of Compose to you in as simple a way as possible and the new user interface is a big step...">
+    <meta name="twitter:url" content="http://localhost:2368/updated-compose-dashboard-now-with-more-control/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/Ferrari_F430_dash_at_2006_Chicago_Auto_Show-copy_wyz0wu_wd6aym.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Updated Compose Dashboard: Now with more control",
+    "url": "http://localhost:2368/updated-compose-dashboard-now-with-more-control/",
+    "datePublished": "2014-10-03T06:08:28.000Z",
+    "dateModified": "2014-12-17T11:16:05.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/Ferrari_F430_dash_at_2006_Chicago_Auto_Show-copy_wyz0wu_wd6aym.jpg",
+    "keywords": "dashboard, deployments, enhancements, ui",
+    "description": "We’ve just turned on the latest version of the Compose user interface. We want to bring all the power of Compose to you in as simple a way as possible and the new user interface is a big step..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-dashboard-tag tag-deployments tag-enhancements tag-ui blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-dashboard-tag tag-deployments tag-enhancements tag-ui container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/Ferrari_F430_dash_at_2006_Chicago_Auto_Show-copy_wyz0wu_wd6aym.jpg)">
+    <h1 class="post-title">Updated Compose Dashboard: Now with more control</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-10-03">October 3rd, 2014</time></small>
+  </header>
+
+<p>We’ve just turned on the latest version of the Compose user interface. We want to bring all the power of Compose to you in as simple a way as possible and the new user interface is a big step forward in giving you access to that power.</p>
+
+<p><img src="../content/images/2014/12/composesocialicon-blue_h0svq9_gjlbi9.png" alt="Compose Blue Icon" title="">In the past we’ve presented Compose in the UI as a selection of databases. If you’ve followed our API and CLI development, you’ll already know that those databases are held within deployments, a managed collection of compute and storage resources. A MongoDB deployment can configure multiple databases and other services within itself, an Elasticsearch deployment holds the Elasticsearch cluster nodes with Transporter jobs and so on.</p>
+
+<p>When you provision a Compose MongoDB Elastic Deployment what you get is one of these deployments with MongoDB configured within it. But up until now we’ve presented this to you as a database instance, hiding the deployment details from you. We have some exciting enhancements coming soon which need you, as Compose users, to have more control of your entire deployment and the ability to view all your deployments. That’s why the new front end presents you with a list of your deployments:</p>
+
+<p><img src="../content/images/2014/12/Screenshot-2014-10-03-10_33_49_e0f70c_vibmwt.png" alt="New front page" title="">The list is grouped by the type of database each deployment has been configured for, be it MongoDB, Elasticsearch or whatever other new databases may be in the works. Clicking into a MongoDB deployment will display the familiar databases view, while clicking into an Elasticsearch deployment will display the Elasticsearch overview.</p>
+
+<p>Once you’ve clicked through the deployment view, you’ll find all the tools that you are familiar with with various refinements. It’s easier to add a database to a MongoDB deployment for example. At the deployments view you can also provision new MongoDB and Elasticsearch deployments through the <code>Add Deployment</code> button so you can quickly expand your database use. You can also rename your MongoDB deployments to give them more meaningful or easier to remember names – look under the settings for the MongoDB deployment for the option.</p>
+
+<p><aside class="right-gutter"><a href="http://commons.wikimedia.org/wiki/File:Ferrari_F430_dash_at_2006_Chicago_Auto_Show.jpg">Ferrari F430 Dash</a> image by RdSmith4 CC-BY-SA-2.5</aside>The reorganised user interface is only a step on the way to bringing you new features and facilities at Compose. We’ll have more information about that very soon. In the meantime, if you have any questions or issues with the new interface, drop us a line at <a href="mailto:support@compose.io">support@compose.io</a> and we’ll help you out.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Updated%20Compose%20Dashboard%3A%20Now%20with%20more%20control&amp;url=http://localhost:2368/updated-compose-dashboard-now-with-more-control/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/updated-compose-dashboard-now-with-more-control/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/updated-compose-dashboard-now-with-more-control/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

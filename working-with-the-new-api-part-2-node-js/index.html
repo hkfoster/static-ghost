@@ -1,0 +1,448 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Working with the new API - Part 2: Node.js</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/working-with-the-new-api-part-2-node-js/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Working with the new API - Part 2: Node.js">
+    <meta property="og:description" content="In the last part, we used Go to create a command line utility that reported on your database versions and upgrade options. In this part, we’ll switch to Node.js and show how you can create customized web-based front...">
+    <meta property="og:url" content="http://localhost:2368/working-with-the-new-api-part-2-node-js/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/featurednode_fvenah_dinfdv.jpg">
+    <meta property="article:published_time" content="2014-07-10T09:55:17.000Z">
+    <meta property="article:modified_time" content="2014-09-02T09:16:29.000Z">
+    <meta property="article:tag" content="backups">
+    <meta property="article:tag" content="node.js">
+    <meta property="article:tag" content="REST API">
+    <meta property="article:tag" content="statistics">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Working with the new API - Part 2: Node.js">
+    <meta name="twitter:description" content="In the last part, we used Go to create a command line utility that reported on your database versions and upgrade options. In this part, we’ll switch to Node.js and show how you can create customized web-based front...">
+    <meta name="twitter:url" content="http://localhost:2368/working-with-the-new-api-part-2-node-js/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/featurednode_fvenah_dinfdv.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Working with the new API - Part 2: Node.js",
+    "url": "http://localhost:2368/working-with-the-new-api-part-2-node-js/",
+    "datePublished": "2014-07-10T09:55:17.000Z",
+    "dateModified": "2014-09-02T09:16:29.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/featurednode_fvenah_dinfdv.jpg",
+    "keywords": "backups, node.js, REST API, statistics",
+    "description": "In the last part, we used Go to create a command line utility that reported on your database versions and upgrade options. In this part, we’ll switch to Node.js and show how you can create customized web-based front..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-backups tag-node-js tag-rest-api tag-statistics blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-backups tag-node-js tag-rest-api tag-statistics container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/featurednode_fvenah_dinfdv.jpg)">
+    <h1 class="post-title">Working with the new API - Part 2: Node.js</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-07-10">July 10th, 2014</time></small>
+  </header>
+
+<p>In the last part, we used Go to create a command line utility that reported on your database versions and upgrade options. In this part, we’ll switch to Node.js and show how you can create customized web-based front ends for your MongoHQ deployments.</p>
+
+<p>Say you wanted the ability to quickly browse through and view the statistics and backup status of all your databases. More importantly, you want to allow your operators to do that without giving them full access to the MongoHQ dashboard. Well, that’s what we’ll start putting together here.</p>
+
+<p>Let’s recap what we need to access the API. Any access needs to be authorized and to get authorised you need a personal access token for your application to use. This can be generated from your MongoHQ dashboard. You’ll also want a library to help out with making REST API calls and that’s all you really need. For our example app, we’ll be using the node-rest-client package, which we can install with <code>npm install node-rest-client</code> and for the local web front end we’ll be using <a href="http://expressjs.com/">Express 4</a> and <a href="http://handlebarsjs.com/">Handlebars</a> via the <a href="https://github.com/ericf/express3-handlebars">express3-handlebars</a> package – we can install those with <code>npm install express express3-handlebars</code> and we are good to go.</p>
+
+<p>First up in creating our <code>app.js</code>, we want to pull in the libraries we’ll be using – Express, Express3-Handlebars, Node-REST-Client and Util:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;var express = require("express");  
+var exphbs = require("express3-handlebars");  
+var util = require('util');  
+var Client = require('node-rest-client').Client;  
+</code></pre>
+
+<p>And we’ll want to get our personal access token. For this example, we’re not hard coding it in but retrieving it from a file called <code>accesstoken.txt</code>. You’ll want to create that and copy just your token into that file. That’ll then be read in the main application here:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;var fs=require('fs');  
+var accesstoken=fs.readFileSync("./accesstoken.txt");  
+</code></pre>
+
+<p>To access the API, we’ll need to make a note of the base URL of the various endpoints but more importantly we need to set up the headers for our HTTP requests so they request the right content type, use the right version of the API and present their credentials. The Node-REST-Client library can take a <code>headers</code> variable as part of its HTTP arguments, so we’ll assemble that next:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;var baseURL = "https://beta-api.mongohq.com";
+
+var headers = {  
+  "Content-Type": "application-json",
+  "Accept-Version": "2014-06",
+  "Authorization": "Bearer " + accesstoken
+}
+var httpArgs = {  
+  "headers": headers
+}
+</code></pre>
+
+<p>Now we just need to set up the REST client, create the Express web server and set Handlebars up to render pages for us:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;var client = new Client();  
+var app = express();  
+var server = require("http").createServer(app);  
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));  
+app.set('view engine', 'handlebars');  
+</code></pre>
+
+<p>We are now able to handle a request and turn it into a MongoHQ API call. When a user accesses the server’s root, we want to present them with a list of accounts they can access. In Express, we can wrap that functionality as:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;app.get('/', function(req, res) {  
+</code></pre>
+
+<p>We now want to make our request to the API. The <a href="http://docs.mongohq.com/rest-api/2014-06/accounts.html#list-accounts">List accounts</a> endpoint, <code>/accounts</code> can provide that data: using the REST <code>client</code>, we can do an HTTP GET, passing the HTTP arguments we prepared earlier. When we get a response from the API query, the REST client will call back, with the response’s body parsed as a JSON object and with the raw response:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;  client.get(util.format("%s/accounts", baseURL), httpArgs,function(accounts,response) {  
+</code></pre>
+
+<p>We are using <code>util.format()</code> to create our URLs here. Though in this case it would be shorter to just concatenate the baseURL and “/accounts” as we move on to endpoints with more parameters we will find it easier to manage the URL’s template and parameters.</p>
+
+<p>The first thing we will need to do in the callback is check that the request was handled properly. If the status code from the response is not 200 (Ok), then we will need to do some error reporting:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;    if (response.statusCode != 200) {  
+      if (accounts.hasOwnProperty("error")) {
+        res.send(accounts.error);
+      } else {
+        res.send(response.headers.status);
+      }
+      return;
+    }
+</code></pre>
+
+<p>If there’s an error, it is likely that the API has also returned a simple JSON object with a key ‘error’ and a value containing an error message. The code above checks if that is the case and if so, just sends the error message to the user. If not, then it uses the response header’s status message and sends that to the user. If you want to check this error handling is working, just change <code>accesstoken.txt</code> to an invalid token and you should get an “Unauthorized” response.</p>
+
+<p>When there’s no error though, we can render the results. The documentation for the “<a href="http://docs.mongohq.com/rest-api/2014-06/accounts.html#list-accounts">List accounts</a>” endpoint shows this example set of results:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;[  
+  {
+    id: "1234567890"
+    name: "Your Account"
+    slug: "your-account"
+    active: true
+    created_at: "2010-09-23T15:58:42+00:00"
+    owner_id: "12345"
+    owner: "Your User's Name"
+  }
+]
+</code></pre>
+
+<p>And it’s this which we want to turn into a web page. This is where we use Handlebars’ minimal templating engine to make life simpler:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;    res.render("accounts", { "accounts": accounts });  
+</code></pre>
+
+<p>We ask Express to render our new page as the response, telling it to use the “accounts” template. All pages get wrapped in HTML from <code>views/layouts/main.handlebars</code> because we set that as default layout when we configured Express. The <code>"accounts"</code> parameter directs it to use <code>views/accounts.handlebars</code> as the template to create the body of our page. That parameter is then followed by a JavaScript hash of any variables and names we’d like to pass to it – in this case we pass the parsed accounts object to the template engine. The template itself looks like this:</p>
+
+<pre><code>&lt;code class="language-markup"&gt;&lt;h1&gt;Accounts available&lt;/h1&gt;  
+&lt;div class="accounts"&gt;  
+&lt;ul&gt;  
+{{#each accounts}}
+&lt;li&gt;&lt;a href="/deployments/{{slug}}"&gt;{{slug}}&lt;/a&gt; {{id}}/{{name}}&lt;/li&gt;  
+{{/each}}
+&lt;/div&gt;  
+</code></pre>
+
+<p>If you are new to Handlebars, the file is mostly standard HTML but the <code>{{</code> and <code>}}</code> braces call out to Handlebars functionality. The accounts object we passed in was an array and Handlebars has the <code>{{#each array}}</code> function which will step through each element of that array, putting each element in scope. If we look at the returned data, we want to get the “slug” for the account and display that alongside the id and name. Most of the time “Handlebars” surround variable names so that <code>{{slug}}</code>, <code>{{name}}</code> and <code>{{id}}</code> get expanded to the appropriate values – even when inside quotes like the <code>href=</code> parameter.</p>
+
+<p>In the template we create clickable links for the browser user to navigate to composed of “/deployments” and the account slug for a particular account. At this new browser URL we’ll want to use that account slug to find out what deployments are associated with the account:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;app.get('/deployments/:account_slug', function(req, res) {  
+  account_slug = req.param("account_slug");
+</code></pre>
+
+<p>Express lets us extract named parameters from the requested URL to form our request. With the account slug in hand, we can now query the <a href="http://docs.mongohq.com/rest-api/2014-06/deployments.html#get-all-deployments">Get all deployments</a> endpoint:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;client.get(util.format("%s/accounts/%s/deployments", baseURL, account_slug),  
+    httpArgs,
+    function(deployments, response) {
+      res.render("deployments", {
+        "account_slug": account_slug,
+        "deployments": deployments
+      });
+    })
+});
+</code></pre>
+
+<p>This time we pass two parameters into the <code>util.format</code> call, the base URL and the account slug. This creates a URL something like <code>https://beta-api.mongohq.com/accounts/accountslug/deployments</code>. We’ll skip doing a response check here for brevity and assume the call works. This returns a JSON object we’ll call <code>deployments</code>. We pass that and the account slug to the renderer which will use a template like this:</p>
+
+<pre><code>&lt;code class="language-markup"&gt;&lt;h1&gt;Account: {{account_slug}}&lt;/h1&gt;  
+&lt;a href="/"&gt;Back to accounts&lt;/a&gt;  
+&lt;div class="deployments"&gt;  
+&lt;ul&gt;  
+{{#each deployments}}
+&lt;li&gt;&lt;h2&gt;Deployment: {{id}}&lt;/h2&gt;  
+  &lt;a href="/database/backups/{{../account_slug}}/{{id}}"&gt;Backups&lt;/a&gt;
+  &lt;ul&gt;
+    {{#each databases}}
+    &lt;li&gt;
+      &lt;h3&gt;{{name}} ({{id}})&lt;/h3&gt;
+      &lt;a href="/database/stats/{{../../account_slug}}/{{../id}}/{{name}}"&gt;Statistics&lt;/a&gt;
+    &lt;/li&gt;
+    {{/each}}
+  &lt;/ul&gt;
+{{/each}}
+&lt;/div&gt;  
+</code></pre>
+
+<p>We have nested each loops, one stepping through the deployments and generating a link to display the backups associated with that deployment, and another loop with steps through each deployment’s databases, generating a link to show that database’s statistics. The former needs just the account slug and deployment id, the latter needs those plus the database name.</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;app.get('/database/backups/:account_slug/:deployment_id',  
+  function(req, res) {
+    account_slug = req.param("account_slug");
+    deployment_id = req.param("deployment_id");
+    client.get(util.format("%s/deployments/%s/%s/backups", baseURL,
+        account_slug, deployment_id), httpArgs,
+      function(backups, response) {
+        res.render("backups", {
+          "account_slug": account_slug,
+          "deployment_id": deployment_id,
+          "backups": backups
+        });
+      });
+  })
+
+app.get('/database/stats/:account_slug/:deployment_id/:database_name',  
+  function(req, res) {
+    account_slug = req.param("account_slug");
+    deployment_id = req.param("deployment_id");
+    database_name = req.param("database_name");
+    client.get(util.format("%s/deployments/%s/%s/mongodb/%s/stats", baseURL,
+        account_slug, deployment_id, database_name), httpArgs,
+      function(stats, response) {
+        res.render("stats", {
+          "account_slug": account_slug,
+          "deployment_id": deployment_id,
+          "database_name": database_name,
+          "stats": stats
+        });
+      });
+  })
+</code></pre>
+
+<p>The handlers use the <a href="http://docs.mongohq.com/rest-api/2014-06/backups.html#list-all-backups-for-a-deployment">List all backups for a deployment</a> and <a href="http://docs.mongohq.com/rest-api/2014-06/mongodb-databases.html#get-database-statistics">Get database statistics</a> endpoints respectively and then render their reports using Handlebars templates (<code>backups.handlebars</code> and <code>stats.handlebars</code>). All that’s really changed here from the previous handlers are the number of parameters being passed around between the requesting URL, the REST API call and the response handler’s render call.</p>
+
+<p>The last thing needed to complete our example dashboard/explorer program is to start the Express server listening:</p>
+
+<pre><code>&lt;code class="language-javascript"&gt;server.listen(3000, function() {  
+  console.log('Listening on port %d', server.address().port);
+});
+</code></pre>
+
+<p>The full source code of this app, including all the templates, is <a href="https://github.com/codepope/apiexplorer">available on Github</a>. Once you have cloned or downloaded it, filled in your accesstoken.txt file, and run <code>npm install</code>, we’ll be ready to start the app up with <code>node app.js</code>. Once it is running, fire up the browser and navigate to <code>localhost:3000</code> and browse the account, deployments, backups and statistics.</p>
+
+<p>Now we’ve shown you how to use Go or Node.js to access the API, in the third part of this series, we’ll tour the API’s endpoints to give you a better understanding of how extensive your control can be over your MongoHQ databases.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Working%20with%20the%20new%20API%20-%20Part%202%3A%20Node.js&amp;url=http://localhost:2368/working-with-the-new-api-part-2-node-js/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/working-with-the-new-api-part-2-node-js/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/working-with-the-new-api-part-2-node-js/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

@@ -1,0 +1,499 @@
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Working with the New API - Part 1: Go</title>
+  <meta name="description" content="">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico">
+
+  <script>
+  // Uncomment for testing purposes
+  // localStorage.clear();
+  
+  // Place in <head> above all stylesheet declarations
+  function loadFont( fontName, woffUrl, woff2Url ) {
+  
+    // Test for support
+    var browser   = navigator.userAgent,
+        noSupport = !window.addEventListener || ( browser.match( /(Android (2|3|4.0|4.1|4.2|4.3))|(Opera (Mini|Mobi))/ ) && !browser.match( /Chrome/ ) );
+  
+    // Return if not supported
+    if ( noSupport ) {
+      return;
+    }
+  
+    // Set up localStorage
+    var loSto = {};
+    try {
+      loSto = localStorage || {};
+    } catch ( ex ) {}
+  
+    var localStoragePrefix = 'x-font-' + fontName,
+        localStorageUrlKey = localStoragePrefix + 'url',
+        localStorageCssKey = localStoragePrefix + 'css',
+        storedFontUrl      = loSto[ localStorageUrlKey ],
+        storedFontCss      = loSto[ localStorageCssKey ];
+  
+    // Set up <style> element
+    var styleElement = document.createElement( 'style' );
+    styleElement.rel = 'stylesheet';
+    document.head.appendChild( styleElement );
+  
+    // localStorage check
+    if ( storedFontCss && ( storedFontUrl === woffUrl || storedFontUrl === woff2Url ) ) {
+  
+      // Apply font style sheet
+      styleElement.textContent = storedFontCss;
+  
+    } else {
+  
+      // Apply new font (WOFF2 if supported)
+      var url = ( woff2Url && supportsWoff2() ) ? woff2Url : woffUrl;
+  
+      // Fetch font data
+      var request = new XMLHttpRequest();
+      request.open( 'GET', url );
+      request.onload = function() {
+        if ( request.status >= 200 && request.status < 400 ) {
+  
+          // Update localStorage
+          loSto[ localStorageUrlKey ] = url;
+          loSto[ localStorageCssKey ] = styleElement.textContent = request.responseText;
+        }
+      };
+      request.send();
+    }
+  
+    // Check for WOFF2 support
+    function supportsWoff2() {
+      if ( !window.FontFace ) {
+        return false;
+      }
+  
+      var f = new FontFace( 't', 'url( "data:application/font-woff2," ) format( "woff2" )' );
+      f.load();
+  
+      return f.status === 'loading';
+    }
+  }
+  
+  // Instantiate font loader
+  loadFont(
+    'Proxima Nova',
+    '/assets/css/fonts-woff.css?v=682061ecfb',
+    '/assets/css/fonts-woff2.css?v=682061ecfb'
+  );
+  </script>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css?v=682061ecfb">
+
+  <link rel="canonical" href="http://localhost:2368/working-with-the-new-api-part-1-go/">
+    
+    <meta property="og:site_name" content="Compose Articles">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Working with the New API - Part 1: Go">
+    <meta property="og:description" content="In this short series of articles we’ll be building some utility applications that use the new MongoHQ API, currently in Beta, and guide you through the data you can get out of it. The new API was designed to...">
+    <meta property="og:url" content="http://localhost:2368/working-with-the-new-api-part-1-go/">
+    <meta property="og:image" content="http://localhost:2368/content/images/2014/12/featuredgopher_qvfvj9_osjqls.jpg">
+    <meta property="article:published_time" content="2014-07-07T08:05:36.000Z">
+    <meta property="article:modified_time" content="2014-09-02T09:16:38.000Z">
+    <meta property="article:tag" content="accounts">
+    <meta property="article:tag" content="API">
+    <meta property="article:tag" content="beta">
+    <meta property="article:tag" content="databases">
+    <meta property="article:tag" content="deployments">
+    <meta property="article:tag" content="go">
+    <meta property="article:tag" content="mongohq">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Working with the New API - Part 1: Go">
+    <meta name="twitter:description" content="In this short series of articles we’ll be building some utility applications that use the new MongoHQ API, currently in Beta, and guide you through the data you can get out of it. The new API was designed to...">
+    <meta name="twitter:url" content="http://localhost:2368/working-with-the-new-api-part-1-go/">
+    <meta name="twitter:image:src" content="http://localhost:2368/content/images/2014/12/featuredgopher_qvfvj9_osjqls.jpg">
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Compose Articles",
+    "author": {
+        "@type": "Person",
+        "name": "Dj",
+        "image": "//www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&s=250",
+        "url": "http://localhost:2368/author/dj",
+        "sameAs": ""
+    },
+    "headline": "Working with the New API - Part 1: Go",
+    "url": "http://localhost:2368/working-with-the-new-api-part-1-go/",
+    "datePublished": "2014-07-07T08:05:36.000Z",
+    "dateModified": "2014-09-02T09:16:38.000Z",
+    "image": "http://localhost:2368/content/images/2014/12/featuredgopher_qvfvj9_osjqls.jpg",
+    "keywords": "accounts, API, beta, databases, deployments, go, mongohq",
+    "description": "In this short series of articles we’ll be building some utility applications that use the new MongoHQ API, currently in Beta, and guide you through the data you can get out of it. The new API was designed to..."
+}
+    </script>
+
+    <meta name="generator" content="Ghost 0.5">
+    <link rel="alternate" type="application/rss+xml" title="Compose Articles" href="http://localhost:2368/rss/">
+</head>
+
+<body class="post-template tag-accounts tag-api tag-beta tag-databases tag-deployments tag-go tag-mongohq blend-mode">
+
+  <header class="branding" role="banner">
+    <a class="logo" href="../"><span class="hidden">Compose</span></a>
+    <a class="menu-trigger" href="index.html#?"></a>
+    <nav class="main-nav" data-yield="primary_nav" role="navigation">
+      <a href="http://127.0.0.1:2368/mongodb/">MongoDB</a>
+      <a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a>
+      <a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a>
+      <a href="http://127.0.0.1:2368/redis/">Redis</a>
+      <a href="http://127.0.0.1:2368/postgresql/">PostgreSQL</a>
+      <a href="https://app.compose.io">Sign in</a>
+      <a class="signup" href="../signup/">Sign up</a>
+    </nav>
+  </header>
+  <main class="content container" role="main">
+
+    
+
+
+<article class="post tag-accounts tag-api tag-beta tag-databases tag-deployments tag-go tag-mongohq container">
+  <header class="hero cover-image container" style="background-image: url(../content/images/2014/12/featuredgopher_qvfvj9_osjqls.jpg)">
+    <h1 class="post-title">Working with the New API - Part 1: Go</h1>
+    <small class="post-meta"><time class="post-date" datetime="2014-07-07">July 7th, 2014</time></small>
+  </header>
+
+<p>In this short series of articles we’ll be building some utility applications that use the new MongoHQ API, currently in Beta, and guide you through the data you can get out of it. The new API was designed to enable more automation of the deployment process and management of those deployments. Today, we’ll build an “Update Reporter” in Go to find out more about the status of your deployed databases.</p>
+
+<h2 id="apiconcepts">API Concepts</h2>
+
+<p>Although you will likely be familiar with much of the API’s concepts – as it maps working directly with MongoHQ’s MongoDB database instances to a REST API such as the databases, collections and documents that are part of any MongoDB system – the big addition to the new API is the ability to work with MongoHQ accounts to create, control and delete deployments as needed. This allows the management of many database instances to be automated.</p>
+
+<p>At the highest level, each user has access to a number of accounts and each account has a set of deployments associated with it. A deployment in MongoHQ terms is a set of database instances that go to make up the singular entity that is a database. When you create a MongoDB Elastic Deployment, for example, that creates a deployment with a primary and secondary database instance and a backup database instance, all handled as a single entity and associated with the account’s deployments.</p>
+
+<p>The system has been architected to, for example, allow for multiple database deployments in a single deployment, so it may look like there’s hoops to jump through which don’t achieve much, but trust us, we’ll be making use of the API’s various enhancement points in the future.</p>
+
+<p>Let’s start getting at this information… but before we start anything, we need a <a href="http://docs.mongohq.com/mongohq-api-beta/authorization.html">Personal Access Token</a>. You get this token by logging into the MongoHQ dashboard, going to My Account and selecting “Manage Personal Access Tokens” on the right hand side of the screen. When a token is generated, you will only see it once, so take note of it at that point. You can create tokens for each of your applications or share one token between applications.</p>
+
+<p>The first application we are going to create is an update report generator. It will find all your databases associated with the deployments under your account and report on what updates they need. We’ll be using Go for this example and showing how easy it can be to handle REST and JSON with the language. Lets dive straight into the start of the code, just before where the main() function begins.</p>
+
+<pre><code>&lt;code class="language-go"&gt;var baseurl = "https://beta-api.mongohq.com"  
+var token = "&lt;YOUR-PERSONAL-ACCESS-TOKEN-HERE&gt;"  
+</code></pre>
+
+<p>The baseurl variable points at the URL for the API. Note that this will change in the future when it leaves beta, so make sure you don’t hard code it in multiple places in your code. The token variable is for your personal access token. We’ve put it inline here to keep things simple but ideally you want it stored outside in a secured file or a transient environment variable – make sure it is protected as it gives anyone who possesses it full access your account via the API. (If you think you have leaked a key, go to the Personal Access Tokens page and revoke the leaked key there). Back to the code and the actual start of the program…</p>
+
+<pre><code>&lt;code class="language-go"&gt;func main() {  
+    fmt.Println("Update report")
+
+    var accounts []Account
+
+    err := getAndUnmarshal(fmt.Sprintf("%s/accounts", baseurl), &amp;accounts)
+    if err != nil {
+        panic(err.Error())
+    }
+</code></pre>
+
+<p>After printing an introduction, we create an accounts array which will be used to hold the array of account information which is returned by the <a href="http://docs.mongohq.com/mongohq-api-beta/accounts.html#list-accounts">List Accounts</a> end point. Where does the Account type come from? We define that ourselves earlier in the code based on the key/value pairs that are documented to be returned. Go has a <code>JSON.Unmarshal</code> function which rather usefully will match the incoming key/value pairs in a JSON document with the variable names within a defined type making it a one-stop shop for decanting that data. All you have to do is to create an appropriate struct type for the data:</p>
+
+<pre><code>&lt;code class="language-go"&gt;type Account struct {  
+    Id         string
+    Name       string
+    Slug       string
+    Active     bool
+    Created_at string
+    Owner_id   string
+    Owner      string
+}
+</code></pre>
+
+<p>Using a function, <code>getAndUnmarshal</code> to HTTP GET the JSON results and unpack them into our accounts array. It takes as parameters a URI and a typed variable to be filled in with results and returns an error value.</p>
+
+<h2 id="unmarshalyard">Unmarshal yard</h2>
+
+<p>As we’ve wrapped the API’s versioning and authorization in that function we’ll look in detail at <code>getAndUnmarshal</code> now – if you are already familiar with Go JSON functionality you may want to skip forward:</p>
+
+<pre><code>&lt;code class="language-go"&gt;func getAndUnmarshal(url string, result interface{}) error {  
+    client := &amp;http.Client{}
+    req, _ := http.NewRequest("GET", url, nil)
+</code></pre>
+
+<p>First , the method gets a HTTP client instance and creates a HTTP request to GET the specified URL. To use the MongoHQ API though we need to set some of the request’s headers:</p>
+
+<pre><code>&lt;code class="language-go"&gt;    req.Header.Set("Content-Type", "application-json")  
+    req.Header.Set("Accept-Version", "2014-06")
+    req.Header.Set("Authorization", "Bearer "+token)
+</code></pre>
+
+<p>The first header sets the content type required to JSON. The second one, “Accept-Version” says that we want to use the “2014-06″ version of the API for this request. Finally the “Authorization” header is set to “Bearer ” with our access token appended. With the headers set, we can now issue the request and read the response.</p>
+
+<pre><code>&lt;code class="language-go"&gt;    res, err := client.Do(req)  
+    if err != nil {
+        return err
+    }
+
+    body, err := ioutil.ReadAll(res.Body)
+    if err != nil {
+        return err
+    }
+</code></pre>
+
+<p>If there was any protocol error, the first <code>err != nil</code> check would bring this call to an end. Once past that point, you are assured of there being some body content to be read so we then use <code>ioutil.ReadAll</code> to read that into a byte array, <code>body</code>. Although we’ve got this far, it doesn’t mean we’ve issued a good HTTP request. We need to check if we got a 200 (OK) response. If not, we need to see if there’s a JSON encoded error message in the body or whether we should throw an error based on the returned status code:</p>
+
+<pre><code>&lt;code class="language-go"&gt;    if res.StatusCode != http.StatusOK {  
+        var errorMessage ErrorMessage
+        json.Unmarshal(body, &amp;errorMessage)
+        if errorMessage.Error != "" {
+            return errors.New(errorMessage.Error)
+        }
+        return errors.New(res.Status)
+    }
+</code></pre>
+
+<p>We can now use Go’s json library to unpack that content into whatever typed variable was handed to us:</p>
+
+<pre><code>&lt;code class="language-go"&gt;    err = json.Unmarshal(body, result)  
+    return nil
+}
+</code></pre>
+
+<p>If there’s an error unmarshalling that’ll just be handed back. With this function we can simplify reading data through the MongoHQ API.</p>
+
+<h2 id="backtotheapi">Back to the API</h2>
+
+<p>Now we’ve covered how we query, let’s look at what data we’re getting from the API. Our first data retrieved was the array of Accounts that the user was allowed to access. Let’s start by stepping through those accounts</p>
+
+<pre><code>&lt;code class="language-go"&gt;    for _, account := range accounts {  
+        fmt.Printf("Account name:%s id:%s slug:%s\n\n", account.Name, account.Id, account.Slug)
+</code></pre>
+
+<p>First, we’ll print out some identifying information for the account. The important part for us, at least for further access, is getting the account slug. This is a string that represents the account and is used as a parameter for many of the API calls. An account can have a number of deployments associated with it so we’ll ask the API for that list. We can do that by using the <a href="http://docs.mongohq.com/mongohq-api-beta/deployments.html#get-all-deployments">Get all deployments</a> endpoint which is constructed of the baseURL followed by “/accounts/” followed by the account slug and then “/deployments”.</p>
+
+<pre><code>&lt;code class="language-go"&gt;        var deployments []Deployment
+
+        err := getAndUnmarshal(fmt.Sprintf("%s/accounts/%s/deployments", baseurl, account.Slug), &amp;deployments)
+        if err != nil {
+            panic(err.Error())
+        }
+</code></pre>
+
+<p>If we do a GET on this URI we get an array of deployment documents and again, we need to define a struct to receive the document data:</p>
+
+<pre><code>&lt;code class="language-go"&gt;type Deployment struct {  
+    Id                       string
+    Name                     string
+    Provider                 string
+    Region                   string
+    Type                     string
+    Plan                     string
+    Current_primary          string
+    Members                  []string
+    Ignored_members          []string
+    Allow_multiple_databases bool
+    Status                   string
+    Databases                []Database
+}
+</code></pre>
+
+<p>Again, lots of information about the deployment, including which region it runs in, what MongoHQ plan its under, what the current primary database is and what the status is. There’s also an array of databases that are used in this deployment. Again we leverage the JSON unmarshal in Go and create a Database type for that information to be stored in.</p>
+
+<pre><code>&lt;code class="language-go"&gt;type Database struct {  
+    Id               string
+    Name             string
+    Deprovision_date string
+    Status           string
+    Deployment_id    string
+    Plan             string
+}
+</code></pre>
+
+<h2 id="extractingupgradeinformation">Extracting Upgrade Information</h2>
+
+<p>We now have enough information to start querying each of those databases for their version and update status. This is provided by another endpoint to <a href="http://docs.mongohq.com/mongohq-api-beta/deployments.html#get-deployment's-database's-version-information">Get a deployment’s database’s version infomation</a>. We can step through the deployment’s databases and get their version details. This is another nest of structures with the type, version, messages and more upgrade information.</p>
+
+<pre><code>&lt;code class="language-go"&gt;type Version struct {  
+    Type                     string
+    Version                  string
+    Messages                 []string
+    Eligible_upgrade_version UpgradeVersion
+    Upgrade_path             []UpgradeVersion
+}
+
+type UpgradeVersion struct {  
+    Upgrade_type string
+    Version      string
+    Messages     []string
+}
+</code></pre>
+
+<p>But once the structures are defined, its simply a matter of stepping through each deployment…</p>
+
+<pre><code>&lt;code class="language-go"&gt;        for _, deployment := range deployments {  
+            fmt.Printf("Deployment name/id: %s/%s\n", deployment.Name, deployment.Id)
+</code></pre>
+
+<p>and then stepping through each of its databases:</p>
+
+<pre><code>&lt;code class="language-go"&gt;            for _, database := range deployment.Databases {  
+                fmt.Printf("Database name/id: %s/%s is %s\n", database.Name, database.Id, database.Status)
+</code></pre>
+
+<p>Getting the version information:</p>
+
+<pre><code>&lt;code class="language-go"&gt;                var version Version
+
+                err := getAndUnmarshal(fmt.Sprintf("%s/deployments/%s/%s/version", baseurl, account.Slug, database.Deployment_id), &amp;version)
+
+                if err != nil {
+                    panic(err.Error())
+                }
+</code></pre>
+
+<p>and printing the results – in this case the database type and version and any messages about available upgrades. Note we could have iterated through the UpgradeVersion data here too for a more complete and detailed report but for now, we just print the associated messages:</p>
+
+<pre><code>&lt;code class="language-go"&gt;                fmt.Printf("The instance is %s version %s\n", version.Type, version.Version)
+
+                for _, msg := range version.Messages {
+                    fmt.Println(msg)
+                }
+                fmt.Println()
+            }
+        }
+    }
+}
+</code></pre>
+
+<p>And that’s pretty much it. If we compile this code (you’ll find a <a href="https://github.com/codepope/updatereport">full copy here on GitHub</a> and run it you’ll get a report on your databases and what you may, or may not, want to upgrade. It’ll look a bit like this:</p>
+
+<pre><code>Update report  
+Account name:exampleu id:8dba1d4b0ada462e993488e4 slug:exampleu
+
+Deployment name/id: minty/127f95263cc61ac622f7868  
+Database name/id: wiktory/8992ecaea59d18f8d0ce0fb8 is running  
+The instance is MongoDB version 2.4.9  
+This deployment is currently 1 minor versions behind the latest production release of MongoDB.  To upgrade to the latest MongoDB, please clone your database to a staging database to test any upgrades before upgrading a production database.  This will prevent any unexpected breaking changes.
+
+Deployment name/id: /957f40d34c246ff8f07d7262  
+Database name/id: exemplum/f9be5e9246fb8a50561d68a9 is running  
+The instance is MongoDB version 2.6.0  
+This deployment is currently 3 patch versions behind the latest production release of MongoDB.  An upgrade to the latest MongoDB should be non-breaking.  
+</code></pre>
+
+<p>When you’ve finished updating your databases you’ll get a report which reads more like:</p>
+
+<pre><code>Update report  
+Account name:exampleu id:8dba1d4b0ada462e993488e4 slug:exampleu
+
+Deployment name/id: minty/127f95263cc61ac622f7868  
+Database name/id: wiktory/8992ecaea59d18f8d0ce0fb8 is running  
+The instance is MongoDB version 2.6.3  
+This deployment is currently on the latest production release of MongoDB.
+
+Deployment name/id: /957f40d34c246ff8f07d7262  
+Database name/id: exemplum/f9be5e9246fb8a50561d68a9 is running  
+The instance is MongoDB version 2.6.3  
+This deployment is currently on the latest production release of MongoDB.  
+</code></pre>
+
+<h2 id="wrappingup">Wrapping up</h2>
+
+<p>In this first part, we’ve shown how to navigate through the MongoHQ API, from user to account to deployment to database. There are, of course, many other endpoints in the MongoHQ API which allow you to create databases, rename deployments, view logs or manage backups. In the next part, we’ll put a ops navigator together that shows statistical data obtained via the MongoHQ API.</p>
+
+<p>If you aren’t a MongoHQ user but want to check out the API, why not <a href="https://www.mongohq.com/signup?utm_source=blog&amp;utm_medium=content&amp;utm_campaign=blog.mongohq.com_7_7_14">sign up for an account</a> and start your explorations today.</p>
+
+
+<footer class="post-footer big-push">
+
+
+    <figure class="author">
+      <a href="../author/dj/">
+        <img src="http://www.gravatar.com/avatar/3c427b45eb4d51770a5ec7f9e4d62c9f?d=404&amp;s=250" alt="Dj">
+      </a>
+      <figcaption>
+        <p>Written on <time class="post-date" datetime="2015-03-13">March 13th, 2015</time> by</p>
+        <a href="../author/dj/">Dj</a>
+          <p>Content Curator at Compose, Dj has been both a developer and writer since Apples came in ][ flavors and Commodores had Pets.</p>
+      </figcaption>
+    </figure>
+
+
+
+
+  <nav class="post-nav">
+    <section class="site-nav">
+      <a class="article-index" data-tooltip="Article Index" href="http://localhost:2368">
+        <span class="hidden">Article Index</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#index"></use>
+        </svg>
+      </a>
+      <a class="subscribe-button" data-tooltip="Suscribe" href="http://localhost:2368/rss/">
+        <span class="hidden">Subscribe</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#subscribe"></use>
+        </svg>
+      </a>
+    </section>
+    <section class="share-nav">
+      <a class="twitter-button" data-tooltip="Share on Twitter" href="https://twitter.com/share?text=Working%20with%20the%20New%20API%20-%20Part%201%3A%20Go&amp;url=http://localhost:2368/working-with-the-new-api-part-1-go/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#twitter"></use>
+        </svg>
+      </a>
+      <a class="facebook-button" data-tooltip="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:2368/working-with-the-new-api-part-1-go/" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#facebook"></use>
+        </svg>
+      </a>
+      <a class="google-plus-button" data-tooltip="Share on Google Plus" href="https://plus.google.com/share?url=http://localhost:2368/working-with-the-new-api-part-1-go/" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+        <svg>
+          <use xlink:href="/assets/images/icons.svg#google-plus"></use>
+        </svg>
+      </a>
+    </section></nav>
+  
+</footer>
+
+</article>
+
+
+
+  </main>
+
+  <footer class="colophon full-push" role="contentinfo">
+    <nav>
+      <dl>
+        <dt>Company</dt>
+        <dd><a href="http://127.0.0.1:2368/about-us/">About Us</a><a href="http://blog.compose.io/">Blog</a><a href="http://docs.compose.io/policies">Policies</a><a href="http://127.0.0.1:2368/pricing/">Plans <span class="amp">&amp;</span> Pricing </a><a href="http://127.0.0.1:2368/database-as-a-service/">Database as a Service</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Support</dt>
+        <dd><a href="http://status.compose.io/">System Status</a><a href="http://docs.compose.io/">Support</a><a href="http://docs.compose.io/">Docs</a><a href="http://127.0.0.1:2368/security/">Security</a><a href="https://docs.compose.io/support/new_request.html/?page=www">Contact Us</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Databases</dt>
+        <dd><a href="http://127.0.0.1:2368/mongodb/">MongoDB</a><a href="http://127.0.0.1:2368/elasticsearch/">Elasticsearch</a><a href="http://127.0.0.1:2368/rethinkdb/">RethinkDB</a><a href="http://127.0.0.1:2368/redis/">Redis</a><a href="http://127.0.0.1:2368/enhanced/">Enhanced</a>
+        </dd>
+      </dl>
+      <dl>
+        <dt>Deployments</dt>
+        <dd><a href="http://127.0.0.1:2368/aws/">AWS</a><a href="http://127.0.0.1:2368/digitalocean/">DigitalOcean</a><a href="http://127.0.0.1:2368/softlayer/">SoftLayer</a><a href="http://127.0.0.1:2368/gogrid/">GoGrid</a>
+        </dd>
+      </dl>
+    </nav>
+    <p>© 2015 Compose. All rights reserved. </p>
+  </footer>
+  <script src="../public/jquery.js?v=682061ecfb"></script>
+
+  <script type="text/javascript" src="../assets/js/site.js?v=682061ecfb"></script>
+
+</body>

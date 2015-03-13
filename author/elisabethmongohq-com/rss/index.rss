@@ -1,0 +1,273 @@
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>elisabethmongohq-com - Compose Articles</title><description>News, tips, and tricks from the team at Compose</description><link>http://localhost:2368/</link><generator>Ghost 0.5</generator><lastBuildDate>Fri, 13 Mar 2015 15:33:57 GMT</lastBuildDate><atom:link href="http://localhost:2368/author/elisabethmongohq-com/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title>Guest Post: How MongoHQ is discovering data using MongoDB and Chartio.</title><description>&lt;h2 id="abouttheinterview"&gt;About the interview&lt;/h2&gt;
+
+&lt;p&gt;Melissa Smolensky from &lt;a href="https://chartio.com/"&gt;Chartio&lt;/a&gt; conducted this interview with Chris Winslett, Sales and Revenue Engineer at MongoHQ.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Tell us a little about MongoHQ and your role there.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;MongoHQ is a cloud-based database platform used by startups, enterprises, and developers. Customers use our MongoDB platform for varieties of projects and products, ranging from consulting projects to core SaaS products. Our customers chose to run on MongoHQ to save time with our immediately available production MongoDB instances. We run MongoDB on AWS, SoftLayer, and Azure. &lt;br&gt;
+ I’ve got many roles at our organization — the one that drove me to find Chartio was working with our internal reporting team.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Why did you decide to use Chartio?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Like any company, we have many different data stores. We use a combination of SQL, NoSQL, and other services – MongoDB, Postgres, Redis, Reimann, Google Analytics, etc. We needed a platform that would allow us to visualize, experiment, and collaborate with our data. We didn’t want to learn new ETL processes, we just wanted a service. Every other service required us to engage with their data store – we had our data stores, we just wanted a front end.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;We don’t natively support MongoDB, so how do you connect with Chartio?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Since Chartio doesn’t support MongoDB (yet), we use MoSQL for our ETL process. Using Heroku’s Postgres service and a Heroku runner, MoSQL took less than a day to configure. Now, we have realtime data flowing from our MongoDBs to a Postgres data-warehouse. Chartio was that final piece that we needed on Postgres to enable our data collaboration.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What are your favorite Chartio features?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Since I am an old-school SQL guy, my favorite is the ability to write custom SQL, and it displays on a nice chart. Our financial guys’ favorite is the automated real-time data availability – anytime.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How do you use Chartio?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We use Chartio for our “data discovery” process. When a team member has an idea about a valuable metric, we will throw up a quick and dirty dashboard. We can use Chartio to pass the dashboard to the rest of the team for feedback. After feedback, we take the recommendations and improve the presentation or gathering of data. &lt;br&gt;
+ After the initial creation, the dashboard becomes part of our routine metrics monitoring process. We use both Chartio’s dashboard and emailed report scheduler. The email report feature is nice because we can go about developing, but still have timely reports built into our routine. &lt;br&gt;
+ Also, we’ve integrated Chartio into our monthly reporting processes. For some complex reports, a developer can build a report with custom sources and custom SQL. That report can be called later with custom filters by a non-developer. With Chartio, we can collaborate on complex, disparate data, and easily add it to our monthly reporting process.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Can you talk through a specific use case where Chartio helped solve a business problem?&lt;/strong&gt; &lt;br&gt;
+ We started using Chartio in Fall 2013 after we hired a financial guy. He needed access to data that was once only available to developers writing queries. Chartio gave us the ability to process-itize data gathering and reporting.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How often do you check Chartio?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Multiple times / day.&lt;/p&gt;
+
+&lt;p&gt;You can find out more about using Chartio with MongoDB on the &lt;a href="http://chartio.com/blog/2014/02/mongodb-with-chartio"&gt;Chartio Blog&lt;/a&gt;.&lt;/p&gt;</description><link>http://localhost:2368/guest-post-how-mongohq-are-discovering-data-using-mongodb-and-chartio/</link><guid isPermaLink="false">0c9e6d1c-e5e8-438c-802d-9b84bd93497d</guid><dc:creator>elisabethmongohq-com</dc:creator><pubDate>Thu, 27 Feb 2014 22:39:18 GMT</pubDate></item><item><title>Changing the Growth Formula</title><description>&lt;p&gt;There is a simple formula that many apply to their Software-as-a-Service business models – as customers increase, economies of scale should push the cost of servicing those customers down – all you have to do is build a system that scales. There’s only one problem with that formula. The world doesn’t work like that and growing a company in such a scenario can become a costly affair.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/Changing-the-formula-Total-Costs-Chart_u5rrdb_tuoi9r.png" alt="Changing the formula Total Costs" title=""&gt;At the core of any SaaS business is the data and the databases that manage that data. When planning your use of any database technology the question of whether or not to shard your database comes up. Surely, the argument goes, as sharding is designed to increase the performance of large datasets with high throughput by spreading the data over multiple database instances, it is an optimization that should apply to any size of database installation so let’s use that as a first step to getting the scale part of economies of scale.&lt;/p&gt;
+
+&lt;p&gt;But sharding isn’t an optimization technique. It is as described, a method of horizontally scaling a database. Apply it to an inefficient database and you end up horizontally scaling the inefficiencies of your system, with each node carrying the same inefficient load.&lt;/p&gt;
+
+&lt;p&gt;With the shard-first plan, once you commit to sharding the cost of further optimization becomes massive as it tends to require datasets to be rebuilt to match emerging query patterns. Those inefficiencies in the unscaled system can end up pushing the need for more horizontal scaling, requiring more nodes to be thrown into the system, increasing costs.&lt;/p&gt;
+
+&lt;p&gt;If the formula doesn’t work, let’s look at changing it. Economies of scale only work if the core processes are efficient. But getting those processes in your business honed to be as sharp as can be is not something you can do on the first day of opening. Or on the second day. Or the third. So how do you get from opening your virtual SaaS doors to efficiently scaled for all?&lt;/p&gt;
+
+&lt;h2 id="openingthedoors"&gt;Opening the doors&lt;/h2&gt;
+
+&lt;p&gt;A new SaaS business should be concentrating on delivering to its customers and at this stage in the game the total cost of servicing those customers is going to be low. Per customer, they will not be low but you can roll out a fully-managed stack using Heroku and MongoHQ to provide a service to a customer for $50 a month. This should work until you have enough of a mix of customers to start seeing performance problems. And when those performance problems do turn up, you’ll probably not want to inhibit your initial growth spurt so the solution is…&lt;/p&gt;
+
+&lt;h2 id="morehardware"&gt;More Hardware&lt;/h2&gt;
+
+&lt;p&gt;More hardware can be assigned to customers who need it and this will address that next phase of early growth. This expansion phase should rely not on scaling but on creating independent deployments for each customer. This should be a “magical period” where growth is taking the lead and no one is going to flag up the growth in costs. That is until one day…&lt;/p&gt;
+
+&lt;h2 id="thehighcostalert"&gt;The high cost alert&lt;/h2&gt;
+
+&lt;p&gt;When someone within your company points out how much you are spending on hosting costs, you will be at the ideal time to begin an optimization process. Start with those customers where the costs are too high as optimizing them will provide the biggest return on your investment; these customers are a slice of the real world and stop you from optimizing a straw man of a customer. Start by getting metrics on what your application stack is doing and using them to guide your hunt for the optimizable.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="http://localhost:2368/content/images/2014/12/changing-the-formula-per-customer_bojmtt_zm01w0.png" alt="changing-the-formula-per-customer" title=""&gt;Look at your application architecture for the pain points and see if there are alternative databases or languages that may help. For example, here at MongoHQ, we’ve migrated some internal applications from Node to Go as part of our own optimization process. We help customers expand their options too: a recent example of architectural optimization we have &lt;a href="http://blog.mongohq.com/redis-mongodb-and-the-power-of-incremency/"&gt;discussed in the blog&lt;/a&gt; was one customer we switched away from a MongoDB-only solution to a mixed MongoDB/Redis. This pulled an expensive operation out of MongoDB and put it into a low-cost, high-efficiency store and enabled the customer to come up with new options as they scaled up.&lt;/p&gt;
+
+&lt;p&gt;&lt;aside&gt; Metric mastery: For MongoHQ customers, you start by adding New Relic to get a feel for your application stack, use our New Relic Integration, and looking at our Slow Query Tracker for your database. &lt;br&gt;
+&lt;/aside&gt;Optimizations can come in many different forms. Look at your database usage to see if your access to it is as efficient as possible when handling a typical workload: if not, refactor that access code so that it reduces loads. Look at the algorithms you use and make sure they are actually optimal for your application’s use patterns: if not, look for new algorithms which fit better or refactor your current implementation so it’s closer to requirements. Look at your schemas, and look at any new information you are storing or have added and see if it’s being stored in the best way possible: if not, reform your schemas. And there’s always caching as a way of relieving load on regularly accessed datasets.&lt;/p&gt;
+
+&lt;p&gt;All through this process, the cost per customer should head downwards and customer growth will cease to map directly to linearly rising costs. The good news about this phase is that it’s fun and fast to start off with but then the law of diminishing returns will kick in and each optimization will deliver less value. This is the signal to move to the next phase…&lt;/p&gt;
+
+&lt;h2 id="finaloptimizations"&gt;Final Optimizations&lt;/h2&gt;
+
+&lt;p&gt;You’ve now reached another “magical period”. Concerns about costs should be under control, or at least the person worried about hosting costs has stopped sitting in your office staring at you. This is the ideal time to consider your next move and how you make it scale. Your application should be optimized both economically and technically. When you scale out horizontally or vertically, you’ll be scaling with the efficiency you’ve already engineered into your solutions. Of course the scale out will still require engineering. If you set out to horizontally scale by sharding databases then you will need to carefully select sharding keys, but you will have lots of data to assist in that selection. If you are planning on vertically scaling, then you’ll be able to see where the extra resources can best be applied. There will be always be optimizations that you will want to do around those decisions. The process should drive down the cost per customer ready for the final phase…&lt;/p&gt;
+
+&lt;h2 id="theoptimizationplateau"&gt;The optimization plateau&lt;/h2&gt;
+
+&lt;p&gt;With efficient applications, now built for scaling, the cost of expansion is under control and you have spread the load of your system across many hardware instances, tuned to the demands of your solution.&lt;/p&gt;
+
+&lt;p&gt;The changed formula has avoided the dangers of premature optimization and premature scaling. Rather than embarking on a course of action that will mis-shape future developments early in its journey, it allows a SaaS business to completely understand their lifecycle and requirements. This understanding doesn’t come off the shelf, no matter what price you pay.&lt;/p&gt;</description><link>http://localhost:2368/changing-the-growth-formula/</link><guid isPermaLink="false">c9d33076-206e-48f6-a164-54cb17d9f0d5</guid><dc:creator>elisabethmongohq-com</dc:creator><pubDate>Tue, 25 Feb 2014 20:48:49 GMT</pubDate></item><item><title>Two-Factor Authentication and Security Auditing Now Available for all MongoHQ Accounts</title><description>&lt;p&gt;&lt;div id="magicdomid2"&gt;Today, we’re rolling out two new security features to help all MongoHQ users to take control of their account security: two-factor authentication and a security auditing tool.&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;We’ve put a lot of thought into developing the best tools that we can to help keep your account secure. By arming our users with an extra layer of security and additional account activity information, they can be more confident that their data is secure.&lt;/p&gt;
+
+&lt;h2 id="twofactorauthenticationhttpdocsmongohqcomsecuritymongohqtwofactorauthenticationhtml"&gt;&lt;a href="http://docs.mongohq.com/security/mongohq-two-factor-authentication.html"&gt;Two-Factor Authentication&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;MongoHQ  now provides the option for users to &lt;a href="http://docs.mongohq.com/security/mongohq-two-factor-authentication.html"&gt;enable two-factor authentication&lt;/a&gt; to gain access to their databases via the MongoHQ web application. This feature greatly enhances the protection around your MongoHQ account and substantially decreases the likelihood of unauthorized access to your databases via a username or password in the wild. &lt;a href="http://docs.mongohq.com/security/mongohq-two-factor-authentication.html"&gt;Enabling two-factor authentication&lt;/a&gt; (2FA) is straight-forward and takes just a couple of minutes. It is one of the simplest ways to protect your MongoHQ account.&lt;/p&gt;
+
+&lt;p&gt;MongoHQ two-factor authentication works with standard SMS and with all the popular authentication apps, including:&lt;/p&gt;
+
+&lt;p&gt;· Google Authenticator &lt;br&gt;
+ · Authy &lt;br&gt;
+ · Duo Security&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Ensure 100% compliance with team-enforced two-factor authentication&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;An additional feature of our two-factor authentication is that it allows the account owner for your account to enforce all users on the account to enable 2FA before being able to log back into the MongoHQ application. This is a quick and easy way to ensure that you have 100% adoption of this security practice in your organization.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Providers&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;For users of MongoHQ that access their web application through a provider portal, the provider regulates the procedure for authentication. In these scenarios two-factor authentication needs to be enabled at the provider level, so users will need to check with their provider to see if 2FA is an available option.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://docs.mongohq.com/security/mongohq-two-factor-authentication.html"&gt;Read more about two-factor authentication and how to activate it&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id="securityauditinghttpdocsmongohqcomsecurityaccountactivityhtml"&gt;&lt;a href="http://docs.mongohq.com/security/account-activity.html"&gt;Security Auditing&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;The new security auditing tool allows you to &lt;a href="http://docs.mongohq.com/security/account-activity.html"&gt;monitor your account activity&lt;/a&gt; with an audit trail of all successful and attempted events on your account. Information like this is valuable because it provides you with an easy way to monitor all the events that happen to your MongoHQ account and ensure that all are within the bounds of what you and your team expect.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Events that are monitored&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;• Login attempts (by IP address) to your MongoHQ account, including both successful and failed logins. &lt;br&gt;
+ • Adding/removing MongoHQ users to your account. &lt;br&gt;
+ • De-provisioning a database. &lt;br&gt;
+ • Adding/removing users on a database. &lt;br&gt;
+ • Changing the version of a database. &lt;br&gt;
+ • Issuing replica set state changes from the web interface.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://docs.mongohq.com/security/account-activity.html"&gt;Read more about our Security Auditing feature and how to access it&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id="questionsmailtosupportmongohqcom"&gt;&lt;a href="mailto:support@mongohq.com"&gt;Questions&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;If you have any questions about our new security features please contact &lt;a href="mailto:support@mongohq.com"&gt;support@mongohq.com&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt; &lt;/p&gt;</description><link>http://localhost:2368/two-factor-authentication-and-security-auditing-now-available-for-all-mongohq-accounts/</link><guid isPermaLink="false">ef83ca00-aa65-4cb1-b309-15dea7b2d8c0</guid><category>Security</category><dc:creator>elisabethmongohq-com</dc:creator><pubDate>Tue, 28 Jan 2014 21:52:37 GMT</pubDate></item><item><title>Wel­com­ing George Shank to the Mon­goHQ Team</title><description>&lt;p&gt;&lt;figure class="wp-caption alignright" id="attachment_383"&gt;&lt;a href="http://localhost:2368/content/images/2014/12/george.jpg-large.jpeg"&gt;&lt;img src="http://localhost:2368/content/images/2014/12/george_jpg-large_flabny_wrqcer.jpg" alt="George &amp;amp; node.js. A marriage made in heaven." title=""&gt;&lt;/a&gt;&lt;figcaption class="wp-caption-text"&gt;George &amp;amp; JavaScript. A match made in heaven.&lt;/figcaption&gt;&lt;/figure&gt;We’re pleased to welcome another member to our trusty team – Welcome George Shank! George is primarily a Node.js developer and we’re looking forward to having him working with us. George is based in Salt Lake City (along with Ian &amp;amp; Addison – we practically have a satellite office there now). This week he is visiting us in the San Mateo office.&lt;/p&gt;
+
+&lt;h4 id="quickspecs"&gt;Quick Specs:&lt;/h4&gt;
+
+&lt;p&gt;&lt;strong&gt;Twitter:&lt;/strong&gt; taterbase &lt;br&gt;
+&lt;strong&gt;Github:&lt;/strong&gt; taterbase &lt;br&gt;
+&lt;strong&gt;Superpower:&lt;/strong&gt; Thinking of good ideas after they’ve already been implemented.&lt;/p&gt;
+
+&lt;h4 id="georgeongeorge"&gt;George, on George:&lt;/h4&gt;
+
+&lt;p&gt;“My family was military growing up so I’ve lived all over the country (and outside for parts) but I call Salt Lake City, Utah home these days. I’ve been programming since I discovered how on my TI-83 calculator in my Highschool physics class and can’t seem to quit. I love the web and want to do everything I can to make it a more open and awesome place.&lt;/p&gt;
+
+&lt;p&gt;I started out freelancing as primarily a mobile only developer doing Android and iOS for while. When I got my first big boy job I was brought on as a mobile developer at an agency but was handed a PhoneGap project to work on. And thus began my love affair with JavaScript.&lt;/p&gt;
+
+&lt;p&gt;I’ve been primarily a Node.js developer for the past 2 years and wouldn’t trade it for anything. Working with JavaScript feels so fluid and approachable that I try to use it as often as I can. The community is huge and incredibly kind which makes me feel like I have an extended internet family.&lt;/p&gt;
+
+&lt;p&gt;While I’ve spent a decent amount of time building out RESTful services and API’s for consumers I find that true joy comes when I get to work on large distributed systems that need to work together and communicate efficiently with each other ( shouts out to MongoHQ ). Systems communications utilizing WebSockets, WebRTC, PubSub and other fun buzzwords get me so excited I can’t stand it. The internet is moving ever closer to a distributed future and I can’t wait to see what that looks like (and hopefully help build it)!&lt;/p&gt;
+
+&lt;p&gt;When I’m not programming I can be found snowboarding or speaking broken spanish at the local taqueria in hopes of ordering the perfect burrito.”&lt;/p&gt;</description><link>http://localhost:2368/welc2adcomc2ading-george-shank-to-the-monc2adgohq-team/</link><guid isPermaLink="false">fb64f942-7671-4e08-b354-091ee66c7285</guid><category>new people</category><dc:creator>elisabethmongohq-com</dc:creator><pubDate>Tue, 21 Jan 2014 00:10:52 GMT</pubDate></item><item><title>Welcoming Addison Higham to the MongoHQ Team!</title><description>&lt;p&gt;We’re very pleased to welcome Addison Higham as the latest member of the MongoHQ team. We’ve been working with Addison for a few weeks now and can vouch that he’s an all round great guy. Here’s what we’ve discovered about him so far.&lt;/p&gt;
+
+&lt;p&gt;&lt;figure class="wp-caption alignright" id="attachment_365"&gt;&lt;img src="http://localhost:2368/content/images/2014/12/Addison-e1389639644466_fcaotl_qglfcq.jpg" alt="Addison and his excellent sandwhich" title=""&gt;&lt;figcaption class="wp-caption-text"&gt;Addison and his excellent sandwhich&lt;/figcaption&gt;&lt;/figure&gt;#### Quick Specs:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Github:&lt;/strong&gt; addisonj &lt;br&gt;
+&lt;strong&gt;Twitter:&lt;/strong&gt; addisonjh &lt;br&gt;
+&lt;strong&gt;Superpower:&lt;/strong&gt; Puns. Puns everywhere.&lt;/p&gt;
+
+&lt;h4 id="themanhimself"&gt;The man himself:&lt;/h4&gt;
+
+&lt;p&gt;Addison has spent the last few years building scalable distributed systems in the cloud. His current favorite set of technologies are node.js, Go, EC2, and mongoDB. Before MongoHQ, Addison worked at i.TV where he helped build large distributed systems around social television and worked on solving infrastructure challenges in a distributed way.&lt;/p&gt;
+
+&lt;p&gt;Addison is originally from southeast Idaho, but has spent time all over the western US. He has been happily married to his amazing wife Ashley for 3.5 years and is currently finishing up a bachelors degree at Brigham Young University in computer science.&lt;/p&gt;
+
+&lt;p&gt;Outside of code, Addison enjoys spending time with his family, playing indie video games, and skiing.&lt;/p&gt;
+
+&lt;h4 id="afinalwordfromaddison"&gt;A final word from Addison:&lt;/h4&gt;
+
+&lt;p&gt;“I am very excited to work with such a great team and am excited to help make MongoHQ the best place to host a database.”&lt;/p&gt;</description><link>http://localhost:2368/welcoming-addison-higham-to-the-mongohq-team/</link><guid isPermaLink="false">50e94fb1-beb6-4402-8d6a-922c49411d55</guid><dc:creator>elisabethmongohq-com</dc:creator><pubDate>Mon, 13 Jan 2014 19:16:59 GMT</pubDate></item><item><title>Q&amp;A with Thoughtbot</title><description>&lt;p&gt;Ever wondered how other people are making the most of MongoDB and MongoHQ?&lt;/p&gt;
+
+&lt;p&gt;Over the coming months we’re hashing it out with some of our esteemed users, giving you the story on why and how they use MongoDB on MongoHQ to make both their applications and their businesses better.&lt;/p&gt;
+
+&lt;p&gt;This week, we talked to Dan Croak from &lt;a href="http://thoughtbot.com/"&gt;thoughtbot&lt;/a&gt; about the thoughtbot team’s experiences using MongoDB and MongoHQ. thoughtbot are a very talented group of expert designers and developers doing consulting work for clients that include MITx, Yammer, and LevelUp, and have been using MongoHQ since 2010.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please tell us about your product/service and customers&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;thoughtbot is a team of expert designers and developers available for web and mobile app contract work. We have one of the largest Ruby on Rails consulting teams in the world and were one of the first in the world to specialize in Rails. We run product design sprints to focus on building the right product for our customers and reduce the chances of building things no user wants.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How many folks work at your company?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;63 people work at thoughtbot. We currently have 28 people in Boston, 18 in San Francisco, 8 in Denver, 5 in Stockholm, 2 in Raleigh, 1 in New York City, and 1 in Philadelphia.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How large is your development team?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;We have 12 designers, 40 web developers, and 5 mobile developers.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;What infrastructure or platform services do you use?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Heroku for our Ruby app and background processes. Heroku Postgres for our Postgres databases, Redis to Go for Redis databases, MongoHQ for MongoDB databases, SendGrid for email delivery, New Relic for performance monitoring, Airbrake for error notification, Parse for iOS/Android push notifications.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Why did you choose MongoDB?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We’ve chosen MongoDB when we felt we were modeling a domain that needed extreme flexibility, such as an application that allowed users to create many different kinds of quizzes.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What do you know now that you wish you knew at the beginning?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We wrote many data migrations in a style similar to using ActiveRecord with Postgres. At the time (2009) there weren’t existing Ruby libraries to make the process easier so our client wrote one. I wish that library existed before we started.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How does MongoHQ help you leverage MongoDB?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;For the vast majority of our clients, hosting their own databases would be absurd. They are early stage companies or companies working on early stage products. They have higher-level problems they need to focus on like “who has the problem we’re trying to solve?”, “are we able to reach those people?”, “of the people who use the product, do enough of them love it for us to scale up our operations now?”, and “how can we make this product better so we retain more customers?” MongoHQ, like Heroku Postgres and Redis to Go, have solved the database hosting problem very well for their respective databases. Our clients and we gladly pay for highly available hosting, automated backups, and the peace of mind that the critical data layer of the business is handled well by partners who specialize there.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How does MongoHQ help you leverage your business?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The ease of getting a Mongo database on MongoHQ allows us to “spike” a potential solution quickly and share it with early stakeholders and beta testers. Even if we don’t turn that into a long-term production application, the speed with which we can start validating our and our clients’ business assumptions is hugely valuable in terms of time and money saved.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How has MongoHQ helped you scale your team or your operations size?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We are an application development shop. We go home at night and are not on pager duty. MongoHQ, Heroku Postgres, and Redis to Go allow us to live a lifestyle that’s important to our company culture, our employees, and their families.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Are you hiring?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Yes, we are always looking for developers and designers. &lt;a href="http://thoughtbot.com/jobs"&gt;http://thoughtbot.com/jobs&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Thanks to Dan Croak and the team at thoughtbot for taking the time to speak with us.&lt;/p&gt;
+
+&lt;p&gt;Become one of our blog post stars! We’d love to share your story. If you are interested in taking part in a Q&amp;amp;A session with us, please contact &lt;a href="mailto:liz@mongohq.com"&gt;liz@mongohq.com&lt;/a&gt; and let us know!&lt;/p&gt;</description><link>http://localhost:2368/qa-with-thoughtbot/</link><guid isPermaLink="false">ebc2f189-d805-4560-a14e-7dda750fd059</guid><category>Heroku</category><category>mongodb</category><category>mongohq</category><category>ruby</category><dc:creator>elisabethmongohq-com</dc:creator><pubDate>Mon, 06 Jan 2014 18:22:09 GMT</pubDate></item><item><title>Q&amp;A with Gild</title><description>&lt;p&gt;Ever wondered how other people are making the most of MongoDB and MongoHQ?&lt;/p&gt;
+
+&lt;p&gt;Every application is different, and has its own unique challenges. So, it’s interesting to see how other people manage their MongoDBs, the difficulties they’ve had to overcome, how they came to the decision to use a managed DB hosting provider like MongoHQ, and how they’re using MongoHQ to their advantage.&lt;/p&gt;
+
+&lt;p&gt;Over the coming months we’re going to hash it out with some of our esteemed users, both big and small, giving you the inside story on why and how they are using MongoDB on MongoHQ to make both their applications and businesses better.&lt;/p&gt;
+
+&lt;p&gt;This week, we asked Luca Bonmassar, co-founder of &lt;a href="http://www.gild.com/"&gt;Gild&lt;/a&gt;, about Gild’s experiences using MongoDB on MongoHQ. Gild makes innovative hiring software to help companies hire skilled developers, and have been MongoHQ faithfuls since early 2012.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please tell us about your product and customers&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Gild helps companies hire skilled developers by ensuring that candidates stand out on their proven abilities, not just their resumes. Backed by proprietary data analysis that examines developers’ actual work, Gild’s tech hiring software is used by growing companies like Eventbrite, Red Hat, and Rackspace to find the developers they need to innovate. Founded in 2011, Gild is headquartered in San Francisco and has offices in Salt Lake City and Milan.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How many folks work at your company?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We have about 50 employees, and about 14 of those people are on my team (the product development team).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How large is your development team?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;14 people total, including 8 developers, 2 product managers, 3 data scientists, and 1 designer.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What infrastructure or platform services do you use?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Our software stack is entirely hosted on Amazon, and we use MongoHQ in conjunction with a variety of technologies and languages, such as Ruby and RoR for our front-end, and Java, C++ and python for on our backend and data analysis platform.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Why did you choose MongoDB?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We were very early adopters of Mongo. We were immediately impressed by how easy it is to use and the consistently high levels of performance it delivers. Our data is changing constantly, and it’s almost impossible to describe in a standard SQL fashion, so being able to represent it as a document has been hugely helpful.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What do you know now that you wish you knew at the beginning?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;That’s tough to answer, but I wish we’d known how easy it is to work with MongoHQ and spent less time deliberating.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How does MongoHQ help you leverage MongoDB?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We thought a lot before moving such a core component of our business to a third party, and with MongoHQ we found a great team that was able to help us migrate our existing data from scratch. It’s turned out to be not just an endpoint and a ticketing system, but an important partnership for us.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How does MongoHQ help you leverage your business?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We can now focus 100% on our business goals, knowing that an expert team is taking care of our data.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How has MongoHQ helped you scale your team or your operations size?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;It was easy to migrate our data from scratch, and we didn’t have to spend a ton of developer time doing so. And since we’re a small company, efficiency in this respect was hugely important.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Are you hiring?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Yes, we’re always looking for great people! Here’s a link to our jobs page: &lt;a href="http://www.gild.com/work-at-gild/"&gt;http://www.gild.com/work-at-gild/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Thanks to Luca and the Gild team for taking the time to speak with us.&lt;/p&gt;
+
+&lt;p&gt;Become one of our blog post stars! We’d love to share your story. If anyone is interested in taking part in a Q&amp;amp;A session with us, please contact &lt;a href="mailto:liz@mongohq.com"&gt;liz@mongohq.com&lt;/a&gt; and let us know!&lt;/p&gt;</description><link>http://localhost:2368/qa-with-gild/</link><guid isPermaLink="false">ae3a166c-78e6-45fa-9178-39267ada0f3b</guid><category>customers</category><dc:creator>elisabethmongohq-com</dc:creator><pubDate>Fri, 13 Dec 2013 18:59:11 GMT</pubDate></item><item><title>Ruby Conf 2013 - Adventures in Miami</title><description>&lt;p&gt;Some lucky MongoHQ folks (Ben Wyrosdick, Dusty Hall, Nick Stott and Shaun Davis) packed our bags last week and flew to sunny Miami for &lt;a href="http://rubyconf.org/"&gt;Ruby Conf 2013&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Ruby Conf, AKA The International Ruby Conference, is an annual gathering of Rubyist that has been running since 2001. This year’s conference was held in Miami Beach, with over 750 attendees from all over the world.&lt;/p&gt;
+
+&lt;div&gt;Some of our favorite presentations were:
+
+Ron Evans and company’s presentation ‘[Ruby On Robots Using Artoo](http://rubyconf.org/program#ron-evans)‘. Artoo is a very cool Ruby framework for controlling robots. Ron gave a great presentation and even better demo of the power of Ruby using a Crazyfile and Ardrone. We highly recommend that you check out some of his videos: [http://artoo.io/videos/](http://artoo.io/videos/)
+
+Another great presentation was ‘[Being Boring: A Survival Guide to Ruby Cryptography](http://rubyconf.org/program#tony-arcieri)‘ by Tony Arcieri. Far from being boring, Tony gave a impressive talk on Crypto in the Ruby world.  He presented several examples and tips for choosing wise crypto which we found very useful. Thanks Tony!
+
+Matt Aimonetti’s presentation, ‘[Bad Ruby Code](http://rubyconf.org/program#matt-aimonetti-bryan-helmkamp-bryan-liles)‘, was a very interesting take on the term “Bad Code”.  Matt gave his opinion and thoughts on the subject then questioned Bryan Helmkamp and Bryan Liles. Matt’s opinion is that there is no such thing as ‘bad code’. Some of us here disagree and think it does, in fact, exist. We’d love to hear what you think, in our comments section below.
+
+Thanks to the Ruby Conf organizers for a truly outstanding, thought-provoking conference. We’re looking forward to next year already!
+
+&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;</description><link>http://localhost:2368/ruby-conf-2013-adventures-in-miami/</link><guid isPermaLink="false">3bce09df-316d-4ae5-ba48-382ce8201ca7</guid><dc:creator>elisabethmongohq-com</dc:creator><pubDate>Thu, 14 Nov 2013 22:14:18 GMT</pubDate></item><item><title>Node Knockout 2013</title><description>&lt;p&gt;The &lt;a href="http://nodeknockout.com/"&gt;Node Knockout 2013&lt;/a&gt; hackathon is taking place this weekend, and we’re really excited to be part of it. We’ll be providing hosting for the weekend plus some &lt;a href="http://nodeknockout.com/prizes"&gt;prizes&lt;/a&gt; for the winners.&lt;/p&gt;
+
+&lt;p&gt;We’ve been part of Node Knockout for several years now, and each year we continue to be astounded by the amazing things that people can come up with in just one weekend! We’re also impressed by the growth of the Node community, and Node Knockout is a great way to see this, with so many talented and passionate people getting involved.&lt;/p&gt;
+
+&lt;p&gt;Last year, we saw some great projects that included: a tool to tweet payments to your friends; a game of knights and narwhals, oh, and a &lt;a href="http://youtu.be/e33VV6XPqlc"&gt;christmas sweater that receives messages&lt;/a&gt; from the internet! We can’t wait to see what the competitors come up with this year.&lt;/p&gt;
+
+&lt;p&gt;The hackathon will last for 48 hours, starting at 12:00 AM UTC time on November 9. Winners will be announced on November 18, so make sure you head over to the &lt;a href="http://blog.nodeknockout.com/"&gt;Node Knockout Blog&lt;/a&gt; to see what the winners have created.&lt;/p&gt;
+
+&lt;p&gt;Best of luck to all those competing!&lt;/p&gt;</description><link>http://localhost:2368/node-knockout-2013/</link><guid isPermaLink="false">b8502d36-4702-4b5c-b1fb-3a93f79c26d2</guid><category>hackathon</category><category>node.js</category><dc:creator>elisabethmongohq-com</dc:creator><pubDate>Fri, 08 Nov 2013 22:29:55 GMT</pubDate></item></channel></rss>
